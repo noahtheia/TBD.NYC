@@ -10,8 +10,10 @@ import { FOCUS_ZOOM } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
 import SearchBar from "@/components/filters/SearchBar";
 import FilterBar from "@/components/filters/FilterBar";
+import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 import VenueList, { type ActiveState } from "@/components/list/VenueList";
 import VenueDrawer from "@/components/detail/VenueDrawer";
+import ShareButton from "@/components/ui/ShareButton";
 
 const MapView = dynamic(() => import("@/components/map/MapView"), {
   ssr: false,
@@ -93,8 +95,11 @@ export default function ExploreView({ venues, facets }: Props) {
                 NYC bars &amp; happy hours
               </span>
             </div>
-            <div className="ml-auto w-full max-w-md">
-              <SearchBar value={searchInput} onChange={setSearchInput} />
+            <div className="ml-auto flex items-center gap-2">
+              <div className="w-44 sm:w-72 md:w-96">
+                <SearchBar value={searchInput} onChange={setSearchInput} />
+              </div>
+              <ShareButton />
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -111,6 +116,14 @@ export default function ExploreView({ venues, facets }: Props) {
               {filteredVenues.length === 1 ? "spot" : "spots"}
             </span>
           </div>
+          {activeFilterCount > 0 && (
+            <ActiveFilterChips
+              filters={filters}
+              onToggleHappyHour={toggleHappyHour}
+              onToggleFilterValue={toggleFilterValue}
+              onClear={clearFilters}
+            />
+          )}
         </div>
       </header>
 

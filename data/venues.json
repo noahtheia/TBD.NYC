@@ -23,7 +23,8 @@
     },
     "menuUrl": "https://www.tendegreesbar.com/menus-1?menu=cocktails#1",
     "website": "https://www.tendegreesbar.com/",
-    "instagram": "https://www.instagram.com/tendegreesbar/?hl=en"
+    "instagram": "https://www.instagram.com/tendegreesbar/?hl=en",
+    "photoUrl": "https://static.wixstatic.com/media/b37add_0c7e2e56f53f42c190cbe61f94465a19%7Emv2.jpg/v1/fit/w_2500,h_1330,al_c/b37add_0c7e2e56f53f42c190cbe61f94465a19%7Emv2.jpg"
   },
   {
     "id": "amelie-wine-bar",
@@ -50,7 +51,8 @@
     },
     "menuUrl": "https://www.amelieupperwest.com/menu",
     "website": "https://ameliewinebar.com/",
-    "instagram": "https://www.instagram.com/ameliebistronyc/?hl=en"
+    "instagram": "https://www.instagram.com/ameliebistronyc/?hl=en",
+    "photoUrl": "http://static1.squarespace.com/static/55122c88e4b093e37aa8d1d2/t/55122d34e4b08edd00e7c714/1427254580980/logo-splash.png?format=1500w"
   },
   {
     "id": "amor-y-amargo",
@@ -70,7 +72,8 @@
     "reservationPolicy": "walk-in",
     "reservationRaw": "walk-in only",
     "website": "https://www.amoryamargo.com/",
-    "instagram": "https://www.instagram.com/amoryamargo/"
+    "instagram": "https://www.instagram.com/amoryamargo/",
+    "photoUrl": "http://www.amoryamargo.com/cdn/shop/files/Reserve_by_Amor_y_Amargo009_1200x1200.jpg?v=1633812475"
   },
   {
     "id": "antons",
@@ -94,7 +97,8 @@
       "host": "opentable"
     },
     "menuUrl": "https://www.antonsnyc.com/menus/",
-    "website": "https://www.antonsnyc.com/"
+    "website": "https://www.antonsnyc.com/",
+    "photoUrl": "https://images.getbento.com/accounts/36ae7752e94ab282ecee1043de81b5d2/media/images/78939Antons_Logo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=ffffff&pad=100"
   },
   {
     "id": "apotheke",
@@ -120,6 +124,7 @@
     "menuUrl": "https://www.apothekemixology.com/menus-nyc/",
     "website": "https://www.apothekemixology.com/",
     "instagram": "https://www.instagram.com/apothekenyc/",
+    "photoUrl": "https://images.getbento.com/accounts/4d055a573a2294f2038bd046ffea264e/media/images/6337912221Finallogo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Sophisticated attire is encouraged, Nomadd location has two options, the speakeasy and the penthouse (different menus)"
   },
   {
@@ -196,7 +201,8 @@
     },
     "menuUrl": "https://www.barbellynyc.com/menus",
     "website": "https://www.barbellynyc.com/",
-    "instagram": "https://www.instagram.com/barbellynyc/"
+    "instagram": "https://www.instagram.com/barbellynyc/",
+    "photoUrl": "http://static1.squarespace.com/static/5a285812f6576e64a110d532/t/5a4e34aaec212d1b66aa2f7b/1515074733713/bb_logo.png?format=1500w"
   },
   {
     "id": "bar-bonobo",
@@ -245,7 +251,8 @@
       "host": "other"
     },
     "website": "https://www.barcontra.com/",
-    "instagram": "https://www.instagram.com/barcontranyc/"
+    "instagram": "https://www.instagram.com/barcontranyc/",
+    "photoUrl": "http://static1.squarespace.com/static/66521d49b7ba943724487ec7/t/66995fd13fc294499761a181/1721327569715/lettersblanco.png?format=1500w"
   },
   {
     "id": "bar-goto",
@@ -267,7 +274,8 @@
     "reservationRaw": "Walk in only",
     "menuUrl": "https://www.bargoto.com/menu/",
     "website": "https://www.bargoto.com/",
-    "instagram": "https://www.instagram.com/bargoto_nyc/"
+    "instagram": "https://www.instagram.com/bargoto_nyc/",
+    "photoUrl": "https://images.getbento.com/accounts/b3a749a0924eefe1d1d1859e0527e475/media/images/91014Goto_circle_no_text_black_on_transparent_FINAL-removebg-preview.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=fff&pad=100"
   },
   {
     "id": "bar-kabawa",
@@ -317,7 +325,8 @@
     },
     "menuUrl": "https://barmadonna.com/menu",
     "website": "https://barmadonna.com/",
-    "instagram": "https://www.instagram.com/barmadonnabk/"
+    "instagram": "https://www.instagram.com/barmadonnabk/",
+    "photoUrl": "https://framerusercontent.com/images/MyYyC4wZC65uGtQqMxFTOQbXFI.png"
   },
   {
     "id": "bar-pisellino",
@@ -339,6 +348,7 @@
     "menuUrl": "https://barpisellino.com/",
     "website": "https://barpisellino.com/",
     "instagram": "https://www.instagram.com/barpisellino/",
+    "photoUrl": "http://static1.squarespace.com/static/59acf2a1ff7c503cffe90bfb/t/5fce08cb2fa8bc6bcd0efaa3/1607338189638/Screen+Shot+2020-12-07+at+11.48.50+AM.png?format=1500w",
     "otherInfo": "No reservations (walk-ins only)."
   },
   {
@@ -366,7 +376,8 @@
     },
     "menuUrl": "https://www.barprimi.com/bowery-menus/",
     "website": "https://www.barprimi.com/",
-    "instagram": "https://www.instagram.com/barprimi/"
+    "instagram": "https://www.instagram.com/barprimi/",
+    "photoUrl": "https://images.getbento.com/accounts/41086c3ff9083f907cf7f18f6fb72e98/media/images/35857MainLogo-Horizontal.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=c5230f&pad=100"
   },
   {
     "id": "bar-reve",
@@ -439,6 +450,7 @@
     "menuUrl": "https://barfly.nyc/menu",
     "website": "https://barfly.nyc/",
     "instagram": "https://www.instagram.com/barfly_nyc",
+    "photoUrl": "https://static.spotapps.co/website_images/ab_websites/545424_website_v1/barfly.jpg",
     "otherInfo": "Sports bar with pool tables."
   },
   {
@@ -465,6 +477,7 @@
     "menuUrl": "https://www.bathtubginnyc.com/menu-nyc/#cocktails",
     "website": "https://www.bathtubginnyc.com/",
     "instagram": "https://www.instagram.com/bathtubginnyc/?hl=en",
+    "photoUrl": "https://images.getbento.com/accounts/68311a07c97c557d8d8718186cc9995a/media/images/56375BTG_Sticky.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=000&pad=100",
     "otherInfo": "Smart casual, live music"
   },
   {
@@ -492,6 +505,7 @@
     "menuUrl": "https://www.rosewoodhotels.com/en/the-carlyle-new-york/dining/bemelmans-bar/behelmans-bar-dining-menu",
     "website": "https://www.rosewoodhotels.com/en/the-carlyle-new-york/dining/bemelmans-bar",
     "instagram": "https://www.instagram.com/rosewoodthecarlyle/?hl=en",
+    "photoUrl": "https://images.rosewoodhotels.com/is/image/rwhg/Carlyle_Bemelmans_Durston_Saylor",
     "otherInfo": "A $20-$35 cover charge every night starting at 5:30 pm for live music. Piano begins at 5:30, Jazz trio begins at 9. Located inside of The Carlyle hotel."
   },
   {
@@ -514,7 +528,8 @@
     "reservationRaw": "Yes",
     "menuUrl": "https://static1.squarespace.com/static/62b1437276097d3cc4d9f282/t/684340c92962574803b1ae45/1749237961141/Outdoor+menu+june+6+2025.pdf",
     "website": "https://beyondthepalenyc.com/",
-    "instagram": "https://www.instagram.com/beyondthepalenyc/"
+    "instagram": "https://www.instagram.com/beyondthepalenyc/",
+    "photoUrl": "http://static1.squarespace.com/static/62b1437276097d3cc4d9f282/t/642360b016405846d82fed69/1680040118558/BTP_BRANDING_WORDMARK_RGB.png?format=1500w"
   },
   {
     "id": "blackbarn",
@@ -541,7 +556,8 @@
     },
     "menuUrl": "https://www.blackbarnrestaurant.com/menus/eat",
     "website": "https://www.blackbarnrestaurant.com/",
-    "instagram": "https://www.instagram.com/blackbarnrestaurant/?hl=en"
+    "instagram": "https://www.instagram.com/blackbarnrestaurant/?hl=en",
+    "photoUrl": "http://static1.squarespace.com/static/646691114ecfae400ae040db/t/697d801ed969c935e4cb510b/1769832478973/2026-BLACKBARN-10-YR-Anniversary-THUMBNAIL_01-30.jpg?format=1500w"
   },
   {
     "id": "cafe-maud-east-village",
@@ -640,6 +656,7 @@
     "menuUrl": "https://www.chelsealivingroomnyc.com/menus/#food",
     "website": "https://www.chelsealivingroomnyc.com/about/",
     "instagram": "https://www.instagram.com/chelsealivingroom/",
+    "photoUrl": "https://images.getbento.com/accounts/daf3421b57b26f47ca4ef8da6173273f/media/images/49496B03A3628-Mejorado-NR.jpg?w=1200&fit=crop&auto=compress,format&cs=origin&h=600",
     "otherInfo": "DJ, Special event"
   },
   {
@@ -664,7 +681,8 @@
       "host": "resy"
     },
     "website": "https://clementebar.com/",
-    "instagram": "https://www.instagram.com/theclementebar"
+    "instagram": "https://www.instagram.com/theclementebar",
+    "photoUrl": "http://static1.squarespace.com/static/664bbb364d2c1746f9da6006/t/6709670a2f0e992480cd8255/1728669450940/Clemente-Bar-Logo_Square.png?format=1500w"
   },
   {
     "id": "de-toscano",
@@ -689,7 +707,8 @@
     },
     "menuUrl": "https://www.datoscano.com/menus/",
     "website": "https://www.datoscano.com/",
-    "instagram": "https://www.instagram.com/datoscanonyc/"
+    "instagram": "https://www.instagram.com/datoscanonyc/",
+    "photoUrl": "https://images.getbento.com/accounts/3ef1cd5daa390127f9aa37030d58412c/media/images/30578da_Toscano_logo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100"
   },
   {
     "id": "dear-irving",
@@ -714,7 +733,8 @@
     },
     "menuUrl": "https://www.dearirving.com/dear-irving-on-hudson/#hudson-menu",
     "website": "https://www.dearirving.com/",
-    "instagram": "https://www.instagram.com/dearirving/"
+    "instagram": "https://www.instagram.com/dearirving/",
+    "photoUrl": "http://static1.squarespace.com/static/6657473029b32b4d481e589a/t/66f6112194313c209f23c824/1727402275307/IMG_3864.jpeg?format=1500w"
   },
   {
     "id": "death-company",
@@ -739,6 +759,7 @@
     },
     "website": "https://www.deathandcompany.com/",
     "instagram": "https://www.instagram.com/deathandcompany/",
+    "photoUrl": "https://images.getbento.com/cDCncNM9SBaeRMtgFcbA_44591logo-script.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Limited reservations (Tock) + primarily walk-ins (per official location page)."
   },
   {
@@ -817,6 +838,7 @@
     "menuUrl": "https://doublechickenplease.com/pages/free-range",
     "website": "https://doublechickenplease.com/",
     "instagram": "https://www.instagram.com/doublechickenpleasenyc/",
+    "photoUrl": "http://doublechickenplease.com/cdn/shop/files/DCP_Primary_Logo_500x500px_1200x1200.jpg?v=1701814741",
     "otherInfo": "Official reservations are via Resy only; walk-ins available (most seating first-come)."
   },
   {
@@ -869,7 +891,8 @@
     },
     "menuUrl": "https://frauncestavern.com/new-york-fidi-battery-park-downtown-lower-east-side-tribeca-city-hall-south-street-seaport-fraunces-tavern-menus-happy-hour",
     "website": "https://frauncestavern.com/",
-    "instagram": "https://www.instagram.com/frauncestavern"
+    "instagram": "https://www.instagram.com/frauncestavern",
+    "photoUrl": "https://static.spotapps.co/website_images/ab_websites/2802_website/parties_right.jpg"
   },
   {
     "id": "jacobs-pickles",
@@ -896,7 +919,8 @@
     },
     "menuUrl": "https://www.jacobspickles.com/location/jacobs-pickles-upper-west-side/",
     "website": "https://www.jacobspickles.com/",
-    "instagram": "https://www.instagram.com/jacobspickles/"
+    "instagram": "https://www.instagram.com/jacobspickles/",
+    "photoUrl": "https://images.getbento.com/accounts/dd1d1e89b49da233195a02479161e119/media/images/90697PH_JacobsPickle_Logo_White-cropped.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=000000&pad=100"
   },
   {
     "id": "katana-kitten",
@@ -922,7 +946,8 @@
     },
     "menuUrl": "https://www.katanakitten.com/menu",
     "website": "https://www.katanakitten.com/",
-    "instagram": "https://www.instagram.com/katanakitten_nyc/"
+    "instagram": "https://www.instagram.com/katanakitten_nyc/",
+    "photoUrl": "http://static1.squarespace.com/static/6798f7f7e449495b5ec480e2/t/679911cd5d99e06e514ec775/1738084813369/KATANA-KITTEN_LOGO_red.png?format=1500w"
   },
   {
     "id": "king-cole-bar",
@@ -981,7 +1006,8 @@
     "reservationRaw": "Walk in only (email for prix fixe / special events)",
     "menuUrl": "https://www.thelongislandbar.com/menus",
     "website": "https://www.thelongislandbar.com/",
-    "instagram": "https://www.instagram.com/longislandbar/"
+    "instagram": "https://www.instagram.com/longislandbar/",
+    "photoUrl": "http://static1.squarespace.com/static/522f5054e4b0a5b139fceafc/t/52f3d1c5e4b00e69a8f6e2dc/1391710667009/Logo16.png?format=1500w"
   },
   {
     "id": "mace",
@@ -1059,6 +1085,7 @@
     },
     "website": "https://www.martinys.com/",
     "instagram": "https://www.instagram.com/martinys_nyc/",
+    "photoUrl": "http://static1.squarespace.com/static/666c94402cb9873491c29a33/t/666c98d0eb67ac05154f91ac/1757531106456/No+logomark+%28white%29.png?format=1500w",
     "otherInfo": "Reservations via Resy; limited walk-ins available."
   },
   {
@@ -1081,7 +1108,8 @@
     "reservationRaw": "Walk-in,  Groups 6+ by phone/email",
     "menuUrl": "https://www.miladysnyc.com/",
     "website": "https://www.miladysnyc.com/",
-    "instagram": "https://www.instagram.com/miladysnyc/"
+    "instagram": "https://www.instagram.com/miladysnyc/",
+    "photoUrl": "http://static1.squarespace.com/static/630381a05c3e1851ca837492/t/6385087dbbe7ad768b5bdf46/1669662845705/MIL_Logo_Wordmark_Pink.png?format=1500w"
   },
   {
     "id": "monkey-bar",
@@ -1107,7 +1135,8 @@
     },
     "menuUrl": "https://www.nycmonkeybar.com/menus",
     "website": "https://www.nycmonkeybar.com/",
-    "instagram": "https://www.instagram.com/monkeybar_ny/"
+    "instagram": "https://www.instagram.com/monkeybar_ny/",
+    "photoUrl": "http://static1.squarespace.com/static/66f18d87f3ff0d749f1da0f0/t/670eeaca6c20201a3ba83ead/1729030858675/Monkeybar_SocialShare.png?format=1500w"
   },
   {
     "id": "nobody-told-me-dumbo",
@@ -1187,6 +1216,7 @@
     "menuUrl": "https://www.nubeluzbyjose.com/menus/",
     "website": "https://www.nubeluzbyjose.com/",
     "instagram": "https://www.instagram.com/nubeluzbyjose/",
+    "photoUrl": "https://images.getbento.com/accounts/d4cb084bd58735256193ad3555db12e6/media/images/13663SecondaryLogo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Cocktail attire"
   },
   {
@@ -1235,6 +1265,7 @@
     "menuUrl": "https://otherhalfbrewing.com/",
     "website": "https://otherhalfbrewing.com/",
     "instagram": "https://www.instagram.com/otherhalfnyc/",
+    "photoUrl": "https://craftpeak-cooler-images.imgix.net/other-half-brewing/other-half-brewing.png?auto=compress%2Cformat&amp;ixlib=php-3.3.1&amp;s=6eb69483043f56bb4ee2c1eb2ca30ca9",
     "otherInfo": "Rockefeller Center taproom notes: first-come, first-served seating; no reservations (per private events page)."
   },
   {
@@ -1259,7 +1290,8 @@
       "host": "resy"
     },
     "website": "https://www.overstory-nyc.com/",
-    "instagram": "https://www.instagram.com/overstory/"
+    "instagram": "https://www.instagram.com/overstory/",
+    "photoUrl": "https://theme-assets.getbento.com/overstory/7abda94.overstory/assets/img/logo.png"
   },
   {
     "id": "paddy-reillys-music-bar",
@@ -1347,7 +1379,8 @@
       "host": "opentable"
     },
     "website": "https://www.parcellewine.com/",
-    "instagram": "https://www.instagram.com/parcellewine/"
+    "instagram": "https://www.instagram.com/parcellewine/",
+    "photoUrl": "https://parcellewine.com/cdn/shop/files/favicon.png?v=1613165618&width=2048"
   },
   {
     "id": "pearl-box",
@@ -1374,6 +1407,7 @@
     "menuUrl": "https://www.pearlboxnyc.com/menu",
     "website": "https://www.pearlboxnyc.com/",
     "instagram": "https://www.instagram.com/pearlboxnyc",
+    "photoUrl": "http://static1.squarespace.com/static/66aa8a9a9c574b72431ea118/t/6881fda9f1011e672080b77c/1753349545543/IMG_6721sml.png?format=1500w",
     "otherInfo": "Walk-ins Tuesday-Saturday starting at 5:30 pm"
   },
   {
@@ -1400,6 +1434,7 @@
     "menuUrl": "https://www.pebblebarnyc.com/eatanddrink",
     "website": "https://www.pebblebarnyc.com/",
     "instagram": "https://www.instagram.com/pebblebarnyc/",
+    "photoUrl": "http://static1.squarespace.com/static/61845d79f159c9288123a385/t/6a0b9ac23508e0735ce6a2a2/1779145410635/0045.jpg?format=1500w",
     "otherInfo": "2nd floor: walk in only bar  3rd floor: reservations & walk-in dining room"
   },
   {
@@ -1421,7 +1456,8 @@
     "reservationPolicy": "reservations",
     "reservationRaw": "Yes",
     "website": "https://www.peoplesny.com/",
-    "instagram": "https://www.instagram.com/peoplesny/?hl=en"
+    "instagram": "https://www.instagram.com/peoplesny/?hl=en",
+    "photoUrl": "http://static1.squarespace.com/static/66e8c5e8cce47d61b44012b9/t/66e8d96659fb626d94175f85/1726536039061/Peoples_Logo_FINAL.png?format=1500w"
   },
   {
     "id": "phebes-tavern-and-grill",
@@ -1449,6 +1485,7 @@
     "menuUrl": "https://www.phebesnyc.com/menus/",
     "website": "https://www.phebesnyc.com/",
     "instagram": "https://www.instagram.com/phebesnyc/",
+    "photoUrl": "https://images.getbento.com/accounts/47f7245dd768ed8baa5fd892b84f154f/media/images/99248PT_BADGE_WHITE-100-removebg-preview.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=203042&pad=100",
     "otherInfo": "Monday -  $10 Burgers [All Day]\nTuesday -  Taco Tuesday, 3 for $10 tacos. $8 Margs [12pm-Late]\nThursday - $5 Espresso Martini 4pm-11pm"
   },
   {
@@ -1477,6 +1514,7 @@
     "menuUrl": "https://pilpilnyc.com/new-york-upper-east-side-pil-pil-food-menu",
     "website": "https://www.pilpilnyc.com/",
     "instagram": "https://www.instagram.com/pilpilnyc/?hl=en",
+    "photoUrl": "https://static.spotapps.co/website_images/ab_websites/3963_website/parties_right.jpg",
     "otherInfo": "Weekend bottomless brunch"
   },
   {
@@ -1530,6 +1568,7 @@
     "menuUrl": "https://prohibition.net/new-york-city-upper-west-side-prohibition-food-menu",
     "website": "https://prohibition.net/",
     "instagram": "https://www.instagram.com/prohibitionnyc",
+    "photoUrl": "https://static.spotapps.co/website_images/ab_websites/119902_website/about_pg.jpg",
     "otherInfo": "Live Music: Opening Act\nTuesday - Thursday: 6:30pm - 8pm\nFriday & Saturday: 7pm - 8:30pm\n\nHeadliner\nTuesday - Thu: 8:30pm - 11:30pm\nFriday & Saturday: 9:30pm - 1am\nSunday:7:30pm - 10:30pm"
   },
   {
@@ -1558,6 +1597,7 @@
     "menuUrl": "https://www.roeysnyc.com/menus/",
     "website": "https://www.roeysnyc.com/",
     "instagram": "https://www.instagram.com/roeysnyc/?hl=en",
+    "photoUrl": "https://images.getbento.com/accounts/f201b8d838c229260091f33ea5719655/media/images/62281Asset_12.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Wood-fired sourdough pizzas on Happy Hour"
   },
   {
@@ -1703,6 +1743,7 @@
     "menuUrl": "https://static1.squarespace.com/static/64cd65ee73219e1d2818818a/t/69693c39bfc8494eb3776ab4/1768504377675/Sip+Food+Menu.pdf",
     "website": "https://www.sipandguzzlenyc.com/",
     "instagram": "https://www.instagram.com/sipandguzzlenyc",
+    "photoUrl": "http://static1.squarespace.com/static/64cd65ee73219e1d2818818a/t/64d66a9c9e756f5875b5980e/1691773596624/Logotype.png?format=1500w",
     "otherInfo": "Walk-ins avilaible, late night menu begins at 10:30 pm (walk -in only)"
   },
   {
@@ -1726,6 +1767,7 @@
     "menuUrl": "https://www.somedaybarnyc.com/menus/",
     "website": "https://www.somedaybarnyc.com/",
     "instagram": "https://www.instagram.com/somedaybarnyc/",
+    "photoUrl": "https://images.getbento.com/accounts/e8ad38cab622e05579ddc81ff7e2342f/media/images/somedaybar_transparent.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Taco Tuesday, Wurst Wednesday, Bao Buns Thursday"
   },
   {
@@ -1752,7 +1794,8 @@
     },
     "menuUrl": "https://www.sosos.nyc/menus/",
     "website": "https://www.sosos.nyc/",
-    "instagram": "https://www.instagram.com/sososnyc/"
+    "instagram": "https://www.instagram.com/sososnyc/",
+    "photoUrl": "https://images.getbento.com/accounts/c4558b83716397f08cd299787846ea68/media/images/71936Sosos_Logo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=f7f5ef&pad=100"
   },
   {
     "id": "sunken-harbor-club",
@@ -1777,7 +1820,8 @@
     },
     "menuUrl": "https://www.sunkenharbor.club/menus/",
     "website": "https://www.sunkenharbor.club/",
-    "instagram": "https://www.instagram.com/sunkenharborclubnyc/?hl=en"
+    "instagram": "https://www.instagram.com/sunkenharborclubnyc/?hl=en",
+    "photoUrl": "https://images.getbento.com/accounts/0d731b78b985c0b254905dfc5ed63d08/media/images/8926SHC_logo_green_gold.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100"
   },
   {
     "id": "superbueno",
@@ -1803,7 +1847,8 @@
     },
     "menuUrl": "https://www.superbuenonyc.com/menu",
     "website": "https://www.superbuenonyc.com/",
-    "instagram": "https://www.instagram.com/superbuenonyc/"
+    "instagram": "https://www.instagram.com/superbuenonyc/",
+    "photoUrl": "http://static1.squarespace.com/static/63f519ee4bcf1d117e7f6570/t/643d86cde4861b6d8459f311/1681753805355/SB-winky-solid.png?format=1500w"
   },
   {
     "id": "swift-hibernian-lounge",
@@ -1825,6 +1870,7 @@
     "reservationRaw": "walk-in only",
     "menuUrl": "https://www.swiftnycbar.com/drinks",
     "website": "https://www.swiftnycbar.com/",
+    "photoUrl": "http://static1.squarespace.com/static/58b3fe7117bffc544cf3db4c/t/5a6114a5652dea4a25283ab9/1516311743599/Screen+Shot+2018-01-18+at+4.39.41+PM.png?format=1500w",
     "otherInfo": "Daily live music, DJs 10pm-Late Friday and Saturday"
   },
   {
@@ -1846,7 +1892,8 @@
     "reservationPolicy": "walk-in",
     "reservationRaw": "Walk-in Only",
     "website": "https://www.taleabeer.com/pages/visit-us",
-    "instagram": "https://www.instagram.com/taleabeer/?hl=en"
+    "instagram": "https://www.instagram.com/taleabeer/?hl=en",
+    "photoUrl": "http://www.taleabeer.com/cdn/shop/files/20191127_Talea_Beer-4_SMALL_6bdaadae-fa19-4def-9377-12f75aa55831.jpg?v=1640644911"
   },
   {
     "id": "tara-rose",
@@ -1873,6 +1920,7 @@
     "menuUrl": "https://www.tararosenyc.com/menus/",
     "website": "https://www.tararosenyc.com/",
     "instagram": "https://www.instagram.com/tararosenyc/#",
+    "photoUrl": "https://images.getbento.com/accounts/50fc8036db80fc711b430ad0a13f70c6/media/images/56078logo2.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Bottomless brunch, DJ (9 pm Friday & Saturday)"
   },
   {
@@ -1901,7 +1949,8 @@
     },
     "menuUrl": "https://www.tavernonthegreen.com/menu/",
     "website": "https://www.tavernonthegreen.com/",
-    "instagram": "https://www.instagram.com/tavernonthegreen/"
+    "instagram": "https://www.instagram.com/tavernonthegreen/",
+    "photoUrl": "https://images.getbento.com/accounts/f00864b7095e96646695fc3d0533341a/media/images/60059totg-logo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100"
   },
   {
     "id": "temple-bar",
@@ -1927,6 +1976,7 @@
     "menuUrl": "https://www.templebar.co/",
     "website": "https://www.templebar.co/",
     "instagram": "https://www.instagram.com/templebarnyc/",
+    "photoUrl": "http://static1.squarespace.com/static/614340cddd46577c8e89d02d/t/6149e3e8374806355e917e24/1632232424354/Temple+Bar+New+York+City+332+Lafayette+Street-01.png?format=1500w",
     "otherInfo": "Reservations exclusively via Resy (typically released ~2 weeks in advance); cocktail lounge w/ light bites. Dress code"
   },
   {
@@ -1975,6 +2025,7 @@
     "menuUrl": "https://www.thecampbellnyc.com/menus/",
     "website": "https://www.thecampbellnyc.com/",
     "instagram": "https://www.instagram.com/thecampbellnyc",
+    "photoUrl": "https://images.getbento.com/accounts/e35f2b9a2cf3647843daffc874283853/media/accounts/media/zBUOrWAARiW4EaSuTwP7_cmpbllogo2.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Live Jazz: Friday – Saturday at 9pm. Sunday at 6pm."
   },
   {
@@ -2001,7 +2052,8 @@
     },
     "menuUrl": "https://menu.thedeadrabbit.com/",
     "website": "https://thedeadrabbit.com/",
-    "instagram": "https://www.instagram.com/thedeadrabbitny/"
+    "instagram": "https://www.instagram.com/thedeadrabbitny/",
+    "photoUrl": "http://static1.squarespace.com/static/685080dd8e7237157b3c865e/t/69486294eea18757b4e302b5/1766351508579/TDR_Primary+Logo_Cream+%26+Gold_RGB.png?format=1500w"
   },
   {
     "id": "the-domino-room",
@@ -2046,6 +2098,7 @@
     "menuUrl": "https://www.theginmillnyc.com/menus/",
     "website": "https://www.theginmillnyc.com/",
     "instagram": "https://www.instagram.com/theginmill/",
+    "photoUrl": "https://images.getbento.com/accounts/e511b6410212dfef1469abfe87c7dcf7/media/images/21870Logo_v2.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Downstairs speakeasy events"
   },
   {
@@ -2067,7 +2120,8 @@
     "reservationRaw": "Walk-in Only",
     "menuUrl": "https://www.hiddenpearlbk.com/menu-1",
     "website": "https://www.hiddenpearlbk.com/",
-    "instagram": "https://www.instagram.com/hiddenpearlbk/?hl=en"
+    "instagram": "https://www.instagram.com/hiddenpearlbk/?hl=en",
+    "photoUrl": "http://static1.squarespace.com/static/6226d5aa810ace705591e02d/t/622e7f8116cc854f3f235719/1725405941443/Screen+Shot+2022-03-13+at+7.32.32+PM.png?format=1500w"
   },
   {
     "id": "the-nines",
@@ -2119,7 +2173,8 @@
     },
     "menuUrl": "https://www.penrosebar.com/",
     "website": "https://www.penrosebar.com/",
-    "instagram": "https://www.instagram.com/penrosebar/"
+    "instagram": "https://www.instagram.com/penrosebar/",
+    "photoUrl": "https://images.getbento.com/accounts/e8bfef6f73a95e4bb154eee68d840f9e/media/images/6833110dc06ec8346885c3bfebae54c0895cba392b06d.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100"
   },
   {
     "id": "the-portrait-bar",
@@ -2144,6 +2199,7 @@
     },
     "menuUrl": "https://www.theportraitbar.com/menus/#cocktails",
     "website": "https://www.theportraitbar.com/",
+    "photoUrl": "https://images.getbento.com/accounts/1aa8c919cf37bd941c2e9378fa4a9243/media/images/61778ThePortraitBarLogo_Vector_12.20.22_Gold.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=240616&pad=100",
     "otherInfo": "Located inside the 5th Avenue Hotel"
   },
   {
@@ -2172,6 +2228,7 @@
     "menuUrl": "https://www.thewolfenyc.com/menus/#lunch-dinner",
     "website": "https://www.thewolfenyc.com/",
     "instagram": "https://www.instagram.com/thewolfenyc/",
+    "photoUrl": "https://images.getbento.com/accounts/568470d3a9b367542ba7bdcccd349bfe/media/images/71700Logo.svg?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "otherInfo": "Wednesday night trivia, daily specials"
   },
   {
@@ -2195,6 +2252,7 @@
     "reservationRaw": "walk-in only",
     "menuUrl": "https://thewrennyc.com/menu/",
     "website": "https://thewrennyc.com/",
+    "photoUrl": "https://images.getbento.com/accounts/3b1333833eb4c766914e0777815bc9a9/media/images/1105white_logo.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=000&pad=100",
     "otherInfo": "Wine Wednesday, all wine bottles $30"
   },
   {
@@ -2222,6 +2280,7 @@
     "menuUrl": "https://www.thymebarnyc.com/menu",
     "website": "https://www.thymebarnyc.com/",
     "instagram": "https://www.instagram.com/thymebar_nyc/",
+    "photoUrl": "http://static1.squarespace.com/static/5deab4af1c77927424eea535/t/5e1a5b9512be5b2164bedc20/1578785686722/tb-thicky2.png?format=1500w",
     "otherInfo": "Tasting menu"
   },
   {
@@ -2246,7 +2305,8 @@
       "host": "resy"
     },
     "website": "https://tigrenyc.com/",
-    "instagram": "https://www.instagram.com/tigre.nyc/"
+    "instagram": "https://www.instagram.com/tigre.nyc/",
+    "photoUrl": "https://cdn.cntrl.site/projects/01HXEQWHXK08WE7EGZZ8MQG6QK/project-assets/01HZHAME7Y7XN0J3QZ7A4DJQWM.jpeg"
   },
   {
     "id": "tinys-the-bar-upstairs",
@@ -2274,6 +2334,7 @@
     "menuUrl": "https://www.tinysnyc.com/menus/",
     "website": "https://www.tinysnyc.com/",
     "instagram": "https://www.instagram.com/tinysnyc/",
+    "photoUrl": "https://lirp.cdn-website.com/07f8ab44/dms3rep/multi/opt/Tinys-Townhouse-TribeCa+%286%29-1920w.jpg",
     "otherInfo": "Includes The Bar Upstairs."
   },
   {
@@ -2323,7 +2384,8 @@
     },
     "menuUrl": "https://www.twistbarnyc.com/menu",
     "website": "https://www.twistbarnyc.com/",
-    "instagram": "https://www.instagram.com/twistbarnyc/?hl=en"
+    "instagram": "https://www.instagram.com/twistbarnyc/?hl=en",
+    "photoUrl": "https://static.wixstatic.com/media/88ecb8_9f9ce790f8984fc1af6115840b50ad3c~mv2.jpg/v1/fill/w_2500,h_3749,al_c/88ecb8_9f9ce790f8984fc1af6115840b50ad3c~mv2.jpg"
   },
   {
     "id": "wallse-next-door",
@@ -2344,7 +2406,8 @@
     "reservationRaw": "walk-in only",
     "menuUrl": "https://nextdoor.wallse.com/menu/cocktails-wine-drinks",
     "website": "https://nextdoor.wallse.com/",
-    "instagram": "https://www.instagram.com/wallsenextdoor/"
+    "instagram": "https://www.instagram.com/wallsenextdoor/",
+    "photoUrl": "http://static1.squarespace.com/static/64b80cbe770f8320371e3b64/t/66902c2e2b337045b576d2d6/1720724526384/364311682_611571187699505_4611389057613073081_n.jpg?format=1500w"
   },
   {
     "id": "yves",
@@ -2369,7 +2432,8 @@
       "host": "resy"
     },
     "menuUrl": "https://www.yves-nyc.com/menus",
-    "website": "https://www.yves-nyc.com/"
+    "website": "https://www.yves-nyc.com/",
+    "photoUrl": "https://lirp.cdn-website.com/3fb8d8cf/dms3rep/multi/opt/Yves-NYC-1920w.jpg"
   },
   {
     "id": "zizi-wine-bar",

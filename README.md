@@ -25,6 +25,11 @@ Infatuation's neighborhood guides.
 - **Search** across venue name, type, and neighborhood
 - **Detail view**: a slide-over drawer plus a shareable, statically-generated
   `/venue/[id]` page (with booking, menu, website, Instagram, and directions links)
+- **Venue photos**: scraped from each site's Open Graph image at build time, with
+  a graceful gradient fallback
+- **Active filter chips** and per-option counts in the filter dropdowns
+- **Share button** + Open Graph metadata and a generated social image for nice
+  link previews
 - Filters/search/open-venue are mirrored to the URL for shareable links
 - Graceful fallback when no Mapbox token is configured (list stays fully usable)
 
@@ -56,10 +61,11 @@ spreadsheet — do not edit it by hand.
 - `data/source/HH_Bar_Restaurant_Information.xlsx` — the original spreadsheet
 - `data/source/bars.raw.json` — a parsed snapshot of the spreadsheet's Bars sheet
 - `scripts/build-data.mjs` — normalizes the raw rows (types, reservations, happy
-  hour, links) and **geocodes** each address via the Mapbox Geocoding API,
-  writing `data/venues.json`
-- `scripts/geocode-cache.json` — committed cache of geocoding results, so re-runs
-  are stable and don't re-hit the API
+  hour, links), **geocodes** each address via the Mapbox Geocoding API, and
+  **scrapes** each website's Open Graph image into `photoUrl`, writing
+  `data/venues.json`
+- `scripts/geocode-cache.json` / `scripts/og-cache.json` — committed caches of
+  geocoding and og:image results, so re-runs are stable and don't re-fetch
 
 Regenerate the data with:
 ```bash

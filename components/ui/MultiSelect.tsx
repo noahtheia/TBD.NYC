@@ -3,7 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
-export type Option = { value: string; label: string };
+export type Option = { value: string; label: string; count?: number };
 
 type Props = {
   label: string;
@@ -142,7 +142,12 @@ export default function MultiSelect({
                         </svg>
                       )}
                     </span>
-                    <span className="text-zinc-700">{o.label}</span>
+                    <span className="flex-1 text-zinc-700">{o.label}</span>
+                    {typeof o.count === "number" && (
+                      <span className="text-xs tabular-nums text-zinc-400">
+                        {o.count}
+                      </span>
+                    )}
                   </button>
                 </li>
               );

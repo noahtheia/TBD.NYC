@@ -1,5 +1,6 @@
 import type { Venue } from "@/types/venue";
 import { BOOKING_LABEL, RESERVATION_LABEL, mapsUrl } from "@/lib/display";
+import VenuePhoto from "@/components/ui/VenuePhoto";
 
 function ActionLink({
   href,
@@ -44,6 +45,12 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
 
   return (
     <div>
+      <VenuePhoto
+        name={venue.name}
+        photoUrl={venue.photoUrl}
+        className="mb-4 aspect-video w-full"
+        rounded="rounded-xl"
+      />
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-2xl font-bold leading-tight text-zinc-900">

@@ -39,12 +39,24 @@ export default function FilterBar({
         )}
       >
         <span aria-hidden>🍸</span> Happy hour
+        <span
+          className={cn(
+            "text-xs tabular-nums",
+            filters.happyHourOnly ? "text-amber-900/70" : "text-zinc-400"
+          )}
+        >
+          {facets.counts.happyHour}
+        </span>
       </button>
 
       <MultiSelect
         label="Neighborhood"
         searchable
-        options={facets.neighborhoods.map((n) => ({ value: n, label: n }))}
+        options={facets.neighborhoods.map((n) => ({
+          value: n,
+          label: n,
+          count: facets.counts.neighborhoods[n],
+        }))}
         selected={filters.neighborhoods}
         onToggle={(v) => onToggleFilterValue("neighborhoods", v)}
       />
@@ -52,14 +64,21 @@ export default function FilterBar({
       <MultiSelect
         label="Type"
         searchable
-        options={facets.types.map((t) => ({ value: t, label: t }))}
+        options={facets.types.map((t) => ({
+          value: t,
+          label: t,
+          count: facets.counts.types[t],
+        }))}
         selected={filters.types}
         onToggle={(v) => onToggleFilterValue("types", v)}
       />
 
       <MultiSelect
         label="Reservations"
-        options={RESERVATION_OPTIONS}
+        options={RESERVATION_OPTIONS.map((o) => ({
+          ...o,
+          count: facets.counts.reservation[o.value],
+        }))}
         selected={filters.reservation}
         onToggle={(v) => onToggleFilterValue("reservation", v)}
       />

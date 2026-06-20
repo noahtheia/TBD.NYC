@@ -4,6 +4,8 @@
 //   2. Normalizes messy free-text fields (types, reservations, happy hour, links).
 //   3. Geocodes each address with the Mapbox Geocoding API (v6 forward), caching
 //      results in scripts/geocode-cache.json so re-runs are stable and free.
+//   4. Scrapes each venue website's og:image for photoUrl, cached in
+//      scripts/og-cache.json.
 //
 // Run:  node --env-file=.env.local scripts/build-data.mjs   (or: npm run build:data)
 //
@@ -17,6 +19,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const RAW_PATH = join(ROOT, "data", "source", "bars.raw.json");
 const CACHE_PATH = join(__dirname, "geocode-cache.json");
+const OG_CACHE_PATH = join(__dirname, "og-cache.json");
 const OUT_PATH = join(ROOT, "data", "venues.json");
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -223,6 +226,65 @@ async function geocode(query) {
 }
 
 // ---------------------------------------------------------------------------
+// Photos: scrape Open Graph image from each venue's website (cached)
+// ---------------------------------------------------------------------------
+
+const ogCache = existsSync(OG_CACHE_PATH)
+  ? JSON.parse(readFileSync(OG_CACHE_PATH, "utf8"))
+  : {};
+
+function extractOgImage(html, baseUrl) {
+  // Look for og:image / twitter:image in either attribute order.
+  const patterns = [
+    /<meta[^>]+property=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image(?::secure_url)?["']/i,
+    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i,
+  ];
+  for (const re of patterns) {
+    const m = html.match(re);
+    if (m && m[1]) {
+      try {
+        const abs = new URL(m[1].trim(), baseUrl).href;
+        if (abs.startsWith("http")) return abs;
+      } catch {
+        /* ignore malformed url */
+      }
+    }
+  }
+  return null;
+}
+
+async function fetchOgImage(website) {
+  if (!website) return null;
+  if (website in ogCache) return ogCache[website];
+  let image = null;
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const res = await fetch(website, {
+      signal: ctrl.signal,
+      redirect: "follow",
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        Accept: "text/html",
+      },
+    });
+    clearTimeout(timer);
+    if (res.ok) {
+      const html = (await res.text()).slice(0, 200_000); // og tags live in <head>
+      image = extractOgImage(html, res.url || website);
+    }
+  } catch (err) {
+    console.warn(`  ! og:image failed for ${website}: ${err.message}`);
+  }
+  ogCache[website] = image;
+  await sleep(80);
+  return image;
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -257,6 +319,7 @@ for (const r of mappable) {
   const { policy, raw: reservationRaw } = classifyReservation(r.Reservations);
   const website = firstUrl(r["Main Website"]);
   const instagram = firstUrl(r.Instagram);
+  const photoUrl = (await fetchOgImage(website)) || undefined;
 
   const venue = {
     id,
@@ -276,6 +339,7 @@ for (const r of mappable) {
     menuUrl: firstUrl(r.Menu),
     website,
     instagram,
+    photoUrl,
     otherInfo: r["Other information"]?.trim() || undefined,
   };
 
@@ -287,11 +351,14 @@ for (const r of mappable) {
 venues.sort((a, b) => a.name.localeCompare(b.name));
 
 writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2) + "\n");
+writeFileSync(OG_CACHE_PATH, JSON.stringify(ogCache, null, 2) + "\n");
 writeFileSync(OUT_PATH, JSON.stringify(venues, null, 2) + "\n");
 
+const withPhoto = venues.filter((v) => v.photoUrl).length;
 console.log(`\nGeocoded ${geocoded}, failed ${failed}.`);
+console.log(`Photos: ${withPhoto}/${venues.length} venues have an og:image.`);
 console.log(`Wrote ${venues.length} venues to ${OUT_PATH}`);
-console.log(`Cache: ${Object.keys(cache).length} entries at ${CACHE_PATH}`);
+console.log(`Cache: ${Object.keys(cache).length} geocode, ${Object.keys(ogCache).length} og entries`);
 
 // Quick facets summary
 const hoods = [...new Set(venues.map((v) => v.neighborhood).filter(Boolean))].sort();

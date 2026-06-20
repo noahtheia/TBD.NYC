@@ -41,6 +41,12 @@ export interface Venue {
 export interface Facets {
   neighborhoods: string[];
   types: string[];
+  counts: {
+    neighborhoods: Record<string, number>;
+    types: Record<string, number>;
+    reservation: Record<ReservationPolicy, number>;
+    happyHour: number;
+  };
 }
 
 export interface Filters {

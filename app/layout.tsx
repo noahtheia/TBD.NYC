@@ -7,10 +7,27 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const TITLE = "TBD.NYC — NYC Bars & Happy Hours";
+const DESCRIPTION =
+  "An interactive map of curated New York City bars and happy hours. Filter by neighborhood, type, and happy hour.";
+
 export const metadata: Metadata = {
-  title: "TBD.NYC — NYC Bars & Happy Hours",
-  description:
-    "An interactive map of curated New York City bars and happy hours. Filter by neighborhood, type, and happy hour.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "TBD.NYC",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
