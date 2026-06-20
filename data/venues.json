@@ -1,0 +1,2399 @@
+[
+  {
+    "id": "10-degrees",
+    "name": "10 Degrees",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Alphabet City",
+    "address": "121 St Marks Pl, New York, NY 10009",
+    "coordinates": {
+      "lat": 40.726969,
+      "lng": -73.983389
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday: 5-8 pm, Saturday-Sunday: 12-5 pm",
+    "hours": "M-Th: 4-4 am, Fr: 2-4 am, Sat-Sun:12-4 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.tendegreesbar.com/reservations",
+      "host": "other"
+    },
+    "menuUrl": "https://www.tendegreesbar.com/menus-1?menu=cocktails#1",
+    "website": "https://www.tendegreesbar.com/",
+    "instagram": "https://www.instagram.com/tendegreesbar/?hl=en"
+  },
+  {
+    "id": "amelie-wine-bar",
+    "name": "Amélie Wine Bar",
+    "types": [
+      "Wine Bar",
+      "Restaurant"
+    ],
+    "rawType": "Wine Bar / Bistro",
+    "neighborhood": "Greenwich Village",
+    "address": "22 W 8th St; UWS: 566 Amsterdam Ave",
+    "coordinates": {
+      "lat": 40.73266,
+      "lng": -73.997662
+    },
+    "happyHour": true,
+    "happyHourDetails": "Everyday 4pm-6pm",
+    "hours": "West Villlage: Monday to Thursday 12pm - 11pm \nFriday 12pm - 12am\nSaturday 11am - 12am\nSunday 11am - 11pm                                                          Upper West Side: Lunch:\n\nWesnesday-Friday: 12pm-3pm\nDinner:\nMonday-Thursday, Sunday: 4pm-9:30pm \nFriday-Saturday 4pm-10:30pm\nBrunch: \nSaturday-Sunday: 11am-3pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/amelie-wine-bar?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.amelieupperwest.com/menu",
+    "website": "https://ameliewinebar.com/",
+    "instagram": "https://www.instagram.com/ameliebistronyc/?hl=en"
+  },
+  {
+    "id": "amor-y-amargo",
+    "name": "Amor y Amargo",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Alphabet City",
+    "address": "443 E 6th St, New York, NY 10009",
+    "coordinates": {
+      "lat": 40.725727,
+      "lng": -73.984283
+    },
+    "happyHour": false,
+    "hours": "Sun-Thursday5pm-12am; Fri-Saturday 5pm-1am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "website": "https://www.amoryamargo.com/",
+    "instagram": "https://www.instagram.com/amoryamargo/"
+  },
+  {
+    "id": "antons",
+    "name": "Anton’s",
+    "types": [
+      "Restaurant"
+    ],
+    "rawType": "Restaurant",
+    "neighborhood": "West Village",
+    "address": "570 Hudson St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.735701,
+      "lng": -74.00577
+    },
+    "happyHour": false,
+    "hours": "Monday-Sunday: 11-11 pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://www.opentable.com/booking/restref/availability?lang=en-US&correlationId=66413da9-9073-4921-a1f9-aed6bd80735f&restRef=1283545&otSource=Restaurant%20website",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.antonsnyc.com/menus/",
+    "website": "https://www.antonsnyc.com/"
+  },
+  {
+    "id": "apotheke",
+    "name": "Apotheke",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Chinatown",
+    "address": "9 Doyers St, New York, NY 10013 Nomad: 9 W 26th St, New York, NY 10010",
+    "coordinates": {
+      "lat": 40.714366,
+      "lng": -73.998191
+    },
+    "happyHour": false,
+    "hours": "Chinatown: Saturday-Friday: 6:30pm - 2 am, Sunday-Monday: 6:30pm-12am , Nomad: Monday-Wedensday: 5pm-12am, Thursday-Sunday: 4pm-2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Chinatown: Walk-in preferred (larger groups can reserve), Nomad: reservations encouraged",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/apotheke-nomad?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.apothekemixology.com/menus-nyc/",
+    "website": "https://www.apothekemixology.com/",
+    "instagram": "https://www.instagram.com/apothekenyc/",
+    "otherInfo": "Sophisticated attire is encouraged, Nomadd location has two options, the speakeasy and the penthouse (different menus)"
+  },
+  {
+    "id": "attaboy",
+    "name": "Attaboy",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "The Bowery",
+    "address": "134 Eldridge St, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.718879,
+      "lng": -73.99137
+    },
+    "happyHour": false,
+    "hours": "Daily 5pm-3am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, Walk-ins preferred",
+    "booking": {
+      "url": "https://www.opentable.com/r/attaboy-new-york?corrid=5bad177f-aa8b-461b-834a-83f9665f4051&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjoxLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "website": "https://attaboy.us/",
+    "instagram": "https://www.instagram.com/attaboy134/",
+    "otherInfo": "Limited reservations via OpenTable; otherwise first-come-first-served; parties of 6 and under. Host cocktail classes"
+  },
+  {
+    "id": "avoca",
+    "name": "Avoca",
+    "types": [
+      "Bar",
+      "Restaurant"
+    ],
+    "rawType": "Bar / Restaurant",
+    "neighborhood": "Yorkville",
+    "address": "1678 1st Ave, New York, NY 10128",
+    "coordinates": {
+      "lat": 40.777866,
+      "lng": -73.948359
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Wednesday 4-7pm; Thursday 4pm-2am (all-day happy hour Thursday) — see Specials page https://avoca-nyc.com/new-york-upper-east-side-avoca-happy-hours-specials",
+    "hours": "Monday-Friday 3pm-2am\nSaturday & Sunday 11am-2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Walk-in availaible, call for reservations",
+    "menuUrl": "https://avoca-nyc.com/new-york-upper-east-side-avoca-food-menu",
+    "website": "https://avoca.nyc/",
+    "instagram": "https://www.instagram.com/avoca_nyc",
+    "otherInfo": "Bottomless brunch $34.95 for 90 mins"
+  },
+  {
+    "id": "bar-belly",
+    "name": "Bar Belly",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Lower East Side",
+    "address": "14B Orchard St, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.715152,
+      "lng": -73.991694
+    },
+    "approxLocation": true,
+    "happyHour": true,
+    "happyHourDetails": "Monday-Sunday: open-7 pm     https://www.barbellynyc.com/menus",
+    "hours": "Sunday-Wednesday: 5-1 am, Thursday-Saturday: 4pm-Late",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bar-belly?date=2026-01-04&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.barbellynyc.com/menus",
+    "website": "https://www.barbellynyc.com/",
+    "instagram": "https://www.instagram.com/barbellynyc/"
+  },
+  {
+    "id": "bar-bonobo",
+    "name": "Bar Bonobo",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant//Bar",
+    "neighborhood": "Chelsea",
+    "address": "184 8th Ave, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.742978,
+      "lng": -73.999903
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday: 3-6 pm, https://barbonobo.com/golden-hour",
+    "hours": "Monday-Friday: 3pm-4am Saturday-Sunday: 2pm-4am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bar-bonobo?date=2026-01-04&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://barbonobo.com/cocktails-1",
+    "instagram": "https://www.instagram.com/barbonobonyc/#"
+  },
+  {
+    "id": "bar-contra",
+    "name": "Bar Contra",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Lower East Side",
+    "address": "138 Orchard St, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.719908,
+      "lng": -73.989133
+    },
+    "happyHour": false,
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.barcontra.com/new-page-1",
+      "host": "other"
+    },
+    "website": "https://www.barcontra.com/",
+    "instagram": "https://www.instagram.com/barcontranyc/"
+  },
+  {
+    "id": "bar-goto",
+    "name": "Bar Goto",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "The Bowery",
+    "address": "245 Eldridge St, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.722753,
+      "lng": -73.989801
+    },
+    "happyHour": true,
+    "happyHourDetails": "Happy hour martinis 5pm-6pm daily",
+    "hours": "Tuesday 5pm-12am; Wednesday 5pm-12am; Thursday 5pm-1am; Friday 5pm-2am; Saturday 5pm-2am; Sunday 5pm-12am (Closed Mon)",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk in only",
+    "menuUrl": "https://www.bargoto.com/menu/",
+    "website": "https://www.bargoto.com/",
+    "instagram": "https://www.instagram.com/bargoto_nyc/"
+  },
+  {
+    "id": "bar-kabawa",
+    "name": "Bar Kabawa",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "The Bowery",
+    "address": "12 Extra Pl, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.72475,
+      "lng": -73.991446
+    },
+    "happyHour": false,
+    "hours": "Tuesday-Saturday 5:30-12 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/bar-kabawa-new-york",
+      "host": "opentable"
+    },
+    "website": "https://momofuku.com/bar-kabawa/",
+    "instagram": "https://www.instagram.com/kabawa/"
+  },
+  {
+    "id": "bar-madonna",
+    "name": "Bar Madonna",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Williamsburg",
+    "address": "367 Metropolitan Ave, Brooklyn, NY 11211",
+    "coordinates": {
+      "lat": 40.714225,
+      "lng": -73.95567
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Thursday: 5pm-7pm, Sunday: 3pm-5pm",
+    "hours": "Sunday 3–12; Mon–Thursday 5–12; Friday 5–2; Saturday 3–2",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bar-madonna?seats=2&date=2026-01-20",
+      "host": "resy"
+    },
+    "menuUrl": "https://barmadonna.com/menu",
+    "website": "https://barmadonna.com/",
+    "instagram": "https://www.instagram.com/barmadonnabk/"
+  },
+  {
+    "id": "bar-pisellino",
+    "name": "Bar Pisellino",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "West Village",
+    "address": "52 Grove St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.73297,
+      "lng": -74.003488
+    },
+    "happyHour": false,
+    "hours": "Daily 8am-11pm",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in Only",
+    "menuUrl": "https://barpisellino.com/",
+    "website": "https://barpisellino.com/",
+    "instagram": "https://www.instagram.com/barpisellino/",
+    "otherInfo": "No reservations (walk-ins only)."
+  },
+  {
+    "id": "bar-primi",
+    "name": "Bar Primi",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant, Bar",
+    "neighborhood": "Chelsea",
+    "address": "349 W 33rd St New York, NY 10001     Bowery: 325 Bowery, Joey Ramone Place,",
+    "coordinates": {
+      "lat": 40.75247,
+      "lng": -73.995883
+    },
+    "happyHour": true,
+    "happyHourDetails": "Aperitivo Hour Mon–Friday 4pm–5pm, Sat-Sunday 3pm-5pm (only at the Bowery Location)",
+    "hours": "Penn District: Monday 11:30am-9:30pm, Tuesday-Thursday:11:30am-10pm, Friday:11:30am-11pm, Saturday11:30am -11:00pm, Sunday: 11:30am-9:30pm     Bowery: Sunday: 5pm-9:30pm,  Monday-Thursday: 12:00pm-9:30pm, Friday: 12:30pm-10:30pm. Saturday: 5pm-10:30pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.barprimi.com/reservations/",
+      "host": "other"
+    },
+    "menuUrl": "https://www.barprimi.com/bowery-menus/",
+    "website": "https://www.barprimi.com/",
+    "instagram": "https://www.instagram.com/barprimi/"
+  },
+  {
+    "id": "bar-reve",
+    "name": "Bar Reve",
+    "types": [
+      "Wine Bar"
+    ],
+    "rawType": "Wine Bar",
+    "neighborhood": "Carroll Gardens",
+    "address": "222 Smith St, Brooklyn, NY 11201",
+    "coordinates": {
+      "lat": 40.68409,
+      "lng": -73.992419
+    },
+    "happyHour": false,
+    "hours": "Tuesday–Thusday 5–12; Friday 5–1; Saturday 4–1; Sunday 4–10",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bar-reve?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.barreve.com/",
+    "website": "https://barreve.com/",
+    "instagram": "https://www.instagram.com/bar.reve.nyc/"
+  },
+  {
+    "id": "bar-snack",
+    "name": "Bar Snack",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "East Village",
+    "address": "92 2nd Ave, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.726947,
+      "lng": -73.988576
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday, 2 p.m. – 6 p.m.",
+    "hours": "Open 7 nights/week (kitchen until midnight) — see Instagram for current hours",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://www.barsnacknyc.com/#menu",
+    "instagram": "https://www.instagram.com/barsnack.nyc/"
+  },
+  {
+    "id": "barfly",
+    "name": "Barfly",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Gramercy Park",
+    "address": "244 3rd Ave, New York, NY 10010",
+    "coordinates": {
+      "lat": 40.73717,
+      "lng": -73.984656
+    },
+    "happyHour": true,
+    "happyHourDetails": "Daily 11am–7pm; Late Night HH Sun–Thursday 10pm–4am",
+    "hours": "Daily 11:00am–4:00am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes (limited)",
+    "booking": {
+      "url": "https://barfly.nyc/reservations#",
+      "host": "other"
+    },
+    "menuUrl": "https://barfly.nyc/menu",
+    "website": "https://barfly.nyc/",
+    "instagram": "https://www.instagram.com/barfly_nyc",
+    "otherInfo": "Sports bar with pool tables."
+  },
+  {
+    "id": "bathtub-gin",
+    "name": "Bathtub Gin",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Chelsea",
+    "address": "132 9th Ave, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.743565,
+      "lng": -74.003164
+    },
+    "happyHour": false,
+    "hours": "S-Th: 5-2 am , Fr-Sa: 5-3 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bathtub-gin?date=2026-01-04&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.bathtubginnyc.com/menu-nyc/#cocktails",
+    "website": "https://www.bathtubginnyc.com/",
+    "instagram": "https://www.instagram.com/bathtubginnyc/?hl=en",
+    "otherInfo": "Smart casual, live music"
+  },
+  {
+    "id": "bemelmans-bar",
+    "name": "Bemelmans Bar",
+    "types": [
+      "Piano Bar",
+      "Jazz Bar"
+    ],
+    "rawType": "Piano/Jazz Bar",
+    "neighborhood": "Lenox Hill",
+    "address": "35 E 76th St, New York, NY 10021",
+    "coordinates": {
+      "lat": 40.774345,
+      "lng": -73.963137
+    },
+    "happyHour": false,
+    "hours": "Sunday-Monday: 12 pm -12 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes, limited availiability",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/bemelmans-bar?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.rosewoodhotels.com/en/the-carlyle-new-york/dining/bemelmans-bar/behelmans-bar-dining-menu",
+    "website": "https://www.rosewoodhotels.com/en/the-carlyle-new-york/dining/bemelmans-bar",
+    "instagram": "https://www.instagram.com/rosewoodthecarlyle/?hl=en",
+    "otherInfo": "A $20-$35 cover charge every night starting at 5:30 pm for live music. Piano begins at 5:30, Jazz trio begins at 9. Located inside of The Carlyle hotel."
+  },
+  {
+    "id": "beyond-the-pale",
+    "name": "Beyond the Pale",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Nolita",
+    "address": "53 Spring St, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.722233,
+      "lng": -73.996583
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday: open -6:30 pm, https://static1.squarespace.com/static/62b1437276097d3cc4d9f282/t/684341184f99f676159422b6/1749238040652/HH+Menu+June+6+2025.pdf",
+    "hours": "Monday - Tuesday: 4:30PM - 12:00AM\nWednesday -Thursday:  3:00PM - 1:00AM\nFriday: 12:00PM - 2:00AM\nSaturday-Sunday: 12:30PM - 2:00AM",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "menuUrl": "https://static1.squarespace.com/static/62b1437276097d3cc4d9f282/t/684340c92962574803b1ae45/1749237961141/Outdoor+menu+june+6+2025.pdf",
+    "website": "https://beyondthepalenyc.com/",
+    "instagram": "https://www.instagram.com/beyondthepalenyc/"
+  },
+  {
+    "id": "blackbarn",
+    "name": "Blackbarn",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant / Bar",
+    "neighborhood": "Rose Hill",
+    "address": "19 E 26th St, New York, NY 10010",
+    "coordinates": {
+      "lat": 40.743107,
+      "lng": -73.987099
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday - Friday\n4:00pm – 6:30pm",
+    "hours": "Lunch\nMonday - Friday\n11:30am – 3:00pm                                      Dinner\nMonday - Saturday\n4:00pm (Tavern) – 9:00pm\n5:30pm (Main Dining Room) – 9:00pm              Brunch\nSaturday - Sunday\n10:30am – 3:00pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/blackbarn-restaurant-new-york?corrid=c8f3efb5-0a29-437f-a5f6-d13e2363d1f3&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.blackbarnrestaurant.com/menus/eat",
+    "website": "https://www.blackbarnrestaurant.com/",
+    "instagram": "https://www.instagram.com/blackbarnrestaurant/?hl=en"
+  },
+  {
+    "id": "cafe-maud-east-village",
+    "name": "Cafe Maud east village",
+    "types": [
+      "Cafe",
+      "Bar"
+    ],
+    "rawType": "Cafe / Bar",
+    "neighborhood": "East Village",
+    "address": "132 2nd Ave, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.72865,
+      "lng": -73.987381
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday:  3pm-6pm",
+    "hours": "Sunday 8am-12am; Monday-Wednesday 9am-12am; Thursday-Friday 9am-2am; Saturday 8am-2am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.cafemaud.com/reservations",
+      "host": "other"
+    },
+    "menuUrl": "https://www.cafemaud.com/menu",
+    "website": "https://www.cafemaud.com/eastvillage",
+    "instagram": "https://www.instagram.com/cafemaud/"
+  },
+  {
+    "id": "cafe-maud-ues",
+    "name": "Cafe Maud UES",
+    "types": [
+      "Cafe",
+      "Bar"
+    ],
+    "rawType": "Cafe / Bar",
+    "neighborhood": "Yorkville",
+    "address": "1640 2nd Ave, New York, NY 10028",
+    "coordinates": {
+      "lat": 40.777209,
+      "lng": -73.951961
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday:  3pm-6pm",
+    "hours": "Sun-Wednesday 8am-2am; Thursday-Saturday 8am-4am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-ins only",
+    "menuUrl": "https://www.cafemaud.com/menu",
+    "website": "https://www.cafemaud.com/ues",
+    "instagram": "https://www.instagram.com/cafemaud/"
+  },
+  {
+    "id": "caledonia-bar",
+    "name": "Caledonia Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Upper West Side",
+    "address": "424 Amsterdam Ave, New York, NY 10024",
+    "coordinates": {
+      "lat": 40.784157,
+      "lng": -73.977895
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday until 7pm: $8 citywide lager; $8 pub snacks; $8 select wine; $8 house cocktail; $11 margarita",
+    "hours": "UWS: Monday-Thursday5pm-2am; Fri-Saturday 4pm-4am; Sunday 5pm-12am\n UES: Monday-Thursday5pm-2am; Fri-Saturday 4pm-4am; Sunday 4pm-12am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://caledoniabar.com/uws-menu",
+    "website": "https://caledoniabar.com/",
+    "instagram": "https://www.instagram.com/caledoniauws/"
+  },
+  {
+    "id": "chelsea-living-room",
+    "name": "Chelsea Living Room",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant, Bar",
+    "neighborhood": "Chelsea",
+    "address": "243 W 14th St,New York, NY 10011",
+    "coordinates": {
+      "lat": 40.739511,
+      "lng": -74.001359
+    },
+    "happyHour": false,
+    "hours": "Monday: Closed, T/W: 5-10pm, Th: 5-1am, Fr/Sa: 5-2am, S: 4-10pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/chelsea-living-room?date=2026-01-04&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.chelsealivingroomnyc.com/menus/#food",
+    "website": "https://www.chelsealivingroomnyc.com/about/",
+    "instagram": "https://www.instagram.com/chelsealivingroom/",
+    "otherInfo": "DJ, Special event"
+  },
+  {
+    "id": "clemente-bar",
+    "name": "Clemente Bar",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "The Flatiron District",
+    "address": "11 Madison Ave, New York, NY 10010",
+    "coordinates": {
+      "lat": 40.741655,
+      "lng": -73.986729
+    },
+    "happyHour": false,
+    "hours": "Monday-Sunday: 5 PM-1 AM",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/clemente-bar?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "website": "https://clementebar.com/",
+    "instagram": "https://www.instagram.com/theclementebar"
+  },
+  {
+    "id": "de-toscano",
+    "name": "De Toscano",
+    "types": [
+      "Restaurant"
+    ],
+    "rawType": "Restaurant",
+    "neighborhood": "Greenwich Village",
+    "address": "24 Minetta Ln, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.7305,
+      "lng": -74.00126
+    },
+    "happyHour": false,
+    "hours": "Monday: Closed\nTuesday - Thursday: 5 PM - 10 PM\nFriday - Saturday: 5 PM - 11 PM\nSunday: 5 PM - 9 PM",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "yes, walk in for bar",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/da-toscano?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.datoscano.com/menus/",
+    "website": "https://www.datoscano.com/",
+    "instagram": "https://www.instagram.com/datoscanonyc/"
+  },
+  {
+    "id": "dear-irving",
+    "name": "Dear Irving",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Union Square",
+    "address": "Dear Irving (Gramercy): 55 Irving Pl, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.736169,
+      "lng": -73.987371
+    },
+    "happyHour": false,
+    "hours": "Gramercy: Monday-Wednesday 5pm-1am; Thursday-Friday 5pm-2am; Saturday 4pm-2am; Sunday 4pm-1am\n On Hudson: Monday-Tuesday 5pm-12am; Wed-Thursday5pm-1am; Fri-Saturday 4pm-2am; Sunday 4pm-12am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.dearirving.com/reservations-2",
+      "host": "other"
+    },
+    "menuUrl": "https://www.dearirving.com/dear-irving-on-hudson/#hudson-menu",
+    "website": "https://www.dearirving.com/",
+    "instagram": "https://www.instagram.com/dearirving/"
+  },
+  {
+    "id": "death-company",
+    "name": "Death & Company",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Alphabet City",
+    "address": "433 E 6th St, New York, NY 10009",
+    "coordinates": {
+      "lat": 40.725937,
+      "lng": -73.984663
+    },
+    "happyHour": false,
+    "hours": "Sun-Wednesday 6pm-1am; Thursday-Saturday 6pm-2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, Walk-ins preferred",
+    "booking": {
+      "url": "https://www.exploretock.com/deathconyc",
+      "host": "tock"
+    },
+    "website": "https://www.deathandcompany.com/",
+    "instagram": "https://www.instagram.com/deathandcompany/",
+    "otherInfo": "Limited reservations (Tock) + primarily walk-ins (per official location page)."
+  },
+  {
+    "id": "dessert-5-spot",
+    "name": "Dessert 5 Spot",
+    "types": [
+      "Rooftop Bar"
+    ],
+    "rawType": "Rooftop Bar",
+    "neighborhood": "Williamsburg",
+    "address": "94 Wythe Ave, Brooklyn, NY 11249",
+    "coordinates": {
+      "lat": 40.721666,
+      "lng": -73.958396
+    },
+    "happyHour": false,
+    "hours": "Mon–Thursday 5–12; Friday 5–2; Saturday 12–2; Sunday 12–12",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-ins, groups 6+ book through website",
+    "booking": {
+      "url": "https://www.desertfivespot.com/ny-reservations",
+      "host": "other"
+    },
+    "menuUrl": "https://www.desertfivespot.com/menu",
+    "website": "https://www.desertfivespot.com/new-york",
+    "instagram": "https://www.instagram.com/desertfivespotny",
+    "otherInfo": "Special events https://www.desertfivespot.com/shindigs-ny"
+  },
+  {
+    "id": "domo-domo",
+    "name": "Domo Domo",
+    "types": [
+      "Restaurant"
+    ],
+    "rawType": "Restaurant",
+    "neighborhood": "Greenwich Village",
+    "address": "140 W Houston St,New York, NY 10012",
+    "coordinates": {
+      "lat": 40.728032,
+      "lng": -74.001664
+    },
+    "happyHour": true,
+    "happyHourDetails": "Moonlight happy hour, last hour of seating each night , https://static1.squarespace.com/static/66a7d56be4c8ee0afa3780ee/t/691cd13ad066807eab789de3/1763496250526/111825+Moonlight+Menu%2BNYC%2BDomoDomo+_pdf.pdf",
+    "hours": "Monday - Thursday : 5:30 PM - 10:45 PM (Last seating at 9:30 PM)\nFriday : 5:00 PM - 11:45 PM (Last seating at 10:30 PM)\nSaturday: 12:00 PM - 11:45 PM (Last seating at 10:30 PM)\nSunday:12:00 PM - 10:15 PM (Last seating  at 9:00PM)",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/domodomo-new-york?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.domodomorestaurant.com/nycmenu",
+    "website": "https://www.domodomorestaurant.com/domodomonyc",
+    "instagram": "https://www.instagram.com/domodomonyc/?hl=en"
+  },
+  {
+    "id": "double-chicken-please",
+    "name": "Double Chicken Please",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "The Bowery",
+    "address": "115 Allen Street, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.719599,
+      "lng": -73.990541
+    },
+    "happyHour": false,
+    "hours": "Tuesday-Thursday5pm-1am; Fri-Saturday 5pm-1:30am; Sunday 5pm-12am; Monday closed",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, Walk-ins preferred",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/double-chicken-please",
+      "host": "resy"
+    },
+    "menuUrl": "https://doublechickenplease.com/pages/free-range",
+    "website": "https://doublechickenplease.com/",
+    "instagram": "https://www.instagram.com/doublechickenpleasenyc/",
+    "otherInfo": "Official reservations are via Resy only; walk-ins available (most seating first-come)."
+  },
+  {
+    "id": "employees-only",
+    "name": "Employee’s Only",
+    "types": [
+      "Cocktail Bar",
+      "Restaurant"
+    ],
+    "rawType": "Cocktail Bar / Restaurant",
+    "neighborhood": "West Village",
+    "address": "510 Hudson St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.733434,
+      "lng": -74.006119
+    },
+    "happyHour": false,
+    "hours": "Daily 6pm-4am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes (dinner only)",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/employees-only-nyc",
+      "host": "resy"
+    },
+    "website": "https://m.employeesonlynyc.com/",
+    "instagram": "https://www.instagram.com/employeesonlyny/"
+  },
+  {
+    "id": "frances-tavern",
+    "name": "Frances Tavern",
+    "types": [
+      "Restaurant",
+      "Tavern"
+    ],
+    "rawType": "Restaurant / Tavern",
+    "neighborhood": "Financial District",
+    "address": "54 Pearl St, New York, NY 10004",
+    "coordinates": {
+      "lat": 40.703442,
+      "lng": -74.011347
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday 4pm-7pm (Independence Bar + Lafayette's Hideout): food & drink specials; $1.50 oysters (min. 6)",
+    "hours": "Monday-Thursday: 11:30am-12am, Friday: 11:30am-1am, Saturday: 11:00am-1:00am, Sunday: 11am-12am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes (dining rooms & piano bar); walk-in for bars",
+    "booking": {
+      "url": "https://frauncestavern.com/-reserve",
+      "host": "other"
+    },
+    "menuUrl": "https://frauncestavern.com/new-york-fidi-battery-park-downtown-lower-east-side-tribeca-city-hall-south-street-seaport-fraunces-tavern-menus-happy-hour",
+    "website": "https://frauncestavern.com/",
+    "instagram": "https://www.instagram.com/frauncestavern"
+  },
+  {
+    "id": "jacobs-pickles",
+    "name": "Jacob’s Pickles",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant, Bar",
+    "neighborhood": "Upper West Side",
+    "address": "680 Columbus Ave, New York, NY 10025",
+    "coordinates": {
+      "lat": 40.791134,
+      "lng": -73.969081
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday 3-6:30 pm (bar only)",
+    "hours": "Monday-Friday 10am-12am; Sat-Sunday 9am-12am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/jacobs-pickles",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.jacobspickles.com/location/jacobs-pickles-upper-west-side/",
+    "website": "https://www.jacobspickles.com/",
+    "instagram": "https://www.instagram.com/jacobspickles/"
+  },
+  {
+    "id": "katana-kitten",
+    "name": "Katana Kitten",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "West Village",
+    "address": "531 Hudson St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.734257,
+      "lng": -74.006458
+    },
+    "happyHour": true,
+    "happyHourDetails": "Weekdays 4–6pm (per Katana Kitten social posts/menu).",
+    "hours": "Sunday 2pm-12am; Monday-Friday 4pm-2am; Saturday 2pm-2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, Walk-ins preferred",
+    "booking": {
+      "url": "https://www.katanakitten.com/",
+      "host": "other"
+    },
+    "menuUrl": "https://www.katanakitten.com/menu",
+    "website": "https://www.katanakitten.com/",
+    "instagram": "https://www.instagram.com/katanakitten_nyc/"
+  },
+  {
+    "id": "king-cole-bar",
+    "name": "King Cole Bar",
+    "types": [
+      "Hotel Bar"
+    ],
+    "rawType": "Hotel Bar",
+    "neighborhood": "Midtown East",
+    "address": "2 E 55th St, New York, NY 10022",
+    "coordinates": {
+      "lat": 40.761283,
+      "lng": -73.974459
+    },
+    "happyHour": false,
+    "hours": "Monday-Sunday 4-11 pm",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only"
+  },
+  {
+    "id": "little-branch",
+    "name": "Little Branch",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "West Village",
+    "address": "20 7th Ave S, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.737588,
+      "lng": -74.000795
+    },
+    "happyHour": false,
+    "hours": "Sunday 6pm–midnight; Mon–Wednesday 6pm–1am; Thu–Saturday 6pm–3am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "instagram": "https://www.instagram.com/lbbarnyc/",
+    "otherInfo": "*No reservations* (per venue social)."
+  },
+  {
+    "id": "long-island-bar",
+    "name": "Long Island Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Cobble Hill",
+    "address": "110 Atlantic Ave, Brooklyn, NY 11201",
+    "coordinates": {
+      "lat": 40.690655,
+      "lng": -73.99641
+    },
+    "happyHour": false,
+    "hours": "Tuesday-Friday 5pm-12am; Sat-Sunday 2pm-12am; Monday closed",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk in only (email for prix fixe / special events)",
+    "menuUrl": "https://www.thelongislandbar.com/menus",
+    "website": "https://www.thelongislandbar.com/",
+    "instagram": "https://www.instagram.com/longislandbar/"
+  },
+  {
+    "id": "mace",
+    "name": "Mace",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Greenwich Village",
+    "address": "35 W 8th St, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.733125,
+      "lng": -73.998074
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Thursday: 4-7 pm, Friday: 2-7pm,        https://www.macenewyork.com/happy-hour",
+    "hours": "Monday-Wednesday: 4-12 am,Thursday: 4-1 am, Friday-Satruday: 2 -2 am, Sunday: 12-2 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/mace?date=2026-01-04&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.macenewyork.com/menu-cocktails",
+    "instagram": "https://www.instagram.com/macebarnyc/?hl=en",
+    "otherInfo": "Gluten-Free"
+  },
+  {
+    "id": "maison-premiere",
+    "name": "Maison Premiere",
+    "types": [
+      "Oyster Bar",
+      "Cocktail Bar"
+    ],
+    "rawType": "Oyster Bar / Cocktail Bar",
+    "neighborhood": "Williamsburg",
+    "address": "298 Bedford Ave, Brooklyn, NY 11249",
+    "coordinates": {
+      "lat": 40.714269,
+      "lng": -73.96165
+    },
+    "happyHour": false,
+    "happyHourDetails": "Oyster happy hour is not currently offered (per official site).",
+    "hours": "Bar hours: Monday-Thursday12pm-1am; Friday 12pm-2am; Saturday 11am-2am; Sunday 11am-1am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/maison-premiere",
+      "host": "resy"
+    },
+    "menuUrl": "https://maisonpremiere.com/menus/",
+    "website": "https://maisonpremiere.com/",
+    "instagram": "https://www.instagram.com/maisonpremiere/"
+  },
+  {
+    "id": "martinys",
+    "name": "Martiny’s",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Union Square",
+    "address": "121 E 17th St, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.736135,
+      "lng": -73.987739
+    },
+    "happyHour": false,
+    "hours": "Daily 6pm-1am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/martinys",
+      "host": "resy"
+    },
+    "website": "https://www.martinys.com/",
+    "instagram": "https://www.instagram.com/martinys_nyc/",
+    "otherInfo": "Reservations via Resy; limited walk-ins available."
+  },
+  {
+    "id": "miladys",
+    "name": "Milady’s",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "SoHo",
+    "address": "160 Prince St, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.725907,
+      "lng": -74.001415
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Thursday4pm-6pm (per official site).",
+    "hours": "Monday 4pm-12am; Tuesday-Thursday12pm-12am; Fri-Saturday 12pm-2am; Sunday 12pm-12am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in,  Groups 6+ by phone/email",
+    "menuUrl": "https://www.miladysnyc.com/",
+    "website": "https://www.miladysnyc.com/",
+    "instagram": "https://www.instagram.com/miladysnyc/"
+  },
+  {
+    "id": "monkey-bar",
+    "name": "Monkey Bar",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant, Bar",
+    "neighborhood": "Midtown East",
+    "address": "60 E 54th St, New York, NY 10022",
+    "coordinates": {
+      "lat": 40.759987,
+      "lng": -73.973158
+    },
+    "happyHour": false,
+    "hours": "Lunch Monday-Friday 11:45am-2:30pm; Dinner Tuesday-Saturday 5pm-10:30pm (Sun/Monday until 10pm); Bar Sun/Monday 11:45am-10:30pm; Tuesday-Saturday 11:45am-11pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/monkey-bar-nyc",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.nycmonkeybar.com/menus",
+    "website": "https://www.nycmonkeybar.com/",
+    "instagram": "https://www.instagram.com/monkeybar_ny/"
+  },
+  {
+    "id": "nobody-told-me-dumbo",
+    "name": "Nobody Told Me Dumbo",
+    "types": [
+      "Bar",
+      "Restaurant"
+    ],
+    "rawType": "Bar / Restaurant",
+    "neighborhood": "Dumbo",
+    "address": "188 Front St, Brooklyn, NY 11201",
+    "coordinates": {
+      "lat": 40.702249,
+      "lng": -73.98493
+    },
+    "happyHour": true,
+    "happyHourDetails": "Daily 3pm-6pm (see Instagram/website)",
+    "hours": "Daily 11am–2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Walk-ins; reservations for parties of 8+",
+    "booking": {
+      "url": "https://nobodytoldme.squarespace.com/dumbo",
+      "host": "other"
+    },
+    "menuUrl": "https://nobodytoldme.squarespace.com/dumbo",
+    "website": "https://nobodytoldme.squarespace.com/dumbo",
+    "instagram": "https://www.instagram.com/nobodytoldme_nyc/"
+  },
+  {
+    "id": "nobody-told-me-uws",
+    "name": "Nobody Told Me UWS",
+    "types": [
+      "Bar",
+      "Restaurant"
+    ],
+    "rawType": "Bar / Restaurant",
+    "neighborhood": "Manhattan Valley",
+    "address": "951 Amsterdam Ave, New York, NY 10025",
+    "coordinates": {
+      "lat": 40.80079,
+      "lng": -73.965137
+    },
+    "happyHour": true,
+    "happyHourDetails": "Daily 3pm-6pm (see Instagram/website)",
+    "hours": "Weekdays 12pm–2am; Weekends 11am–2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Walk-ins; reservations for parties of 8+",
+    "booking": {
+      "url": "https://nobodytoldme.squarespace.com/uws",
+      "host": "other"
+    },
+    "menuUrl": "https://nobodytoldme.squarespace.com/uws",
+    "website": "https://nobodytoldme.squarespace.com/uws",
+    "instagram": "https://www.instagram.com/nobodytoldme_nyc/"
+  },
+  {
+    "id": "nubulez",
+    "name": "Nubulez",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "NoMad",
+    "address": "25 W 28th St, New York, NY 10001 (The Ritz-Carlton New York, NoMad)",
+    "coordinates": {
+      "lat": 40.745474,
+      "lng": -73.988908
+    },
+    "happyHour": false,
+    "hours": "Monday-Wednesday 3pm-12am; Thursday 3pm-1am; Fri-Saturday 4pm-1am; Sunday 4pm-12am (High Tea Fri-Sunday 11am-3pm)",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/nubeluz-new-york?corrid=7c86df69-360b-4f10-a295-5551809e3f39&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.nubeluzbyjose.com/menus/",
+    "website": "https://www.nubeluzbyjose.com/",
+    "instagram": "https://www.instagram.com/nubeluzbyjose/",
+    "otherInfo": "Cocktail attire"
+  },
+  {
+    "id": "obvio-cocktail-bar-nomad",
+    "name": "Obvio Cocktail bar Nomad",
+    "types": [
+      "Restaurant",
+      "Cocktail Bar"
+    ],
+    "rawType": "Restaurant/Cocktail Bar",
+    "neighborhood": "Rose Hill",
+    "address": "3 E 28th St, New York, NY 10016",
+    "coordinates": {
+      "lat": 40.744539,
+      "lng": -73.986591
+    },
+    "happyHour": false,
+    "hours": "Tuesday–Wednesday 5pm–12am; Thursday–Saturday 5pm–2am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/obvio-new-york",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.obvionyc.com/menu",
+    "website": "https://www.obvionyc.com/",
+    "instagram": "https://www.instagram.com/obvio.nyc/?hl=en"
+  },
+  {
+    "id": "other-half-brewing",
+    "name": "Other Half Brewing",
+    "types": [
+      "Brewery"
+    ],
+    "rawType": "Brewery",
+    "neighborhood": "Chinatown",
+    "address": "Centre Street (195 Centre St, Brooklyn), Domino Park (34 River St, Brooklyn), Rockefeller Center (600 5th Ave, Manhattan).",
+    "coordinates": {
+      "lat": 40.718747,
+      "lng": -73.999552
+    },
+    "happyHour": false,
+    "hours": "Varies by taproom (see Visit Us / locations pages).",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in Only",
+    "menuUrl": "https://otherhalfbrewing.com/",
+    "website": "https://otherhalfbrewing.com/",
+    "instagram": "https://www.instagram.com/otherhalfnyc/",
+    "otherInfo": "Rockefeller Center taproom notes: first-come, first-served seating; no reservations (per private events page)."
+  },
+  {
+    "id": "overstory",
+    "name": "Overstory",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Financial District",
+    "address": "70 Pine St (64th Floor), New York, NY 10005",
+    "coordinates": {
+      "lat": 40.706446,
+      "lng": -74.00766
+    },
+    "happyHour": false,
+    "hours": "Mon–Wednesday 5pm–12am; Thu–Saturday 4pm–1am; Sunday 4pm–12am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, walk-ins preferred",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/overstory",
+      "host": "resy"
+    },
+    "website": "https://www.overstory-nyc.com/",
+    "instagram": "https://www.instagram.com/overstory/"
+  },
+  {
+    "id": "paddy-reillys-music-bar",
+    "name": "Paddy Reilly’s Music Bar",
+    "types": [
+      "Irish Bar",
+      "Live Music"
+    ],
+    "rawType": "Irish Bar / Live Music",
+    "neighborhood": "Kips Bay",
+    "address": "519 2nd Ave, New York, NY 10016",
+    "coordinates": {
+      "lat": 40.741641,
+      "lng": -73.978466
+    },
+    "happyHour": true,
+    "happyHourDetails": "Mon - Sat: 11am - 7pm\nSun: Noon - Midnight",
+    "hours": "Mon–Thursday 4–4; Friday 2–4; Sat–Sunday 12–4",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "website": "https://paddyreillysmusicbar.us/",
+    "instagram": "https://www.instagram.com/paddyreillys/?hl=en",
+    "otherInfo": "Live music Monday-Sunday night"
+  },
+  {
+    "id": "panorama-room",
+    "name": "Panorama Room",
+    "types": [
+      "Rooftop Bar"
+    ],
+    "rawType": "Rooftop Bar",
+    "neighborhood": "Roosevelt Island",
+    "address": "22 N Loop Rd, Roosevelt Island, NY 10044",
+    "coordinates": {
+      "lat": 40.756086,
+      "lng": -73.955507
+    },
+    "happyHour": false,
+    "hours": "Monday – Tuesday: Closed\nWednesday – Thursday: 5 pm – 12 am\nFriday – Saturday: 3 pm – 1 am\nSunday: 3 pm – 12 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "menuUrl": "https://www.hilton.com/en/hotels/nycgngu-graduate-new-york/dining/panorama-room/",
+    "website": "https://www.hilton.com/en/hotels/nycrugu-graduate-new-york/dining/panorama-room/",
+    "instagram": "https://www.instagram.com/panoramaroomnyc/?hl=en"
+  },
+  {
+    "id": "paradise-lost",
+    "name": "Paradise Lost",
+    "types": [
+      "Tiki Bar"
+    ],
+    "rawType": "Tiki Bar",
+    "neighborhood": "East Village",
+    "address": "100 2nd Ave, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.727145,
+      "lng": -73.988421
+    },
+    "happyHour": false,
+    "hours": "Daily 5pm–2am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://www.paradiselost.nyc/blank",
+    "website": "https://www.paradiselostnyc.com/"
+  },
+  {
+    "id": "parcelle",
+    "name": "Parcelle",
+    "types": [
+      "Wine Bar"
+    ],
+    "rawType": "Wine bar",
+    "neighborhood": "Lower East Side",
+    "address": "135 Division St, New York, NY 10002   Greenwich Village:  72 MacDougal Street New York, NY 10012",
+    "coordinates": {
+      "lat": 40.714376,
+      "lng": -73.991167
+    },
+    "happyHour": false,
+    "hours": "Greenwich villlage: Monday-Wednesday 5-10, Thursday-Saturday 5-midnight (Kitchen closes at 11PM), Sunday 3-9:30  Chinatown: Tuesday/Wednesday 5-10, Thursday-Saturday 5-midnight (Kitchen closes at 11PM), Sunday 3-9:30",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/parcelle-greenwich-village-new-york?corrid=b076d855-4668-462b-af97-910a33c3db63&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "website": "https://www.parcellewine.com/",
+    "instagram": "https://www.instagram.com/parcellewine/"
+  },
+  {
+    "id": "pearl-box",
+    "name": "Pearl Box",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "SoHo",
+    "address": "357 W Broadway (3rd Fl), New York, NY 10013",
+    "coordinates": {
+      "lat": 40.722936,
+      "lng": -74.003053
+    },
+    "happyHour": true,
+    "happyHourDetails": "In the bar room, everyday 5:30–7pm",
+    "hours": "Tuesday- Thursday: 5:30-11:30pm\nFriday & Saturday: 5:30-12:30am\nSunday: 5pm-9pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.sevenrooms.com/explore/pearlbox/reservations/create/search/",
+      "host": "other"
+    },
+    "menuUrl": "https://www.pearlboxnyc.com/menu",
+    "website": "https://www.pearlboxnyc.com/",
+    "instagram": "https://www.instagram.com/pearlboxnyc",
+    "otherInfo": "Walk-ins Tuesday-Saturday starting at 5:30 pm"
+  },
+  {
+    "id": "pebble-bar",
+    "name": "Pebble Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Rockefeller Center",
+    "address": "67 W 49th St, New York, NY 10112",
+    "coordinates": {
+      "lat": 40.75923,
+      "lng": -73.9805
+    },
+    "happyHour": false,
+    "hours": "Monday-Wednesday 4pm-12am; Thursday-Saturday 4pm-2am; Sunday 5pm-12am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes, wallk-ins preferred",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/pebble-bar",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.pebblebarnyc.com/eatanddrink",
+    "website": "https://www.pebblebarnyc.com/",
+    "instagram": "https://www.instagram.com/pebblebarnyc/",
+    "otherInfo": "2nd floor: walk in only bar  3rd floor: reservations & walk-in dining room"
+  },
+  {
+    "id": "peoples",
+    "name": "People’s",
+    "types": [
+      "Evening Club"
+    ],
+    "rawType": "Evening Club",
+    "neighborhood": "Hell's Kitchen",
+    "address": "Greenwich Village, NYC",
+    "coordinates": {
+      "lat": 40.757323,
+      "lng": -74.000839
+    },
+    "approxLocation": true,
+    "happyHour": false,
+    "hours": "Evenings (see booking)",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "website": "https://www.peoplesny.com/",
+    "instagram": "https://www.instagram.com/peoplesny/?hl=en"
+  },
+  {
+    "id": "phebes-tavern-and-grill",
+    "name": "Phebe’s Tavern and Grill",
+    "types": [
+      "Bar",
+      "Tavern"
+    ],
+    "rawType": "Bar / Tavern",
+    "neighborhood": "The Bowery",
+    "address": "359 Bowery, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.726877,
+      "lng": -73.991352
+    },
+    "happyHour": true,
+    "happyHourDetails": "Mon–Friday 4–8pm, $5 Bottled Beers\n$6 Drafts\n$8 Pinot Grigio, Pinot Noir & Rosé\n$10 Select Cocktails",
+    "hours": "Sunday 11–1am; Mon–Tuesday 12–1am; Wednesday 12–3am; Thu–Saturday up to 4am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/phebes-tavern-and-grill?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.phebesnyc.com/menus/",
+    "website": "https://www.phebesnyc.com/",
+    "instagram": "https://www.instagram.com/phebesnyc/",
+    "otherInfo": "Monday -  $10 Burgers [All Day]\nTuesday -  Taco Tuesday, 3 for $10 tacos. $8 Margs [12pm-Late]\nThursday - $5 Espresso Martini 4pm-11pm"
+  },
+  {
+    "id": "pil-pil",
+    "name": "Pil Pil",
+    "types": [
+      "Spanish Restaurant",
+      "Bar"
+    ],
+    "rawType": "Spanish Restaurant / Bar",
+    "neighborhood": "Upper East Side",
+    "address": "265 E 78th St, New York, NY 10075",
+    "coordinates": {
+      "lat": 40.77293,
+      "lng": -73.955818
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday: 4pm-7pm https://pilpilnyc.com/new-york-upper-east-side-pil-pil-food-menu",
+    "hours": "Monday- Friday: 12pm-Midnight\nSaturday- Sunday: 11am- Midnight",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/pil-pil-new-york?corrid=79f0ecc2-26cb-4b07-92da-b0e2fcbb2a4f&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "menuUrl": "https://pilpilnyc.com/new-york-upper-east-side-pil-pil-food-menu",
+    "website": "https://www.pilpilnyc.com/",
+    "instagram": "https://www.instagram.com/pilpilnyc/?hl=en",
+    "otherInfo": "Weekend bottomless brunch"
+  },
+  {
+    "id": "please-dont-tell",
+    "name": "Please Don’t Tell",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Alphabet City",
+    "address": "113 St Marks Pl, New York, NY 10009",
+    "coordinates": {
+      "lat": 40.727113,
+      "lng": -73.983755
+    },
+    "happyHour": false,
+    "hours": "Monday-Thursday5pm-2am; Fri-Sunday 4pm-2am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes, Walk-ins preferred",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/pdt",
+      "host": "resy"
+    },
+    "website": "https://www.pdtnyc.com/",
+    "instagram": "https://www.instagram.com/pdtnyc/",
+    "otherInfo": "Reservations available up to 7 days in advance via Resy; limited bar seating for walk-ins."
+  },
+  {
+    "id": "prohibition",
+    "name": "Prohibition",
+    "types": [
+      "Bar",
+      "Restaurant"
+    ],
+    "rawType": "Bar / Restaurant",
+    "neighborhood": "Upper West Side",
+    "address": "503 Columbus Ave, New York, NY 10024",
+    "coordinates": {
+      "lat": 40.785267,
+      "lng": -73.972839
+    },
+    "happyHour": true,
+    "happyHourDetails": "Tuesday-Friday 4:30pm-6:30pm (see website for current specials)  https://prohibition.net/new-york-city-upper-west-side-prohibition-happy-hour",
+    "hours": "Tuesday & Wednesday: 4:30 PM - 12:00 AM\nThursday: 4:30 PM - 1:00 AM\nFriday: 4:30 PM - 2:00 AM\nSaturday: 4:00 PM - 2:00 AM\nSun:4:30 PM - 11:00 PM",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/prohibition-new-york?seats=2&date=2026-01-20",
+      "host": "resy"
+    },
+    "menuUrl": "https://prohibition.net/new-york-city-upper-west-side-prohibition-food-menu",
+    "website": "https://prohibition.net/",
+    "instagram": "https://www.instagram.com/prohibitionnyc",
+    "otherInfo": "Live Music: Opening Act\nTuesday - Thursday: 6:30pm - 8pm\nFriday & Saturday: 7pm - 8:30pm\n\nHeadliner\nTuesday - Thu: 8:30pm - 11:30pm\nFriday & Saturday: 9:30pm - 1am\nSunday:7:30pm - 10:30pm"
+  },
+  {
+    "id": "roeys",
+    "name": "Roey’s",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant / Bar",
+    "neighborhood": "West Village",
+    "address": "1 Perry St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.735967,
+      "lng": -74.000928
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday–Friday 4–6pm , https://media-cdn.getbento.com/accounts/f201b8d838c229260091f33ea5719655/media/x4mUr8RkTLWQjqYH1KpW_RY%20HH%207.31.25.pdf",
+    "hours": "Mon–Wednesday 4–9pm; Thu–Friday 4–10pm; Saturday 11am–10pm; Sunday 11am–9pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/roeys?seats=2&date=2026-01-20",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.roeysnyc.com/menus/",
+    "website": "https://www.roeysnyc.com/",
+    "instagram": "https://www.instagram.com/roeysnyc/?hl=en",
+    "otherInfo": "Wood-fired sourdough pizzas on Happy Hour"
+  },
+  {
+    "id": "roxy-bar",
+    "name": "Roxy Bar",
+    "types": [
+      "Hotel Bar"
+    ],
+    "rawType": "Hotel Bar",
+    "neighborhood": "TriBeCa",
+    "address": "2 Ave of the Americas, New York, NY 10013",
+    "coordinates": {
+      "lat": 40.71926,
+      "lng": -74.004875
+    },
+    "happyHour": false,
+    "hours": "Sunday-Wednesday: 7am­­—12am\nThursday- Saturday: 7am—2am\nWeekend Brunch: 11am—4pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/roxy-bar?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "website": "https://www.roxybarnyc.com/",
+    "instagram": "https://www.instagram.com/roxybarnyc/",
+    "otherInfo": "Live music: Tuesday thru Saturday 6pm—10pm\nSunday 12pm—2:30pm & 6pm—8pm\nMonday 6pm—8pm\nSpinning Live:\nFriday & Saturday: 10pm—2am\nLive Sunday Brunch:\nSunday 12pm—2:30pm"
+  },
+  {
+    "id": "saint-tuesday",
+    "name": "Saint Tuesday",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Chinatown",
+    "address": "24 Cortlandt Alley, New York, NY 10013",
+    "coordinates": {
+      "lat": 40.71816,
+      "lng": -74.001956
+    },
+    "happyHour": false,
+    "hours": "Sunday - Monday: 6:00 PM – 12:00 AM\nTuesday - Wednesday: 6:00 PM – 1:00 AM\nThursday - Saturday: 6:00 PM – 2:00 AM",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/saint-tuesday?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.sainttuesdaynyc.com/menu/",
+    "website": "https://www.sainttuesday.com/",
+    "instagram": "https://www.instagram.com/sainttuesday_nyc/",
+    "otherInfo": "Live Music: Sunday - Monday: 8:00 PM – 10:30 PM \nTuesday: 8:30 PM – 11:00 PM\nWednesday: 9:00 PM – 12:30 AM\nThursday - Saturday: 9:30 PM – 1:00 AM  Cocktail classes: https://www.sainttuesdaynyc.com/event/cocktail-masterclass-every-thursday-night/"
+  },
+  {
+    "id": "sartianos",
+    "name": "Sartianos",
+    "types": [
+      "Restaurant"
+    ],
+    "rawType": "Restaurant",
+    "neighborhood": "SoHo",
+    "address": "99 Prince St, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.724817,
+      "lng": -73.998757
+    },
+    "happyHour": false,
+    "hours": "Monday-Friday: 12pm-10:30pm, Saturday: 11am-10:30 pm , Sunday: 11am-9:30 pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/sartianos?seats=2&date=2026-01-06",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.sartianos.com/menus/",
+    "instagram": "https://www.instagram.com/sartianos/"
+  },
+  {
+    "id": "sauced",
+    "name": "Sauced",
+    "types": [
+      "Wine Bar"
+    ],
+    "rawType": "Wine Bar",
+    "neighborhood": "The Bowery",
+    "address": "47 2nd Ave, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.72543,
+      "lng": -73.990227
+    },
+    "happyHour": false,
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "website": "https://www.saucednyc.com/",
+    "instagram": "https://www.instagram.com/sauced.nyc/"
+  },
+  {
+    "id": "schmuck",
+    "name": "Schmuck.",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "East Village",
+    "address": "97 1st Ave, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.726373,
+      "lng": -73.986473
+    },
+    "happyHour": false,
+    "hours": "Monday: closed Tuesday-Sunday 4-1am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes, limited",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/schmuck-nyc?date=2026-01-08&seats=2",
+      "host": "resy"
+    },
+    "website": "https://www.schmucknyc.com/",
+    "instagram": "https://www.instagram.com/schmuck.ny/"
+  },
+  {
+    "id": "sip-guzzle",
+    "name": "Sip & Guzzle",
+    "types": [
+      "Bar",
+      "Restaurant"
+    ],
+    "rawType": "Bar / Restaurant",
+    "neighborhood": "West Village",
+    "address": "29 Cornelia St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.731445,
+      "lng": -74.002465
+    },
+    "happyHour": false,
+    "hours": "Guzzle 4pm–late; Sip 5pm–late",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/guzzle?seats=2&date=2026-01-20",
+      "host": "resy"
+    },
+    "menuUrl": "https://static1.squarespace.com/static/64cd65ee73219e1d2818818a/t/69693c39bfc8494eb3776ab4/1768504377675/Sip+Food+Menu.pdf",
+    "website": "https://www.sipandguzzlenyc.com/",
+    "instagram": "https://www.instagram.com/sipandguzzlenyc",
+    "otherInfo": "Walk-ins avilaible, late night menu begins at 10:30 pm (walk -in only)"
+  },
+  {
+    "id": "someday-bar",
+    "name": "Someday Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Boerum Hill",
+    "address": "364 Atlantic Ave, Brooklyn, NY 11217",
+    "coordinates": {
+      "lat": 40.68733,
+      "lng": -73.986342
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday: 4pm-7 pm, $4 Dirty Water Hard Seltzer Cans, $6 select 16oz Draft Beers, $7 single liquor well drinks, Pinot Grigio, Rose, & Montepulciano.",
+    "hours": "Monday–Wednesday 4–2; Thursday 4–4; Friday 3–4; Saturday 12–4; Sunday 12–2",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://www.somedaybarnyc.com/menus/",
+    "website": "https://www.somedaybarnyc.com/",
+    "instagram": "https://www.instagram.com/somedaybarnyc/",
+    "otherInfo": "Taco Tuesday, Wurst Wednesday, Bao Buns Thursday"
+  },
+  {
+    "id": "sosos",
+    "name": "Soso’s",
+    "types": [
+      "Cocktail Bar",
+      "Restaurant"
+    ],
+    "rawType": "Cocktail Bar / Restaurant",
+    "neighborhood": "Chinatown",
+    "address": "191 Centre St, New York, NY 10013",
+    "coordinates": {
+      "lat": 40.718658,
+      "lng": -73.999661
+    },
+    "happyHour": false,
+    "hours": "Dining Room: Daily 5:00pm-11:45pm\n Cocktail Bar: Monday-Friday 4:00pm-1:00am; Sat-Sunday 2:00pm-1:00am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Dining room reservations; cocktail bar walk-in only",
+    "booking": {
+      "url": "https://www.sevenrooms.com/explore/sososnyc/reservations/create/search",
+      "host": "other"
+    },
+    "menuUrl": "https://www.sosos.nyc/menus/",
+    "website": "https://www.sosos.nyc/",
+    "instagram": "https://www.instagram.com/sososnyc/"
+  },
+  {
+    "id": "sunken-harbor-club",
+    "name": "Sunken Harbor Club",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Downtown Brooklyn",
+    "address": "372 Fulton St, 2nd FL, Brooklyn, NY 11201",
+    "coordinates": {
+      "lat": 40.691427,
+      "lng": -73.987781
+    },
+    "happyHour": false,
+    "hours": "Sun-Thursday5pm-11pm; Fri-Saturday 5pm-12am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/sunken-harbor-club-brooklyn",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.sunkenharbor.club/menus/",
+    "website": "https://www.sunkenharbor.club/",
+    "instagram": "https://www.instagram.com/sunkenharborclubnyc/?hl=en"
+  },
+  {
+    "id": "superbueno",
+    "name": "Superbueno",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "The Bowery",
+    "address": "13 1st Avenue, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.723469,
+      "lng": -73.988601
+    },
+    "happyHour": true,
+    "happyHourDetails": "La Buena Hora: Monday-Thursday4–7pm; Friday 2–7pm (per menu).",
+    "hours": "Monday-Thursday4pm-2am; Fri-Sunday 2pm-2am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/superbueno",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.superbuenonyc.com/menu",
+    "website": "https://www.superbuenonyc.com/",
+    "instagram": "https://www.instagram.com/superbuenonyc/"
+  },
+  {
+    "id": "swift-hibernian-lounge",
+    "name": "Swift Hibernian Lounge",
+    "types": [
+      "Irish Bar"
+    ],
+    "rawType": "Irish Bar",
+    "neighborhood": "NoHo",
+    "address": "34 E 4th St, New York, NY 10003",
+    "coordinates": {
+      "lat": 40.72729,
+      "lng": -73.992281
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Friday 3pm-5pm",
+    "hours": "Daily 12pm–4am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://www.swiftnycbar.com/drinks",
+    "website": "https://www.swiftnycbar.com/",
+    "otherInfo": "Daily live music, DJs 10pm-Late Friday and Saturday"
+  },
+  {
+    "id": "talea",
+    "name": "Talea",
+    "types": [
+      "Brewery"
+    ],
+    "rawType": "Brewery",
+    "neighborhood": "Williamsburg",
+    "address": "Williamsburg, Cobble Hill, Bryant Park, Penn District, West Villlage",
+    "coordinates": {
+      "lat": 40.715305,
+      "lng": -73.960434
+    },
+    "approxLocation": true,
+    "happyHour": false,
+    "hours": "WV Location: M-th: 12-10 pm, Friday & Saturday: 12-12 am, Sunday:12-10 pm",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in Only",
+    "website": "https://www.taleabeer.com/pages/visit-us",
+    "instagram": "https://www.instagram.com/taleabeer/?hl=en"
+  },
+  {
+    "id": "tara-rose",
+    "name": "Tara Rose",
+    "types": [
+      "Irish Bar"
+    ],
+    "rawType": "Irish bar",
+    "neighborhood": "Kips Bay",
+    "address": "384 3rd Ave, New York, NY 10016",
+    "coordinates": {
+      "lat": 40.741797,
+      "lng": -73.981311
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday - Friday from 4 to 7 pm \nAll Night on Thursday.  https://www.tararosenyc.com/menus/#happy-hour",
+    "hours": "Monday – 12 PM to 1 AM\nTuesday - Thursday – 12 PM to 2 AM\nFriday – 12 PM to 3 AM\nSaturday – 10 AM to 3 AM\nSunday – 10 AM to 1 AM",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/tara-rose?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.tararosenyc.com/menus/",
+    "website": "https://www.tararosenyc.com/",
+    "instagram": "https://www.instagram.com/tararosenyc/#",
+    "otherInfo": "Bottomless brunch, DJ (9 pm Friday & Saturday)"
+  },
+  {
+    "id": "tavern-on-the-green",
+    "name": "Tavern on the Green",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant, Bar",
+    "neighborhood": "Upper West Side",
+    "address": "67th St & Central Park West, New York, NY 10023",
+    "coordinates": {
+      "lat": 40.773039,
+      "lng": -73.978289
+    },
+    "approxLocation": true,
+    "happyHour": true,
+    "happyHourDetails": "8pm–10pm, Sunday–Thursday (bar counter & lounges only).",
+    "hours": "Monday-Thursday11am-9pm; Friday 11am-10pm; Saturday 9am-10pm; Sunday 9am-9pm",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/tavern-on-the-green?corrid=a2e925e4-f9d1-4e4a-ae1b-c937f7099c99&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.tavernonthegreen.com/menu/",
+    "website": "https://www.tavernonthegreen.com/",
+    "instagram": "https://www.instagram.com/tavernonthegreen/"
+  },
+  {
+    "id": "temple-bar",
+    "name": "Temple Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "NoHo",
+    "address": "332 Lafayette Street, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.725939,
+      "lng": -73.994893
+    },
+    "happyHour": false,
+    "hours": "Sunday: 5pm-12am; Monday-Wednesday: 5pm-1am; Thursday-Saturday: 5pm-2am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/temple-bar",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.templebar.co/",
+    "website": "https://www.templebar.co/",
+    "instagram": "https://www.instagram.com/templebarnyc/",
+    "otherInfo": "Reservations exclusively via Resy (typically released ~2 weeks in advance); cocktail lounge w/ light bites. Dress code"
+  },
+  {
+    "id": "the-binc",
+    "name": "The Binc",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Crown Heights",
+    "address": "627 Franklin Ave, Brooklyn, NY 11238",
+    "coordinates": {
+      "lat": 40.67698,
+      "lng": -73.95554
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Thursday 5pm-7pm https://www.thebinc.com/happy-hour",
+    "hours": "Monday-Thursday5pm-12am; Friday 5pm-2am; Saturday 12pm-2am; Sunday 12pm-12am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Walk-in only (inside); outdoor reservations by phone (4–6pm)",
+    "menuUrl": "https://www.thebinc.com/menu/#drinks",
+    "website": "https://thebinc.com/",
+    "instagram": "https://www.instagram.com/the_binc/"
+  },
+  {
+    "id": "the-campbell-bar",
+    "name": "The Campbell Bar",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "Midtown East",
+    "address": "15 Vanderbilt Avenue (between 42nd Street and 43rd Street),",
+    "coordinates": {
+      "lat": 40.752788,
+      "lng": -73.977789
+    },
+    "happyHour": false,
+    "hours": "Monday – Sunday at 12pm-2am.",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/the-campbell?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.thecampbellnyc.com/menus/",
+    "website": "https://www.thecampbellnyc.com/",
+    "instagram": "https://www.instagram.com/thecampbellnyc",
+    "otherInfo": "Live Jazz: Friday – Saturday at 9pm. Sunday at 6pm."
+  },
+  {
+    "id": "the-dead-rabbit",
+    "name": "The Dead Rabbit",
+    "types": [
+      "Pub",
+      "Cocktail Bar"
+    ],
+    "rawType": "Irish Pub / Cocktail Bar",
+    "neighborhood": "Financial District",
+    "address": "30 Water St, New York, NY 10004",
+    "coordinates": {
+      "lat": 40.703265,
+      "lng": -74.011014
+    },
+    "happyHour": false,
+    "hours": "Taproom: Sun-Thursday11am-2am; Fri-Saturday 11am-3am. Parlor/Green Room: Monday-Thursday4pm-12am; Fri-Saturday 12pm-12am; Sunday 12pm-8pm.",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/the-dead-rabbit",
+      "host": "resy"
+    },
+    "menuUrl": "https://menu.thedeadrabbit.com/",
+    "website": "https://thedeadrabbit.com/",
+    "instagram": "https://www.instagram.com/thedeadrabbitny/"
+  },
+  {
+    "id": "the-domino-room",
+    "name": "The Domino Room",
+    "types": [
+      "Speakeasy"
+    ],
+    "rawType": "Speakeasy bar",
+    "neighborhood": "Yorkville",
+    "address": "1640 2nd Ave, New York, NY 10028",
+    "coordinates": {
+      "lat": 40.777209,
+      "lng": -73.951961
+    },
+    "happyHour": null,
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/the-domino-room?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.thedominoroom.com/menu"
+  },
+  {
+    "id": "the-gin-mill",
+    "name": "The Gin Mill",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Upper West Side",
+    "address": "442 Amsterdam Ave, New York, NY 10024",
+    "coordinates": {
+      "lat": 40.784734,
+      "lng": -73.977481
+    },
+    "happyHour": true,
+    "happyHourDetails": "Every day until 8pm ($5 beer/well drinks/shots; more specials).",
+    "hours": "Sun-Wednesday 11:30am-2am; Thursday-Saturday 11:30am-4am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in Only",
+    "menuUrl": "https://www.theginmillnyc.com/menus/",
+    "website": "https://www.theginmillnyc.com/",
+    "instagram": "https://www.instagram.com/theginmill/",
+    "otherInfo": "Downstairs speakeasy events"
+  },
+  {
+    "id": "the-hidden-pearl",
+    "name": "The Hidden Pearl",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Greenpoint",
+    "address": "621 Manhattan Ave, Brooklyn, NY 11222",
+    "coordinates": {
+      "lat": 40.723576,
+      "lng": -73.950856
+    },
+    "happyHour": false,
+    "hours": "M-Th: 5-10 pm, Fri-Saturday: 5-11 pm, Sun:3-8 pm",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk-in Only",
+    "menuUrl": "https://www.hiddenpearlbk.com/menu-1",
+    "website": "https://www.hiddenpearlbk.com/",
+    "instagram": "https://www.instagram.com/hiddenpearlbk/?hl=en"
+  },
+  {
+    "id": "the-nines",
+    "name": "The Nines",
+    "types": [
+      "Supper Club",
+      "Piano Bar"
+    ],
+    "rawType": "Supper Club / Piano Bar",
+    "neighborhood": "NoHo",
+    "address": "9 Great Jones St, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.727286,
+      "lng": -73.994016
+    },
+    "happyHour": false,
+    "hours": "Sun–Monday 5–1am; Tue–Wednesday 5–2am; Thu–Saturday 5–3am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/thenines?seats=2&date=2026-01-20",
+      "host": "resy"
+    },
+    "menuUrl": "https://static1.squarespace.com/static/6152cf57910fd72bface5783/t/6962e44ab54c666b54e60b82/1768088650609/9s_Web+Menu_260109.pdf",
+    "website": "https://www.ninesnyc.com/",
+    "instagram": "https://www.instagram.com/thenines_nyc/?hl=en"
+  },
+  {
+    "id": "the-penrose-bar",
+    "name": "The Penrose Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "Yorkville",
+    "address": "1590 Second Ave, New York, NY 10028",
+    "coordinates": {
+      "lat": 40.775456,
+      "lng": -73.953184
+    },
+    "happyHour": true,
+    "happyHourDetails": "Weekdays 3pm-7pm (per official site).",
+    "hours": "Monday-Friday 11:30am-4am; Sat-Sunday 9:30am-4am",
+    "reservationPolicy": "mixed",
+    "reservationRaw": "Yes (4-10 via Resy; <4 walk-in)",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/penrose",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.penrosebar.com/",
+    "website": "https://www.penrosebar.com/",
+    "instagram": "https://www.instagram.com/penrosebar/"
+  },
+  {
+    "id": "the-portrait-bar",
+    "name": "The Portrait Bar",
+    "types": [
+      "Bar"
+    ],
+    "rawType": "Bar",
+    "neighborhood": "NoMad",
+    "address": "1 W 28th St, New York, NY 10001",
+    "coordinates": {
+      "lat": 40.745085,
+      "lng": -73.987729
+    },
+    "happyHour": false,
+    "hours": "Monday-Thursday: 5pm- 1am, Friday-Saturday: 5-2 am, Sunday: 5pm-12am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/the-portrait-bar?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.theportraitbar.com/menus/#cocktails",
+    "website": "https://www.theportraitbar.com/",
+    "otherInfo": "Located inside the 5th Avenue Hotel"
+  },
+  {
+    "id": "the-wolfe",
+    "name": "The Wolfe",
+    "types": [
+      "Restaurant",
+      "Sports Bar"
+    ],
+    "rawType": "Restuarant, Sports bar",
+    "neighborhood": "Upper West Side",
+    "address": "425 Amsterdam Ave, New York, NY 10024",
+    "coordinates": {
+      "lat": 40.783964,
+      "lng": -73.977429
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday to Friday from 11:30 am–7 pm, Select bottled beer $5\nSelect draft beer $6\nHouse mixed drinks $7\nSelect wine & classic cocktails $9. https://www.thewolfenyc.com/menus/#happy-hour",
+    "hours": "Mon: 11:30 am – 12:00 am\nTuesday – Wednesday: 11:30 am – 1:00 am\nThursday – Friday: 11:30 am – 2:00 am\nSaturday: 10:00 am – 2:00 am\nSunday:10:00 am – 12:00 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/the-wolfe?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.thewolfenyc.com/menus/#lunch-dinner",
+    "website": "https://www.thewolfenyc.com/",
+    "instagram": "https://www.instagram.com/thewolfenyc/",
+    "otherInfo": "Wednesday night trivia, daily specials"
+  },
+  {
+    "id": "the-wren",
+    "name": "The Wren",
+    "types": [
+      "Bar",
+      "Pub"
+    ],
+    "rawType": "Bar / Pub",
+    "neighborhood": "NoHo",
+    "address": "344 Bowery, New York, NY 10012",
+    "coordinates": {
+      "lat": 40.72631,
+      "lng": -73.992145
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday–Friday 3–7pm, Select cocktails $12, select drafts $2 off, Wine by the glass $10",
+    "hours": "Mon–Thursday 12–1am; Friday 12–2am; Saturday 11am–2am; Sunday 11am–12am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://thewrennyc.com/menu/",
+    "website": "https://thewrennyc.com/",
+    "otherInfo": "Wine Wednesday, all wine bottles $30"
+  },
+  {
+    "id": "thyme-bar",
+    "name": "Thyme Bar",
+    "types": [
+      "Speakeasy"
+    ],
+    "rawType": "Speakeasy bar",
+    "neighborhood": "The Flatiron District",
+    "address": "20 W 23rd St Cellar, New York, NY 10010",
+    "coordinates": {
+      "lat": 40.7417,
+      "lng": -73.990565
+    },
+    "happyHour": true,
+    "happyHourDetails": "Martini Monday, $16 martinis on Mondays",
+    "hours": "Monday: 5 pm - 11 pm\nTuesday - Thursday: 5 pm - 1 am\nFriday - Saturday: 5 pm - 2 am",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/thyme-bar?date=2026-01-06&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.thymebarnyc.com/menu",
+    "website": "https://www.thymebarnyc.com/",
+    "instagram": "https://www.instagram.com/thymebar_nyc/",
+    "otherInfo": "Tasting menu"
+  },
+  {
+    "id": "tigre",
+    "name": "Tigre",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant / Bar",
+    "neighborhood": "Lower East Side",
+    "address": "105 Rivington St, New York, NY 10002",
+    "coordinates": {
+      "lat": 40.719878,
+      "lng": -73.988185
+    },
+    "happyHour": false,
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/tigre?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "website": "https://tigrenyc.com/",
+    "instagram": "https://www.instagram.com/tigre.nyc/"
+  },
+  {
+    "id": "tinys-the-bar-upstairs",
+    "name": "Tiny’s & The Bar Upstairs",
+    "types": [
+      "Restaurant",
+      "Bar"
+    ],
+    "rawType": "Restaurant / Bar",
+    "neighborhood": "TriBeCa",
+    "address": "135 W Broadway, New York, NY 10013",
+    "coordinates": {
+      "lat": 40.716721,
+      "lng": -74.008028
+    },
+    "happyHour": true,
+    "happyHourDetails": "Monday-Sunday: 4pm-6pm, https://www.tinysnyc.com/menus#HappyHour",
+    "hours": "Weekday Lunch 11–3:30; Dinner daily 5–10:30; Weekend Brunch 10–3:30",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/tinys-and-the-bar-upstairs?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.tinysnyc.com/menus/",
+    "website": "https://www.tinysnyc.com/",
+    "instagram": "https://www.instagram.com/tinysnyc/",
+    "otherInfo": "Includes The Bar Upstairs."
+  },
+  {
+    "id": "trailler-park-lounge",
+    "name": "Trailler Park Lounge",
+    "types": [
+      "Bar",
+      "Grill"
+    ],
+    "rawType": "Bar & Grill",
+    "neighborhood": "Chelsea",
+    "address": "271 W 23rd St, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.745279,
+      "lng": -73.997852
+    },
+    "happyHour": false,
+    "hours": "Daily 4pm-2am",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "Walk in only",
+    "menuUrl": "http://trailerparklounge.com/menu/",
+    "website": "https://trailerparklounge.com/",
+    "instagram": "https://www.instagram.com/trailerparknyc/"
+  },
+  {
+    "id": "twist-bar",
+    "name": "Twist Bar",
+    "types": [
+      "Cocktail Bar",
+      "Wine Bar"
+    ],
+    "rawType": "Cocktail / Wine Bar",
+    "neighborhood": "Chelsea",
+    "address": "164 9th Ave, New York, NY 10011",
+    "coordinates": {
+      "lat": 40.744655,
+      "lng": -74.00245
+    },
+    "happyHour": true,
+    "happyHourDetails": "Weekdays 4pm-7pm, Weekends 12pm-4pm, $12 cocktails",
+    "hours": "Tue–Wednesday 4–10; Thursday 4–11; Friday 4–12; Saturday 12–12; Sunday 12–10",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://www.opentable.com/r/twist-bar-new-york?corrid=3c63406e-916f-4aee-9279-1d30af27d76a&avt=eyJ2IjoyLCJtIjowLCJwIjowLCJzIjowLCJuIjowfQ&p=2&sd=2026-01-20T19%3A00%3A00",
+      "host": "opentable"
+    },
+    "menuUrl": "https://www.twistbarnyc.com/menu",
+    "website": "https://www.twistbarnyc.com/",
+    "instagram": "https://www.instagram.com/twistbarnyc/?hl=en"
+  },
+  {
+    "id": "wallse-next-door",
+    "name": "Wallse Next Door",
+    "types": [
+      "Cocktail Bar"
+    ],
+    "rawType": "Cocktail Bar",
+    "neighborhood": "West Village",
+    "address": "713 Washington St, New York, NY 10014",
+    "coordinates": {
+      "lat": 40.735256,
+      "lng": -74.008268
+    },
+    "happyHour": false,
+    "hours": "Tuesday-Saturday 5pm-11:30pm (Sun-Monday closed)",
+    "reservationPolicy": "walk-in",
+    "reservationRaw": "walk-in only",
+    "menuUrl": "https://nextdoor.wallse.com/menu/cocktails-wine-drinks",
+    "website": "https://nextdoor.wallse.com/",
+    "instagram": "https://www.instagram.com/wallsenextdoor/"
+  },
+  {
+    "id": "yves",
+    "name": "Yves",
+    "types": [
+      "French Restaurant",
+      "Bar"
+    ],
+    "rawType": "French Restaurant / Bar",
+    "neighborhood": "TriBeCa",
+    "address": "385 Greenwich St, New York, NY 10013",
+    "coordinates": {
+      "lat": 40.720208,
+      "lng": -74.009908
+    },
+    "happyHour": false,
+    "hours": "Daily 5–10:30; Brunch Sat–Sunday 11–4",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/new-york-ny/venues/yves?date=2026-01-20&seats=2",
+      "host": "resy"
+    },
+    "menuUrl": "https://www.yves-nyc.com/menus",
+    "website": "https://www.yves-nyc.com/"
+  },
+  {
+    "id": "zizi-wine-bar",
+    "name": "Zizi Wine Bar",
+    "types": [
+      "Wine Bar"
+    ],
+    "rawType": "Wine Bar",
+    "neighborhood": "Upper West Side",
+    "address": "2012 Broadway, New York, NY 10023",
+    "coordinates": {
+      "lat": 40.775817,
+      "lng": -73.981867
+    },
+    "happyHour": true,
+    "happyHourDetails": "Every day until 6pm: $9 glasses; 15% off food; 20% off all bottles; 10% off reserve bottles",
+    "reservationPolicy": "reservations",
+    "reservationRaw": "Yes",
+    "booking": {
+      "url": "https://resy.com/cities/ny/venues/zizi-uws",
+      "host": "resy"
+    },
+    "menuUrl": "https://ziziwinebarnyc.com/menus/",
+    "website": "https://zizi.nyc/",
+    "instagram": "https://www.instagram.com/ziziwinebar/"
+  }
+]

@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Mapbox markers wrap our own button; strip default cursor so hover feels right. */
+.mapboxgl-marker {
+  cursor: pointer;
+}

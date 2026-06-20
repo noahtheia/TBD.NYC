@@ -1,0 +1,482 @@
+{
+  "243 W 14th St,New York, NY 10011": {
+    "lat": 40.739511,
+    "lng": -74.001359,
+    "neighborhood": "Chelsea"
+  },
+  "132 9th Ave, New York, NY 10011": {
+    "lat": 40.743565,
+    "lng": -74.003164,
+    "neighborhood": "Chelsea"
+  },
+  "121 St Marks Pl, New York, NY 10009": {
+    "lat": 40.726969,
+    "lng": -73.983389,
+    "neighborhood": "Alphabet City"
+  },
+  "Williamsburg, New York, NY": {
+    "lat": 40.715305,
+    "lng": -73.960434,
+    "neighborhood": "Williamsburg"
+  },
+  "621 Manhattan Ave, Brooklyn, NY 11222": {
+    "lat": 40.723576,
+    "lng": -73.950856,
+    "neighborhood": "Greenpoint"
+  },
+  "35 W 8th St, New York, NY 10011": {
+    "lat": 40.733125,
+    "lng": -73.998074,
+    "neighborhood": "Greenwich Village"
+  },
+  "184 8th Ave, New York, NY 10011": {
+    "lat": 40.742978,
+    "lng": -73.999903,
+    "neighborhood": "Chelsea"
+  },
+  "14B Orchard St, New York, NY": {
+    "lat": 40.715152,
+    "lng": -73.991694,
+    "neighborhood": "Lower East Side"
+  },
+  "52 Grove St, New York, NY 10014": {
+    "lat": 40.73297,
+    "lng": -74.003488,
+    "neighborhood": "West Village"
+  },
+  "332 Lafayette Street, New York, NY 10012": {
+    "lat": 40.725939,
+    "lng": -73.994893,
+    "neighborhood": "NoHo"
+  },
+  "110 Atlantic Ave, Brooklyn, NY 11201": {
+    "lat": 40.690655,
+    "lng": -73.99641,
+    "neighborhood": "Cobble Hill"
+  },
+  "298 Bedford Ave, Brooklyn, NY 11249": {
+    "lat": 40.714269,
+    "lng": -73.96165,
+    "neighborhood": "Williamsburg"
+  },
+  "13 1st Avenue, New York, NY 10003": {
+    "lat": 40.723469,
+    "lng": -73.988601,
+    "neighborhood": "The Bowery"
+  },
+  "160 Prince St, New York, NY 10012": {
+    "lat": 40.725907,
+    "lng": -74.001415,
+    "neighborhood": "SoHo"
+  },
+  "195 Centre St, New York, NY": {
+    "lat": 40.718747,
+    "lng": -73.999552,
+    "neighborhood": "Chinatown"
+  },
+  "121 E 17th St, New York, NY 10003": {
+    "lat": 40.736135,
+    "lng": -73.987739,
+    "neighborhood": "Union Square"
+  },
+  "1590 Second Ave, New York, NY 10028": {
+    "lat": 40.775456,
+    "lng": -73.953184,
+    "neighborhood": "Yorkville"
+  },
+  "30 Water St, New York, NY 10004": {
+    "lat": 40.703265,
+    "lng": -74.011014,
+    "neighborhood": "Financial District"
+  },
+  "442 Amsterdam Ave, New York, NY 10024": {
+    "lat": 40.784734,
+    "lng": -73.977481,
+    "neighborhood": "Upper West Side"
+  },
+  "433 E 6th St, New York, NY 10009": {
+    "lat": 40.725937,
+    "lng": -73.984663,
+    "neighborhood": "Alphabet City"
+  },
+  "115 Allen Street, New York, NY 10002": {
+    "lat": 40.719599,
+    "lng": -73.990541,
+    "neighborhood": "The Bowery"
+  },
+  "134 Eldridge St, New York, NY 10002": {
+    "lat": 40.718879,
+    "lng": -73.99137,
+    "neighborhood": "The Bowery"
+  },
+  "113 St Marks Pl, New York, NY 10009": {
+    "lat": 40.727113,
+    "lng": -73.983755,
+    "neighborhood": "Alphabet City"
+  },
+  "531 Hudson St, New York, NY 10014": {
+    "lat": 40.734257,
+    "lng": -74.006458,
+    "neighborhood": "West Village"
+  },
+  "443 E 6th St, New York, NY 10009": {
+    "lat": 40.725727,
+    "lng": -73.984283,
+    "neighborhood": "Alphabet City"
+  },
+  "67th St & Central Park West, New York, NY": {
+    "lat": 40.773039,
+    "lng": -73.978289,
+    "neighborhood": "Upper West Side"
+  },
+  "680 Columbus Ave, New York, NY 10025": {
+    "lat": 40.791134,
+    "lng": -73.969081,
+    "neighborhood": "Upper West Side"
+  },
+  "60 E 54th St, New York, NY 10022": {
+    "lat": 40.759987,
+    "lng": -73.973158,
+    "neighborhood": "Midtown East"
+  },
+  "70 Pine St (64th Floor), New York, NY 10005": {
+    "lat": 40.706446,
+    "lng": -74.00766,
+    "neighborhood": "Financial District"
+  },
+  "67 W 49th St, New York, NY 10112": {
+    "lat": 40.75923,
+    "lng": -73.9805,
+    "neighborhood": "Rockefeller Center"
+  },
+  "20 7th Ave S, New York, NY 10011": {
+    "lat": 40.737588,
+    "lng": -74.000795,
+    "neighborhood": "West Village"
+  },
+  "349 W 33rd St New York, NY 10001": {
+    "lat": 40.75247,
+    "lng": -73.995883,
+    "neighborhood": "Chelsea"
+  },
+  "92 2nd Ave, New York, NY 10003": {
+    "lat": 40.726947,
+    "lng": -73.988576,
+    "neighborhood": "East Village"
+  },
+  "135 Division St, New York, NY 10002": {
+    "lat": 40.714376,
+    "lng": -73.991167,
+    "neighborhood": "Lower East Side"
+  },
+  "271 W 23rd St, New York, NY 10011": {
+    "lat": 40.745279,
+    "lng": -73.997852,
+    "neighborhood": "Chelsea"
+  },
+  "47 2nd Ave, New York, NY 10003": {
+    "lat": 40.72543,
+    "lng": -73.990227,
+    "neighborhood": "The Bowery"
+  },
+  "713 Washington St, New York, NY 10014": {
+    "lat": 40.735256,
+    "lng": -74.008268,
+    "neighborhood": "West Village"
+  },
+  "627 Franklin Ave, Brooklyn, NY 11238": {
+    "lat": 40.67698,
+    "lng": -73.95554,
+    "neighborhood": "Crown Heights"
+  },
+  "97 1st Ave, New York, NY 10003": {
+    "lat": 40.726373,
+    "lng": -73.986473,
+    "neighborhood": "East Village"
+  },
+  "2012 Broadway, New York, NY 10023": {
+    "lat": 40.775817,
+    "lng": -73.981867,
+    "neighborhood": "Upper West Side"
+  },
+  "424 Amsterdam Ave, New York, NY 10024": {
+    "lat": 40.784157,
+    "lng": -73.977895,
+    "neighborhood": "Upper West Side"
+  },
+  "12 Extra Pl, New York, NY 10003": {
+    "lat": 40.72475,
+    "lng": -73.991446,
+    "neighborhood": "The Bowery"
+  },
+  "138 Orchard St, New York, NY 10002": {
+    "lat": 40.719908,
+    "lng": -73.989133,
+    "neighborhood": "Lower East Side"
+  },
+  "105 Rivington St, New York, NY 10002": {
+    "lat": 40.719878,
+    "lng": -73.988185,
+    "neighborhood": "Lower East Side"
+  },
+  "372 Fulton St, 2nd FL, Brooklyn, NY 11201": {
+    "lat": 40.691427,
+    "lng": -73.987781,
+    "neighborhood": "Downtown Brooklyn"
+  },
+  "951 Amsterdam Ave, New York, NY 10025": {
+    "lat": 40.80079,
+    "lng": -73.965137,
+    "neighborhood": "Manhattan Valley"
+  },
+  "188 Front St, Brooklyn, NY 11201": {
+    "lat": 40.702249,
+    "lng": -73.98493,
+    "neighborhood": "Dumbo"
+  },
+  "510 Hudson St, New York, NY 10014": {
+    "lat": 40.733434,
+    "lng": -74.006119,
+    "neighborhood": "West Village"
+  },
+  "245 Eldridge St, New York, NY 10002": {
+    "lat": 40.722753,
+    "lng": -73.989801,
+    "neighborhood": "The Bowery"
+  },
+  "9 Doyers St, New York, NY 10013": {
+    "lat": 40.714366,
+    "lng": -73.998191,
+    "neighborhood": "Chinatown"
+  },
+  "55 Irving Pl, New York, NY 10003": {
+    "lat": 40.736169,
+    "lng": -73.987371,
+    "neighborhood": "Union Square"
+  },
+  "15 Vanderbilt Avenue, New York, NY": {
+    "lat": 40.752788,
+    "lng": -73.977789,
+    "neighborhood": "Midtown East"
+  },
+  "191 Centre St, New York, NY 10013": {
+    "lat": 40.718658,
+    "lng": -73.999661,
+    "neighborhood": "Chinatown"
+  },
+  "1678 1st Ave, New York, NY 10128": {
+    "lat": 40.777866,
+    "lng": -73.948359,
+    "neighborhood": "Yorkville"
+  },
+  "503 Columbus Ave, New York, NY 10024": {
+    "lat": 40.785267,
+    "lng": -73.972839,
+    "neighborhood": "Upper West Side"
+  },
+  "24 Cortlandt Alley, New York, NY 10013": {
+    "lat": 40.71816,
+    "lng": -74.001956,
+    "neighborhood": "Chinatown"
+  },
+  "1640 2nd Ave, New York, NY 10028": {
+    "lat": 40.777209,
+    "lng": -73.951961,
+    "neighborhood": "Yorkville"
+  },
+  "132 2nd Ave, New York, NY 10002": {
+    "lat": 40.72865,
+    "lng": -73.987381,
+    "neighborhood": "East Village"
+  },
+  "54 Pearl St, New York, NY 10004": {
+    "lat": 40.703442,
+    "lng": -74.011347,
+    "neighborhood": "Financial District"
+  },
+  "25 W 28th St, New York, NY 10001": {
+    "lat": 40.745474,
+    "lng": -73.988908,
+    "neighborhood": "NoMad"
+  },
+  "22 N Loop Rd, Roosevelt Island, NY 10044": {
+    "lat": 40.756086,
+    "lng": -73.955507,
+    "neighborhood": "Roosevelt Island"
+  },
+  "367 Metropolitan Ave, Brooklyn, NY 11211": {
+    "lat": 40.714225,
+    "lng": -73.95567,
+    "neighborhood": "Williamsburg"
+  },
+  "94 Wythe Ave, Brooklyn, NY 11249": {
+    "lat": 40.721666,
+    "lng": -73.958396,
+    "neighborhood": "Williamsburg"
+  },
+  "357 W Broadway (3rd Fl), New York, NY 10013": {
+    "lat": 40.722936,
+    "lng": -74.003053,
+    "neighborhood": "SoHo"
+  },
+  "29 Cornelia St, New York, NY 10014": {
+    "lat": 40.731445,
+    "lng": -74.002465,
+    "neighborhood": "West Village"
+  },
+  "53 Spring St, New York, NY 10012": {
+    "lat": 40.722233,
+    "lng": -73.996583,
+    "neighborhood": "Nolita"
+  },
+  "11 Madison Ave, New York, NY 10010": {
+    "lat": 40.741655,
+    "lng": -73.986729,
+    "neighborhood": "The Flatiron District"
+  },
+  "222 Smith St, Brooklyn, NY 11201": {
+    "lat": 40.68409,
+    "lng": -73.992419,
+    "neighborhood": "Carroll Gardens"
+  },
+  "364 Atlantic Ave, Brooklyn, NY 11217": {
+    "lat": 40.68733,
+    "lng": -73.986342,
+    "neighborhood": "Boerum Hill"
+  },
+  "265 E 78th St, New York, NY 10075": {
+    "lat": 40.77293,
+    "lng": -73.955818,
+    "neighborhood": "Upper East Side"
+  },
+  "244 3rd Ave, New York, NY 10010": {
+    "lat": 40.73717,
+    "lng": -73.984656,
+    "neighborhood": "Gramercy Park"
+  },
+  "385 Greenwich St, New York, NY 10013": {
+    "lat": 40.720208,
+    "lng": -74.009908,
+    "neighborhood": "TriBeCa"
+  },
+  "2 Ave of the Americas, New York, NY 10013": {
+    "lat": 40.71926,
+    "lng": -74.004875,
+    "neighborhood": "TriBeCa"
+  },
+  "135 W Broadway, New York, NY 10013": {
+    "lat": 40.716721,
+    "lng": -74.008028,
+    "neighborhood": "TriBeCa"
+  },
+  "344 Bowery, New York, NY 10012": {
+    "lat": 40.72631,
+    "lng": -73.992145,
+    "neighborhood": "NoHo"
+  },
+  "359 Bowery, New York, NY 10003": {
+    "lat": 40.726877,
+    "lng": -73.991352,
+    "neighborhood": "The Bowery"
+  },
+  "100 2nd Ave, New York, NY 10003": {
+    "lat": 40.727145,
+    "lng": -73.988421,
+    "neighborhood": "East Village"
+  },
+  "3 E 28th St, New York, NY 10016": {
+    "lat": 40.744539,
+    "lng": -73.986591,
+    "neighborhood": "Rose Hill"
+  },
+  "19 E 26th St, New York, NY 10010": {
+    "lat": 40.743107,
+    "lng": -73.987099,
+    "neighborhood": "Rose Hill"
+  },
+  "519 2nd Ave, New York, NY 10016": {
+    "lat": 40.741641,
+    "lng": -73.978466,
+    "neighborhood": "Kips Bay"
+  },
+  "34 E 4th St, New York, NY 10003": {
+    "lat": 40.72729,
+    "lng": -73.992281,
+    "neighborhood": "NoHo"
+  },
+  "1 Perry St, New York, NY 10014": {
+    "lat": 40.735967,
+    "lng": -74.000928,
+    "neighborhood": "West Village"
+  },
+  "164 9th Ave, New York, NY 10011": {
+    "lat": 40.744655,
+    "lng": -74.00245,
+    "neighborhood": "Chelsea"
+  },
+  "22 W 8th St, New York, NY": {
+    "lat": 40.73266,
+    "lng": -73.997662,
+    "neighborhood": "Greenwich Village"
+  },
+  "Greenwich Village, New York, NY": {
+    "lat": 40.757323,
+    "lng": -74.000839,
+    "neighborhood": "Hell's Kitchen"
+  },
+  "9 Great Jones St, New York, NY 10012": {
+    "lat": 40.727286,
+    "lng": -73.994016,
+    "neighborhood": "NoHo"
+  },
+  "35 E 76th St, New York, NY 10021": {
+    "lat": 40.774345,
+    "lng": -73.963137,
+    "neighborhood": "Lenox Hill"
+  },
+  "1 W 28th St, New York, NY 10001": {
+    "lat": 40.745085,
+    "lng": -73.987729,
+    "neighborhood": "NoMad"
+  },
+  "425 Amsterdam Ave, New York, NY 10024": {
+    "lat": 40.783964,
+    "lng": -73.977429,
+    "neighborhood": "Upper West Side"
+  },
+  "384 3rd Ave, New York, NY 10016": {
+    "lat": 40.741797,
+    "lng": -73.981311,
+    "neighborhood": "Kips Bay"
+  },
+  "20 W 23rd St Cellar, New York, NY 10010": {
+    "lat": 40.7417,
+    "lng": -73.990565,
+    "neighborhood": "The Flatiron District"
+  },
+  "2 E 55th St, New York, NY 10022": {
+    "lat": 40.761283,
+    "lng": -73.974459,
+    "neighborhood": "Midtown East"
+  },
+  "99 Prince St, New York, NY 10012": {
+    "lat": 40.724817,
+    "lng": -73.998757,
+    "neighborhood": "SoHo"
+  },
+  "24 Minetta Ln, New York, NY 10012": {
+    "lat": 40.7305,
+    "lng": -74.00126,
+    "neighborhood": "Greenwich Village"
+  },
+  "570 Hudson St, New York, NY 10014": {
+    "lat": 40.735701,
+    "lng": -74.00577,
+    "neighborhood": "West Village"
+  },
+  "140 W Houston St,New York, NY 10012": {
+    "lat": 40.728032,
+    "lng": -74.001664,
+    "neighborhood": "Greenwich Village"
+  }
+}
