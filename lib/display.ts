@@ -1,4 +1,25 @@
-import type { BookingHost, ReservationPolicy } from "@/types/venue";
+import type { BookingHost, Category, PriceLevel, ReservationPolicy } from "@/types/venue";
+
+export const CATEGORY_LABEL: Record<Category, string> = {
+  bar: "Bars",
+  restaurant: "Restaurants",
+};
+
+export const CATEGORY_OPTIONS: { value: Category; label: string }[] = [
+  { value: "bar", label: "Bars" },
+  { value: "restaurant", label: "Restaurants" },
+];
+
+export const PRICE_OPTIONS: { value: PriceLevel; label: string }[] = [
+  { value: 1, label: "$" },
+  { value: 2, label: "$$" },
+  { value: 3, label: "$$$" },
+  { value: 4, label: "$$$$" },
+];
+
+export function priceLabel(level?: PriceLevel): string {
+  return level ? "$".repeat(level) : "";
+}
 
 export const RESERVATION_LABEL: Record<ReservationPolicy, string> = {
   reservations: "Reservations",

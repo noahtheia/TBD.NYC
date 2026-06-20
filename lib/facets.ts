@@ -1,10 +1,12 @@
-import type { Facets, ReservationPolicy, Venue } from "@/types/venue";
+import type { Category, Facets, ReservationPolicy, Venue } from "@/types/venue";
 
 /** Derive the full set of filter options + counts from the dataset (not the
  *  filtered subset), so options never disappear while filtering. */
 export function computeFacets(venues: Venue[]): Facets {
   const neighborhoods = [
-    ...new Set(venues.map((v) => v.neighborhood).filter((n): n is string => Boolean(n))),
+    ...new Set(
+      venues.flatMap((v) => v.locations.map((l) => l.neighborhood)).filter((n): n is string => Boolean(n))
+    ),
   ].sort((a, b) => a.localeCompare(b));
 
   const types = [...new Set(venues.flatMap((v) => v.types))].sort((a, b) =>
@@ -19,18 +21,30 @@ export function computeFacets(venues: Venue[]): Facets {
     mixed: 0,
     unknown: 0,
   };
+  const cCount: Record<Category, number> = { bar: 0, restaurant: 0 };
+  const pCount: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0 };
   let happyHour = 0;
 
   for (const v of venues) {
-    if (v.neighborhood) nCount[v.neighborhood] = (nCount[v.neighborhood] ?? 0) + 1;
+    const hoods = new Set(v.locations.map((l) => l.neighborhood).filter(Boolean) as string[]);
+    for (const h of hoods) nCount[h] = (nCount[h] ?? 0) + 1;
     for (const t of v.types) tCount[t] = (tCount[t] ?? 0) + 1;
     rCount[v.reservationPolicy] = (rCount[v.reservationPolicy] ?? 0) + 1;
+    cCount[v.category] = (cCount[v.category] ?? 0) + 1;
+    if (v.priceLevel) pCount[v.priceLevel] = (pCount[v.priceLevel] ?? 0) + 1;
     if (v.happyHour === true) happyHour++;
   }
 
   return {
     neighborhoods,
     types,
-    counts: { neighborhoods: nCount, types: tCount, reservation: rCount, happyHour },
+    counts: {
+      neighborhoods: nCount,
+      types: tCount,
+      reservation: rCount,
+      category: cCount,
+      price: pCount,
+      happyHour,
+    },
   };
 }

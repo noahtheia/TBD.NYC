@@ -6,7 +6,7 @@ import { EMPTY_FILTERS, type Filters, type ReservationPolicy } from "@/types/ven
 import { buildQuery, parseFilters } from "@/lib/url-state";
 import { useDebouncedValue } from "./useDebouncedValue";
 
-type ListFilterKey = "neighborhoods" | "types" | "reservation";
+type StringListKey = "neighborhoods" | "types" | "reservation" | "categories";
 
 /**
  * Owns the shareable explore state (filters + search + open venue), mirrored to
@@ -46,14 +46,31 @@ export function useExploreState() {
     () => setFilters((f) => ({ ...f, happyHourOnly: !f.happyHourOnly })),
     []
   );
+  const toggleOpenNow = useCallback(
+    () => setFilters((f) => ({ ...f, openNow: !f.openNow })),
+    []
+  );
+  const toggleOpenLate = useCallback(
+    () => setFilters((f) => ({ ...f, openLate: !f.openLate })),
+    []
+  );
 
-  const toggleFilterValue = useCallback((key: ListFilterKey, value: string) => {
+  const toggleFilterValue = useCallback((key: StringListKey, value: string) => {
     setFilters((f) => {
       const current = f[key] as string[];
       const next = current.includes(value)
         ? current.filter((v) => v !== value)
         : [...current, value];
       return { ...f, [key]: next };
+    });
+  }, []);
+
+  const togglePrice = useCallback((value: number) => {
+    setFilters((f) => {
+      const next = f.prices.includes(value as 1 | 2 | 3 | 4)
+        ? f.prices.filter((p) => p !== value)
+        : [...f.prices, value as 1 | 2 | 3 | 4];
+      return { ...f, prices: next };
     });
   }, []);
 
@@ -68,7 +85,10 @@ export function useExploreState() {
   return {
     filters,
     toggleHappyHour,
+    toggleOpenNow,
+    toggleOpenLate,
     toggleFilterValue,
+    togglePrice,
     clearFilters,
     searchInput,
     setSearchInput,

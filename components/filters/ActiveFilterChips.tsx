@@ -1,7 +1,11 @@
 "use client";
 
 import type { Filters } from "@/types/venue";
-import { RESERVATION_OPTIONS } from "@/lib/display";
+import {
+  CATEGORY_LABEL,
+  RESERVATION_OPTIONS,
+  priceLabel,
+} from "@/lib/display";
 
 const RESERVATION_LABELS = Object.fromEntries(
   RESERVATION_OPTIONS.map((o) => [o.value, o.label])
@@ -10,10 +14,13 @@ const RESERVATION_LABELS = Object.fromEntries(
 type Props = {
   filters: Filters;
   onToggleHappyHour: () => void;
+  onToggleOpenNow: () => void;
+  onToggleOpenLate: () => void;
   onToggleFilterValue: (
-    key: "neighborhoods" | "types" | "reservation",
+    key: "neighborhoods" | "types" | "reservation" | "categories",
     value: string
   ) => void;
+  onTogglePrice: (value: number) => void;
   onClear: () => void;
 };
 
@@ -38,19 +45,28 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
 export default function ActiveFilterChips({
   filters,
   onToggleHappyHour,
+  onToggleOpenNow,
+  onToggleOpenLate,
   onToggleFilterValue,
+  onTogglePrice,
   onClear,
 }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {filters.happyHourOnly && (
-        <Chip label="Happy hour" onRemove={onToggleHappyHour} />
-      )}
+      {filters.openNow && <Chip label="Open now" onRemove={onToggleOpenNow} />}
+      {filters.happyHourOnly && <Chip label="Happy hour" onRemove={onToggleHappyHour} />}
+      {filters.openLate && <Chip label="Open late" onRemove={onToggleOpenLate} />}
+      {filters.categories.map((c) => (
+        <Chip key={`c-${c}`} label={CATEGORY_LABEL[c]} onRemove={() => onToggleFilterValue("categories", c)} />
+      ))}
       {filters.neighborhoods.map((n) => (
         <Chip key={`h-${n}`} label={n} onRemove={() => onToggleFilterValue("neighborhoods", n)} />
       ))}
       {filters.types.map((t) => (
         <Chip key={`t-${t}`} label={t} onRemove={() => onToggleFilterValue("types", t)} />
+      ))}
+      {filters.prices.map((p) => (
+        <Chip key={`p-${p}`} label={priceLabel(p)} onRemove={() => onTogglePrice(p)} />
       ))}
       {filters.reservation.map((r) => (
         <Chip

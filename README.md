@@ -1,9 +1,10 @@
 # TBD.NYC — NYC Bars & Happy Hours
 
-An interactive, two-pane map of curated New York City bars and happy hours.
+An interactive, two-pane map of ~500 curated New York City bars and restaurants.
 Browse a scrollable list of venues on the left and an interactive Mapbox map on
-the right — hover to highlight, click for full details. Filter by happy hour,
-neighborhood, venue type, and reservation policy, or search by name.
+the right — hover to highlight, click for full details. Filter by open-now,
+happy hour, open-late, category, neighborhood, type, price, and reservations, or
+search by name.
 
 Directionally inspired by Resy's "Restaurants near New York" view and The
 Infatuation's neighborhood guides.
@@ -18,16 +19,23 @@ Infatuation's neighborhood guides.
 
 - Two-pane explore view (venue list + interactive map), responsive to a
   list/map toggle on mobile
-- **Map ⇄ list sync**: hovering a card highlights its pin and vice-versa;
-  clicking flies the map to the venue and opens its details
-- **Filters**: happy hour, neighborhood, venue type, reservations vs walk-in —
-  applied to both the list and the map
+- **Clustered map ⇄ list sync**: pins cluster at low zoom and expand on
+  zoom-in; hovering a card highlights its pin and vice-versa; clicking flies the
+  map to the venue and opens its details. Bars and restaurants use distinct pins.
+- **Structured hours** (from Google Places): an **Open now** badge + filter, an
+  **Open late** filter, a live "Open · until 2 AM / Closed · opens 5 PM" status,
+  and a Mon–Sun hours table in the detail view
+- **Happy-hour now** status from structured happy-hour windows
+- **Ratings & price** (★ and $–$$$$) from Google, shown on cards and details
+- **Multi-location venues**: a pin per location, with per-location hours
+- **Filters**: open now, happy hour, open late, category (bars/restaurants),
+  neighborhood, type, price, reservations — applied to both list and map, with
+  active filter chips and per-option counts
 - **Search** across venue name, type, and neighborhood
 - **Detail view**: a slide-over drawer plus a shareable, statically-generated
-  `/venue/[id]` page (with booking, menu, website, Instagram, and directions links)
+  `/venue/[id]` page (booking, menu, website, Instagram, directions)
 - **Venue photos**: scraped from each site's Open Graph image at build time, with
   a graceful gradient fallback
-- **Active filter chips** and per-option counts in the filter dropdowns
 - **Share button** + Open Graph metadata and a generated social image for nice
   link previews
 - Filters/search/open-venue are mirrored to the URL for shareable links
@@ -47,6 +55,8 @@ Infatuation's neighborhood guides.
    # NEXT_PUBLIC_MAPBOX_TOKEN=pk.xxxxx
    ```
    Tip: restrict the token to your domain(s) in the Mapbox dashboard.
+   (Only the Mapbox token is needed to *run* the app — `data/venues.json` is
+   already generated. `GOOGLE_PLACES_API_KEY` is only needed to regenerate data.)
 3. Run the dev server:
    ```bash
    npm run dev
@@ -55,31 +65,37 @@ Infatuation's neighborhood guides.
 
 ## Data
 
-The venue data lives in `data/venues.json` and is **generated** from the source
-spreadsheet — do not edit it by hand.
+The venue data lives in `data/venues.json` and is **generated** — do not edit it
+by hand. It contains **~506 venues** (97 bars + 409 restaurants) enriched via the
+Google Places API for standardized hours, location, rating, and price.
 
 - `data/source/HH_Bar_Restaurant_Information.xlsx` — the original spreadsheet
-- `data/source/bars.raw.json` — a parsed snapshot of the spreadsheet's Bars sheet
-- `scripts/build-data.mjs` — normalizes the raw rows (types, reservations, happy
-  hour, links), **geocodes** each address via the Mapbox Geocoding API, and
-  **scrapes** each website's Open Graph image into `photoUrl`, writing
-  `data/venues.json`
-- `scripts/geocode-cache.json` / `scripts/og-cache.json` — committed caches of
-  geocoding and og:image results, so re-runs are stable and don't re-fetch
+- `data/source/bars.raw.json` / `restaurants.raw.json` — parsed snapshots of the
+  two sheets
+- `scripts/build-data.mjs` — the pipeline: parses the snapshots, resolves each
+  venue via **Google Places (New) Text Search** (restricted to NYC), maps the
+  structured `regularOpeningHours`, address, coordinates, rating, and price level,
+  reverse-geocodes the **neighborhood** via Mapbox, parses **happy-hour windows**
+  (`scripts/parse-happy-hour.mjs`), and scrapes each site's `og:image` for photos
+- `scripts/places.mjs` — Google Places helper + converters
+- `scripts/places-cache.json` / `geocode-cache.json` / `og-cache.json` — committed
+  caches, so rebuilds are deterministic and don't re-hit the APIs
 
-Regenerate the data with:
+Regenerate the data (needs `GOOGLE_PLACES_API_KEY` + `NEXT_PUBLIC_MAPBOX_TOKEN`):
 ```bash
 npm run build:data   # node --env-file=.env.local scripts/build-data.mjs
 ```
+`GOOGLE_PLACES_API_KEY` is **build-time only** — results are baked into
+`data/venues.json`, so the key is never shipped to the browser or committed.
 
-### Current scope
+### Notes
 
-Of the source spreadsheet, **97 bars have complete details including a street
-address** and are mapped here. Names-only bars and the restaurants sheet (no
-addresses) are out of scope until location data is available — the `Venue`
-schema (`types/venue.ts`) leaves room to add them. The data has no cuisine,
-price, rating, or photo columns, so filters are based on the available fields
-(happy hour, neighborhood, type, reservations).
+- Bars come from the curated spreadsheet (happy hour, reservations, booking, menu,
+  Instagram) enriched with Google location/hours/rating/price.
+- Restaurants are resolved from names via Google Places with a confidence gate;
+  low-confidence matches are skipped (15 of 424). They have no happy-hour /
+  reservation data.
+- ~8 venues have multiple locations (e.g. Talea, Apotheke) — each is a pin.
 
 ## Project structure
 

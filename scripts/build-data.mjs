@@ -1,107 +1,87 @@
-// Builds data/venues.json from the parsed spreadsheet snapshot (data/source/bars.raw.json).
+// Builds data/venues.json by enriching the spreadsheet venues with Google Places.
 //
-//   1. Filters to bars that have a Location (the mappable set).
-//   2. Normalizes messy free-text fields (types, reservations, happy hour, links).
-//   3. Geocodes each address with the Mapbox Geocoding API (v6 forward), caching
-//      results in scripts/geocode-cache.json so re-runs are stable and free.
-//   4. Scrapes each venue website's og:image for photoUrl, cached in
-//      scripts/og-cache.json.
+//   - Bars: spreadsheet fields (happy hour, reservations, booking, menu, IG) +
+//     Google Places (location, structured hours, rating, price) per address.
+//   - Restaurants: names-only -> resolved via Google Places (location, hours,
+//     rating, price, type) with a confidence gate.
+//   - Neighborhood from Mapbox reverse geocoding (consistent NYC names).
+//   - Photos from website og:image. Everything cached for free rebuilds.
 //
-// Run:  node --env-file=.env.local scripts/build-data.mjs   (or: npm run build:data)
-//
-// Requires NEXT_PUBLIC_MAPBOX_TOKEN in the environment (or .env.local via --env-file).
+// Run:  node --env-file=.env.local scripts/build-data.mjs   (npm run build:data)
+// Requires GOOGLE_PLACES_API_KEY and NEXT_PUBLIC_MAPBOX_TOKEN.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import {
+  searchPlace,
+  flushPlacesCache,
+  placesCacheSize,
+  convertOpeningHours,
+  mapPriceLevel,
+  googleNeighborhood,
+  googleBorough,
+} from "./places.mjs";
+import { parseHappyHourWindows } from "./parse-happy-hour.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const RAW_PATH = join(ROOT, "data", "source", "bars.raw.json");
-const CACHE_PATH = join(__dirname, "geocode-cache.json");
+const BARS_PATH = join(ROOT, "data", "source", "bars.raw.json");
+const RESTAURANTS_PATH = join(ROOT, "data", "source", "restaurants.raw.json");
+const GEO_CACHE_PATH = join(__dirname, "geocode-cache.json");
 const OG_CACHE_PATH = join(__dirname, "og-cache.json");
 const OUT_PATH = join(ROOT, "data", "venues.json");
 
-const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-if (!TOKEN) {
-  console.error(
-    "Missing NEXT_PUBLIC_MAPBOX_TOKEN. Run: node --env-file=.env.local scripts/build-data.mjs"
-  );
+const MAPBOX = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+if (!process.env.GOOGLE_PLACES_API_KEY || !MAPBOX) {
+  console.error("Missing GOOGLE_PLACES_API_KEY and/or NEXT_PUBLIC_MAPBOX_TOKEN.");
   process.exit(1);
 }
 
-// ---------------------------------------------------------------------------
-// Normalization helpers
-// ---------------------------------------------------------------------------
+// --- Concurrency pool -----------------------------------------------------
+async function mapPool(items, concurrency, fn) {
+  const results = new Array(items.length);
+  let i = 0;
+  async function worker() {
+    while (i < items.length) {
+      const idx = i++;
+      results[idx] = await fn(items[idx], idx);
+    }
+  }
+  await Promise.all(Array.from({ length: concurrency }, worker));
+  return results;
+}
 
+// --- Type normalization (bars) -------------------------------------------
 const TYPE_CANON = {
-  bar: "Bar",
-  "cocktail bar": "Cocktail Bar",
-  cocktail: "Cocktail Bar",
-  "cocktail lounge": "Cocktail Bar",
-  "wine bar": "Wine Bar",
-  wine: "Wine Bar",
-  "natural wine bar": "Wine Bar",
-  "natural wine": "Wine Bar",
-  restaurant: "Restaurant",
-  restuarant: "Restaurant",
-  resturant: "Restaurant",
-  piano: "Piano Bar",
-  brewery: "Brewery",
-  "beer garden": "Beer Garden",
-  "beer hall": "Beer Hall",
-  taproom: "Taproom",
-  speakeasy: "Speakeasy",
-  "speakeasy bar": "Speakeasy",
-  rooftop: "Rooftop Bar",
-  "rooftop bar": "Rooftop Bar",
-  "hotel bar": "Hotel Bar",
-  hotel: "Hotel Bar",
-  cafe: "Cafe",
-  "café": "Cafe",
-  coffee: "Cafe",
-  "coffee shop": "Cafe",
-  "oyster bar": "Oyster Bar",
-  "raw bar": "Oyster Bar",
-  "sports bar": "Sports Bar",
-  "dive bar": "Dive Bar",
-  dive: "Dive Bar",
-  lounge: "Lounge",
-  pub: "Pub",
-  gastropub: "Gastropub",
-  "irish pub": "Pub",
-  club: "Nightclub",
-  nightclub: "Nightclub",
-  "piano bar": "Piano Bar",
-  "tiki bar": "Tiki Bar",
-  tiki: "Tiki Bar",
-  "karaoke bar": "Karaoke Bar",
-  karaoke: "Karaoke Bar",
-  bistro: "Restaurant",
+  bar: "Bar", "cocktail bar": "Cocktail Bar", cocktail: "Cocktail Bar",
+  "cocktail lounge": "Cocktail Bar", "wine bar": "Wine Bar", wine: "Wine Bar",
+  "natural wine bar": "Wine Bar", "natural wine": "Wine Bar",
+  restaurant: "Restaurant", restuarant: "Restaurant", resturant: "Restaurant",
+  piano: "Piano Bar", brewery: "Brewery", "beer garden": "Beer Garden",
+  "beer hall": "Beer Hall", taproom: "Taproom", speakeasy: "Speakeasy",
+  "speakeasy bar": "Speakeasy", rooftop: "Rooftop Bar", "rooftop bar": "Rooftop Bar",
+  "hotel bar": "Hotel Bar", hotel: "Hotel Bar", cafe: "Cafe", "café": "Cafe",
+  coffee: "Cafe", "coffee shop": "Cafe", "oyster bar": "Oyster Bar",
+  "raw bar": "Oyster Bar", "sports bar": "Sports Bar", "dive bar": "Dive Bar",
+  dive: "Dive Bar", lounge: "Lounge", pub: "Pub", gastropub: "Gastropub",
+  "irish pub": "Pub", club: "Nightclub", nightclub: "Nightclub",
+  "piano bar": "Piano Bar", "tiki bar": "Tiki Bar", tiki: "Tiki Bar",
+  "karaoke bar": "Karaoke Bar", karaoke: "Karaoke Bar", bistro: "Restaurant",
 };
-
 const titleCase = (s) =>
-  s
-    .toLowerCase()
-    .split(/\s+/)
-    .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
-    .join(" ");
-
+  s.toLowerCase().split(/\s+/).map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
 function normalizeTypes(raw) {
   if (!raw || !raw.trim()) return [];
-  const tokens = raw
-    .split(/\/\/|\/|,|&| and /gi)
-    .map((t) => t.trim())
-    .filter(Boolean);
   const out = [];
-  for (const tok of tokens) {
-    const key = tok.toLowerCase().replace(/\s+/g, " ").trim();
-    const canon = TYPE_CANON[key] || titleCase(tok);
+  for (const tok of raw.split(/\/\/|\/|,|&| and /gi).map((t) => t.trim()).filter(Boolean)) {
+    const canon = TYPE_CANON[tok.toLowerCase().replace(/\s+/g, " ").trim()] || titleCase(tok);
     if (canon && !out.includes(canon)) out.push(canon);
   }
   return out;
 }
 
+// --- Other spreadsheet field helpers -------------------------------------
 function classifyReservation(raw) {
   if (!raw || !raw.trim()) return { policy: "unknown", raw: undefined };
   const lc = raw.toLowerCase();
@@ -113,7 +93,6 @@ function classifyReservation(raw) {
   else if (hasYes) policy = "reservations";
   return { policy, raw: raw.trim() };
 }
-
 function parseHappyHour(raw) {
   const t = (raw || "").trim().toLowerCase();
   if (!t) return null;
@@ -121,13 +100,11 @@ function parseHappyHour(raw) {
   if (t.startsWith("no")) return false;
   return null;
 }
-
 const URL_RE = /https?:\/\/[^\s,]+/i;
 const firstUrl = (raw) => {
   const m = (raw || "").match(URL_RE);
   return m ? m[0].replace(/[.,;]+$/, "") : undefined;
 };
-
 function parseBooking(raw) {
   const url = firstUrl(raw);
   if (!url) return undefined;
@@ -138,103 +115,87 @@ function parseBooking(raw) {
   else if (lc.includes("tock")) host = "tock";
   return { url, host };
 }
-
 function slugify(name) {
-  return name
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+  return name.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
+// --- Location parsing (one or many addresses from the Locations field) ----
 const STREET_SUFFIX =
   "St|Street|Ave|Avenue|Av|Blvd|Boulevard|Pl|Place|Rd|Road|Way|Sq|Square|Broadway|Bowery|Ln|Lane|Dr|Drive|Ct|Court|Ter|Terrace|Pkwy|Parkway|Plz|Plaza|Walk|Row";
 
-// Build a geocoding query + display address from the free-text Locations field.
-// Handles single addresses, "Label: 123 Main St" prefixes, multiple concatenated
-// addresses (uses the first), and neighborhood-only multi-location strings.
-function parseLocation(locations) {
-  // First line, with any leading "Neighborhood:" label stripped (letters before
-  // the colon, never a street number).
-  let primary = locations.split(/\r?\n/)[0].trim();
-  primary = primary.replace(/^\s*[A-Za-z][A-Za-z .'’/&-]*:\s*/, "").trim();
-  const address = primary;
-
-  // 1. First complete address that ends in a 5-digit ZIP.
-  const withZip = primary.match(/\d+\b[\s\S]*?\b\d{5}/);
-  if (withZip) return { query: withZip[0].trim(), address, approx: false };
-
-  // 2. First street address (no ZIP) -> append city/state.
+function parseOneLocation(seg) {
+  let s = seg.replace(/^\s*[A-Za-z][A-Za-z .'’/&-]*:\s*/, "").trim();
+  const withZip = s.match(/\d+\b[\s\S]*?\b\d{5}/);
+  if (withZip) return { query: withZip[0].trim(), address: s, approx: false };
   const street = new RegExp(`\\d{1,5}\\s+[\\w.'’\\s-]*?\\b(?:${STREET_SUFFIX})\\b\\.?`, "i");
-  const stMatch = primary.match(street);
-  if (stMatch)
-    return { query: `${stMatch[0].trim()}, New York, NY`, address, approx: false };
-
-  // 3. Neighborhood-only (e.g. "Williamsburg, Cobble Hill, ...") -> approximate pin.
-  const firstSeg = primary.split(",")[0].trim();
-  return { query: `${firstSeg}, New York, NY`, address, approx: true };
+  const m = s.match(street);
+  if (m) return { query: `${m[0].trim()}, New York, NY`, address: s, approx: false };
+  const firstSeg = s.split(",")[0].trim();
+  return { query: `${firstSeg}, New York, NY`, address: firstSeg, approx: true };
 }
 
-// ---------------------------------------------------------------------------
-// Geocoding (Mapbox v6 forward) with on-disk cache
-// ---------------------------------------------------------------------------
+function parseLocations(locations) {
+  const line = locations.split(/\r?\n/)[0].trim();
+  if (!/\d/.test(line)) {
+    // No street numbers: treat as a neighborhood list (multi-location, approx).
+    return line.split(",").map((s) => s.trim()).filter(Boolean)
+      .map((seg) => ({ query: `${seg}, New York, NY`, address: seg, approx: true }));
+  }
+  const parts = line.split(/;/).map((s) => s.trim()).filter(Boolean);
+  const segs = [];
+  for (const part of parts) {
+    // Split a run of labeled addresses: "A: addr  B: addr"
+    segs.push(...part.split(/\s+(?=[A-Z][A-Za-z'’ ]{1,22}:\s)/).map((s) => s.trim()).filter(Boolean));
+  }
+  return segs.map(parseOneLocation);
+}
 
-const cache = existsSync(CACHE_PATH)
-  ? JSON.parse(readFileSync(CACHE_PATH, "utf8"))
-  : {};
+// --- Caches: Mapbox geocoding + og:image ---------------------------------
+const geoCache = existsSync(GEO_CACHE_PATH) ? JSON.parse(readFileSync(GEO_CACHE_PATH, "utf8")) : {};
+const ogCache = existsSync(OG_CACHE_PATH) ? JSON.parse(readFileSync(OG_CACHE_PATH, "utf8")) : {};
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function reverseGeocodeNeighborhood(lat, lng) {
+  const key = `rev:${lat.toFixed(5)},${lng.toFixed(5)}`;
+  if (key in geoCache) return geoCache[key];
+  let hood = null;
+  try {
+    const url = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lng}&latitude=${lat}&access_token=${MAPBOX}&types=neighborhood,locality,place&limit=1`;
+    const res = await fetch(url);
+    if (res.ok) {
+      const j = await res.json();
+      const ctx = j.features?.[0]?.properties?.context || {};
+      hood = ctx.neighborhood?.name || ctx.locality?.name || ctx.place?.name || null;
+    }
+  } catch {
+    /* ignore */
+  }
+  geoCache[key] = hood;
+  return hood;
+}
 
-async function geocode(query) {
-  if (cache[query]) return cache[query];
-  const url =
-    `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(query)}` +
-    `&access_token=${TOKEN}&country=us&limit=1&proximity=-73.98,40.74`;
+async function mapboxForward(query) {
+  if (query in geoCache) return geoCache[query];
   let result = null;
-  for (let attempt = 0; attempt < 2 && !result; attempt++) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      const feat = json.features?.[0];
+  try {
+    const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(query)}&access_token=${MAPBOX}&country=us&limit=1&proximity=-73.98,40.74`;
+    const res = await fetch(url);
+    if (res.ok) {
+      const feat = (await res.json()).features?.[0];
       if (feat) {
         const c = feat.properties.coordinates;
         const ctx = feat.properties.context || {};
-        result = {
-          lat: c.latitude,
-          lng: c.longitude,
-          neighborhood:
-            ctx.neighborhood?.name || ctx.locality?.name || ctx.place?.name || null,
-        };
-      } else {
-        result = { lat: null, lng: null, neighborhood: null };
-      }
-    } catch (err) {
-      if (attempt === 1) {
-        console.warn(`  ! geocode failed for "${query}": ${err.message}`);
-        result = { lat: null, lng: null, neighborhood: null };
-      } else {
-        await sleep(500);
+        result = { lat: c.latitude, lng: c.longitude, neighborhood: ctx.neighborhood?.name || ctx.locality?.name || null };
       }
     }
+  } catch {
+    /* ignore */
   }
-  cache[query] = result;
-  await sleep(120); // be gentle with the geocoding API
+  geoCache[query] = result;
   return result;
 }
 
-// ---------------------------------------------------------------------------
-// Photos: scrape Open Graph image from each venue's website (cached)
-// ---------------------------------------------------------------------------
-
-const ogCache = existsSync(OG_CACHE_PATH)
-  ? JSON.parse(readFileSync(OG_CACHE_PATH, "utf8"))
-  : {};
-
 function extractOgImage(html, baseUrl) {
-  // Look for og:image / twitter:image in either attribute order.
   const patterns = [
     /<meta[^>]+property=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["']/i,
     /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image(?::secure_url)?["']/i,
@@ -247,123 +208,192 @@ function extractOgImage(html, baseUrl) {
       try {
         const abs = new URL(m[1].trim(), baseUrl).href;
         if (abs.startsWith("http")) return abs;
-      } catch {
-        /* ignore malformed url */
-      }
+      } catch { /* ignore */ }
     }
   }
   return null;
 }
-
 async function fetchOgImage(website) {
-  if (!website) return null;
-  if (website in ogCache) return ogCache[website];
+  if (!website) return undefined;
+  if (website in ogCache) return ogCache[website] || undefined;
   let image = null;
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const timer = setTimeout(() => ctrl.abort(), 6000);
     const res = await fetch(website, {
-      signal: ctrl.signal,
-      redirect: "follow",
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-        Accept: "text/html",
-      },
+      signal: ctrl.signal, redirect: "follow",
+      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36", Accept: "text/html" },
     });
     clearTimeout(timer);
-    if (res.ok) {
-      const html = (await res.text()).slice(0, 200_000); // og tags live in <head>
-      image = extractOgImage(html, res.url || website);
-    }
-  } catch (err) {
-    console.warn(`  ! og:image failed for ${website}: ${err.message}`);
-  }
+    if (res.ok) image = extractOgImage((await res.text()).slice(0, 200_000), res.url || website);
+  } catch { /* ignore */ }
   ogCache[website] = image;
-  await sleep(80);
-  return image;
+  return image || undefined;
 }
 
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
+// --- Google place -> VenueLocation ---------------------------------------
+async function placeToLocation(place, fallbackAddress, approx) {
+  const lat = place.location.latitude;
+  const lng = place.location.longitude;
+  const neighborhood =
+    (await reverseGeocodeNeighborhood(lat, lng)) || googleNeighborhood(place.addressComponents);
+  return {
+    address: place.formattedAddress || fallbackAddress,
+    neighborhood: neighborhood || undefined,
+    borough: googleBorough(place.addressComponents) || undefined,
+    coordinates: { lat, lng },
+    placeId: place.id,
+    hours: convertOpeningHours(place.regularOpeningHours),
+    approxLocation: approx || undefined,
+  };
+}
 
-const rows = JSON.parse(readFileSync(RAW_PATH, "utf8"));
-const mappable = rows.filter((r) => (r.Locations || "").trim());
-console.log(`Read ${rows.length} bars; ${mappable.length} have a Location.`);
+// Derive a readable type from Google place data (restaurants).
+const GENERIC_TYPES = new Set(["point_of_interest", "establishment", "food", "store"]);
+function googleTypes(place) {
+  if (place.primaryTypeDisplayName?.text) return [place.primaryTypeDisplayName.text];
+  const t = (place.types || []).find((x) => !GENERIC_TYPES.has(x));
+  return t ? [titleCase(t.replace(/_/g, " "))] : ["Restaurant"];
+}
 
-const usedIds = new Set();
-const venues = [];
-let geocoded = 0;
-let failed = 0;
+// --- Confidence: does the Google result match the queried name? -----------
+function normName(s) {
+  return (s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/['’.]/g, "").replace(/\b(the|bar|restaurant|nyc|new york|ny|cafe|café)\b/g, "")
+    .replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+}
+function matchConfidence(name, displayName) {
+  const a = normName(name);
+  const b = normName(displayName);
+  if (!a || !b) return 0;
+  if (b.includes(a) || a.includes(b)) return 1;
+  const at = new Set(a.split(" ").filter(Boolean));
+  const bt = new Set(b.split(" ").filter(Boolean));
+  const shared = [...at].filter((x) => bt.has(x)).length;
+  return shared / Math.min(at.size, bt.size);
+}
 
-for (const r of mappable) {
-  const name = r.Establishment.trim();
-  const { query, address, approx } = parseLocation(r.Locations);
-  const geo = await geocode(query);
-  if (geo.lat == null || geo.lng == null) {
-    failed++;
-    console.warn(`  ! no coordinates for "${name}" (${query})`);
-    continue;
+// --- Build a bar venue ----------------------------------------------------
+async function buildBar(row) {
+  const name = row.Establishment.trim();
+  const parsed = parseLocations(row.Locations);
+  const locations = [];
+  const seenPlaceIds = new Set();
+  let primaryPlace = null;
+
+  for (const loc of parsed) {
+    const place = await searchPlace(`${name}, ${loc.query}`);
+    if (place && place.location) {
+      if (place.id && seenPlaceIds.has(place.id)) continue;
+      if (place.id) seenPlaceIds.add(place.id);
+      locations.push(await placeToLocation(place, loc.address, loc.approx));
+      if (!primaryPlace) primaryPlace = place;
+    } else {
+      const geo = await mapboxForward(loc.query);
+      if (geo) {
+        locations.push({
+          address: loc.address, neighborhood: geo.neighborhood || undefined,
+          coordinates: { lat: geo.lat, lng: geo.lng }, approxLocation: true,
+        });
+      }
+    }
   }
-  geocoded++;
+  if (!locations.length) return null;
 
-  let id = slugify(name) || `venue-${venues.length}`;
-  if (usedIds.has(id)) {
-    let i = 2;
-    while (usedIds.has(`${id}-${i}`)) i++;
-    id = `${id}-${i}`;
-  }
-  usedIds.add(id);
-
-  const { policy, raw: reservationRaw } = classifyReservation(r.Reservations);
-  const website = firstUrl(r["Main Website"]);
-  const instagram = firstUrl(r.Instagram);
-  const photoUrl = (await fetchOgImage(website)) || undefined;
+  const { policy, raw: reservationRaw } = classifyReservation(row.Reservations);
+  const happyHour = parseHappyHour(row["Happy Hour"]);
+  const happyHourDetails = row["Happy Hour Details"]?.trim() || undefined;
+  const website = firstUrl(row["Main Website"]) || primaryPlace?.websiteUri;
 
   const venue = {
-    id,
-    name,
-    types: normalizeTypes(r.Type),
-    rawType: r.Type?.trim() || undefined,
-    neighborhood: geo.neighborhood || undefined,
-    address,
-    coordinates: { lat: geo.lat, lng: geo.lng },
-    approxLocation: approx || undefined,
-    happyHour: parseHappyHour(r["Happy Hour"]),
-    happyHourDetails: r["Happy Hour Details"]?.trim() || undefined,
-    hours: r.Hours?.trim() || undefined,
+    name, category: "bar",
+    types: normalizeTypes(row.Type),
+    locations,
+    neighborhood: locations[0].neighborhood,
+    rating: primaryPlace?.rating,
+    userRatingCount: primaryPlace?.userRatingCount,
+    priceLevel: mapPriceLevel(primaryPlace?.priceLevel),
+    happyHour,
+    happyHourDetails,
+    happyHourWindows: happyHour ? parseHappyHourWindows(happyHourDetails) : undefined,
     reservationPolicy: policy,
     reservationRaw,
-    booking: parseBooking(r["How to Book"]),
-    menuUrl: firstUrl(r.Menu),
+    booking: parseBooking(row["How to Book"]),
+    menuUrl: firstUrl(row.Menu),
     website,
-    instagram,
-    photoUrl,
-    otherInfo: r["Other information"]?.trim() || undefined,
+    instagram: firstUrl(row.Instagram),
+    googleMapsUri: primaryPlace?.googleMapsUri,
+    photoUrl: await fetchOgImage(website),
+    otherInfo: row["Other information"]?.trim() || undefined,
   };
-
-  // Drop undefined keys for a clean JSON file.
-  for (const k of Object.keys(venue)) if (venue[k] === undefined) delete venue[k];
-  venues.push(venue);
+  return venue;
 }
 
-venues.sort((a, b) => a.name.localeCompare(b.name));
+// --- Build a restaurant venue --------------------------------------------
+async function buildRestaurant(row) {
+  const name = row.Establishment.trim();
+  const place = await searchPlace(`${name}, New York, NY`);
+  if (!place || !place.location) return { skipped: name };
+  const confidence = matchConfidence(name, place.displayName?.text);
+  if (confidence < 0.34) return { skipped: name };
 
-writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2) + "\n");
+  const website = place.websiteUri;
+  return {
+    name, category: "restaurant",
+    types: googleTypes(place),
+    locations: [await placeToLocation(place, place.formattedAddress, false)],
+    neighborhood: undefined, // filled below from locations[0]
+    rating: place.rating,
+    userRatingCount: place.userRatingCount,
+    priceLevel: mapPriceLevel(place.priceLevel),
+    happyHour: null,
+    reservationPolicy: "unknown",
+    website,
+    googleMapsUri: place.googleMapsUri,
+    photoUrl: await fetchOgImage(website),
+    unverified: confidence < 0.6 || undefined,
+  };
+}
+
+// --- Main -----------------------------------------------------------------
+const bars = JSON.parse(readFileSync(BARS_PATH, "utf8")).filter((r) => (r.Locations || "").trim());
+const restaurants = JSON.parse(readFileSync(RESTAURANTS_PATH, "utf8"));
+console.log(`Enriching ${bars.length} bars + ${restaurants.length} restaurants via Google Places…`);
+
+const barVenues = (await mapPool(bars, 6, buildBar)).filter(Boolean);
+console.log(`  bars done: ${barVenues.length} mapped`);
+
+const restaurantResults = await mapPool(restaurants, 6, buildRestaurant);
+const restaurantVenues = restaurantResults.filter((v) => v && !v.skipped);
+const skipped = restaurantResults.filter((v) => v && v.skipped).length;
+console.log(`  restaurants done: ${restaurantVenues.length} mapped, ${skipped} skipped (no match)`);
+
+// Finalize: neighborhood convenience, ids, clean undefined keys.
+const all = [...barVenues, ...restaurantVenues];
+const usedIds = new Set();
+for (const v of all) {
+  v.neighborhood = v.locations[0]?.neighborhood;
+  let id = slugify(v.name) || "venue";
+  if (usedIds.has(id)) { let i = 2; while (usedIds.has(`${id}-${i}`)) i++; id = `${id}-${i}`; }
+  usedIds.add(id);
+  v.id = id;
+  for (const k of Object.keys(v)) if (v[k] === undefined) delete v[k];
+  for (const loc of v.locations) for (const k of Object.keys(loc)) if (loc[k] === undefined) delete loc[k];
+}
+all.sort((a, b) => a.name.localeCompare(b.name));
+
+// Reorder so `id` and `name` lead each record (purely cosmetic for the JSON).
+const ordered = all.map(({ id, name, category, ...rest }) => ({ id, name, category, ...rest }));
+
+writeFileSync(OUT_PATH, JSON.stringify(ordered, null, 2) + "\n");
+writeFileSync(GEO_CACHE_PATH, JSON.stringify(geoCache, null, 2) + "\n");
 writeFileSync(OG_CACHE_PATH, JSON.stringify(ogCache, null, 2) + "\n");
-writeFileSync(OUT_PATH, JSON.stringify(venues, null, 2) + "\n");
+flushPlacesCache();
 
-const withPhoto = venues.filter((v) => v.photoUrl).length;
-console.log(`\nGeocoded ${geocoded}, failed ${failed}.`);
-console.log(`Photos: ${withPhoto}/${venues.length} venues have an og:image.`);
-console.log(`Wrote ${venues.length} venues to ${OUT_PATH}`);
-console.log(`Cache: ${Object.keys(cache).length} geocode, ${Object.keys(ogCache).length} og entries`);
-
-// Quick facets summary
-const hoods = [...new Set(venues.map((v) => v.neighborhood).filter(Boolean))].sort();
-const types = [...new Set(venues.flatMap((v) => v.types))].sort();
-const hh = venues.filter((v) => v.happyHour === true).length;
-console.log(`\nNeighborhoods (${hoods.length}): ${hoods.join(", ")}`);
-console.log(`Types (${types.length}): ${types.join(", ")}`);
-console.log(`Happy hour venues: ${hh}`);
+const withHours = all.filter((v) => v.locations.some((l) => l.hours)).length;
+const withPhoto = all.filter((v) => v.photoUrl).length;
+const withRating = all.filter((v) => v.rating).length;
+const multi = all.filter((v) => v.locations.length > 1).length;
+console.log(`\nWrote ${all.length} venues (${barVenues.length} bars, ${restaurantVenues.length} restaurants) to ${OUT_PATH}`);
+console.log(`  with hours: ${withHours}, with photo: ${withPhoto}, with rating: ${withRating}, multi-location: ${multi}`);
+console.log(`  caches: ${placesCacheSize()} places, ${Object.keys(geoCache).length} geo, ${Object.keys(ogCache).length} og`);

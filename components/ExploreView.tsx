@@ -1,11 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MapRef } from "react-map-gl/mapbox";
 import type { Facets, Venue } from "@/types/venue";
 import { useExploreState } from "@/hooks/useExploreState";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
+import { nycNow, type NowParts } from "@/lib/hours";
 import { FOCUS_ZOOM } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
 import SearchBar from "@/components/filters/SearchBar";
@@ -29,7 +30,10 @@ export default function ExploreView({ venues, facets }: Props) {
   const {
     filters,
     toggleHappyHour,
+    toggleOpenNow,
+    toggleOpenLate,
     toggleFilterValue,
+    togglePrice,
     clearFilters,
     searchInput,
     setSearchInput,
@@ -43,14 +47,21 @@ export default function ExploreView({ venues, facets }: Props) {
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const mapRef = useRef<MapRef | null>(null);
 
+  // Current NYC time, refreshed each minute, drives the "open now" filter.
+  const [now, setNow] = useState<NowParts>(() => nycNow());
+  useEffect(() => {
+    const t = setInterval(() => setNow(nycNow()), 60_000);
+    return () => clearInterval(t);
+  }, []);
+
   const venuesById = useMemo(
     () => new Map(venues.map((v) => [v.id, v])),
     [venues]
   );
 
   const filteredVenues = useMemo(
-    () => filterVenues(venues, filters, debouncedSearch),
-    [venues, filters, debouncedSearch]
+    () => filterVenues(venues, filters, debouncedSearch, now),
+    [venues, filters, debouncedSearch, now]
   );
 
   const activeFilterCount = countActiveFilters(filters);
@@ -69,10 +80,10 @@ export default function ExploreView({ venues, facets }: Props) {
     (id: string) => {
       openVenue(id);
       setActive({ id, source: "list" });
-      const v = venuesById.get(id);
-      if (v) {
+      const loc = venuesById.get(id)?.locations[0];
+      if (loc) {
         mapRef.current?.flyTo({
-          center: [v.coordinates.lng, v.coordinates.lat],
+          center: [loc.coordinates.lng, loc.coordinates.lat],
           zoom: FOCUS_ZOOM,
           duration: 800,
         });
@@ -108,7 +119,10 @@ export default function ExploreView({ venues, facets }: Props) {
               filters={filters}
               activeCount={activeFilterCount}
               onToggleHappyHour={toggleHappyHour}
+              onToggleOpenNow={toggleOpenNow}
+              onToggleOpenLate={toggleOpenLate}
               onToggleFilterValue={toggleFilterValue}
+              onTogglePrice={togglePrice}
               onClear={clearFilters}
             />
             <span className="ml-auto shrink-0 text-sm text-zinc-500">
@@ -120,7 +134,10 @@ export default function ExploreView({ venues, facets }: Props) {
             <ActiveFilterChips
               filters={filters}
               onToggleHappyHour={toggleHappyHour}
+              onToggleOpenNow={toggleOpenNow}
+              onToggleOpenLate={toggleOpenLate}
               onToggleFilterValue={toggleFilterValue}
+              onTogglePrice={togglePrice}
               onClear={clearFilters}
             />
           )}

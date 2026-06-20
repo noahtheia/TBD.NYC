@@ -2,8 +2,9 @@
 
 import type { Venue } from "@/types/venue";
 import { cn } from "@/lib/cn";
-import { RESERVATION_SHORT } from "@/lib/display";
+import { RESERVATION_SHORT, priceLabel } from "@/lib/display";
 import VenuePhoto from "@/components/ui/VenuePhoto";
+import OpenStatus from "@/components/ui/OpenStatus";
 
 type Props = {
   venue: Venue;
@@ -20,10 +21,10 @@ export default function VenueCard({
   onSelect,
   innerRef,
 }: Props) {
+  const primary = venue.locations[0];
   const subtitle = [venue.types.join(" · "), venue.neighborhood]
     .filter(Boolean)
     .join(" • ");
-
   const reservation = RESERVATION_SHORT[venue.reservationPolicy];
 
   return (
@@ -58,17 +59,17 @@ export default function VenueCard({
           )}
         </div>
 
-        {subtitle && <p className="mt-1 text-sm text-zinc-500">{subtitle}</p>}
+        <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-zinc-500">
+          {venue.rating != null && (
+            <span className="font-medium text-zinc-700">★ {venue.rating.toFixed(1)}</span>
+          )}
+          {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
+          {subtitle && <span className="min-w-0 truncate">{subtitle}</span>}
+        </div>
 
-        {venue.happyHour === true && venue.happyHourDetails && (
-          <p className="mt-1.5 line-clamp-2 text-xs text-amber-800/90">
-            {venue.happyHourDetails}
-          </p>
-        )}
-
-        {venue.hours && (
-          <p className="mt-1.5 line-clamp-1 text-xs text-zinc-400">{venue.hours}</p>
-        )}
+        <div className="mt-1.5">
+          <OpenStatus hours={primary?.hours} />
+        </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
           {reservation && (
@@ -81,9 +82,9 @@ export default function VenueCard({
               {venue.booking.host === "other" ? "Reserve" : venue.booking.host}
             </span>
           )}
-          {venue.approxLocation && (
-            <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium text-zinc-500">
-              Approx. location
+          {venue.locations.length > 1 && (
+            <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium text-zinc-600">
+              {venue.locations.length} locations
             </span>
           )}
         </div>
