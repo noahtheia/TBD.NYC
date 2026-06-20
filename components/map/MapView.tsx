@@ -11,6 +11,8 @@ import {
   hasMapboxToken,
 } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
+import { FOCUS_ZOOM } from "@/lib/map-config";
+import type { LatLng } from "@/lib/geo";
 import MapFallback from "./MapFallback";
 
 type Props = {
@@ -19,6 +21,8 @@ type Props = {
   mapRef: RefObject<MapRef | null>;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
+  focusOnLoad?: LatLng | null;
+  userLoc?: LatLng | null;
 };
 
 type PointProps = {
@@ -51,7 +55,15 @@ function buildIndex(venues: Venue[]): Supercluster<PointProps> {
   return index;
 }
 
-export default function MapView({ venues, activeId, mapRef, onHover, onSelect }: Props) {
+export default function MapView({
+  venues,
+  activeId,
+  mapRef,
+  onHover,
+  onSelect,
+  focusOnLoad,
+  userLoc,
+}: Props) {
   const [view, setView] = useState<{ bounds: Bounds; zoom: number }>({
     bounds: [-74.05, 40.6, -73.85, 40.85],
     zoom: INITIAL_VIEW_STATE.zoom,
@@ -74,6 +86,17 @@ export default function MapView({ venues, activeId, mapRef, onHover, onSelect }:
     });
   }, [mapRef]);
 
+  const handleLoad = useCallback(() => {
+    updateView();
+    if (focusOnLoad) {
+      mapRef.current?.flyTo({
+        center: [focusOnLoad.lng, focusOnLoad.lat],
+        zoom: FOCUS_ZOOM,
+        duration: 0,
+      });
+    }
+  }, [updateView, focusOnLoad, mapRef]);
+
   if (!hasMapboxToken) return <MapFallback />;
 
   return (
@@ -84,10 +107,16 @@ export default function MapView({ venues, activeId, mapRef, onHover, onSelect }:
       mapStyle={MAP_STYLE}
       style={{ width: "100%", height: "100%" }}
       reuseMaps
-      onLoad={updateView}
+      onLoad={handleLoad}
       onMoveEnd={updateView}
     >
       <NavigationControl position="top-right" showCompass={false} />
+
+      {userLoc && (
+        <Marker longitude={userLoc.lng} latitude={userLoc.lat} anchor="center">
+          <span className="block h-4 w-4 rounded-full border-2 border-white bg-sky-500 shadow-md ring-4 ring-sky-300/40" />
+        </Marker>
+      )}
 
       {clusters.map((c) => {
         const [lng, lat] = c.geometry.coordinates;

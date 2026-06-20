@@ -3,6 +3,7 @@
 import type { Venue } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { RESERVATION_SHORT, priceLabel } from "@/lib/display";
+import { formatMiles } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 
@@ -11,6 +12,7 @@ type Props = {
   isActive: boolean;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
+  distanceMiles?: number | null;
   innerRef?: (el: HTMLElement | null) => void;
 };
 
@@ -19,12 +21,17 @@ export default function VenueCard({
   isActive,
   onHover,
   onSelect,
+  distanceMiles,
   innerRef,
 }: Props) {
   const primary = venue.locations[0];
-  const subtitle = [venue.types.join(" · "), venue.neighborhood]
-    .filter(Boolean)
-    .join(" • ");
+  const tags =
+    venue.category === "restaurant"
+      ? venue.cuisines?.length
+        ? venue.cuisines
+        : ["Restaurant"]
+      : venue.types;
+  const subtitle = [tags.join(" · "), venue.neighborhood].filter(Boolean).join(" • ");
   const reservation = RESERVATION_SHORT[venue.reservationPolicy];
 
   return (
@@ -64,6 +71,9 @@ export default function VenueCard({
             <span className="font-medium text-zinc-700">★ {venue.rating.toFixed(1)}</span>
           )}
           {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
+          {distanceMiles != null && (
+            <span className="text-zinc-500">{formatMiles(distanceMiles)}</span>
+          )}
           {subtitle && <span className="min-w-0 truncate">{subtitle}</span>}
         </div>
 
@@ -85,6 +95,14 @@ export default function VenueCard({
           {venue.locations.length > 1 && (
             <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium text-zinc-600">
               {venue.locations.length} locations
+            </span>
+          )}
+          {venue.unverified && (
+            <span
+              title="Matched by name via Google — details may be approximate"
+              className="rounded-md bg-amber-50 px-2 py-0.5 font-medium text-amber-700"
+            >
+              Unverified
             </span>
           )}
         </div>

@@ -42,8 +42,10 @@ export interface Venue {
   id: string;
   name: string;
   category: Category;
-  /** Normalized venue-type tags, e.g. ["Bar", "Cocktail Bar"]. */
+  /** Normalized venue-type tags, e.g. ["Bar", "Cocktail Bar"]. Bar-focused. */
   types: string[];
+  /** Cuisine tags for restaurants, e.g. ["Italian"]. */
+  cuisines?: string[];
   /** One or more physical locations (a pin each). */
   locations: VenueLocation[];
   /** Convenience = locations[0].neighborhood. */
@@ -75,9 +77,11 @@ export interface Venue {
 export interface Facets {
   neighborhoods: string[];
   types: string[];
+  cuisines: string[];
   counts: {
     neighborhoods: Record<string, number>;
     types: Record<string, number>;
+    cuisines: Record<string, number>;
     reservation: Record<ReservationPolicy, number>;
     category: Record<Category, number>;
     price: Record<number, number>;
@@ -92,6 +96,7 @@ export interface Filters {
   categories: Category[];
   neighborhoods: string[];
   types: string[];
+  cuisines: string[];
   prices: PriceLevel[];
   reservation: ReservationPolicy[];
 }
@@ -103,6 +108,7 @@ export const EMPTY_FILTERS: Filters = {
   categories: [],
   neighborhoods: [],
   types: [],
+  cuisines: [],
   prices: [],
   reservation: [],
 };

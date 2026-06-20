@@ -32,6 +32,13 @@ export function filterVenues(
       return false;
     }
 
+    if (
+      filters.cuisines.length &&
+      !(v.cuisines ?? []).some((c) => filters.cuisines.includes(c))
+    ) {
+      return false;
+    }
+
     if (filters.reservation.length && !filters.reservation.includes(v.reservationPolicy)) {
       return false;
     }
@@ -45,9 +52,9 @@ export function filterVenues(
     }
 
     if (q) {
-      const haystack = `${v.name} ${v.types.join(" ")} ${v.locations
-        .map((l) => l.neighborhood ?? "")
-        .join(" ")}`.toLowerCase();
+      const haystack = `${v.name} ${v.types.join(" ")} ${(v.cuisines ?? []).join(
+        " "
+      )} ${v.locations.map((l) => l.neighborhood ?? "").join(" ")}`.toLowerCase();
       if (!haystack.includes(q)) return false;
     }
 
@@ -63,6 +70,7 @@ export function countActiveFilters(f: Filters): number {
     f.categories.length +
     f.neighborhoods.length +
     f.types.length +
+    f.cuisines.length +
     f.prices.length +
     f.reservation.length
   );

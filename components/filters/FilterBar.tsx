@@ -17,7 +17,7 @@ type Props = {
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
   onToggleFilterValue: (
-    key: "neighborhoods" | "types" | "reservation" | "categories",
+    key: "neighborhoods" | "types" | "cuisines" | "reservation" | "categories",
     value: string
   ) => void;
   onTogglePrice: (value: number) => void;
@@ -115,6 +115,18 @@ export default function FilterBar({
         }))}
         selected={filters.neighborhoods}
         onToggle={(v) => onToggleFilterValue("neighborhoods", v)}
+      />
+
+      <MultiSelect
+        label="Cuisine"
+        searchable
+        options={facets.cuisines.map((c) => ({
+          value: c,
+          label: c,
+          count: facets.counts.cuisines[c],
+        }))}
+        selected={filters.cuisines}
+        onToggle={(v) => onToggleFilterValue("cuisines", v)}
       />
 
       <MultiSelect

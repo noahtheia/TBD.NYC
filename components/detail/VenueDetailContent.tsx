@@ -69,7 +69,13 @@ function LocationBlock({
 export default function VenueDetailContent({ venue }: { venue: Venue }) {
   const primary = venue.locations[0];
   const multi = venue.locations.length > 1;
-  const subtitle = [venue.types.join(" · "), !multi ? venue.neighborhood : undefined]
+  const tags =
+    venue.category === "restaurant"
+      ? venue.cuisines?.length
+        ? venue.cuisines
+        : ["Restaurant"]
+      : venue.types;
+  const subtitle = [tags.join(" · "), !multi ? venue.neighborhood : undefined]
     .filter(Boolean)
     .join(" • ");
   const hh = venue.happyHour === true ? happyHourStatus(venue.happyHourWindows) : null;
@@ -87,6 +93,11 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         <div>
           <h2 className="text-2xl font-bold leading-tight text-zinc-900">{venue.name}</h2>
           {subtitle && <p className="mt-1 text-sm text-zinc-500">{subtitle}</p>}
+          {venue.unverified && (
+            <p className="mt-1 text-xs text-amber-700">
+              Unverified · matched by name via Google
+            </p>
+          )}
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-zinc-600">
             {venue.rating != null && (
               <span>

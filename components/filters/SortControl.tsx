@@ -1,0 +1,102 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { SORT_OPTIONS, type SortKey } from "@/lib/sort";
+import { cn } from "@/lib/cn";
+
+type GeoStatus = "idle" | "loading" | "granted" | "denied" | "unavailable";
+
+type Props = {
+  sort: SortKey;
+  onSort: (s: SortKey) => void;
+  geoStatus: GeoStatus;
+  onLocate: () => void;
+};
+
+export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const distanceReady = geoStatus === "granted";
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  const current = SORT_OPTIONS.find((o) => o.value === sort) ?? SORT_OPTIONS[0];
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        type="button"
+        onClick={() => {
+          if (geoStatus === "idle" || geoStatus === "denied") onLocate();
+          onSort("distance");
+        }}
+        disabled={geoStatus === "loading" || geoStatus === "unavailable"}
+        className={cn(
+          "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition disabled:opacity-50",
+          sort === "distance" && distanceReady
+            ? "border-sky-500 bg-sky-500 text-white"
+            : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
+        )}
+      >
+        <span aria-hidden>📍</span>
+        {geoStatus === "loading" ? "Locating…" : "Near me"}
+      </button>
+
+      <div ref={rootRef} className="relative">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400"
+        >
+          Sort: {current.label}
+          <svg
+            className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")}
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        {open && (
+          <div className="absolute right-0 z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg">
+            {SORT_OPTIONS.map((o) => {
+              const disabled = o.value === "distance" && !distanceReady;
+              return (
+                <button
+                  key={o.value}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => {
+                    onSort(o.value);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-zinc-50 disabled:opacity-40",
+                    o.value === sort ? "font-semibold text-zinc-900" : "text-zinc-700"
+                  )}
+                >
+                  {o.label}
+                  {o.value === "distance" && !distanceReady && (
+                    <span className="text-xs text-zinc-400">enable</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

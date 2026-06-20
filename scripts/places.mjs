@@ -30,7 +30,9 @@ const FIELD_MASK = [
   "places.googleMapsUri",
   "places.addressComponents",
   "places.types",
+  "places.primaryType",
   "places.primaryTypeDisplayName",
+  "places.businessStatus",
 ].join(",");
 
 const cache = existsSync(CACHE_PATH)
@@ -136,4 +138,72 @@ export function googleBorough(components) {
     component(components, "locality")?.longText ||
     undefined
   );
+}
+
+// Google primaryType (machine) -> a clean cuisine label.
+const CUISINE_MAP = {
+  american_restaurant: "American",
+  italian_restaurant: "Italian",
+  french_restaurant: "French",
+  chinese_restaurant: "Chinese",
+  japanese_restaurant: "Japanese",
+  sushi_restaurant: "Sushi",
+  ramen_restaurant: "Ramen",
+  korean_restaurant: "Korean",
+  mexican_restaurant: "Mexican",
+  thai_restaurant: "Thai",
+  indian_restaurant: "Indian",
+  vietnamese_restaurant: "Vietnamese",
+  mediterranean_restaurant: "Mediterranean",
+  greek_restaurant: "Greek",
+  spanish_restaurant: "Spanish",
+  middle_eastern_restaurant: "Middle Eastern",
+  lebanese_restaurant: "Lebanese",
+  turkish_restaurant: "Turkish",
+  seafood_restaurant: "Seafood",
+  steak_house: "Steakhouse",
+  pizza_restaurant: "Pizza",
+  hamburger_restaurant: "Burgers",
+  barbecue_restaurant: "Barbecue",
+  brazilian_restaurant: "Brazilian",
+  vegetarian_restaurant: "Vegetarian",
+  vegan_restaurant: "Vegan",
+  breakfast_restaurant: "Breakfast",
+  brunch_restaurant: "Brunch",
+  sandwich_shop: "Sandwiches",
+  bakery: "Bakery",
+  cafe: "Cafe",
+  fine_dining_restaurant: "Fine Dining",
+  diner: "Diner",
+};
+
+const GENERIC_CUISINE = new Set([
+  "",
+  "Restaurant",
+  "Food",
+  "Store",
+  "Point Of Interest",
+  "Establishment",
+  "Bar",
+]);
+
+function cleanCuisineLabel(text) {
+  if (!text) return null;
+  let s = text.replace(/\s+Restaurant$/i, "").trim();
+  const synonyms = { "Steak House": "Steakhouse", Hamburger: "Burgers", "Barbecue": "Barbecue" };
+  s = synonyms[s] || s;
+  return GENERIC_CUISINE.has(s) ? null : s;
+}
+
+/** Best-effort cuisine label(s) for a restaurant place. */
+export function googleCuisine(place) {
+  if (!place) return [];
+  const primary = place.primaryType;
+  if (primary && CUISINE_MAP[primary]) return [CUISINE_MAP[primary]];
+  // scan secondary types for a known cuisine
+  for (const t of place.types || []) {
+    if (CUISINE_MAP[t]) return [CUISINE_MAP[t]];
+  }
+  const cleaned = cleanCuisineLabel(place.primaryTypeDisplayName?.text);
+  return cleaned ? [cleaned] : [];
 }

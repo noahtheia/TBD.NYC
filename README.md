@@ -29,9 +29,14 @@ Infatuation's neighborhood guides.
 - **Ratings & price** (★ and $–$$$$) from Google, shown on cards and details
 - **Multi-location venues**: a pin per location, with per-location hours
 - **Filters**: open now, happy hour, open late, category (bars/restaurants),
-  neighborhood, type, price, reservations — applied to both list and map, with
-  active filter chips and per-option counts
-- **Search** across venue name, type, and neighborhood
+  neighborhood, **cuisine**, type, price, reservations — applied to both list and
+  map, with active filter chips and per-option counts
+- **Sort & Near me**: sort by rating / price / distance, with browser geolocation
+  ("near me") showing distances and a "you are here" marker
+- **Search** across venue name, cuisine, type, and neighborhood
+- Map auto-fits to filtered results; shared `?venue=` links open focused; a mobile
+  bottom-sheet peek appears when tapping a pin
+- An **Unverified** chip flags name-matched restaurants; a "data updated" stamp
 - **Detail view**: a slide-over drawer plus a shareable, statically-generated
   `/venue/[id]` page (booking, menu, website, Instagram, directions)
 - **Venue photos**: scraped from each site's Open Graph image at build time, with
@@ -123,4 +128,5 @@ scripts/build-data.mjs
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run build:data` | Regenerate `data/venues.json` from the spreadsheet (geocodes via Mapbox) |
+| `npm test` | Run the unit tests (vitest): hours, filtering, happy-hour parser |
+| `npm run build:data` | Regenerate `data/venues.json` (Google Places + Mapbox) |

@@ -21,6 +21,7 @@ import {
   mapPriceLevel,
   googleNeighborhood,
   googleBorough,
+  googleCuisine,
 } from "./places.mjs";
 import { parseHappyHourWindows } from "./parse-happy-hour.mjs";
 
@@ -31,6 +32,7 @@ const RESTAURANTS_PATH = join(ROOT, "data", "source", "restaurants.raw.json");
 const GEO_CACHE_PATH = join(__dirname, "geocode-cache.json");
 const OG_CACHE_PATH = join(__dirname, "og-cache.json");
 const OUT_PATH = join(ROOT, "data", "venues.json");
+const META_PATH = join(ROOT, "data", "meta.json");
 
 const MAPBOX = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 if (!process.env.GOOGLE_PLACES_API_KEY || !MAPBOX) {
@@ -248,14 +250,6 @@ async function placeToLocation(place, fallbackAddress, approx) {
   };
 }
 
-// Derive a readable type from Google place data (restaurants).
-const GENERIC_TYPES = new Set(["point_of_interest", "establishment", "food", "store"]);
-function googleTypes(place) {
-  if (place.primaryTypeDisplayName?.text) return [place.primaryTypeDisplayName.text];
-  const t = (place.types || []).find((x) => !GENERIC_TYPES.has(x));
-  return t ? [titleCase(t.replace(/_/g, " "))] : ["Restaurant"];
-}
-
 // --- Confidence: does the Google result match the queried name? -----------
 function normName(s) {
   return (s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
@@ -284,6 +278,7 @@ async function buildBar(row) {
   for (const loc of parsed) {
     const place = await searchPlace(`${name}, ${loc.query}`);
     if (place && place.location) {
+      if (place.businessStatus === "CLOSED_PERMANENTLY") continue;
       if (place.id && seenPlaceIds.has(place.id)) continue;
       if (place.id) seenPlaceIds.add(place.id);
       locations.push(await placeToLocation(place, loc.address, loc.approx));
@@ -334,13 +329,16 @@ async function buildRestaurant(row) {
   const name = row.Establishment.trim();
   const place = await searchPlace(`${name}, New York, NY`);
   if (!place || !place.location) return { skipped: name };
+  if (place.businessStatus === "CLOSED_PERMANENTLY") return { skipped: name };
   const confidence = matchConfidence(name, place.displayName?.text);
   if (confidence < 0.34) return { skipped: name };
 
   const website = place.websiteUri;
+  const cuisines = googleCuisine(place);
   return {
     name, category: "restaurant",
-    types: googleTypes(place),
+    types: [],
+    cuisines,
     locations: [await placeToLocation(place, place.formattedAddress, false)],
     neighborhood: undefined, // filled below from locations[0]
     rating: place.rating,
@@ -386,6 +384,19 @@ all.sort((a, b) => a.name.localeCompare(b.name));
 const ordered = all.map(({ id, name, category, ...rest }) => ({ id, name, category, ...rest }));
 
 writeFileSync(OUT_PATH, JSON.stringify(ordered, null, 2) + "\n");
+writeFileSync(
+  META_PATH,
+  JSON.stringify(
+    {
+      generatedAt: new Date().toISOString(),
+      total: all.length,
+      bars: barVenues.length,
+      restaurants: restaurantVenues.length,
+    },
+    null,
+    2
+  ) + "\n"
+);
 writeFileSync(GEO_CACHE_PATH, JSON.stringify(geoCache, null, 2) + "\n");
 writeFileSync(OG_CACHE_PATH, JSON.stringify(ogCache, null, 2) + "\n");
 flushPlacesCache();

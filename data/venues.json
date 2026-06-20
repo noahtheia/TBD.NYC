@@ -141,8 +141,9 @@
     "id": "21-greenpoint",
     "name": "21 Greenpoint",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -213,8 +214,9 @@
     "id": "456-new-shanghai",
     "name": "456 New Shanghai",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -297,8 +299,9 @@
     "id": "5-napkin-burger",
     "name": "5 Napkin Burger",
     "category": "restaurant",
-    "types": [
-      "Hamburger Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burgers"
     ],
     "locations": [
       {
@@ -369,7 +372,7 @@
     ],
     "neighborhood": "Hell's Kitchen",
     "rating": 4.5,
-    "userRatingCount": 7763,
+    "userRatingCount": 7765,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -381,8 +384,9 @@
     "id": "63-clinton",
     "name": "63 Clinton",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -453,8 +457,9 @@
     "id": "63-clinton-2",
     "name": "63 Clinton",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -525,8 +530,9 @@
     "id": "7th-street-burger",
     "name": "7th Street Burger",
     "category": "restaurant",
-    "types": [
-      "Hamburger Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burgers"
     ],
     "locations": [
       {
@@ -608,8 +614,9 @@
     "id": "886-0",
     "name": "886.0",
     "category": "restaurant",
-    "types": [
-      "Taiwanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Taiwanese"
     ],
     "locations": [
       {
@@ -734,8 +741,9 @@
     "id": "adda",
     "name": "Adda",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -800,7 +808,7 @@
     ],
     "neighborhood": "East Village",
     "rating": 4.6,
-    "userRatingCount": 955,
+    "userRatingCount": 957,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "https://addanyc.com/",
@@ -811,9 +819,8 @@
     "id": "ai-fiori",
     "name": "Ai Fiori",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "400 5th Ave #2, New York, NY 10018, USA",
@@ -937,9 +944,8 @@
     "id": "ai-fiori-2",
     "name": "Ai Fiori",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "400 5th Ave #2, New York, NY 10018, USA",
@@ -1063,8 +1069,9 @@
     "id": "aita-trattoria",
     "name": "Aita Trattoria",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -1171,8 +1178,9 @@
     "id": "alidoro",
     "name": "Alidoro",
     "category": "restaurant",
-    "types": [
-      "Sandwich Shop"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -1623,8 +1631,9 @@
     "id": "antons-2",
     "name": "Anton’s",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -1864,7 +1873,8 @@
     "id": "apotheke-2",
     "name": "Apotheke",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Cocktail Bar"
     ],
     "locations": [
@@ -1948,8 +1958,9 @@
     "id": "aquavit",
     "name": "Aquavit",
     "category": "restaurant",
-    "types": [
-      "Scandinavian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Scandinavian"
     ],
     "locations": [
       {
@@ -2044,7 +2055,7 @@
     ],
     "neighborhood": "Midtown East",
     "rating": 4.6,
-    "userRatingCount": 1299,
+    "userRatingCount": 1300,
     "priceLevel": 4,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -2053,11 +2064,66 @@
     "photoUrl": "http://static1.squarespace.com/static/54288085e4b0461906627747/t/5a152ab341920213695b8f32/1511336628917/Aquavit+Logo+Transparent.jpg?format=1500w"
   },
   {
+    "id": "ardour",
+    "name": "Ardour",
+    "category": "restaurant",
+    "types": [],
+    "cuisines": [
+      "Consultant"
+    ],
+    "locations": [
+      {
+        "address": "26 Broadway #1107, New York, NY 10004, USA",
+        "neighborhood": "Financial District",
+        "borough": "Manhattan",
+        "coordinates": {
+          "lat": 40.7055092,
+          "lng": -74.0131178
+        },
+        "placeId": "ChIJFzh1kzRbwokR6T9yJbr7KAE"
+      }
+    ],
+    "neighborhood": "Financial District",
+    "happyHour": null,
+    "reservationPolicy": "unknown",
+    "website": "https://www.ardourcapital.com/",
+    "googleMapsUri": "https://maps.google.com/?cid=83593370017087465&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+    "photoUrl": "https://cdn.prod.website-files.com/68b8dd8e911ff12a1fb0f263/68bf1e57b6134d954126dce0__QdFx92MO2U.jpg"
+  },
+  {
+    "id": "ardour-2",
+    "name": "Ardour",
+    "category": "restaurant",
+    "types": [],
+    "cuisines": [
+      "Consultant"
+    ],
+    "locations": [
+      {
+        "address": "26 Broadway #1107, New York, NY 10004, USA",
+        "neighborhood": "Financial District",
+        "borough": "Manhattan",
+        "coordinates": {
+          "lat": 40.7055092,
+          "lng": -74.0131178
+        },
+        "placeId": "ChIJFzh1kzRbwokR6T9yJbr7KAE"
+      }
+    ],
+    "neighborhood": "Financial District",
+    "happyHour": null,
+    "reservationPolicy": "unknown",
+    "website": "https://www.ardourcapital.com/",
+    "googleMapsUri": "https://maps.google.com/?cid=83593370017087465&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+    "photoUrl": "https://cdn.prod.website-files.com/68b8dd8e911ff12a1fb0f263/68bf1e57b6134d954126dce0__QdFx92MO2U.jpg"
+  },
+  {
     "id": "arepa-lady",
     "name": "Arepa Lady",
     "category": "restaurant",
-    "types": [
-      "Colombian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Colombian"
     ],
     "locations": [
       {
@@ -2140,8 +2206,9 @@
     "id": "aria-wine-bar",
     "name": "Aria Wine Bar",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -2223,8 +2290,9 @@
     "id": "aria-wine-bar-2",
     "name": "Aria Wine Bar",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -2306,8 +2374,9 @@
     "id": "aska",
     "name": "Aska",
     "category": "restaurant",
-    "types": [
-      "Scandinavian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Scandinavian"
     ],
     "locations": [
       {
@@ -2378,8 +2447,9 @@
     "id": "atera",
     "name": "Atera",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -2461,8 +2531,9 @@
     "id": "atera-2",
     "name": "Atera",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -2634,8 +2705,9 @@
     "id": "au-cheval",
     "name": "Au Cheval",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -2718,8 +2790,9 @@
     "id": "aurora-soho",
     "name": "Aurora Soho",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -2803,8 +2876,9 @@
     "id": "aurora-williamsburg",
     "name": "Aurora Williamsburg",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -2888,8 +2962,9 @@
     "id": "avant-garden",
     "name": "Avant Garden",
     "category": "restaurant",
-    "types": [
-      "Vegan Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vegan"
     ],
     "locations": [
       {
@@ -3089,9 +3164,8 @@
     "id": "b-h-dairy",
     "name": "B&H Dairy",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "127 2nd Ave, New York, NY 10003, USA",
@@ -3167,8 +3241,9 @@
     "id": "balthazar",
     "name": "Balthazar",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -3250,8 +3325,9 @@
     "id": "bamontes",
     "name": "Bamonte’s",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -3322,8 +3398,9 @@
     "id": "banh-anh-em",
     "name": "Banh Anh Em",
     "category": "restaurant",
-    "types": [
-      "Vietnamese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -3416,9 +3493,8 @@
     "id": "baohaus",
     "name": "Baohaus",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "97 St Marks Pl, New York, NY 10009, USA",
@@ -3524,7 +3600,7 @@
     ],
     "neighborhood": "Alphabet City",
     "rating": 4.4,
-    "userRatingCount": 38,
+    "userRatingCount": 39,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "http://www.baohaus.nyc/",
@@ -3535,9 +3611,8 @@
     "id": "baohaus-2",
     "name": "Baohaus",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "97 St Marks Pl, New York, NY 10009, USA",
@@ -3643,7 +3718,7 @@
     ],
     "neighborhood": "Alphabet City",
     "rating": 4.4,
-    "userRatingCount": 38,
+    "userRatingCount": 39,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "http://www.baohaus.nyc/",
@@ -3747,8 +3822,9 @@
     "id": "bar-bete",
     "name": "Bar Bête",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -4032,9 +4108,8 @@
     "id": "bar-contra-2",
     "name": "Bar Contra",
     "category": "restaurant",
-    "types": [
-      "Bar"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "138 Orchard St, New York, NY 10002, USA",
@@ -4109,9 +4184,8 @@
     "id": "bar-contra-3",
     "name": "Bar Contra",
     "category": "restaurant",
-    "types": [
-      "Bar"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "138 Orchard St, New York, NY 10002, USA",
@@ -4186,8 +4260,9 @@
     "id": "bar-ferdinando",
     "name": "Bar Ferdinando",
     "category": "restaurant",
-    "types": [
-      "Bar"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -4264,8 +4339,9 @@
     "id": "bar-ferdinando-2",
     "name": "Bar Ferdinando",
     "category": "restaurant",
-    "types": [
-      "Bar"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -5113,8 +5189,9 @@
     "id": "barbuto",
     "name": "Barbuto",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -5311,7 +5388,7 @@
     ],
     "neighborhood": "Gramercy Park",
     "rating": 4.4,
-    "userRatingCount": 653,
+    "userRatingCount": 654,
     "priceLevel": 1,
     "happyHour": true,
     "happyHourDetails": "Daily 11am–7pm; Late Night HH Sun–Thursday 10pm–4am",
@@ -5408,8 +5485,9 @@
     "id": "barney-greengrass",
     "name": "Barney Greengrass",
     "category": "restaurant",
-    "types": [
-      "Breakfast Restaurant"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -5485,8 +5563,9 @@
     "id": "barney-greengrass-2",
     "name": "Barney Greengrass",
     "category": "restaurant",
-    "types": [
-      "Breakfast Restaurant"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -5654,8 +5733,9 @@
     "id": "beebes-at-borden-ave",
     "name": "Beebe’s at Borden Ave",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -5832,8 +5912,9 @@
     "id": "benjamin-steakhouse",
     "name": "Benjamin Steakhouse",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -5915,8 +5996,9 @@
     "id": "benjamin-steakhouse-2",
     "name": "Benjamin Steakhouse",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -6178,8 +6260,9 @@
     "id": "blackbarn-2",
     "name": "Blackbarn",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -6262,8 +6345,9 @@
     "id": "blackbarn-3",
     "name": "Blackbarn",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -6346,8 +6430,9 @@
     "id": "bo-ky",
     "name": "Bo Ky",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -6423,8 +6508,9 @@
     "id": "bodrum",
     "name": "Bodrum",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -6506,8 +6592,9 @@
     "id": "bodrum-2",
     "name": "Bodrum",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -6589,8 +6676,9 @@
     "id": "buddakan",
     "name": "Buddakan",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -6672,8 +6760,9 @@
     "id": "burger-joint",
     "name": "Burger Joint",
     "category": "restaurant",
-    "types": [
-      "Hamburger Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burgers"
     ],
     "locations": [
       {
@@ -6756,8 +6845,9 @@
     "id": "c-as-in-charlie",
     "name": "C as in Charlie",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -6840,8 +6930,9 @@
     "id": "cafe-boulud",
     "name": "Cafe Boulud",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -6948,8 +7039,9 @@
     "id": "cafe-boulud-2",
     "name": "Cafe Boulud",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -7056,7 +7148,8 @@
     "id": "cafe-carlyle",
     "name": "Cafe Carlyle",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Cafe"
     ],
     "locations": [
@@ -7128,7 +7221,8 @@
     "id": "cafe-carlyle-2",
     "name": "Cafe Carlyle",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Cafe"
     ],
     "locations": [
@@ -7200,8 +7294,9 @@
     "id": "cafe-katja",
     "name": "Cafe Katja",
     "category": "restaurant",
-    "types": [
-      "Austrian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Cafe"
     ],
     "locations": [
       {
@@ -7314,9 +7409,8 @@
     "id": "cafe-kestrel",
     "name": "Café Kestrel",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "293 Van Brunt St, Brooklyn, NY 11231, USA",
@@ -7397,8 +7491,9 @@
     "id": "cafe-luxembourg",
     "name": "Cafe Luxembourg",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -7481,8 +7576,9 @@
     "id": "cafe-luxembourg-2",
     "name": "Café Luxembourg",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -7899,8 +7995,9 @@
     "id": "carbone",
     "name": "Carbone",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -8019,8 +8116,9 @@
     "id": "casa-adela",
     "name": "Casa Adela",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -8103,8 +8201,9 @@
     "id": "casa-enrique",
     "name": "Casa Enrique",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -8187,8 +8286,9 @@
     "id": "casa-rubio-lic",
     "name": "Casa Rubio LIC",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Cafe"
     ],
     "locations": [
       {
@@ -8270,8 +8370,9 @@
     "id": "catch-nyc",
     "name": "Catch NYC",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -8354,8 +8455,9 @@
     "id": "catch-nyc-2",
     "name": "Catch NYC",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -8438,8 +8540,9 @@
     "id": "celeste",
     "name": "Celeste",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -8522,7 +8625,7 @@
     ],
     "neighborhood": "Upper West Side",
     "rating": 4.8,
-    "userRatingCount": 3974,
+    "userRatingCount": 3976,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -8533,8 +8636,9 @@
     "id": "celeste-2",
     "name": "Celeste",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -8617,7 +8721,7 @@
     ],
     "neighborhood": "Upper West Side",
     "rating": 4.8,
-    "userRatingCount": 3974,
+    "userRatingCount": 3976,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -8628,8 +8732,9 @@
     "id": "celestine",
     "name": "Celestine",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -8724,8 +8829,9 @@
     "id": "cesar",
     "name": "César",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -8807,8 +8913,9 @@
     "id": "cesar-2",
     "name": "César",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -8890,8 +8997,9 @@
     "id": "chambers",
     "name": "Chambers",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -9053,9 +9161,8 @@
     "id": "chez-fifi",
     "name": "Chez Fifi",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "140 E 74th St, New York, NY 10021, USA",
@@ -9136,9 +9243,8 @@
     "id": "chez-fifi-2",
     "name": "Chez Fifi",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "140 E 74th St, New York, NY 10021, USA",
@@ -9219,8 +9325,9 @@
     "id": "chiko",
     "name": "Chiko",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -9290,8 +9397,9 @@
     "id": "claud",
     "name": "Claud",
     "category": "restaurant",
-    "types": [
-      "European Restaurant"
+    "types": [],
+    "cuisines": [
+      "European"
     ],
     "locations": [
       {
@@ -9462,8 +9570,9 @@
     "id": "clinton-st-baking-co",
     "name": "Clinton St Baking Co",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -9570,8 +9679,9 @@
     "id": "congee-village",
     "name": "Congee Village",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -9653,8 +9763,9 @@
     "id": "cookshop",
     "name": "Cookshop",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -9778,8 +9889,9 @@
     "id": "cookshop-2",
     "name": "Cookshop",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -9903,8 +10015,9 @@
     "id": "corima",
     "name": "Corima",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -9974,8 +10087,9 @@
     "id": "corner-store",
     "name": "Corner Store",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -10046,7 +10160,7 @@
     ],
     "neighborhood": "SoHo",
     "rating": 4.7,
-    "userRatingCount": 1000,
+    "userRatingCount": 1001,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "https://www.thecornerstoresoho.com/",
@@ -10057,8 +10171,9 @@
     "id": "corner-store-2",
     "name": "Corner Store",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -10129,7 +10244,7 @@
     ],
     "neighborhood": "SoHo",
     "rating": 4.7,
-    "userRatingCount": 1000,
+    "userRatingCount": 1001,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "https://www.thecornerstoresoho.com/",
@@ -10140,8 +10255,9 @@
     "id": "cote",
     "name": "Cote",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -10224,7 +10340,8 @@
     "id": "court-square-diner",
     "name": "Court Square Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -10265,8 +10382,9 @@
     "id": "court-street-grocers",
     "name": "Court Street Grocers",
     "category": "restaurant",
-    "types": [
-      "Sandwich Shop"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -10349,8 +10467,9 @@
     "id": "crown-shy",
     "name": "Crown Shy",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -10463,8 +10582,9 @@
     "id": "daniel",
     "name": "Daniel",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -10541,8 +10661,9 @@
     "id": "daniel-2",
     "name": "Daniel",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -10619,8 +10740,9 @@
     "id": "dante",
     "name": "Dante",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -10703,8 +10825,9 @@
     "id": "dante-2",
     "name": "Dante",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -11060,8 +11183,9 @@
     "id": "defontes-sandwich-shop",
     "name": "Defonte’s Sandwich Shop",
     "category": "restaurant",
-    "types": [
-      "Sandwich Shop"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -11138,7 +11262,8 @@
     "id": "dekalb-market-hall",
     "name": "DeKalb Market Hall",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Market"
     ],
     "locations": [
@@ -11300,8 +11425,9 @@
     "id": "dhamaka",
     "name": "Dhamaka",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -11396,8 +11522,9 @@
     "id": "dhamaka-2",
     "name": "Dhamaka",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -11492,8 +11619,9 @@
     "id": "dim-sum-go-go",
     "name": "Dim Sum Go Go",
     "category": "restaurant",
-    "types": [
-      "Dim Sum Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -11575,7 +11703,8 @@
     "id": "diner",
     "name": "Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -11616,8 +11745,9 @@
     "id": "dirty-french",
     "name": "Dirty French",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -11791,8 +11921,9 @@
     "id": "don-angie",
     "name": "Don Angie",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -11887,8 +12018,9 @@
     "id": "dosa-hutt",
     "name": "Dosa Hutt",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -12055,8 +12187,9 @@
     "id": "double-chicken-please-2",
     "name": "Double Chicken Please",
     "category": "restaurant",
-    "types": [
-      "Bar"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -12132,9 +12265,8 @@
     "id": "dowlings-at-carlyle",
     "name": "Dowling’s at Carlyle",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "35 E 76th St, New York, NY 10021, USA",
@@ -12257,9 +12389,8 @@
     "id": "dowlings-at-carlyle-2",
     "name": "Dowling’s at Carlyle",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "35 E 76th St, New York, NY 10021, USA",
@@ -12382,9 +12513,8 @@
     "id": "dudleys",
     "name": "Dudley’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "85 Orchard St, New York, NY 10002, USA",
@@ -12466,8 +12596,9 @@
     "id": "electric-lemon",
     "name": "Electric Lemon",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -12548,8 +12679,9 @@
     "id": "electric-lemon-2",
     "name": "Electric Lemon",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -12630,8 +12762,9 @@
     "id": "eleven-madison-park",
     "name": "Eleven Madison Park",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -12726,8 +12859,9 @@
     "id": "elios",
     "name": "Elio’s",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -12809,8 +12943,9 @@
     "id": "elios-2",
     "name": "Elio’s",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -12892,8 +13027,9 @@
     "id": "emily",
     "name": "Emily",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -12976,8 +13112,9 @@
     "id": "emmetts",
     "name": "Emmett’s",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -13150,7 +13287,8 @@
     "id": "esme",
     "name": "Esme",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wholesaler"
     ],
     "locations": [
@@ -13220,8 +13358,9 @@
     "id": "estela",
     "name": "Estela",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -13303,8 +13442,9 @@
     "id": "estiatorio-milos",
     "name": "Estiatorio Milos",
     "category": "restaurant",
-    "types": [
-      "Seafood Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -13411,8 +13551,9 @@
     "id": "estiatorio-milos-2",
     "name": "Estiatorio Milos",
     "category": "restaurant",
-    "types": [
-      "Seafood Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -13519,7 +13660,8 @@
     "id": "extra-virgin",
     "name": "Extra Virgin",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Hotel"
     ],
     "locations": [
@@ -13548,7 +13690,8 @@
     "id": "extra-virgin-2",
     "name": "Extra Virgin",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Hotel"
     ],
     "locations": [
@@ -13577,8 +13720,9 @@
     "id": "f-f-pizzeria",
     "name": "F&F Pizzeria",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -13661,7 +13805,8 @@
     "id": "faiccos-italian-specialties",
     "name": "Faicco’s Italian Specialties",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Deli"
     ],
     "locations": [
@@ -13738,8 +13883,9 @@
     "id": "fairfax",
     "name": "Fairfax",
     "category": "restaurant",
-    "types": [
-      "Gastropub"
+    "types": [],
+    "cuisines": [
+      "Brunch"
     ],
     "locations": [
       {
@@ -13822,8 +13968,9 @@
     "id": "fanelli-cafe",
     "name": "Fanelli Cafe",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -13905,8 +14052,9 @@
     "id": "fanelli-cafe-2",
     "name": "Fanelli Cafe",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -13988,9 +14136,8 @@
     "id": "farra",
     "name": "Farra",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "71 Worth St, New York, NY 10013, USA",
@@ -14070,8 +14217,9 @@
     "id": "fausto",
     "name": "Fausto",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -14160,8 +14308,9 @@
     "id": "felice-64",
     "name": "Felice 64",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -14243,8 +14392,9 @@
     "id": "felice-64-2",
     "name": "Felice 64",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -14326,8 +14476,9 @@
     "id": "fiaschetteria-pistoia",
     "name": "Fiaschetteria Pistoia",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -14409,8 +14560,9 @@
     "id": "fish-cheeks",
     "name": "Fish Cheeks",
     "category": "restaurant",
-    "types": [
-      "Thai Restaurant"
+    "types": [],
+    "cuisines": [
+      "Thai"
     ],
     "locations": [
       {
@@ -14481,7 +14633,7 @@
     ],
     "neighborhood": "NoHo",
     "rating": 4.7,
-    "userRatingCount": 5280,
+    "userRatingCount": 5281,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -14493,8 +14645,9 @@
     "id": "five-leaves",
     "name": "Five Leaves",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -14576,9 +14729,8 @@
     "id": "four-horsemen",
     "name": "Four Horsemen",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "295 Grand St, Brooklyn, NY 11211, USA",
@@ -14660,9 +14812,8 @@
     "id": "foxface-natural",
     "name": "Foxface Natural",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "189 Avenue A, New York, NY 10009, USA",
@@ -14687,9 +14838,8 @@
     "id": "foxface-natural-2",
     "name": "Foxface Natural",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "189 Avenue A, New York, NY 10009, USA",
@@ -14714,9 +14864,8 @@
     "id": "foxface-natural-3",
     "name": "Foxface Natural",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "189 Avenue A, New York, NY 10009, USA",
@@ -14868,8 +15017,9 @@
     "id": "francie",
     "name": "Francie",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -14946,8 +15096,9 @@
     "id": "frankies-457-spuntino",
     "name": "Frankie’s 457 Spuntino",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -15030,9 +15181,8 @@
     "id": "freds",
     "name": "Fred’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "476 Amsterdam Ave, New York, NY 10024, USA",
@@ -15113,9 +15263,8 @@
     "id": "freds-2",
     "name": "Fred’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "476 Amsterdam Ave, New York, NY 10024, USA",
@@ -15196,8 +15345,9 @@
     "id": "frevo",
     "name": "Frevo",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -15273,8 +15423,9 @@
     "id": "frevo-2",
     "name": "Frevo",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -15350,8 +15501,9 @@
     "id": "friedmans",
     "name": "Friedman’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -15434,8 +15586,9 @@
     "id": "friedmans-2",
     "name": "Friedman’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -15518,8 +15671,9 @@
     "id": "glasserie",
     "name": "Glasserie",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -15602,7 +15756,8 @@
     "id": "golden-diner",
     "name": "Golden Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -15686,8 +15841,9 @@
     "id": "golden-unicorn",
     "name": "Golden Unicorn",
     "category": "restaurant",
-    "types": [
-      "Dim Sum Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -15770,8 +15926,9 @@
     "id": "good-enough-to-eat",
     "name": "Good Enough to Eat",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -15853,8 +16010,9 @@
     "id": "good-enough-to-eat-2",
     "name": "Good Enough to Eat",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -15936,8 +16094,9 @@
     "id": "gramercy-tavern",
     "name": "Gramercy Tavern",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -16020,8 +16179,9 @@
     "id": "great-ny-noodletown",
     "name": "Great NY Noodletown",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -16104,8 +16264,9 @@
     "id": "has-snack-bar",
     "name": "Ha’s Snack Bar",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -16180,8 +16341,9 @@
     "id": "has-snack-bar-2",
     "name": "Ha’s Snack Bar",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -16256,8 +16418,9 @@
     "id": "haidilao-hot-pot",
     "name": "Haidilao Hot Pot",
     "category": "restaurant",
-    "types": [
-      "Hot Pot Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -16340,8 +16503,9 @@
     "id": "han-dynasty-east-village",
     "name": "Han Dynasty East Village",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -16424,8 +16588,9 @@
     "id": "han-dynasty-east-village-2",
     "name": "Han Dynasty East Village",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -16508,8 +16673,9 @@
     "id": "harvest-kitchen",
     "name": "Harvest Kitchen",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -16591,8 +16757,9 @@
     "id": "harvest-kitchen-2",
     "name": "Harvest Kitchen",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -16674,8 +16841,9 @@
     "id": "henry-public",
     "name": "Henry Public",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -16758,8 +16926,9 @@
     "id": "hometown-bar-b-que",
     "name": "Hometown Bar-B-Que",
     "category": "restaurant",
-    "types": [
-      "Barbecue Restaurant"
+    "types": [],
+    "cuisines": [
+      "Barbecue"
     ],
     "locations": [
       {
@@ -16836,8 +17005,9 @@
     "id": "hop-kee",
     "name": "Hop Kee",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -16919,8 +17089,9 @@
     "id": "i-sodi",
     "name": "I Sodi",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -17021,8 +17192,9 @@
     "id": "il-corallo-trattoria",
     "name": "Il Corallo Trattoria",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -17105,7 +17277,8 @@
     "id": "j-g-melon",
     "name": "J.G. Melon",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Bar & Grill"
     ],
     "locations": [
@@ -17189,7 +17362,8 @@
     "id": "j-g-melon-2",
     "name": "J.G. Melon",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Bar & Grill"
     ],
     "locations": [
@@ -17273,8 +17447,9 @@
     "id": "jacks-wife-freda",
     "name": "Jack’s Wife Freda",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -17357,8 +17532,9 @@
     "id": "jacks-wife-freda-2",
     "name": "Jack’s Wife Freda",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -17441,8 +17617,9 @@
     "id": "jackson-diner",
     "name": "Jackson Diner",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -17651,8 +17828,9 @@
     "id": "jacobs-pickles-2",
     "name": "Jacob’s Pickles",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -17735,8 +17913,9 @@
     "id": "jeffreys-grocery",
     "name": "Jeffrey’s Grocery",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -17819,8 +17998,9 @@
     "id": "jeffreys-grocery-2",
     "name": "Jeffrey’s Grocery",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -17903,8 +18083,9 @@
     "id": "jing-fong",
     "name": "Jing Fong",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -17986,8 +18167,9 @@
     "id": "joe-pats",
     "name": "Joe & Pat’s",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -18069,8 +18251,9 @@
     "id": "joes-pizza",
     "name": "Joe’s Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -18153,8 +18336,9 @@
     "id": "joes-shanghai",
     "name": "Joe’s Shanghai",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -18236,8 +18420,9 @@
     "id": "joes-steam-rice-roll",
     "name": "Joe’s Steam Rice Roll",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -18320,8 +18505,9 @@
     "id": "john-brown-bbq",
     "name": "John Brown BBQ",
     "category": "restaurant",
-    "types": [
-      "Barbecue Restaurant"
+    "types": [],
+    "cuisines": [
+      "Barbecue"
     ],
     "locations": [
       {
@@ -18403,8 +18589,9 @@
     "id": "johns-of-bleecker-street",
     "name": "John’s of Bleecker Street",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -18487,7 +18674,8 @@
     "id": "jolene",
     "name": "Jolene",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Cocktail Bar"
     ],
     "locations": [
@@ -18534,8 +18722,9 @@
     "id": "joseph-leonard",
     "name": "Joseph Leonard",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -18618,8 +18807,9 @@
     "id": "joseph-leonard-2",
     "name": "Joseph Leonard",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -18702,8 +18892,9 @@
     "id": "jua",
     "name": "Jua",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -18780,8 +18971,9 @@
     "id": "julianas-pizza",
     "name": "Juliana’s Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -18906,8 +19098,9 @@
     "id": "june-wine-bar",
     "name": "June Wine Bar",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Brunch"
     ],
     "locations": [
       {
@@ -19116,9 +19309,8 @@
     "id": "katana-kitten-2",
     "name": "Katana Kitten",
     "category": "restaurant",
-    "types": [
-      "Bar"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "531 Hudson St, New York, NY 10014, USA",
@@ -19200,9 +19392,8 @@
     "id": "katana-kitten-3",
     "name": "Katana Kitten",
     "category": "restaurant",
-    "types": [
-      "Bar"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "531 Hudson St, New York, NY 10014, USA",
@@ -19284,8 +19475,9 @@
     "id": "kebabwala",
     "name": "Kebabwala",
     "category": "restaurant",
-    "types": [
-      "Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -19367,8 +19559,9 @@
     "id": "keens-steakhouse",
     "name": "Keens Steakhouse",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -19450,7 +19643,8 @@
     "id": "kelloggs-diner",
     "name": "Kellogg’s Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -19487,172 +19681,6 @@
     "website": "http://www.kelloggsdinernyc.com/",
     "googleMapsUri": "https://maps.google.com/?cid=1027557577135505607&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
     "photoUrl": "http://static1.squarespace.com/static/677737254ac2586ba4aa6c11/t/67970062ba155c46b42ecaf0/1737949283064/Kelloggs-Diner_Photography-by-Nick-Johnson_%40rickronson-40.jpg?format=1500w"
-  },
-  {
-    "id": "kikis",
-    "name": "Kiki’s",
-    "category": "restaurant",
-    "types": [
-      "Greek Restaurant"
-    ],
-    "locations": [
-      {
-        "address": "130 Division St, New York, NY 10002, USA",
-        "neighborhood": "Lower East Side",
-        "borough": "Manhattan",
-        "coordinates": {
-          "lat": 40.7145497,
-          "lng": -73.9918591
-        },
-        "placeId": "ChIJD-1a9ChawokRnTSi_Et62x4",
-        "hours": {
-          "periods": [
-            {
-              "openDay": 0,
-              "openMin": 720,
-              "closeDay": 1,
-              "closeMin": 0
-            },
-            {
-              "openDay": 1,
-              "openMin": 720,
-              "closeDay": 2,
-              "closeMin": 0
-            },
-            {
-              "openDay": 2,
-              "openMin": 720,
-              "closeDay": 3,
-              "closeMin": 0
-            },
-            {
-              "openDay": 3,
-              "openMin": 720,
-              "closeDay": 4,
-              "closeMin": 0
-            },
-            {
-              "openDay": 4,
-              "openMin": 720,
-              "closeDay": 5,
-              "closeMin": 0
-            },
-            {
-              "openDay": 5,
-              "openMin": 720,
-              "closeDay": 6,
-              "closeMin": 0
-            },
-            {
-              "openDay": 6,
-              "openMin": 720,
-              "closeDay": 0,
-              "closeMin": 0
-            }
-          ],
-          "weekdayText": [
-            "Monday: 12:00 PM – 12:00 AM",
-            "Tuesday: 12:00 PM – 12:00 AM",
-            "Wednesday: 12:00 PM – 12:00 AM",
-            "Thursday: 12:00 PM – 12:00 AM",
-            "Friday: 12:00 PM – 12:00 AM",
-            "Saturday: 12:00 PM – 12:00 AM",
-            "Sunday: 12:00 PM – 12:00 AM"
-          ]
-        }
-      }
-    ],
-    "neighborhood": "Lower East Side",
-    "rating": 4.4,
-    "userRatingCount": 2523,
-    "priceLevel": 2,
-    "happyHour": null,
-    "reservationPolicy": "unknown",
-    "website": "http://kikisnyc.com/",
-    "googleMapsUri": "https://maps.google.com/?cid=2223505307817096349&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
-  },
-  {
-    "id": "kikis-2",
-    "name": "Kiki’s",
-    "category": "restaurant",
-    "types": [
-      "Greek Restaurant"
-    ],
-    "locations": [
-      {
-        "address": "130 Division St, New York, NY 10002, USA",
-        "neighborhood": "Lower East Side",
-        "borough": "Manhattan",
-        "coordinates": {
-          "lat": 40.7145497,
-          "lng": -73.9918591
-        },
-        "placeId": "ChIJD-1a9ChawokRnTSi_Et62x4",
-        "hours": {
-          "periods": [
-            {
-              "openDay": 0,
-              "openMin": 720,
-              "closeDay": 1,
-              "closeMin": 0
-            },
-            {
-              "openDay": 1,
-              "openMin": 720,
-              "closeDay": 2,
-              "closeMin": 0
-            },
-            {
-              "openDay": 2,
-              "openMin": 720,
-              "closeDay": 3,
-              "closeMin": 0
-            },
-            {
-              "openDay": 3,
-              "openMin": 720,
-              "closeDay": 4,
-              "closeMin": 0
-            },
-            {
-              "openDay": 4,
-              "openMin": 720,
-              "closeDay": 5,
-              "closeMin": 0
-            },
-            {
-              "openDay": 5,
-              "openMin": 720,
-              "closeDay": 6,
-              "closeMin": 0
-            },
-            {
-              "openDay": 6,
-              "openMin": 720,
-              "closeDay": 0,
-              "closeMin": 0
-            }
-          ],
-          "weekdayText": [
-            "Monday: 12:00 PM – 12:00 AM",
-            "Tuesday: 12:00 PM – 12:00 AM",
-            "Wednesday: 12:00 PM – 12:00 AM",
-            "Thursday: 12:00 PM – 12:00 AM",
-            "Friday: 12:00 PM – 12:00 AM",
-            "Saturday: 12:00 PM – 12:00 AM",
-            "Sunday: 12:00 PM – 12:00 AM"
-          ]
-        }
-      }
-    ],
-    "neighborhood": "Lower East Side",
-    "rating": 4.4,
-    "userRatingCount": 2523,
-    "priceLevel": 2,
-    "happyHour": null,
-    "reservationPolicy": "unknown",
-    "website": "http://kikisnyc.com/",
-    "googleMapsUri": "https://maps.google.com/?cid=2223505307817096349&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
   },
   {
     "id": "king-cole-bar",
@@ -19743,8 +19771,9 @@
     "id": "king-dumplings",
     "name": "King Dumplings",
     "category": "restaurant",
-    "types": [
-      "Dumpling Restaurant"
+    "types": [],
+    "cuisines": [
+      "Dumpling"
     ],
     "locations": [
       {
@@ -19826,8 +19855,9 @@
     "id": "king-new-york",
     "name": "King New York",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -19946,50 +19976,45 @@
     "id": "kings-chef-dimsum",
     "name": "King’s Chef Dimsum",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
-        "address": "133-48 Whitestone Expy, Flushing, NY 11354, USA",
-        "neighborhood": "Flushing",
-        "borough": "Queens",
+        "address": "1095 Prospect Ave #1, Bronx, NY 10459, USA",
+        "neighborhood": "Morrisania",
+        "borough": "The Bronx",
         "coordinates": {
-          "lat": 40.7689966,
-          "lng": -73.8358183
+          "lat": 40.825953299999995,
+          "lng": -73.89921810000001
         },
-        "placeId": "ChIJMXID_QNgwokRSUzJ19MqBbE",
+        "placeId": "ChIJi-DeP1L0wokR55JVOjqpHpg",
         "hours": {
           "periods": [
             {
               "openDay": 0,
               "openMin": 720,
               "closeDay": 0,
-              "closeMin": 1350
-            },
-            {
-              "openDay": 1,
-              "openMin": 660,
-              "closeDay": 1,
-              "closeMin": 1350
+              "closeMin": 1380
             },
             {
               "openDay": 2,
               "openMin": 660,
               "closeDay": 2,
-              "closeMin": 1350
+              "closeMin": 1380
             },
             {
               "openDay": 3,
               "openMin": 660,
               "closeDay": 3,
-              "closeMin": 1350
+              "closeMin": 1380
             },
             {
               "openDay": 4,
               "openMin": 660,
               "closeDay": 4,
-              "closeMin": 1350
+              "closeMin": 1380
             },
             {
               "openDay": 5,
@@ -20005,31 +20030,31 @@
             }
           ],
           "weekdayText": [
-            "Monday: 11:00 AM – 10:30 PM",
-            "Tuesday: 11:00 AM – 10:30 PM",
-            "Wednesday: 11:00 AM – 10:30 PM",
-            "Thursday: 11:00 AM – 10:30 PM",
+            "Monday: Closed",
+            "Tuesday: 11:00 AM – 11:00 PM",
+            "Wednesday: 11:00 AM – 11:00 PM",
+            "Thursday: 11:00 AM – 11:00 PM",
             "Friday: 11:00 AM – 11:30 PM",
             "Saturday: 11:00 AM – 11:30 PM",
-            "Sunday: 12:00 – 10:30 PM"
+            "Sunday: 12:00 – 11:00 PM"
           ]
         }
       }
     ],
-    "neighborhood": "Flushing",
-    "rating": 3.3,
-    "userRatingCount": 211,
-    "priceLevel": 1,
+    "neighborhood": "Morrisania",
+    "rating": 4,
+    "userRatingCount": 200,
     "happyHour": null,
     "reservationPolicy": "unknown",
-    "googleMapsUri": "https://maps.google.com/?cid=12755648608943557705&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    "googleMapsUri": "https://maps.google.com/?cid=10961384610618249959&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
   },
   {
     "id": "kisa",
     "name": "Kisa",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -20141,8 +20166,9 @@
     "id": "kisa-2",
     "name": "Kisa",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -20254,8 +20280,9 @@
     "id": "kitchen-co-ut",
     "name": "Kitchen Co Ut",
     "category": "restaurant",
-    "types": [
-      "Vietnamese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -20337,8 +20364,9 @@
     "id": "kjun",
     "name": "KJUN",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -20439,8 +20467,9 @@
     "id": "kjun-2",
     "name": "KJUN",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -20541,8 +20570,9 @@
     "id": "konban",
     "name": "Konban",
     "category": "restaurant",
-    "types": [
-      "Izakaya Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -20625,8 +20655,9 @@
     "id": "lartusi",
     "name": "L’Artusi",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -20751,8 +20782,9 @@
     "id": "lindustrie-pizza",
     "name": "L’industrie Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -20834,8 +20866,9 @@
     "id": "la-sirena",
     "name": "La Sirena",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -20918,8 +20951,9 @@
     "id": "la-sirena-2",
     "name": "La Sirena",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -21002,8 +21036,9 @@
     "id": "laser-wolf",
     "name": "Laser Wolf",
     "category": "restaurant",
-    "types": [
-      "Israeli Restaurant"
+    "types": [],
+    "cuisines": [
+      "Israeli"
     ],
     "locations": [
       {
@@ -21096,8 +21131,9 @@
     "id": "laser-wolf-brooklyn",
     "name": "Laser Wolf Brooklyn",
     "category": "restaurant",
-    "types": [
-      "Israeli Restaurant"
+    "types": [],
+    "cuisines": [
+      "Israeli"
     ],
     "locations": [
       {
@@ -21190,8 +21226,9 @@
     "id": "le-bernardin",
     "name": "Le Bernardin",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -21298,8 +21335,9 @@
     "id": "le-coucou",
     "name": "Le Coucou",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -21423,8 +21461,9 @@
     "id": "le-crocodile",
     "name": "Le Crocodile",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -21506,8 +21545,9 @@
     "id": "le-veau-dor",
     "name": "Le Veau d’Or",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -21608,8 +21648,9 @@
     "id": "le-veau-dor-2",
     "name": "Le Veau d’Or",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -21710,8 +21751,9 @@
     "id": "levante-lic",
     "name": "Levante LIC",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -21788,8 +21830,9 @@
     "id": "lhasa-fast-food",
     "name": "Lhasa Fast Food",
     "category": "restaurant",
-    "types": [
-      "Tibetan Restaurant"
+    "types": [],
+    "cuisines": [
+      "Tibetan"
     ],
     "locations": [
       {
@@ -21870,8 +21913,9 @@
     "id": "lilia",
     "name": "Lilia",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -22039,8 +22083,9 @@
     "id": "little-myanmar",
     "name": "Little Myanmar",
     "category": "restaurant",
-    "types": [
-      "Burmese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burmese"
     ],
     "locations": [
       {
@@ -22123,8 +22168,9 @@
     "id": "little-owl",
     "name": "Little Owl",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -22248,9 +22294,8 @@
     "id": "little-rubys",
     "name": "Little Ruby’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "225 W 4th St, New York, NY 10014, USA",
@@ -22332,8 +22377,9 @@
     "id": "locanda-verde",
     "name": "Locanda Verde",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -22487,8 +22533,9 @@
     "id": "locanda-verde-2",
     "name": "Locanda Verde",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -22642,8 +22689,9 @@
     "id": "lombardis",
     "name": "Lombardi’s",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -22791,7 +22839,7 @@
     ],
     "neighborhood": "Cobble Hill",
     "rating": 4.4,
-    "userRatingCount": 677,
+    "userRatingCount": 678,
     "priceLevel": 2,
     "happyHour": false,
     "reservationPolicy": "walk-in",
@@ -22806,8 +22854,9 @@
     "id": "los-mariscos",
     "name": "Los Mariscos",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -22890,8 +22939,9 @@
     "id": "los-tacos-no-1",
     "name": "Los Tacos No. 1",
     "category": "restaurant",
-    "types": [
-      "Taco Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -22962,7 +23012,7 @@
     ],
     "neighborhood": "Theater District",
     "rating": 4.8,
-    "userRatingCount": 15655,
+    "userRatingCount": 15657,
     "priceLevel": 1,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -22974,8 +23024,9 @@
     "id": "lucali",
     "name": "Lucali",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -23052,9 +23103,8 @@
     "id": "lure-fishbar",
     "name": "Lure Fishbar",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "142 Mercer St, New York, NY 10012, USA",
@@ -23263,8 +23313,9 @@
     "id": "madame-vo",
     "name": "Madame Vo",
     "category": "restaurant",
-    "types": [
-      "Vietnamese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -23389,9 +23440,8 @@
     "id": "maiella",
     "name": "Maiella",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "46-10 Center Blvd, Long Island City, NY 11109, USA",
@@ -23577,8 +23627,9 @@
     "id": "maison-premiere-2",
     "name": "Maison Premiere",
     "category": "restaurant",
-    "types": [
-      "Oyster Bar Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -23660,8 +23711,9 @@
     "id": "maison-premiere-3",
     "name": "Maison Premiere",
     "category": "restaurant",
-    "types": [
-      "Oyster Bar Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -23743,91 +23795,95 @@
     "id": "maison-yaki",
     "name": "Maison Yaki",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
-        "address": "15 Watts St, New York, NY 10013, USA",
-        "neighborhood": "SoHo",
+        "address": "341 St Nicholas Ave, New York, NY 10027, USA",
+        "neighborhood": "Manhattanville",
         "borough": "Manhattan",
         "coordinates": {
-          "lat": 40.7232542,
-          "lng": -74.0037064
+          "lat": 40.8121788,
+          "lng": -73.9516141
         },
-        "placeId": "ChIJscGaa0dZwokRcP8iHz_SQ1U",
+        "placeId": "ChIJd3H89mz2wokRdk5JHB3Aino",
         "hours": {
           "periods": [
             {
               "openDay": 0,
+              "openMin": 660,
+              "closeDay": 1,
+              "closeMin": 30
+            },
+            {
+              "openDay": 1,
               "openMin": 720,
-              "closeDay": 0,
-              "closeMin": 1140
+              "closeDay": 2,
+              "closeMin": 30
             },
             {
               "openDay": 2,
-              "openMin": 1080,
+              "openMin": 720,
               "closeDay": 3,
-              "closeMin": 0
+              "closeMin": 30
             },
             {
               "openDay": 3,
-              "openMin": 1080,
+              "openMin": 720,
               "closeDay": 4,
-              "closeMin": 0
+              "closeMin": 30
             },
             {
               "openDay": 4,
-              "openMin": 1080,
+              "openMin": 720,
               "closeDay": 5,
-              "closeMin": 120
+              "closeMin": 60
             },
             {
               "openDay": 5,
-              "openMin": 1080,
+              "openMin": 660,
               "closeDay": 6,
-              "closeMin": 120
+              "closeMin": 60
             },
             {
               "openDay": 6,
-              "openMin": 720,
-              "closeDay": 6,
-              "closeMin": 1080
-            },
-            {
-              "openDay": 6,
-              "openMin": 1170,
+              "openMin": 660,
               "closeDay": 0,
-              "closeMin": 120
+              "closeMin": 60
             }
           ],
           "weekdayText": [
-            "Monday: Closed",
-            "Tuesday: 6:00 PM – 12:00 AM",
-            "Wednesday: 6:00 PM – 12:00 AM",
-            "Thursday: 6:00 PM – 2:00 AM",
-            "Friday: 6:00 PM – 2:00 AM",
-            "Saturday: 12:00 – 6:00 PM, 7:30 PM – 2:00 AM",
-            "Sunday: 12:00 – 7:00 PM"
+            "Monday: 12:00 PM – 12:30 AM",
+            "Tuesday: 12:00 PM – 12:30 AM",
+            "Wednesday: 12:00 PM – 12:30 AM",
+            "Thursday: 12:00 PM – 1:00 AM",
+            "Friday: 11:00 AM – 1:00 AM",
+            "Saturday: 11:00 AM – 1:00 AM",
+            "Sunday: 11:00 AM – 12:30 AM"
           ]
         }
       }
     ],
-    "neighborhood": "SoHo",
-    "rating": 4.7,
-    "userRatingCount": 1781,
+    "neighborhood": "Manhattanville",
+    "rating": 4.4,
+    "userRatingCount": 1556,
+    "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
-    "website": "http://www.maisoncloserestaurant.com/",
-    "googleMapsUri": "https://maps.google.com/?cid=6143985485210648432&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+    "website": "https://www.maisonharlem.com/",
+    "googleMapsUri": "https://maps.google.com/?cid=8830081250674429558&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+    "photoUrl": "https://images.getbento.com/accounts/e299a1122a118fd67c19b81a2854f5be/media/images/87999fuQXphepQE6dhALpkwW3_maisonharlemlogo3.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100",
     "unverified": true
   },
   {
     "id": "malatesta-trattoria",
     "name": "Malatesta Trattoria",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -23921,8 +23977,9 @@
     "id": "manhatta",
     "name": "Manhatta",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -24095,9 +24152,8 @@
     "id": "mercer-kitchen",
     "name": "Mercer Kitchen",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "25 W Houston St, New York, NY 10012, USA",
@@ -24172,9 +24228,8 @@
     "id": "mercer-kitchen-2",
     "name": "Mercer Kitchen",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "25 W Houston St, New York, NY 10012, USA",
@@ -24365,8 +24420,9 @@
     "id": "milano-market",
     "name": "Milano Market",
     "category": "restaurant",
-    "types": [
-      "Grocery Store"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -24448,8 +24504,9 @@
     "id": "minetta-tavern",
     "name": "Minetta Tavern",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -24550,7 +24607,7 @@
     ],
     "neighborhood": "Greenwich Village",
     "rating": 4.5,
-    "userRatingCount": 2856,
+    "userRatingCount": 2857,
     "priceLevel": 3,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -24561,8 +24618,9 @@
     "id": "minetta-tavern-burger",
     "name": "Minetta Tavern Burger",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -24663,7 +24721,7 @@
     ],
     "neighborhood": "Greenwich Village",
     "rating": 4.5,
-    "userRatingCount": 2856,
+    "userRatingCount": 2857,
     "priceLevel": 3,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -24674,8 +24732,9 @@
     "id": "misi",
     "name": "Misi",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -24776,8 +24835,9 @@
     "id": "mission-chinese-food",
     "name": "Mission Chinese Food",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -24859,8 +24919,9 @@
     "id": "mission-chinese-food-2",
     "name": "Mission Chinese Food",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -24942,8 +25003,9 @@
     "id": "mokyo",
     "name": "Mokyo",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -25019,8 +25081,9 @@
     "id": "momofuku-noodle-bar",
     "name": "Momofuku Noodle Bar",
     "category": "restaurant",
-    "types": [
-      "Ramen Restaurant"
+    "types": [],
+    "cuisines": [
+      "Ramen"
     ],
     "locations": [
       {
@@ -25120,8 +25183,9 @@
     "id": "momofuku-ssam-bar",
     "name": "Momofuku Ssäm Bar",
     "category": "restaurant",
-    "types": [
-      "Ramen Restaurant"
+    "types": [],
+    "cuisines": [
+      "Ramen"
     ],
     "locations": [
       {
@@ -25314,8 +25378,9 @@
     "id": "monkey-bar-2",
     "name": "Monkey Bar",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -25398,8 +25463,9 @@
     "id": "monkey-bar-3",
     "name": "Monkey Bar",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -25482,7 +25548,8 @@
     "id": "myrtle-gold",
     "name": "Myrtle & Gold",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Jewelry Store"
     ],
     "locations": [
@@ -25508,8 +25575,9 @@
     "id": "nan-xiang-xiao-long-bao",
     "name": "Nan Xiang Xiao Long Bao",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -25591,8 +25659,9 @@
     "id": "new-malaysia",
     "name": "New Malaysia",
     "category": "restaurant",
-    "types": [
-      "Malaysian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Malaysian"
     ],
     "locations": [
       {
@@ -25675,8 +25744,9 @@
     "id": "nha-trang-one",
     "name": "Nha Trang One",
     "category": "restaurant",
-    "types": [
-      "Vietnamese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -25752,8 +25822,9 @@
     "id": "nice-matin",
     "name": "Nice Matin",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -26154,8 +26225,9 @@
     "id": "nobu-downtown",
     "name": "Nobu Downtown",
     "category": "restaurant",
-    "types": [
-      "Japanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -26267,8 +26339,9 @@
     "id": "nobu-downtown-2",
     "name": "Nobu Downtown",
     "category": "restaurant",
-    "types": [
-      "Japanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -26380,8 +26453,9 @@
     "id": "nom-wah-tea-parlor",
     "name": "Nom Wah Tea Parlor",
     "category": "restaurant",
-    "types": [
-      "Dim Sum Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -26464,9 +26538,8 @@
     "id": "nomad-bar",
     "name": "NoMad Bar",
     "category": "restaurant",
-    "types": [
-      "Bar"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "131 Madison Ave, New York, NY 10016, USA",
@@ -26546,8 +26619,9 @@
     "id": "noreetuh",
     "name": "Noreetuh",
     "category": "restaurant",
-    "types": [
-      "Hawaiian Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -26722,8 +26796,9 @@
     "id": "nyonya",
     "name": "Nyonya",
     "category": "restaurant",
-    "types": [
-      "Malaysian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Malaysian"
     ],
     "locations": [
       {
@@ -26896,8 +26971,9 @@
     "id": "okdongsik",
     "name": "OKDONGSIK",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -27022,9 +27098,8 @@
     "id": "olio-e-piu",
     "name": "Olio e Più",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "106 3rd Ave, New York, NY 10003, USA",
@@ -27105,9 +27180,8 @@
     "id": "olio-e-piu-2",
     "name": "Olio e Più",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "106 3rd Ave, New York, NY 10003, USA",
@@ -27188,8 +27262,9 @@
     "id": "ops-pizza",
     "name": "Ops Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -27271,8 +27346,9 @@
     "id": "oresh",
     "name": "Or’esh",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -27354,8 +27430,9 @@
     "id": "oresh-2",
     "name": "Or’esh",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -27613,8 +27690,9 @@
     "id": "oxomoco",
     "name": "Oxomoco",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -27739,8 +27817,9 @@
     "id": "p-j-clarkes",
     "name": "P.J. Clarke’s",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -28269,8 +28348,9 @@
     "id": "pascalou",
     "name": "Pascalou",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -28353,8 +28433,9 @@
     "id": "pascalou-2",
     "name": "Pascalou",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -28437,8 +28518,9 @@
     "id": "pastis",
     "name": "Pastis",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -28520,8 +28602,9 @@
     "id": "pastrami-queen",
     "name": "Pastrami Queen",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -28592,7 +28675,7 @@
     ],
     "neighborhood": "Upper East Side",
     "rating": 4,
-    "userRatingCount": 1819,
+    "userRatingCount": 1820,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -28604,8 +28687,9 @@
     "id": "patacon-pisao",
     "name": "Patacon Pisao",
     "category": "restaurant",
-    "types": [
-      "Latin American Restaurant"
+    "types": [],
+    "cuisines": [
+      "Latin American"
     ],
     "locations": [
       {
@@ -28688,8 +28772,9 @@
     "id": "patsys-italian-restaurant-midtown",
     "name": "Patsy’s Italian Restaurant (Midtown)",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -28772,8 +28857,9 @@
     "id": "patsys-pizza-east-harlem",
     "name": "Patsy’s Pizza (East Harlem)",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -28857,8 +28943,9 @@
     "id": "paulie-gees",
     "name": "Paulie Gee’s",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -28939,8 +29026,9 @@
     "id": "paulie-gees-slice-shop",
     "name": "Paulie Gee’s Slice Shop",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -29021,8 +29109,9 @@
     "id": "peak-restaurant",
     "name": "Peak Restaurant",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -29146,8 +29235,9 @@
     "id": "peak-restaurant-2",
     "name": "Peak Restaurant",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -29494,8 +29584,9 @@
     "id": "penny",
     "name": "Penny",
     "category": "restaurant",
-    "types": [
-      "Seafood Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -29577,8 +29668,9 @@
     "id": "penny-2",
     "name": "Penny",
     "category": "restaurant",
-    "types": [
-      "Seafood Restaurant"
+    "types": [],
+    "cuisines": [
+      "Seafood"
     ],
     "locations": [
       {
@@ -29660,7 +29752,8 @@
     "id": "penny-bridge-lic",
     "name": "Penny Bridge (LIC)",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Park"
     ],
     "locations": [
@@ -29718,8 +29811,9 @@
     "id": "peter-luger-steak-house",
     "name": "Peter Luger Steak House",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -29801,8 +29895,9 @@
     "id": "peter-pan-donut-pastry-shop",
     "name": "Peter Pan Donut & Pastry Shop",
     "category": "restaurant",
-    "types": [
-      "Donut Shop"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -29873,7 +29968,7 @@
     ],
     "neighborhood": "Greenpoint",
     "rating": 4.6,
-    "userRatingCount": 3157,
+    "userRatingCount": 3158,
     "priceLevel": 1,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -30012,8 +30107,9 @@
     "id": "pho-grand",
     "name": "Pho Grand",
     "category": "restaurant",
-    "types": [
-      "Vietnamese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vietnamese"
     ],
     "locations": [
       {
@@ -30095,8 +30191,9 @@
     "id": "pierogi-boys",
     "name": "Pierogi Boys",
     "category": "restaurant",
-    "types": [
-      "Polish Restaurant"
+    "types": [],
+    "cuisines": [
+      "Polish"
     ],
     "locations": [
       {
@@ -30178,8 +30275,9 @@
     "id": "pierogi-boys-2",
     "name": "Pierogi Boys",
     "category": "restaurant",
-    "types": [
-      "Polish Restaurant"
+    "types": [],
+    "cuisines": [
+      "Polish"
     ],
     "locations": [
       {
@@ -30261,9 +30359,8 @@
     "id": "pig-khao",
     "name": "Pig & Khao",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "433 Amsterdam Ave, New York, NY 10024, USA",
@@ -30355,9 +30452,8 @@
     "id": "pig-khao-2",
     "name": "Pig & Khao",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "433 Amsterdam Ave, New York, NY 10024, USA",
@@ -30577,8 +30673,9 @@
     "id": "pisillo-italian-panini",
     "name": "Pisillo Italian Panini",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -30751,9 +30848,8 @@
     "id": "precious-metal",
     "name": "Precious Metal",
     "category": "restaurant",
-    "types": [
-      "Store"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "36 W 47th St #500, New York, NY 10036, USA",
@@ -30822,8 +30918,9 @@
     "id": "prince-street-pizza",
     "name": "Prince Street Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -30905,8 +31002,9 @@
     "id": "prince-street-pizza-2",
     "name": "Prince Street Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -31116,8 +31214,9 @@
     "id": "quality-italian",
     "name": "Quality Italian",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -31242,8 +31341,9 @@
     "id": "quique-crudo",
     "name": "Quique Crudo",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -31319,7 +31419,8 @@
     "id": "randolph-beer",
     "name": "Randolph Beer",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Brewpub"
     ],
     "locations": [
@@ -31397,8 +31498,9 @@
     "id": "raouls",
     "name": "Raoul’s",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -31492,8 +31594,9 @@
     "id": "raouls-2",
     "name": "Raoul’s",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -31587,8 +31690,9 @@
     "id": "razza",
     "name": "Razza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -31659,7 +31763,7 @@
     ],
     "neighborhood": "Van Vorst Park",
     "rating": 4.5,
-    "userRatingCount": 3319,
+    "userRatingCount": 3320,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -31670,8 +31774,9 @@
     "id": "red-hook-tavern",
     "name": "Red Hook Tavern",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -31778,8 +31883,9 @@
     "id": "redfarm",
     "name": "RedFarm",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -31880,8 +31986,9 @@
     "id": "redfarm-2",
     "name": "RedFarm",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -31982,7 +32089,8 @@
     "id": "reynard",
     "name": "Reynard",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Attorney"
     ],
     "locations": [
@@ -32061,8 +32169,9 @@
     "id": "rh-rooftop-restaurant",
     "name": "RH Rooftop Restaurant",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -32144,8 +32253,9 @@
     "id": "rh-rooftop-restaurant-2",
     "name": "RH Rooftop Restaurant",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -32355,7 +32465,8 @@
     "id": "rolos",
     "name": "Rolo’s",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Bar & Grill"
     ],
     "locations": [
@@ -32540,9 +32651,8 @@
     "id": "rubys-cafe-soho",
     "name": "Ruby’s Café (SoHo)",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "219 Mulberry St, New York, NY 10012, USA",
@@ -32624,8 +32734,9 @@
     "id": "rucola",
     "name": "Rucola",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -32750,7 +32861,8 @@
     "id": "ruffian-wine-bar",
     "name": "Ruffian Wine Bar",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -32834,8 +32946,9 @@
     "id": "rule-of-thirds",
     "name": "Rule of Thirds",
     "category": "restaurant",
-    "types": [
-      "Japanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {
@@ -32930,8 +33043,9 @@
     "id": "s-p-lunch",
     "name": "S&P Lunch",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -33013,8 +33127,9 @@
     "id": "saga",
     "name": "Saga",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -33084,8 +33199,9 @@
     "id": "saga-2",
     "name": "Saga",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -33155,8 +33271,9 @@
     "id": "saga-3",
     "name": "SAGA",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -33226,8 +33343,9 @@
     "id": "sailor",
     "name": "Sailor",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -33411,8 +33529,9 @@
     "id": "sal-kris-charlies-deli",
     "name": "Sal, Kris & Charlie’s Deli",
     "category": "restaurant",
-    "types": [
-      "Sandwich Shop"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -33494,8 +33613,9 @@
     "id": "sant-ambroeus",
     "name": "Sant Ambroeus",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -33577,8 +33697,9 @@
     "id": "sant-ambroeus-2",
     "name": "Sant Ambroeus",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -33660,8 +33781,9 @@
     "id": "sant-ambroeus-3",
     "name": "Sant Ambroeus",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -33917,7 +34039,8 @@
     "id": "sauced-2",
     "name": "Sauced",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -34000,7 +34123,8 @@
     "id": "sauced-3",
     "name": "Sauced",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -34083,8 +34207,9 @@
     "id": "scarrs-pizza",
     "name": "Scarr’s Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -34167,8 +34292,9 @@
     "id": "scarrs-pizza-2",
     "name": "Scarr’s Pizza",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -34333,81 +34459,86 @@
     "id": "schnitzel-things",
     "name": "Schnitzel & Things",
     "category": "restaurant",
-    "types": [
-      "German Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
-        "address": "114 Bay Ridge Ave, Brooklyn, NY 11220, USA",
-        "neighborhood": "Bay Ridge",
-        "borough": "Brooklyn",
+        "address": "600 Getty Ave, Clifton, NJ 07011, USA",
+        "neighborhood": "Hazel",
+        "borough": "Clifton",
         "coordinates": {
-          "lat": 40.6373411,
-          "lng": -74.0317875
+          "lat": 40.8892917,
+          "lng": -74.1499626
         },
-        "placeId": "ChIJ5UqORFpFwokRYobZ2prFUFA",
+        "placeId": "ChIJXSxzUZj-wokR6OpkQF1FvyA",
         "hours": {
           "periods": [
             {
-              "openDay": 0,
-              "openMin": 840,
-              "closeDay": 0,
-              "closeMin": 1260
+              "openDay": 1,
+              "openMin": 720,
+              "closeDay": 1,
+              "closeMin": 1320
+            },
+            {
+              "openDay": 2,
+              "openMin": 720,
+              "closeDay": 2,
+              "closeMin": 1320
             },
             {
               "openDay": 3,
-              "openMin": 960,
+              "openMin": 720,
               "closeDay": 3,
-              "closeMin": 1260
+              "closeMin": 1320
             },
             {
               "openDay": 4,
-              "openMin": 960,
+              "openMin": 720,
               "closeDay": 4,
-              "closeMin": 1260
+              "closeMin": 1320
             },
             {
               "openDay": 5,
-              "openMin": 960,
+              "openMin": 720,
               "closeDay": 5,
               "closeMin": 1320
             },
             {
               "openDay": 6,
-              "openMin": 720,
+              "openMin": 0,
               "closeDay": 6,
               "closeMin": 1320
             }
           ],
           "weekdayText": [
-            "Monday: Closed",
-            "Tuesday: Closed",
-            "Wednesday: 4:00 – 9:00 PM",
-            "Thursday: 4:00 – 9:00 PM",
-            "Friday: 4:00 – 10:00 PM",
-            "Saturday: 12:00 – 10:00 PM",
-            "Sunday: 2:00 – 9:00 PM"
+            "Monday: 12:00 – 10:00 PM",
+            "Tuesday: 12:00 – 10:00 PM",
+            "Wednesday: 12:00 – 10:00 PM",
+            "Thursday: 12:00 – 10:00 PM",
+            "Friday: 12:00 – 10:00 PM",
+            "Saturday: 12:00 AM – 10:00 PM",
+            "Sunday: Closed"
           ]
         }
       }
     ],
-    "neighborhood": "Bay Ridge",
-    "rating": 4.3,
-    "userRatingCount": 699,
-    "priceLevel": 2,
+    "neighborhood": "Hazel",
+    "rating": 4.7,
+    "userRatingCount": 519,
+    "priceLevel": 1,
     "happyHour": null,
     "reservationPolicy": "unknown",
-    "website": "http://www.schnitzelhausbk.com/",
-    "googleMapsUri": "https://maps.google.com/?cid=5787342790058411618&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
-    "photoUrl": "http://static1.squarespace.com/static/69e80ec1e32fbd7a08b3d168/t/69f7f4dce61f4720c2be9161/1777857756764/download%2B%282%29-1.webp?format=1500w",
+    "website": "http://www.facebook.com/Schnitzel-Express-125191817980487/",
+    "googleMapsUri": "https://maps.google.com/?cid=2359680996580059880&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
     "unverified": true
   },
   {
     "id": "semma",
     "name": "Semma",
     "category": "restaurant",
-    "types": [
-      "South Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -34484,8 +34615,9 @@
     "id": "semma-2",
     "name": "Semma",
     "category": "restaurant",
-    "types": [
-      "South Indian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Indian"
     ],
     "locations": [
       {
@@ -34562,8 +34694,9 @@
     "id": "serafina-ues",
     "name": "Serafina UES",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -34646,8 +34779,9 @@
     "id": "shake-shack",
     "name": "Shake Shack",
     "category": "restaurant",
-    "types": [
-      "Hamburger Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burgers"
     ],
     "locations": [
       {
@@ -34729,8 +34863,9 @@
     "id": "shalom-japan",
     "name": "Shalom Japan",
     "category": "restaurant",
-    "types": [
-      "Fusion Restaurant"
+    "types": [],
+    "cuisines": [
+      "Brunch"
     ],
     "locations": [
       {
@@ -34818,8 +34953,9 @@
     "id": "shanghai-21",
     "name": "Shanghai 21",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -34901,9 +35037,8 @@
     "id": "shota-omakase",
     "name": "Shota Omakase",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "50 S 3rd St, Brooklyn, NY 11249, USA",
@@ -34989,9 +35124,8 @@
     "id": "shota-omakase-2",
     "name": "Shota Omakase",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "50 S 3rd St, Brooklyn, NY 11249, USA",
@@ -35077,8 +35211,9 @@
     "id": "shuka",
     "name": "Shuka",
     "category": "restaurant",
-    "types": [
-      "Mediterranean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mediterranean"
     ],
     "locations": [
       {
@@ -35295,8 +35430,9 @@
     "id": "smith-wollensky",
     "name": "Smith & Wollensky",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -35408,8 +35544,9 @@
     "id": "soho-diner",
     "name": "SoHo Diner",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -35614,8 +35751,9 @@
     "id": "soothr",
     "name": "Soothr",
     "category": "restaurant",
-    "types": [
-      "Thai Restaurant"
+    "types": [],
+    "cuisines": [
+      "Thai"
     ],
     "locations": [
       {
@@ -35728,7 +35866,7 @@
     ],
     "neighborhood": "East Village",
     "rating": 4.8,
-    "userRatingCount": 6685,
+    "userRatingCount": 6687,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -35830,9 +35968,8 @@
     "id": "sosos-2",
     "name": "Soso’s",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "191 Centre St, New York, NY 10013, USA",
@@ -35913,8 +36050,9 @@
     "id": "spicy-moon",
     "name": "Spicy Moon",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -35997,8 +36135,9 @@
     "id": "spicy-village",
     "name": "Spicy Village",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -36074,7 +36213,8 @@
     "id": "square-diner",
     "name": "Square Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -36158,8 +36298,9 @@
     "id": "sripraphai",
     "name": "SriPraPhai",
     "category": "restaurant",
-    "types": [
-      "Thai Restaurant"
+    "types": [],
+    "cuisines": [
+      "Thai"
     ],
     "locations": [
       {
@@ -36236,8 +36377,9 @@
     "id": "st-jardim",
     "name": "St. Jardim",
     "category": "restaurant",
-    "types": [
-      "Wine Bar"
+    "types": [],
+    "cuisines": [
+      "Cafe"
     ],
     "locations": [
       {
@@ -36319,8 +36461,9 @@
     "id": "stk-steakhouse",
     "name": "STK Steakhouse",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -36403,8 +36546,9 @@
     "id": "stk-steakhouse-2",
     "name": "STK Steakhouse",
     "category": "restaurant",
-    "types": [
-      "Steak House"
+    "types": [],
+    "cuisines": [
+      "Steakhouse"
     ],
     "locations": [
       {
@@ -36487,8 +36631,9 @@
     "id": "sunday-in-brooklyn",
     "name": "Sunday in Brooklyn",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -36787,7 +36932,8 @@
     "id": "superbueno-2",
     "name": "Superbueno",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Cocktail Bar"
     ],
     "locations": [
@@ -36871,8 +37017,9 @@
     "id": "superiority-burger",
     "name": "Superiority Burger",
     "category": "restaurant",
-    "types": [
-      "Vegetarian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vegetarian"
     ],
     "locations": [
       {
@@ -36955,8 +37102,9 @@
     "id": "superiority-burger-2",
     "name": "Superiority Burger",
     "category": "restaurant",
-    "types": [
-      "Vegetarian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Vegetarian"
     ],
     "locations": [
       {
@@ -37039,8 +37187,9 @@
     "id": "sushi-noz",
     "name": "Sushi Noz",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -37116,8 +37265,9 @@
     "id": "sushi-noz-2",
     "name": "Sushi Noz",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -37193,9 +37343,8 @@
     "id": "sushi-sho",
     "name": "Sushi Sho",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "3 E 41st St, New York, NY 10017, USA",
@@ -37269,9 +37418,8 @@
     "id": "sushi-sho-2",
     "name": "Sushi Sho",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "3 E 41st St, New York, NY 10017, USA",
@@ -37345,8 +37493,9 @@
     "id": "sushi-yasaka",
     "name": "Sushi Yasaka",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -37470,8 +37619,9 @@
     "id": "sushi-yasaka-2",
     "name": "Sushi Yasaka",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -37717,8 +37867,9 @@
     "id": "szechuan-mountain-house",
     "name": "Szechuan Mountain House",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -37801,8 +37952,9 @@
     "id": "tabetomo",
     "name": "Tabetomo",
     "category": "restaurant",
-    "types": [
-      "Ramen Restaurant"
+    "types": [],
+    "cuisines": [
+      "Ramen"
     ],
     "locations": [
       {
@@ -37884,8 +38036,9 @@
     "id": "taiwan-pork-chop-house",
     "name": "Taiwan Pork Chop House",
     "category": "restaurant",
-    "types": [
-      "Taiwanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Taiwanese"
     ],
     "locations": [
       {
@@ -38612,8 +38765,9 @@
     "id": "temple-court",
     "name": "Temple Court",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -38732,8 +38886,9 @@
     "id": "temple-court-2",
     "name": "Temple Court",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -38852,7 +39007,8 @@
     "id": "terroir",
     "name": "Terroir",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -38936,8 +39092,9 @@
     "id": "tessa",
     "name": "Tessa",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -39020,8 +39177,9 @@
     "id": "tessa-2",
     "name": "Tessa",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -39104,8 +39262,9 @@
     "id": "thai-diner",
     "name": "Thai Diner",
     "category": "restaurant",
-    "types": [
-      "Thai Restaurant"
+    "types": [],
+    "cuisines": [
+      "Thai"
     ],
     "locations": [
       {
@@ -39394,8 +39553,9 @@
     "id": "the-clocktower",
     "name": "The Clocktower",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -39531,8 +39691,9 @@
     "id": "the-clocktower-2",
     "name": "The Clocktower",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -39668,8 +39829,9 @@
     "id": "the-commerce-inn",
     "name": "The Commerce Inn",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -39974,8 +40136,9 @@
     "id": "the-dutch",
     "name": "The Dutch",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -40058,9 +40221,8 @@
     "id": "the-eighty-six",
     "name": "The Eighty Six",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "86 Bedford St, New York, NY 10014, USA",
@@ -40141,9 +40303,8 @@
     "id": "the-eighty-six-2",
     "name": "The Eighty Six",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "86 Bedford St, New York, NY 10014, USA",
@@ -40224,8 +40385,9 @@
     "id": "the-fly",
     "name": "The Fly",
     "category": "restaurant",
-    "types": [
-      "Chicken Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chicken"
     ],
     "locations": [
       {
@@ -40308,9 +40470,8 @@
     "id": "the-four-horsemen",
     "name": "The Four Horsemen",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "295 Grand St, Brooklyn, NY 11211, USA",
@@ -40481,8 +40642,9 @@
     "id": "the-grill",
     "name": "The Grill",
     "category": "restaurant",
-    "types": [
-      "Fine Dining Restaurant"
+    "types": [],
+    "cuisines": [
+      "Fine Dining"
     ],
     "locations": [
       {
@@ -40674,8 +40836,9 @@
     "id": "the-milling-room",
     "name": "The Milling Room",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -40744,9 +40907,8 @@
     "id": "the-modern",
     "name": "The Modern",
     "category": "restaurant",
-    "types": [
-      "Restaurant"
-    ],
+    "types": [],
+    "cuisines": [],
     "locations": [
       {
         "address": "9 W 53rd St, New York, NY 10019, USA",
@@ -40961,8 +41123,9 @@
     "id": "the-odeon",
     "name": "The Odeon",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -41045,8 +41208,9 @@
     "id": "the-odeon-2",
     "name": "The Odeon",
     "category": "restaurant",
-    "types": [
-      "French Restaurant"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -41129,8 +41293,9 @@
     "id": "the-penrose",
     "name": "The Penrose",
     "category": "restaurant",
-    "types": [
-      "Bar"
+    "types": [],
+    "cuisines": [
+      "Brunch"
     ],
     "locations": [
       {
@@ -41213,8 +41378,9 @@
     "id": "the-penrose-2",
     "name": "The Penrose",
     "category": "restaurant",
-    "types": [
-      "Bar"
+    "types": [],
+    "cuisines": [
+      "Brunch"
     ],
     "locations": [
       {
@@ -41423,8 +41589,9 @@
     "id": "the-polo-bar",
     "name": "The Polo Bar",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -41506,8 +41673,9 @@
     "id": "the-polo-bar-2",
     "name": "The Polo Bar",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -41679,8 +41847,9 @@
     "id": "the-river-cafe",
     "name": "The River Café",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -41751,8 +41920,9 @@
     "id": "the-smith",
     "name": "The Smith",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -41834,8 +42004,9 @@
     "id": "the-standard-grill",
     "name": "The Standard Grill",
     "category": "restaurant",
-    "types": [
-      "Bar & Grill"
+    "types": [],
+    "cuisines": [
+      "Breakfast"
     ],
     "locations": [
       {
@@ -41918,7 +42089,8 @@
     "id": "the-ten-bells",
     "name": "The Ten Bells",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -42001,7 +42173,8 @@
     "id": "the-ten-bells-2",
     "name": "The Ten Bells",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Wine Bar"
     ],
     "locations": [
@@ -42335,8 +42508,9 @@
     "id": "thursday-kitchen",
     "name": "Thursday Kitchen",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -42730,8 +42904,9 @@
     "id": "tofu-tofu",
     "name": "Tofu Tofu",
     "category": "restaurant",
-    "types": [
-      "Korean Restaurant"
+    "types": [],
+    "cuisines": [
+      "Korean"
     ],
     "locations": [
       {
@@ -42813,8 +42988,9 @@
     "id": "toloache-ues",
     "name": "Toloache UES",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -42897,8 +43073,9 @@
     "id": "toloache-ues-2",
     "name": "Toloache UES",
     "category": "restaurant",
-    "types": [
-      "Mexican Restaurant"
+    "types": [],
+    "cuisines": [
+      "Mexican"
     ],
     "locations": [
       {
@@ -42981,8 +43158,9 @@
     "id": "toms-restaurant",
     "name": "Tom’s Restaurant",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -43064,8 +43242,9 @@
     "id": "tong",
     "name": "Tong",
     "category": "restaurant",
-    "types": [
-      "Thai Restaurant"
+    "types": [],
+    "cuisines": [
+      "Thai"
     ],
     "locations": [
       {
@@ -43190,8 +43369,9 @@
     "id": "tonys-di-napoli",
     "name": "Tony’s Di Napoli",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -43274,8 +43454,9 @@
     "id": "tonys-di-napoli-2",
     "name": "Tony’s Di Napoli",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -43358,8 +43539,9 @@
     "id": "totonnos-pizzeria",
     "name": "Totonno’s Pizzeria",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -43412,8 +43594,9 @@
     "id": "traif",
     "name": "Traif",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -43583,8 +43766,9 @@
     "id": "tu-casa-restaurant",
     "name": "Tu Casa Restaurant",
     "category": "restaurant",
-    "types": [
-      "Peruvian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Peruvian"
     ],
     "locations": [
       {
@@ -43799,8 +43983,9 @@
     "id": "two-hands",
     "name": "Two Hands",
     "category": "restaurant",
-    "types": [
-      "Australian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Australian"
     ],
     "locations": [
       {
@@ -43871,7 +44056,7 @@
     ],
     "neighborhood": "TriBeCa",
     "rating": 4.4,
-    "userRatingCount": 1338,
+    "userRatingCount": 1339,
     "priceLevel": 2,
     "happyHour": null,
     "reservationPolicy": "unknown",
@@ -43883,8 +44068,9 @@
     "id": "una-pizza-napoletana",
     "name": "Una Pizza Napoletana",
     "category": "restaurant",
-    "types": [
-      "Pizza Restaurant"
+    "types": [],
+    "cuisines": [
+      "Pizza"
     ],
     "locations": [
       {
@@ -43943,8 +44129,9 @@
     "id": "union-square-cafe",
     "name": "Union Square Cafe",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -44027,8 +44214,9 @@
     "id": "uva",
     "name": "Uva",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -44111,8 +44299,9 @@
     "id": "uva-2",
     "name": "Uva",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -44195,8 +44384,9 @@
     "id": "veselka",
     "name": "Veselka",
     "category": "restaurant",
-    "types": [
-      "Ukrainian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sandwiches"
     ],
     "locations": [
       {
@@ -44267,8 +44457,9 @@
     "id": "via-carota",
     "name": "Via Carota",
     "category": "restaurant",
-    "types": [
-      "Italian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Italian"
     ],
     "locations": [
       {
@@ -44351,8 +44542,9 @@
     "id": "vin-sur-vingt",
     "name": "Vin Sur Vingt",
     "category": "restaurant",
-    "types": [
-      "Bistro"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -44433,8 +44625,9 @@
     "id": "vin-sur-vingt-uws",
     "name": "Vin Sur Vingt UWS",
     "category": "restaurant",
-    "types": [
-      "Wine Bar"
+    "types": [],
+    "cuisines": [
+      "French"
     ],
     "locations": [
       {
@@ -44633,7 +44826,8 @@
     "id": "waverly-diner",
     "name": "Waverly Diner",
     "category": "restaurant",
-    "types": [
+    "types": [],
+    "cuisines": [
       "Diner"
     ],
     "locations": [
@@ -44716,8 +44910,9 @@
     "id": "west-new-malaysia",
     "name": "West New Malaysia",
     "category": "restaurant",
-    "types": [
-      "Malaysian Restaurant"
+    "types": [],
+    "cuisines": [
+      "Malaysian"
     ],
     "locations": [
       {
@@ -44800,8 +44995,9 @@
     "id": "westville",
     "name": "Westville",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -44872,7 +45068,7 @@
     ],
     "neighborhood": "Lenox Hill",
     "rating": 4.9,
-    "userRatingCount": 464,
+    "userRatingCount": 465,
     "happyHour": null,
     "reservationPolicy": "unknown",
     "website": "https://westville.com/locations/westville-upper-east-side/",
@@ -44882,8 +45078,9 @@
     "id": "white-bear",
     "name": "White Bear",
     "category": "restaurant",
-    "types": [
-      "Dumpling Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -44964,8 +45161,9 @@
     "id": "whitmans",
     "name": "Whitmans",
     "category": "restaurant",
-    "types": [
-      "Hamburger Restaurant"
+    "types": [],
+    "cuisines": [
+      "Burgers"
     ],
     "locations": [
       {
@@ -45048,8 +45246,9 @@
     "id": "wildair",
     "name": "Wildair",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -45126,8 +45325,9 @@
     "id": "wildair-2",
     "name": "Wildair",
     "category": "restaurant",
-    "types": [
-      "American Restaurant"
+    "types": [],
+    "cuisines": [
+      "American"
     ],
     "locations": [
       {
@@ -45204,8 +45404,9 @@
     "id": "win-son",
     "name": "Win Son",
     "category": "restaurant",
-    "types": [
-      "Taiwanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Bakery"
     ],
     "locations": [
       {
@@ -45288,8 +45489,9 @@
     "id": "win-son-bakery",
     "name": "Win Son Bakery",
     "category": "restaurant",
-    "types": [
-      "Taiwanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Bakery"
     ],
     "locations": [
       {
@@ -45372,8 +45574,9 @@
     "id": "wo-hop",
     "name": "Wo Hop",
     "category": "restaurant",
-    "types": [
-      "Chinese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -45455,8 +45658,9 @@
     "id": "xian-famous-foods",
     "name": "Xi’an Famous Foods",
     "category": "restaurant",
-    "types": [
-      "Chinese Noodle Restaurant"
+    "types": [],
+    "cuisines": [
+      "Chinese"
     ],
     "locations": [
       {
@@ -45539,8 +45743,9 @@
     "id": "yoshino",
     "name": "Yoshino",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -45616,8 +45821,9 @@
     "id": "yoshino-2",
     "name": "Yoshino",
     "category": "restaurant",
-    "types": [
-      "Sushi Restaurant"
+    "types": [],
+    "cuisines": [
+      "Sushi"
     ],
     "locations": [
       {
@@ -45874,8 +46080,9 @@
     "id": "zuma-nyc",
     "name": "Zuma NYC",
     "category": "restaurant",
-    "types": [
-      "Japanese Restaurant"
+    "types": [],
+    "cuisines": [
+      "Japanese"
     ],
     "locations": [
       {

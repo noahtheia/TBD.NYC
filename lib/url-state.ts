@@ -26,6 +26,7 @@ export function parseFilters(sp: URLSearchParams): Filters {
     categories,
     neighborhoods: readList(sp, "hood"),
     types: readList(sp, "type"),
+    cuisines: readList(sp, "cuisine"),
     prices,
     reservation,
   };
@@ -40,6 +41,7 @@ export function buildQuery(filters: Filters, search: string, venueId: string | n
   if (filters.categories.length) p.set("cat", filters.categories.join(","));
   if (filters.neighborhoods.length) p.set("hood", filters.neighborhoods.join(","));
   if (filters.types.length) p.set("type", filters.types.join(","));
+  if (filters.cuisines.length) p.set("cuisine", filters.cuisines.join(","));
   if (filters.prices.length) p.set("price", filters.prices.join(","));
   if (filters.reservation.length) p.set("resv", filters.reservation.join(","));
   if (search.trim()) p.set("q", search.trim());

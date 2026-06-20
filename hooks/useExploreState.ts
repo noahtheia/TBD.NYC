@@ -6,7 +6,12 @@ import { EMPTY_FILTERS, type Filters, type ReservationPolicy } from "@/types/ven
 import { buildQuery, parseFilters } from "@/lib/url-state";
 import { useDebouncedValue } from "./useDebouncedValue";
 
-type StringListKey = "neighborhoods" | "types" | "reservation" | "categories";
+type StringListKey =
+  | "neighborhoods"
+  | "types"
+  | "cuisines"
+  | "reservation"
+  | "categories";
 
 /**
  * Owns the shareable explore state (filters + search + open venue), mirrored to

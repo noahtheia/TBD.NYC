@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Venue } from "@/types/venue";
+import { nearestDistanceMiles, type LatLng } from "@/lib/geo";
 import VenueCard from "./VenueCard";
 
 export type ActiveState = { id: string | null; source: "list" | "map" };
@@ -11,9 +12,10 @@ type Props = {
   active: ActiveState;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
+  userLoc?: LatLng | null;
 };
 
-export default function VenueList({ venues, active, onHover, onSelect }: Props) {
+export default function VenueList({ venues, active, onHover, onSelect, userLoc }: Props) {
   const refs = useRef<Map<string, HTMLElement>>(new Map());
 
   // When the active venue changes because of a map interaction, scroll its
@@ -46,6 +48,7 @@ export default function VenueList({ venues, active, onHover, onSelect }: Props) 
             isActive={v.id === active.id}
             onHover={onHover}
             onSelect={onSelect}
+            distanceMiles={userLoc ? nearestDistanceMiles(userLoc, v) : null}
             innerRef={(el) => {
               if (el) refs.current.set(v.id, el);
               else refs.current.delete(v.id);
