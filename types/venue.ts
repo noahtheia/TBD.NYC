@@ -7,6 +7,34 @@ export interface VenueBooking {
   host: BookingHost;
 }
 
+export type Category = "bar" | "restaurant";
+
+/** A single opening interval. Days use Google convention: 0 = Sunday … 6 = Saturday.
+ *  Minutes are from midnight; closeDay may differ from openDay for overnight hours. */
+export interface OpeningPeriod {
+  openDay: number;
+  openMin: number;
+  closeDay: number;
+  closeMin: number;
+}
+
+export interface OpeningHours {
+  periods: OpeningPeriod[];
+  /** Human-readable Mon–Sun rows (Google weekdayDescriptions), preferred for display. */
+  weekdayText?: string[];
+  open24?: boolean;
+}
+
+export interface VenueLocation {
+  address: string;
+  neighborhood?: string;
+  borough?: string;
+  coordinates: { lat: number; lng: number };
+  placeId?: string;
+  hours?: OpeningHours;
+  approxLocation?: boolean;
+}
+
 export interface Venue {
   /** Stable slug derived from the name, e.g. "bathtub-gin". Used as the route param. */
   id: string;
