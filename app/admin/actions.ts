@@ -10,7 +10,8 @@ import {
   isAdmin,
 } from "@/lib/admin-auth";
 import { enrichFromGoogle, type EnrichResult } from "@/lib/places";
-import type { HappyHourItem, OpeningHours, VenueLocation } from "@/types/venue";
+import { normalizeAmenities } from "@/lib/amenities";
+import type { HappyHourItem, OpeningHours, VenueLocation, VenuePhoto } from "@/types/venue";
 
 // --- helpers --------------------------------------------------------------
 function str(v: FormDataEntryValue | null): string | null {
@@ -95,6 +96,10 @@ function buildVenueRow(form: FormData, id: string) {
   const menu = parseJson<HappyHourItem[]>(form.get("happyHourMenuJson"), [])
     .map((m) => ({ item: (m.item ?? "").trim(), price: (m.price ?? "").trim() || undefined }))
     .filter((m) => m.item);
+  const amenities = normalizeAmenities(parseJson<string[]>(form.get("amenitiesJson"), []));
+  const photos = parseJson<VenuePhoto[]>(form.get("photosJson"), [])
+    .map((p) => ({ url: (p.url ?? "").trim(), caption: (p.caption ?? "").trim() || undefined }))
+    .filter((p) => p.url);
   const bookingUrl = str(form.get("bookingUrl"));
   return {
     id,
@@ -117,6 +122,8 @@ function buildVenueRow(form: FormData, id: string) {
     instagram: str(form.get("instagram")),
     google_maps_uri: str(form.get("googleMapsUri")),
     photo_url: str(form.get("photoUrl")),
+    photos: photos.length ? photos : null,
+    amenities,
     other_info: str(form.get("otherInfo")),
     unverified: form.get("unverified") === "on",
     editorial_note: str(form.get("editorialNote")),
@@ -126,33 +133,19 @@ function buildVenueRow(form: FormData, id: string) {
 }
 
 function buildLocations(form: FormData, venueId: string) {
-  const lat = num(form.get("locLat"));
-  const lng = num(form.get("locLng"));
-  const address = str(form.get("locAddress"));
-  if (lat === null || lng === null || !address) {
+  const locs = parseJson<VenueLocation[]>(form.get("locationsJson"), []);
+  const valid = (Array.isArray(locs) ? locs : []).filter(
+    (l) =>
+      l &&
+      typeof l.address === "string" &&
+      l.address.trim() &&
+      Number.isFinite(l.coordinates?.lat) &&
+      Number.isFinite(l.coordinates?.lng)
+  );
+  if (!valid.length) {
     throw new Error("A primary location with address, latitude and longitude is required.");
   }
-  let hours: OpeningHours | null = null;
-  try {
-    hours = JSON.parse(String(form.get("primaryHoursJson") ?? "null"));
-  } catch {
-    hours = null;
-  }
-  let extra: VenueLocation[] = [];
-  try {
-    extra = JSON.parse(String(form.get("extraLocationsJson") ?? "[]"));
-  } catch {
-    extra = [];
-  }
-  const primary: VenueLocation = {
-    address,
-    neighborhood: str(form.get("locNeighborhood")) ?? undefined,
-    borough: str(form.get("locBorough")) ?? undefined,
-    coordinates: { lat, lng },
-    placeId: str(form.get("locPlaceId")) ?? undefined,
-    hours: hours ?? undefined,
-  };
-  return [primary, ...extra].map((loc, i) => locationToRow(venueId, loc, i));
+  return valid.map((loc, i) => locationToRow(venueId, loc, i));
 }
 
 async function saveVenue(form: FormData, mode: "create" | "update") {
@@ -208,4 +201,96 @@ export async function deleteVenue(formData: FormData) {
   revalidatePath("/");
   revalidatePath(`/venue/${id}`);
   redirect("/admin?deleted=1");
+}
+
+// --- bulk operations (called from the admin list) -------------------------
+export async function bulkSetFeatured(ids: string[], featured: boolean) {
+  await assertAdmin();
+  if (!ids.length) return;
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.from("venues").update({ featured }).in("id", ids);
+  if (error) throw new Error(`Bulk update failed: ${error.message}`);
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+export async function bulkSetUnverified(ids: string[], unverified: boolean) {
+  await assertAdmin();
+  if (!ids.length) return;
+  const supabase = getSupabaseAdmin();
+  // Stamp source=manual: the seed pipeline writes `unverified`, so without this
+  // a bulk verify on a synced row would be reverted on the next seed.
+  const { error } = await supabase
+    .from("venues")
+    .update({ unverified, source: "manual" })
+    .in("id", ids);
+  if (error) throw new Error(`Bulk update failed: ${error.message}`);
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+export async function bulkDeleteVenues(ids: string[]) {
+  await assertAdmin();
+  if (!ids.length) return;
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.from("venues").delete().in("id", ids);
+  if (error) throw new Error(`Bulk delete failed: ${error.message}`);
+  revalidatePath("/");
+  revalidatePath("/admin");
+}
+
+// --- re-enrich a single venue from Google (refresh sync fields) -----------
+export async function reEnrichVenue(id: string): Promise<{ ok: boolean; message: string }> {
+  try {
+    if (!(await isAdmin())) return { ok: false, message: "Not signed in." };
+    if (!process.env.GOOGLE_PLACES_API_KEY) {
+      return { ok: false, message: "GOOGLE_PLACES_API_KEY is not set in this environment." };
+    }
+    const supabase = getSupabaseAdmin();
+    const { data: venue } = await supabase
+      .from("venues")
+      .select("id,name,locations:venue_locations(address,position)")
+      .eq("id", id)
+      .maybeSingle();
+    if (!venue) return { ok: false, message: "Venue not found." };
+
+    const primary = (venue.locations ?? [])
+      .slice()
+      .sort((a: { position: number | null }, b: { position: number | null }) => (a.position ?? 0) - (b.position ?? 0))[0];
+    const r = await enrichFromGoogle(venue.name, primary?.address);
+    if (!r.found) return { ok: false, message: r.error ?? "No Google match found." };
+    if (r.confidence < 0.6) {
+      return { ok: false, message: `Low confidence (${(r.confidence * 100).toFixed(0)}%) — skipped to avoid a bad match.` };
+    }
+
+    const patch: Record<string, unknown> = {};
+    if (r.rating != null) patch.rating = r.rating;
+    if (r.userRatingCount != null) patch.user_rating_count = r.userRatingCount;
+    if (r.priceLevel != null) patch.price_level = r.priceLevel;
+    if (r.website) patch.website = r.website;
+    if (r.googleMapsUri) patch.google_maps_uri = r.googleMapsUri;
+    if (r.photoUrl) patch.photo_url = r.photoUrl;
+    if (Object.keys(patch).length) {
+      const { error } = await supabase.from("venues").update(patch).eq("id", id);
+      if (error) return { ok: false, message: error.message };
+    }
+    if (r.location && primary) {
+      await supabase
+        .from("venue_locations")
+        .update({
+          lat: r.location.coordinates.lat,
+          lng: r.location.coordinates.lng,
+          place_id: r.location.placeId ?? null,
+          hours: r.location.hours ?? null,
+        })
+        .eq("venue_id", id)
+        .eq("position", primary.position ?? 0);
+    }
+    revalidatePath("/");
+    revalidatePath(`/venue/${id}`);
+    revalidatePath("/admin");
+    return { ok: true, message: `Re-enriched (match ${(r.confidence * 100).toFixed(0)}%).` };
+  } catch (e) {
+    return { ok: false, message: (e as Error).message };
+  }
 }

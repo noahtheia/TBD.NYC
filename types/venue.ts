@@ -31,6 +31,12 @@ export interface HappyHourItem {
   price?: string;
 }
 
+/** A photo in a venue's gallery. */
+export interface VenuePhoto {
+  url: string;
+  caption?: string;
+}
+
 export interface VenueLocation {
   address: string;
   neighborhood?: string;
@@ -78,6 +84,10 @@ export interface Venue {
   instagram?: string;
   googleMapsUri?: string;
   photoUrl?: string;
+  /** Additional gallery photos (beyond the primary photoUrl). */
+  photos?: VenuePhoto[];
+  /** Editorial amenity tags (see lib/amenities.ts). */
+  amenities?: string[];
   otherInfo?: string;
   /** Google match was low-confidence (restaurants resolved by name only). */
   unverified?: boolean;
