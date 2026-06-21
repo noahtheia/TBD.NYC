@@ -366,8 +366,22 @@ const restaurantVenues = restaurantResults.filter((v) => v && !v.skipped);
 const skipped = restaurantResults.filter((v) => v && v.skipped).length;
 console.log(`  restaurants done: ${restaurantVenues.length} mapped, ${skipped} skipped (no match)`);
 
+// Deduplicate venues that resolve to the same Google place (or the same name
+// when there's no place id). Bars are listed first, so a bar wins over a
+// restaurant copy of the same place; otherwise the first occurrence wins.
+const combined = [...barVenues, ...restaurantVenues];
+const seenKeys = new Set();
+const all = [];
+let deduped = 0;
+for (const v of combined) {
+  const key = v.locations[0]?.placeId || `name:${v.name.trim().toLowerCase()}`;
+  if (seenKeys.has(key)) { deduped++; continue; }
+  seenKeys.add(key);
+  all.push(v);
+}
+console.log(`Deduped ${deduped} duplicate venues (same place or name).`);
+
 // Finalize: neighborhood convenience, ids, clean undefined keys.
-const all = [...barVenues, ...restaurantVenues];
 const usedIds = new Set();
 for (const v of all) {
   v.neighborhood = v.locations[0]?.neighborhood;
@@ -390,8 +404,8 @@ writeFileSync(
     {
       generatedAt: new Date().toISOString(),
       total: all.length,
-      bars: barVenues.length,
-      restaurants: restaurantVenues.length,
+      bars: all.filter((v) => v.category === "bar").length,
+      restaurants: all.filter((v) => v.category === "restaurant").length,
     },
     null,
     2
@@ -405,6 +419,7 @@ const withHours = all.filter((v) => v.locations.some((l) => l.hours)).length;
 const withPhoto = all.filter((v) => v.photoUrl).length;
 const withRating = all.filter((v) => v.rating).length;
 const multi = all.filter((v) => v.locations.length > 1).length;
-console.log(`\nWrote ${all.length} venues (${barVenues.length} bars, ${restaurantVenues.length} restaurants) to ${OUT_PATH}`);
+const nBars = all.filter((v) => v.category === "bar").length;
+console.log(`\nWrote ${all.length} venues (${nBars} bars, ${all.length - nBars} restaurants) to ${OUT_PATH}`);
 console.log(`  with hours: ${withHours}, with photo: ${withPhoto}, with rating: ${withRating}, multi-location: ${multi}`);
 console.log(`  caches: ${placesCacheSize()} places, ${Object.keys(geoCache).length} geo, ${Object.keys(ogCache).length} og`);
