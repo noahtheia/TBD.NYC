@@ -175,6 +175,7 @@ export async function fetchOgImage(website?: string): Promise<string | undefined
 
 export type EnrichResult = {
   found: boolean;
+  error?: string;
   closed?: boolean;
   confidence: number;
   name?: string;

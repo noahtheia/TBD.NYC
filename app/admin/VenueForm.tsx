@@ -65,7 +65,7 @@ export default function VenueForm({ venue, action }: Props) {
     try {
       const r = await enrichVenueAction(f.name.trim(), f.locAddress.trim() || undefined);
       if (!r.found) {
-        setMsg("No Google match found.");
+        setMsg(r.error ? `Enrich failed: ${r.error}` : "No Google match found.");
         return;
       }
       setF((prev) => ({

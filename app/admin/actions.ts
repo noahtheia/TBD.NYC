@@ -66,8 +66,17 @@ export async function logoutAction() {
 
 // --- enrich (callable from the client form) -------------------------------
 export async function enrichVenueAction(name: string, address?: string): Promise<EnrichResult> {
-  await assertAdmin();
-  return enrichFromGoogle(name, address);
+  // Return errors as data (not thrown) so the form can show the real reason —
+  // thrown server-action errors are sanitized to a generic digest in production.
+  try {
+    if (!(await isAdmin())) return { found: false, confidence: 0, error: "Not signed in." };
+    if (!process.env.GOOGLE_PLACES_API_KEY) {
+      return { found: false, confidence: 0, error: "GOOGLE_PLACES_API_KEY is not set in this environment." };
+    }
+    return await enrichFromGoogle(name, address);
+  } catch (e) {
+    return { found: false, confidence: 0, error: (e as Error).message };
+  }
 }
 
 // --- create / update ------------------------------------------------------
