@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin-auth";
 import { getSupabaseAdmin, hasSupabaseAdmin } from "@/lib/supabase/admin";
-import AdminList from "./AdminList";
+import AdminList, { type AdminRow } from "./AdminList";
+import StatsBar from "./StatsBar";
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +25,29 @@ export default async function AdminHome() {
   const supabase = getSupabaseAdmin();
   const { data } = await supabase
     .from("venues")
-    .select("id,name,category,neighborhood,source")
+    .select("id,name,category,neighborhood,source,unverified,featured,happy_hour,rating,photo_url,updated_at")
     .order("name");
+
+  const rows: AdminRow[] = (data ?? []).map((v) => ({
+    id: v.id,
+    name: v.name,
+    category: v.category,
+    neighborhood: v.neighborhood,
+    source: v.source,
+    unverified: v.unverified,
+    featured: v.featured,
+    happyHour: v.happy_hour,
+    rating: v.rating,
+    photoUrl: v.photo_url,
+    updatedAt: v.updated_at,
+  }));
 
   return (
     <main className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-zinc-900">Venues</h1>
-          <p className="mt-1 text-sm text-zinc-500">{data?.length ?? 0} venues</p>
+          <p className="mt-1 text-sm text-zinc-500">{rows.length} venues</p>
         </div>
         <Link
           href="/admin/new"
@@ -42,7 +57,10 @@ export default async function AdminHome() {
         </Link>
       </div>
       <div className="mt-5">
-        <AdminList venues={data ?? []} />
+        <StatsBar venues={rows} />
+      </div>
+      <div className="mt-6">
+        <AdminList venues={rows} />
       </div>
     </main>
   );

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import type { OpeningHours, Venue } from "@/types/venue";
+import type { OpeningHours, Venue, VenueLocation } from "@/types/venue";
 import { cn } from "@/lib/cn";
+import { AMENITIES } from "@/lib/amenities";
+import HoursEditor from "@/components/admin/HoursEditor";
 import { enrichVenueAction } from "./actions";
 
 type Props = {
@@ -14,43 +16,58 @@ const input =
   "w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500";
 const label = "block text-xs font-semibold uppercase tracking-wide text-zinc-500";
 
-type HHWindow = { days: number[]; start: string; end: string };
-const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0]; // Mon..Sun (0=Sun..6=Sat)
-const DAY_LETTER: Record<number, string> = { 0: "S", 1: "M", 2: "T", 3: "W", 4: "T", 5: "F", 6: "S" };
-
-const minToTime = (min: number) =>
-  `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
-const timeToMin = (t: string) => {
-  const [h, m] = t.split(":").map(Number);
-  return (h || 0) * 60 + (m || 0);
+type LocRow = {
+  address: string;
+  lat: string;
+  lng: string;
+  neighborhood: string;
+  borough: string;
+  placeId: string;
+  approxLocation: boolean;
+  hours: OpeningHours | null;
 };
 
-function periodsToWindows(oh?: OpeningHours): HHWindow[] {
-  if (!oh?.periods?.length) return [];
-  const groups: Record<string, HHWindow> = {};
-  for (const p of oh.periods) {
-    const key = `${p.openMin}_${p.closeMin}`;
-    (groups[key] ||= { days: [], start: minToTime(p.openMin), end: minToTime(p.closeMin) }).days.push(p.openDay);
-  }
-  return Object.values(groups);
+const emptyLoc = (): LocRow => ({
+  address: "",
+  lat: "",
+  lng: "",
+  neighborhood: "",
+  borough: "",
+  placeId: "",
+  approxLocation: false,
+  hours: null,
+});
+
+function venueToLocRows(v?: Venue): LocRow[] {
+  const locs = v?.locations ?? [];
+  if (!locs.length) return [emptyLoc()];
+  return locs.map((l) => ({
+    address: l.address ?? "",
+    lat: l.coordinates?.lat?.toString() ?? "",
+    lng: l.coordinates?.lng?.toString() ?? "",
+    neighborhood: l.neighborhood ?? "",
+    borough: l.borough ?? "",
+    placeId: l.placeId ?? "",
+    approxLocation: l.approxLocation ?? false,
+    hours: l.hours ?? null,
+  }));
 }
-function windowsToOpeningHours(windows: HHWindow[]): OpeningHours | null {
-  const periods = [];
-  for (const w of windows) {
-    if (!w.days.length || !w.start || !w.end) continue;
-    const openMin = timeToMin(w.start);
-    const closeMin = timeToMin(w.end);
-    for (const d of w.days) {
-      periods.push({ openDay: d, openMin, closeDay: closeMin <= openMin ? (d + 1) % 7 : d, closeMin });
-    }
-  }
-  return periods.length ? { periods } : null;
+
+function locRowsToVenueLocations(rows: LocRow[]): VenueLocation[] {
+  return rows
+    .filter((r) => r.address.trim() && r.lat.trim() && r.lng.trim())
+    .map((r) => ({
+      address: r.address.trim(),
+      neighborhood: r.neighborhood.trim() || undefined,
+      borough: r.borough.trim() || undefined,
+      coordinates: { lat: Number(r.lat), lng: Number(r.lng) },
+      placeId: r.placeId.trim() || undefined,
+      hours: r.hours ?? undefined,
+      approxLocation: r.approxLocation || undefined,
+    }));
 }
 
 export default function VenueForm({ venue, action }: Props) {
-  const primary = venue?.locations?.[0];
-  const extraLocations = venue?.locations?.slice(1) ?? [];
-
   const [f, setF] = useState({
     name: venue?.name ?? "",
     category: venue?.category ?? "bar",
@@ -73,47 +90,50 @@ export default function VenueForm({ venue, action }: Props) {
     photoUrl: venue?.photoUrl ?? "",
     otherInfo: venue?.otherInfo ?? "",
     editorialNote: venue?.editorialNote ?? "",
-    locAddress: primary?.address ?? "",
-    locLat: primary?.coordinates.lat?.toString() ?? "",
-    locLng: primary?.coordinates.lng?.toString() ?? "",
-    locNeighborhood: primary?.neighborhood ?? "",
-    locBorough: primary?.borough ?? "",
-    locPlaceId: primary?.placeId ?? "",
   });
   const [featured, setFeatured] = useState(venue?.featured ?? false);
   const [unverified, setUnverified] = useState(venue?.unverified ?? false);
-  const [primaryHours, setPrimaryHours] = useState<OpeningHours | null>(primary?.hours ?? null);
+  const [locations, setLocations] = useState<LocRow[]>(() => venueToLocRows(venue));
+  // Bumped on enrich to re-seed the primary location's HoursEditor.
+  const [enrichSeq, setEnrichSeq] = useState(0);
+  const [amenities, setAmenities] = useState<string[]>(venue?.amenities ?? []);
+  const [photos, setPhotos] = useState<{ url: string; caption: string }[]>(() =>
+    (venue?.photos ?? []).map((p) => ({ url: p.url, caption: p.caption ?? "" }))
+  );
+  const [hhWindows, setHhWindows] = useState<OpeningHours | null>(venue?.happyHourWindows ?? null);
   const [enriching, setEnriching] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
-  const [hhWindows, setHhWindows] = useState<HHWindow[]>(() =>
-    periodsToWindows(venue?.happyHourWindows)
-  );
   const [hhMenu, setHhMenu] = useState<{ item: string; price: string }[]>(() =>
     (venue?.happyHourMenu ?? []).map((m) => ({ item: m.item, price: m.price ?? "" }))
   );
 
-  const addWindow = () =>
-    setHhWindows((w) => [...w, { days: [1, 2, 3, 4, 5], start: "17:00", end: "19:00" }]);
-  const removeWindow = (i: number) => setHhWindows((w) => w.filter((_, j) => j !== i));
-  const patchWindow = (i: number, patch: Partial<HHWindow>) =>
-    setHhWindows((w) => w.map((x, j) => (j === i ? { ...x, ...patch } : x)));
-  const toggleDay = (i: number, d: number) =>
-    setHhWindows((w) =>
-      w.map((x, j) =>
-        j === i
-          ? { ...x, days: x.days.includes(d) ? x.days.filter((y) => y !== d) : [...x.days, d] }
-          : x
-      )
-    );
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setF((prev) => ({ ...prev, [k]: e.target.value }));
 
+  // --- locations ---
+  const patchLocation = (i: number, patch: Partial<LocRow>) =>
+    setLocations((rows) => rows.map((r, j) => (j === i ? { ...r, ...patch } : r)));
+  const addLocation = () => setLocations((rows) => [...rows, emptyLoc()]);
+  const removeLocation = (i: number) => setLocations((rows) => rows.filter((_, j) => j !== i));
+  const setLoc = (i: number, k: keyof LocRow) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    patchLocation(i, { [k]: e.target.value } as Partial<LocRow>);
+
+  // --- amenities ---
+  const toggleAmenity = (a: string) =>
+    setAmenities((cur) => (cur.includes(a) ? cur.filter((x) => x !== a) : [...cur, a]));
+
+  // --- photos ---
+  const addPhoto = () => setPhotos((p) => [...p, { url: "", caption: "" }]);
+  const removePhoto = (i: number) => setPhotos((p) => p.filter((_, j) => j !== i));
+  const patchPhoto = (i: number, patch: Partial<{ url: string; caption: string }>) =>
+    setPhotos((p) => p.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+
+  // --- happy-hour deals ---
   const addItem = () => setHhMenu((m) => [...m, { item: "", price: "" }]);
   const removeItem = (i: number) => setHhMenu((m) => m.filter((_, j) => j !== i));
   const patchItem = (i: number, patch: Partial<{ item: string; price: string }>) =>
     setHhMenu((m) => m.map((x, j) => (j === i ? { ...x, ...patch } : x)));
-
-  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setF((prev) => ({ ...prev, [k]: e.target.value }));
 
   async function enrich() {
     if (!f.name.trim()) {
@@ -123,7 +143,7 @@ export default function VenueForm({ venue, action }: Props) {
     setEnriching(true);
     setMsg(null);
     try {
-      const r = await enrichVenueAction(f.name.trim(), f.locAddress.trim() || undefined);
+      const r = await enrichVenueAction(f.name.trim(), locations[0]?.address.trim() || undefined);
       if (!r.found) {
         setMsg(r.error ? `Enrich failed: ${r.error}` : "No Google match found.");
         return;
@@ -139,14 +159,23 @@ export default function VenueForm({ venue, action }: Props) {
         website: r.website ?? prev.website,
         googleMapsUri: r.googleMapsUri ?? prev.googleMapsUri,
         photoUrl: r.photoUrl ?? prev.photoUrl,
-        locAddress: r.location?.address ?? prev.locAddress,
-        locLat: r.location?.coordinates.lat?.toString() ?? prev.locLat,
-        locLng: r.location?.coordinates.lng?.toString() ?? prev.locLng,
-        locNeighborhood: r.location?.neighborhood ?? prev.locNeighborhood,
-        locBorough: r.location?.borough ?? prev.locBorough,
-        locPlaceId: r.location?.placeId ?? prev.locPlaceId,
       }));
-      setPrimaryHours(r.location?.hours ?? null);
+      setLocations((rows) => {
+        const next = rows.length ? [...rows] : [emptyLoc()];
+        const cur = next[0];
+        next[0] = {
+          ...cur,
+          address: r.location?.address ?? cur.address,
+          lat: r.location?.coordinates.lat?.toString() ?? cur.lat,
+          lng: r.location?.coordinates.lng?.toString() ?? cur.lng,
+          neighborhood: r.location?.neighborhood ?? cur.neighborhood,
+          borough: r.location?.borough ?? cur.borough,
+          placeId: r.location?.placeId ?? cur.placeId,
+          hours: r.location?.hours ?? cur.hours,
+        };
+        return next;
+      });
+      setEnrichSeq((n) => n + 1);
       if (r.closed) setMsg("⚠ Google marks this place permanently closed.");
       else setMsg(`Enriched (match confidence ${(r.confidence * 100).toFixed(0)}%).`);
     } catch (e) {
@@ -159,9 +188,10 @@ export default function VenueForm({ venue, action }: Props) {
   return (
     <form action={action} className="space-y-5">
       {venue && <input type="hidden" name="id" value={venue.id} />}
-      <input type="hidden" name="primaryHoursJson" value={JSON.stringify(primaryHours)} />
-      <input type="hidden" name="extraLocationsJson" value={JSON.stringify(extraLocations)} />
-      <input type="hidden" name="locPlaceId" value={f.locPlaceId} />
+      <input type="hidden" name="reservationRaw" value={f.reservationRaw} />
+      <input type="hidden" name="locationsJson" value={JSON.stringify(locRowsToVenueLocations(locations))} />
+      <input type="hidden" name="amenitiesJson" value={JSON.stringify(amenities)} />
+      <input type="hidden" name="photosJson" value={JSON.stringify(photos.filter((p) => p.url.trim()))} />
 
       <div className="flex flex-wrap items-end gap-3 rounded-lg bg-zinc-50 p-3">
         <div className="flex-1">
@@ -216,34 +246,85 @@ export default function VenueForm({ venue, action }: Props) {
       </div>
 
       <fieldset className="rounded-lg border border-zinc-200 p-3">
-        <legend className="px-1 text-sm font-semibold text-zinc-700">Primary location</legend>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2">
-            <label className={label}>Address</label>
-            <input name="locAddress" value={f.locAddress} onChange={set("locAddress")} className={input} required />
-          </div>
-          <div>
-            <label className={label}>Latitude</label>
-            <input name="locLat" value={f.locLat} onChange={set("locLat")} className={input} inputMode="decimal" required />
-          </div>
-          <div>
-            <label className={label}>Longitude</label>
-            <input name="locLng" value={f.locLng} onChange={set("locLng")} className={input} inputMode="decimal" required />
-          </div>
-          <div>
-            <label className={label}>Loc. neighborhood</label>
-            <input name="locNeighborhood" value={f.locNeighborhood} onChange={set("locNeighborhood")} className={input} />
-          </div>
-          <div>
-            <label className={label}>Borough</label>
-            <input name="locBorough" value={f.locBorough} onChange={set("locBorough")} className={input} />
-          </div>
+        <legend className="px-1 text-sm font-semibold text-zinc-700">
+          Locations ({locations.length})
+        </legend>
+        <div className="space-y-4">
+          {locations.map((loc, i) => (
+            <div key={i} className="rounded-lg border border-zinc-200 p-3">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  {i === 0 ? "Primary location" : `Location ${i + 1}`}
+                </span>
+                {i > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => removeLocation(i)}
+                    className="text-xs font-medium text-zinc-400 hover:text-rose-600"
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <label className={label}>Address</label>
+                  <input value={loc.address} onChange={setLoc(i, "address")} className={input} required={i === 0} />
+                </div>
+                <div>
+                  <label className={label}>Latitude</label>
+                  <input value={loc.lat} onChange={setLoc(i, "lat")} className={input} inputMode="decimal" required={i === 0} />
+                </div>
+                <div>
+                  <label className={label}>Longitude</label>
+                  <input value={loc.lng} onChange={setLoc(i, "lng")} className={input} inputMode="decimal" required={i === 0} />
+                </div>
+                <div>
+                  <label className={label}>Neighborhood</label>
+                  <input value={loc.neighborhood} onChange={setLoc(i, "neighborhood")} className={input} />
+                </div>
+                <div>
+                  <label className={label}>Borough</label>
+                  <input value={loc.borough} onChange={setLoc(i, "borough")} className={input} />
+                </div>
+                <div>
+                  <label className={label}>Place ID</label>
+                  <input value={loc.placeId} onChange={setLoc(i, "placeId")} className={input} />
+                </div>
+                <label className="flex items-center gap-2 self-end text-sm text-zinc-700">
+                  <input
+                    type="checkbox"
+                    checked={loc.approxLocation}
+                    onChange={(e) => patchLocation(i, { approxLocation: e.target.checked })}
+                  />
+                  Approximate location
+                </label>
+              </div>
+              <div className="mt-3">
+                <p className={label}>Hours</p>
+                {loc.hours?.weekdayText?.length ? (
+                  <p className="mt-1 text-xs text-zinc-400">
+                    Google: {loc.hours.weekdayText.join(" · ")}
+                  </p>
+                ) : null}
+                <div className="mt-1">
+                  <HoursEditor
+                    key={`loc-hours-${i}-${enrichSeq}`}
+                    initial={loc.hours}
+                    onChange={(oh) => patchLocation(i, { hours: oh })}
+                    addLabel="+ Add hours row"
+                    emptyLabel="No structured hours."
+                    defaultStart="11:00"
+                    defaultEnd="23:00"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        {extraLocations.length > 0 && (
-          <p className="mt-2 text-xs text-zinc-500">
-            + {extraLocations.length} more location(s) preserved (edit via Enrich or DB).
-          </p>
-        )}
+        <button type="button" onClick={addLocation} className="mt-3 text-sm font-medium text-rose-600 hover:underline">
+          + Add location
+        </button>
       </fieldset>
 
       <div className="grid grid-cols-2 gap-4">
@@ -267,41 +348,13 @@ export default function VenueForm({ venue, action }: Props) {
         <div className="col-span-2">
           <fieldset className="rounded-lg border border-zinc-200 p-3">
             <legend className="px-1 text-sm font-semibold text-zinc-700">Happy hour</legend>
-            <input type="hidden" name="happyHourWindowsJson" value={JSON.stringify(windowsToOpeningHours(hhWindows))} />
+            <input type="hidden" name="happyHourWindowsJson" value={JSON.stringify(hhWindows)} />
             <input type="hidden" name="happyHourMenuJson" value={JSON.stringify(hhMenu)} />
 
             <p className={label}>Times</p>
-            <div className="mt-1 space-y-2">
-              {hhWindows.map((w, i) => (
-                <div key={i} className="flex flex-wrap items-center gap-2 rounded-md border border-zinc-200 p-2">
-                  <div className="flex gap-1">
-                    {DAY_ORDER.map((d) => (
-                      <button
-                        type="button"
-                        key={d}
-                        onClick={() => toggleDay(i, d)}
-                        className={cn(
-                          "h-7 w-7 rounded text-xs font-semibold transition",
-                          w.days.includes(d) ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"
-                        )}
-                      >
-                        {DAY_LETTER[d]}
-                      </button>
-                    ))}
-                  </div>
-                  <input type="time" value={w.start} onChange={(e) => patchWindow(i, { start: e.target.value })} className="rounded-md border border-zinc-300 px-2 py-1 text-sm" />
-                  <span className="text-zinc-400">–</span>
-                  <input type="time" value={w.end} onChange={(e) => patchWindow(i, { end: e.target.value })} className="rounded-md border border-zinc-300 px-2 py-1 text-sm" />
-                  <button type="button" onClick={() => removeWindow(i)} className="ml-auto text-xs font-medium text-zinc-400 hover:text-rose-600">
-                    Remove
-                  </button>
-                </div>
-              ))}
-              {hhWindows.length === 0 && <p className="text-sm text-zinc-400">No windows yet.</p>}
+            <div className="mt-1">
+              <HoursEditor initial={venue?.happyHourWindows} onChange={setHhWindows} />
             </div>
-            <button type="button" onClick={addWindow} className="mt-2 text-sm font-medium text-rose-600 hover:underline">
-              + Add window
-            </button>
 
             <p className={cn(label, "mt-4")}>Deals (item + price)</p>
             <div className="mt-1 space-y-2">
@@ -352,7 +405,7 @@ export default function VenueForm({ venue, action }: Props) {
           <input name="instagram" value={f.instagram} onChange={set("instagram")} className={input} />
         </div>
         <div>
-          <label className={label}>Photo URL</label>
+          <label className={label}>Photo URL (primary)</label>
           <input name="photoUrl" value={f.photoUrl} onChange={set("photoUrl")} className={input} />
         </div>
         <input type="hidden" name="googleMapsUri" value={f.googleMapsUri} />
@@ -365,6 +418,46 @@ export default function VenueForm({ venue, action }: Props) {
           <textarea name="editorialNote" value={f.editorialNote} onChange={set("editorialNote")} className={input} rows={2} />
         </div>
       </div>
+
+      <fieldset className="rounded-lg border border-zinc-200 p-3">
+        <legend className="px-1 text-sm font-semibold text-zinc-700">Amenities</legend>
+        <div className="flex flex-wrap gap-2">
+          {AMENITIES.map((a) => (
+            <button
+              type="button"
+              key={a}
+              onClick={() => toggleAmenity(a)}
+              className={cn(
+                "rounded-full border px-3 py-1 text-sm transition",
+                amenities.includes(a)
+                  ? "border-zinc-900 bg-zinc-900 text-white"
+                  : "border-zinc-300 bg-white text-zinc-600 hover:border-zinc-400"
+              )}
+            >
+              {a}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="rounded-lg border border-zinc-200 p-3">
+        <legend className="px-1 text-sm font-semibold text-zinc-700">Photo gallery</legend>
+        <div className="space-y-2">
+          {photos.map((p, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <input value={p.url} onChange={(e) => patchPhoto(i, { url: e.target.value })} placeholder="https://…/photo.jpg" className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
+              <input value={p.caption} onChange={(e) => patchPhoto(i, { caption: e.target.value })} placeholder="Caption (optional)" className="w-44 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
+              <button type="button" onClick={() => removePhoto(i)} className="text-xs font-medium text-zinc-400 hover:text-rose-600">
+                Remove
+              </button>
+            </div>
+          ))}
+          {photos.length === 0 && <p className="text-sm text-zinc-400">No gallery photos yet.</p>}
+        </div>
+        <button type="button" onClick={addPhoto} className="mt-2 text-sm font-medium text-rose-600 hover:underline">
+          + Add photo
+        </button>
+      </fieldset>
 
       <div className="flex gap-6">
         <label className="flex items-center gap-2 text-sm text-zinc-700">

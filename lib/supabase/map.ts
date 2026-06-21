@@ -6,6 +6,7 @@ import type {
   Venue,
   VenueBooking,
   VenueLocation,
+  VenuePhoto,
 } from "@/types/venue";
 
 export interface DbLocation {
@@ -42,6 +43,8 @@ export interface DbVenue {
   instagram: string | null;
   google_maps_uri: string | null;
   photo_url: string | null;
+  photos: VenuePhoto[] | null;
+  amenities: string[] | null;
   other_info: string | null;
   unverified: boolean | null;
   editorial_note: string | null;
@@ -88,6 +91,8 @@ export function rowToVenue(row: DbVenue): Venue {
     instagram: undef(row.instagram),
     googleMapsUri: undef(row.google_maps_uri),
     photoUrl: undef(row.photo_url),
+    photos: row.photos?.length ? row.photos : undefined,
+    amenities: row.amenities?.length ? row.amenities : undefined,
     otherInfo: undef(row.other_info),
     unverified: undef(row.unverified),
     editorialNote: undef(row.editorial_note),
