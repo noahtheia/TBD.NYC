@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin-auth";
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { getSupabaseAdmin, hasSupabaseAdmin } from "@/lib/supabase/admin";
 import { logoutAction } from "./actions";
 import AdminList from "./AdminList";
 
@@ -8,6 +8,20 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminHome() {
   await requireAdmin();
+
+  if (!hasSupabaseAdmin) {
+    return (
+      <main className="mx-auto max-w-lg px-6 py-16">
+        <h1 className="text-lg font-bold text-zinc-900">Supabase not configured</h1>
+        <p className="mt-2 text-sm text-zinc-600">
+          Set <code>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
+          <code>SUPABASE_SERVICE_ROLE_KEY</code> in this server’s environment to
+          use the admin.
+        </p>
+      </main>
+    );
+  }
+
   const supabase = getSupabaseAdmin();
   const { data } = await supabase
     .from("venues")
