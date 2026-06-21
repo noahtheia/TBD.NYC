@@ -75,6 +75,7 @@ export default function VenueForm({ venue, action }: Props) {
         types: prev.category === "bar" && r.suggestedType && !prev.types ? r.suggestedType : prev.types,
         rating: r.rating?.toString() ?? prev.rating,
         priceLevel: r.priceLevel?.toString() ?? prev.priceLevel,
+        neighborhood: r.location?.neighborhood ?? prev.neighborhood,
         website: r.website ?? prev.website,
         googleMapsUri: r.googleMapsUri ?? prev.googleMapsUri,
         photoUrl: r.photoUrl ?? prev.photoUrl,

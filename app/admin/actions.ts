@@ -155,6 +155,8 @@ async function saveVenue(form: FormData, mode: "create" | "update") {
 
   const venueRow = buildVenueRow(form, id);
   const locationRows = buildLocations(form, id);
+  // Default the venue's neighborhood to its primary location's when not set.
+  if (!venueRow.neighborhood) venueRow.neighborhood = locationRows[0]?.neighborhood ?? null;
 
   const { error: vErr } = await supabase.from("venues").upsert(venueRow);
   if (vErr) throw new Error(`Save failed: ${vErr.message}`);
