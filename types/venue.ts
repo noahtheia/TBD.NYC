@@ -72,6 +72,9 @@ export interface Venue {
   otherInfo?: string;
   /** Google match was low-confidence (restaurants resolved by name only). */
   unverified?: boolean;
+  /** Editorial / manual fields (managed in the admin, not by the sync pipeline). */
+  editorialNote?: string;
+  featured?: boolean;
 }
 
 export interface Facets {

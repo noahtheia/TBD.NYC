@@ -14,6 +14,7 @@ Infatuation's neighborhood guides.
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4**
 - **Mapbox GL** via **react-map-gl v8**
+- **Supabase** (Postgres + PostGIS) as the data store, with an in-app admin
 
 ## Features
 
@@ -68,11 +69,36 @@ Infatuation's neighborhood guides.
    ```
    Open http://localhost:3000.
 
+## Supabase backend & admin
+
+The site reads venues **live from Supabase** when configured (server-side, ISR —
+edits appear without a redeploy); if Supabase env vars are absent it falls back to
+the committed `data/venues.json` snapshot, so the app always builds and runs.
+
+Setup:
+1. Create a Supabase project; in the SQL editor run `supabase/migrations/0001_init.sql`
+   (creates `venues` + `venue_locations` with PostGIS and public-read RLS).
+2. Add to `.env.local`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   (public, safe with RLS), `SUPABASE_SERVICE_ROLE_KEY` (secret), and
+   `ADMIN_PASSWORD` (secret).
+3. Seed the database from the snapshot: `npm run seed`.
+
+Data access lives in `lib/venues.ts` (async; Supabase via anon key + RLS, with the
+JSON fallback) and `lib/supabase/*`. Reads use embedded selects
+(`venues` + nested `venue_locations`) mapped to the `Venue` type.
+
+**Admin** (`/admin`): a password-gated UI to add/edit/delete venues. New venues can
+be auto-filled via **Enrich from Google** (Places lookup). Writes use the
+service-role key inside server actions (never exposed to the browser), mark rows
+`source='manual'` (so `npm run seed` won't overwrite them), and revalidate the
+affected pages. The service-role key and `ADMIN_PASSWORD` stay in `.env.local`.
+
 ## Data
 
-The venue data lives in `data/venues.json` and is **generated** — do not edit it
-by hand. It contains **~506 venues** (97 bars + 409 restaurants) enriched via the
-Google Places API for standardized hours, location, rating, and price.
+The bulk venue snapshot in `data/venues.json` is **generated** — do not edit it by
+hand. It contains **~506 venues** (97 bars + 409 restaurants) enriched via the
+Google Places API for standardized hours, location, rating, and price. Run
+`npm run seed` to push it into Supabase (which then becomes the source of truth).
 
 - `data/source/HH_Bar_Restaurant_Information.xlsx` — the original spreadsheet
 - `data/source/bars.raw.json` / `restaurants.raw.json` — parsed snapshots of the

@@ -5,8 +5,10 @@ import { getAllVenueIds, getVenueById } from "@/lib/venues";
 import VenueDetailContent from "@/components/detail/VenueDetailContent";
 import ShareButton from "@/components/ui/ShareButton";
 
-export function generateStaticParams() {
-  return getAllVenueIds().map((id) => ({ id }));
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return (await getAllVenueIds()).map((id) => ({ id }));
 }
 
 export async function generateMetadata({
@@ -15,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const venue = getVenueById(id);
+  const venue = await getVenueById(id);
   if (!venue) return { title: "Not found — TBD.NYC" };
   const desc = [venue.types.join(", "), venue.neighborhood]
     .filter(Boolean)
@@ -48,7 +50,7 @@ export default async function VenuePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const venue = getVenueById(id);
+  const venue = await getVenueById(id);
   if (!venue) notFound();
 
   return (
