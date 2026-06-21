@@ -1,6 +1,6 @@
 import type { Venue, VenueLocation } from "@/types/venue";
 import { BOOKING_LABEL, RESERVATION_LABEL, mapsUrl, priceLabel } from "@/lib/display";
-import { happyHourStatus } from "@/lib/hours";
+import { formatWeekly, happyHourStatus } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 import HoursTable from "./HoursTable";
@@ -79,6 +79,10 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
     .filter(Boolean)
     .join(" • ");
   const hh = venue.happyHour === true ? happyHourStatus(venue.happyHourWindows) : null;
+  const hhTimes =
+    venue.happyHour === true
+      ? formatWeekly(venue.happyHourWindows).filter((r) => !/:\s*Closed$/i.test(r))
+      : [];
 
   return (
     <div>
@@ -133,7 +137,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
       </div>
 
       <dl className="mt-4">
-        {venue.happyHour === true && (venue.happyHourDetails || hh) && (
+        {venue.happyHour === true && (
           <div className="border-t border-zinc-100 py-3">
             <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
               Happy hour
@@ -149,9 +153,26 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
                 </span>
               )}
             </dt>
-            {venue.happyHourDetails && (
-              <dd className="mt-1 text-sm text-zinc-700">{venue.happyHourDetails}</dd>
-            )}
+            <dd className="mt-1 space-y-2 text-sm text-zinc-700">
+              {hhTimes.length > 0 && (
+                <ul className="space-y-0.5">
+                  {hhTimes.map((row) => (
+                    <li key={row}>{row}</li>
+                  ))}
+                </ul>
+              )}
+              {venue.happyHourMenu && venue.happyHourMenu.length > 0 && (
+                <ul className="space-y-0.5 border-t border-zinc-100 pt-2">
+                  {venue.happyHourMenu.map((m, i) => (
+                    <li key={i} className="flex justify-between gap-4">
+                      <span>{m.item}</span>
+                      {m.price && <span className="shrink-0 font-medium text-zinc-500">{m.price}</span>}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {venue.happyHourDetails && <p className="text-zinc-600">{venue.happyHourDetails}</p>}
+            </dd>
           </div>
         )}
         {venue.reservationPolicy !== "unknown" && (

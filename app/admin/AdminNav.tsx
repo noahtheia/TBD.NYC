@@ -1,0 +1,55 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/cn";
+import { logoutAction } from "./actions";
+
+const NAV = [
+  { href: "/admin", label: "Venues", exact: true },
+  { href: "/admin/new", label: "Add venue", exact: false },
+];
+
+export default function AdminNav() {
+  const pathname = usePathname();
+  return (
+    <nav className="flex h-full flex-col gap-1 p-4">
+      <div className="mb-4 px-2">
+        <span className="text-lg font-extrabold tracking-tight text-zinc-900">
+          TBD<span className="text-rose-600">.NYC</span>
+        </span>
+        <span className="block text-xs font-medium uppercase tracking-wide text-zinc-400">
+          Admin
+        </span>
+      </div>
+      {NAV.map((item) => {
+        const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "rounded-md px-3 py-2 text-sm font-medium transition",
+              active ? "bg-zinc-900 text-white" : "text-zinc-700 hover:bg-zinc-100"
+            )}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
+      <a
+        href="/"
+        target="_blank"
+        rel="noreferrer"
+        className="rounded-md px-3 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100"
+      >
+        View site ↗
+      </a>
+      <form action={logoutAction} className="mt-auto">
+        <button className="w-full rounded-md px-3 py-2 text-left text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800">
+          Sign out
+        </button>
+      </form>
+    </nav>
+  );
+}

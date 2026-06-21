@@ -1,4 +1,5 @@
 import type {
+  HappyHourItem,
   OpeningHours,
   PriceLevel,
   ReservationPolicy,
@@ -32,6 +33,7 @@ export interface DbVenue {
   happy_hour: boolean | null;
   happy_hour_details: string | null;
   happy_hour_windows: OpeningHours | null;
+  happy_hour_menu: HappyHourItem[] | null;
   reservation_policy: ReservationPolicy | null;
   reservation_raw: string | null;
   booking: VenueBooking | null;
@@ -77,6 +79,7 @@ export function rowToVenue(row: DbVenue): Venue {
     happyHour: row.happy_hour ?? null,
     happyHourDetails: undef(row.happy_hour_details),
     happyHourWindows: undef(row.happy_hour_windows),
+    happyHourMenu: undef(row.happy_hour_menu),
     reservationPolicy: row.reservation_policy ?? "unknown",
     reservationRaw: undef(row.reservation_raw),
     booking: undef(row.booking),

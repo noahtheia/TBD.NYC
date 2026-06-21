@@ -25,6 +25,12 @@ export interface OpeningHours {
   open24?: boolean;
 }
 
+/** A happy-hour deal: an item and its price. */
+export interface HappyHourItem {
+  item: string;
+  price?: string;
+}
+
 export interface VenueLocation {
   address: string;
   neighborhood?: string;
@@ -57,9 +63,12 @@ export interface Venue {
   priceLevel?: PriceLevel;
   /** true = has happy hour, false = no happy hour, null = unknown. */
   happyHour: boolean | null;
+  /** Free-text happy-hour notes. */
   happyHourDetails?: string;
-  /** Structured happy-hour windows parsed from happyHourDetails. */
+  /** Structured happy-hour time windows. */
   happyHourWindows?: OpeningHours;
+  /** Structured happy-hour deals (item + price). */
+  happyHourMenu?: HappyHourItem[];
   reservationPolicy: ReservationPolicy;
   /** Original free-text Reservations value. */
   reservationRaw?: string;

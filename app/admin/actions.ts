@@ -9,9 +9,8 @@ import {
   destroySession,
   isAdmin,
 } from "@/lib/admin-auth";
-import { parseHappyHourWindows } from "@/lib/happy-hour";
 import { enrichFromGoogle, type EnrichResult } from "@/lib/places";
-import type { OpeningHours, VenueLocation } from "@/types/venue";
+import type { HappyHourItem, OpeningHours, VenueLocation } from "@/types/venue";
 
 // --- helpers --------------------------------------------------------------
 function str(v: FormDataEntryValue | null): string | null {
@@ -80,10 +79,22 @@ export async function enrichVenueAction(name: string, address?: string): Promise
 }
 
 // --- create / update ------------------------------------------------------
+function parseJson<T>(value: FormDataEntryValue | null, fallback: T): T {
+  try {
+    return JSON.parse(String(value ?? "")) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 function buildVenueRow(form: FormData, id: string) {
   const hh = str(form.get("happyHour")); // "yes" | "no" | "unknown"
-  const happy_hour = hh === "yes" ? true : hh === "no" ? false : null;
-  const happyHourDetails = str(form.get("happyHourDetails"));
+  const windows = parseJson<OpeningHours | null>(form.get("happyHourWindowsJson"), null);
+  const hasWindows = Boolean(windows?.periods?.length);
+  const happy_hour = hasWindows ? true : hh === "yes" ? true : hh === "no" ? false : null;
+  const menu = parseJson<HappyHourItem[]>(form.get("happyHourMenuJson"), [])
+    .map((m) => ({ item: (m.item ?? "").trim(), price: (m.price ?? "").trim() || undefined }))
+    .filter((m) => m.item);
   const bookingUrl = str(form.get("bookingUrl"));
   return {
     id,
@@ -95,8 +106,9 @@ function buildVenueRow(form: FormData, id: string) {
     rating: num(form.get("rating")),
     price_level: num(form.get("priceLevel")),
     happy_hour,
-    happy_hour_details: happyHourDetails,
-    happy_hour_windows: happy_hour ? parseHappyHourWindows(happyHourDetails) ?? null : null,
+    happy_hour_details: str(form.get("happyHourDetails")),
+    happy_hour_windows: hasWindows ? windows : null,
+    happy_hour_menu: menu.length ? menu : null,
     reservation_policy: str(form.get("reservationPolicy")) ?? "unknown",
     reservation_raw: str(form.get("reservationRaw")),
     booking: bookingUrl ? { url: bookingUrl, host: str(form.get("bookingHost")) ?? "other" } : null,

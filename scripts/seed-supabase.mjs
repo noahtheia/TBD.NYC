@@ -36,6 +36,7 @@ function venueRow(v) {
     happy_hour: v.happyHour ?? null,
     happy_hour_details: v.happyHourDetails ?? null,
     happy_hour_windows: v.happyHourWindows ?? null,
+    happy_hour_menu: v.happyHourMenu ?? null,
     reservation_policy: v.reservationPolicy ?? "unknown",
     reservation_raw: v.reservationRaw ?? null,
     booking: v.booking ?? null,
