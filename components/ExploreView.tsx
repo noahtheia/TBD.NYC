@@ -10,6 +10,7 @@ import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
 import { nycNow, type NowParts } from "@/lib/hours";
 import { FOCUS_ZOOM } from "@/lib/map-config";
+import { motionDuration } from "@/lib/prefers-reduced-motion";
 import { cn } from "@/lib/cn";
 import meta from "@/data/meta.json";
 import SearchBar from "@/components/filters/SearchBar";
@@ -117,7 +118,7 @@ export default function ExploreView({ venues, facets }: Props) {
         [minLng, minLat],
         [maxLng, maxLat],
       ],
-      { padding: 60, maxZoom: 15, duration: 600 }
+      { padding: 60, maxZoom: 15, duration: motionDuration(600) }
     );
   }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch]);
 
@@ -162,7 +163,7 @@ export default function ExploreView({ venues, facets }: Props) {
         mapRef.current?.flyTo({
           center: [loc.coordinates.lng, loc.coordinates.lat],
           zoom: FOCUS_ZOOM,
-          duration: 800,
+          duration: motionDuration(800),
         });
       }
     },
@@ -195,6 +196,12 @@ export default function ExploreView({ venues, facets }: Props) {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-white">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-zinc-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Skip to results
+      </a>
       {/* Header */}
       <header className="z-20 shrink-0 border-b border-zinc-200 bg-white">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
@@ -241,7 +248,11 @@ export default function ExploreView({ venues, facets }: Props) {
                 geoStatus={geoStatus}
                 onLocate={requestNearMe}
               />
-              <span className="hidden text-sm text-zinc-500 sm:inline">
+              <span
+                className="hidden text-sm text-zinc-500 sm:inline"
+                role="status"
+                aria-live="polite"
+              >
                 {filteredVenues.length}{" "}
                 {filteredVenues.length === 1 ? "spot" : "spots"}
               </span>
@@ -262,9 +273,10 @@ export default function ExploreView({ venues, facets }: Props) {
       </header>
 
       {/* Two-pane body */}
-      <div className="flex min-h-0 flex-1">
+      <main id="main" className="flex min-h-0 flex-1">
         <section
           ref={listScrollRef}
+          aria-label="Venue results"
           className={cn(
             "w-full overflow-y-auto border-r border-zinc-200 lg:block lg:w-[42%] lg:max-w-xl xl:w-[38%]",
             mobileView === "map" && "hidden"
@@ -282,12 +294,13 @@ export default function ExploreView({ venues, facets }: Props) {
             onClear={clearFilters}
             scrollRef={listScrollRef}
           />
-          <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-400 lg:pb-6">
+          <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-500 lg:pb-6">
             {filteredVenues.length} venues · data updated {DATA_UPDATED}
           </p>
         </section>
 
         <section
+          aria-label="Map"
           className={cn(
             "relative flex-1 lg:block",
             mobileView === "list" && "hidden"
@@ -313,7 +326,7 @@ export default function ExploreView({ venues, facets }: Props) {
             </div>
           )}
         </section>
-      </div>
+      </main>
 
       {/* Mobile list/map toggle */}
       <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30 flex justify-center lg:hidden">

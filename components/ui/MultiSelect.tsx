@@ -106,16 +106,23 @@ export default function MultiSelect({
               />
             </div>
           )}
-          <ul className="max-h-64 overflow-y-auto p-1.5">
+          <ul
+            role="listbox"
+            aria-label={label}
+            aria-multiselectable="true"
+            className="max-h-64 overflow-y-auto p-1.5"
+          >
             {visible.length === 0 && (
-              <li className="px-2.5 py-2 text-sm text-zinc-400">No matches</li>
+              <li className="px-2.5 py-2 text-sm text-zinc-500">No matches</li>
             )}
             {visible.map((o) => {
               const checked = selected.includes(o.value);
               return (
-                <li key={o.value}>
+                <li key={o.value} role="presentation">
                   <button
                     type="button"
+                    role="option"
+                    aria-selected={checked}
                     onClick={() => onToggle(o.value)}
                     className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-zinc-50"
                   >
@@ -144,7 +151,7 @@ export default function MultiSelect({
                     </span>
                     <span className="flex-1 text-zinc-700">{o.label}</span>
                     {typeof o.count === "number" && (
-                      <span className="text-xs tabular-nums text-zinc-400">
+                      <span className="text-xs tabular-nums text-zinc-500">
                         {o.count}
                       </span>
                     )}

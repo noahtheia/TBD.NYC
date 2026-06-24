@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Venue } from "@/types/venue";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import VenueDetailContent from "./VenueDetailContent";
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 
 export default function VenueDrawer({ venue, onClose }: Props) {
   const open = venue !== null;
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(open, panelRef);
 
   // The home page ships a lite catalog, so fetch the full record on open and swap
   // it in. The lite venue renders instantly in the meantime. Fetched records are
@@ -51,17 +54,19 @@ export default function VenueDrawer({ venue, onClose }: Props) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`absolute inset-0 bg-black/30 transition-opacity duration-200 ${
+        className={`absolute inset-0 bg-black/30 transition-opacity duration-200 motion-reduce:transition-none ${
           open ? "opacity-100" : "opacity-0"
         }`}
       />
 
       {/* Panel: bottom sheet on mobile, right slide-over on desktop */}
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label={venue?.name ?? "Venue details"}
-        className={`absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white shadow-2xl transition-transform duration-300 ease-out
+        tabIndex={-1}
+        className={`absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white shadow-2xl transition-transform duration-300 ease-out motion-reduce:transition-none
           sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-full sm:max-w-md sm:rounded-none
           ${open ? "translate-y-0 sm:translate-x-0" : "translate-y-full sm:translate-y-0 sm:translate-x-full"}`}
       >

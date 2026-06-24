@@ -23,8 +23,15 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props
     function onDoc(e: MouseEvent) {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
     document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   const current = SORT_OPTIONS.find((o) => o.value === sort) ?? SORT_OPTIONS[0];
@@ -63,6 +70,8 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props
       <div ref={rootRef} className="relative">
         <button
           type="button"
+          aria-haspopup="listbox"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400"
         >
@@ -81,13 +90,19 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props
           </svg>
         </button>
         {open && (
-          <div className="absolute right-0 z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg">
+          <div
+            role="listbox"
+            aria-label="Sort by"
+            className="absolute right-0 z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg"
+          >
             {SORT_OPTIONS.map((o) => {
               const disabled = o.value === "distance" && !distanceReady;
               return (
                 <button
                   key={o.value}
                   type="button"
+                  role="option"
+                  aria-selected={o.value === sort}
                   disabled={disabled}
                   onClick={() => {
                     onSort(o.value);
@@ -100,7 +115,7 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props
                 >
                   {o.label}
                   {o.value === "distance" && !distanceReady && (
-                    <span className="text-xs text-zinc-400">enable</span>
+                    <span className="text-xs text-zinc-500">enable</span>
                   )}
                 </button>
               );

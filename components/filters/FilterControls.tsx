@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import FilterBar, { type FilterBarProps } from "./FilterBar";
 
 type Props = FilterBarProps & { resultCount?: number };
@@ -10,6 +11,8 @@ type Props = FilterBarProps & { resultCount?: number };
  *  (the inline 8-control bar is too cramped on phones). */
 export default function FilterControls({ resultCount, ...filters }: Props) {
   const [open, setOpen] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(open, sheetRef);
 
   useEffect(() => {
     if (!open) return;
@@ -60,11 +63,13 @@ export default function FilterControls({ resultCount, ...filters }: Props) {
           )}
         />
         <div
+          ref={sheetRef}
           role="dialog"
           aria-modal="true"
           aria-label="Filters"
+          tabIndex={-1}
           className={cn(
-            "absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-2xl bg-white shadow-2xl transition-transform duration-300 ease-out",
+            "absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-2xl bg-white shadow-2xl transition-transform duration-300 ease-out motion-reduce:transition-none",
             open ? "translate-y-0" : "translate-y-full"
           )}
         >

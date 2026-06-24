@@ -23,14 +23,23 @@ export default async function LoginPage({
         </p>
       )}
       <form action={loginAction} className="mt-5 space-y-3">
+        <label htmlFor="admin-password" className="sr-only">
+          Admin password
+        </label>
         <input
+          id="admin-password"
           type="password"
           name="password"
           placeholder="Admin password"
           autoFocus
+          aria-describedby={error ? "admin-password-error" : undefined}
           className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500"
         />
-        {error && <p className="text-sm text-rose-600">Incorrect password.</p>}
+        {error && (
+          <p id="admin-password-error" role="alert" className="text-sm text-rose-600">
+            Incorrect password.
+          </p>
+        )}
         <button
           type="submit"
           className="w-full rounded-full bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white"

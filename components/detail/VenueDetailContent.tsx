@@ -109,7 +109,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
               <span>
                 <span className="font-semibold text-zinc-900">★ {venue.rating.toFixed(1)}</span>
                 {venue.userRatingCount ? (
-                  <span className="text-zinc-400"> ({venue.userRatingCount})</span>
+                  <span className="text-zinc-500"> ({venue.userRatingCount})</span>
                 ) : null}
               </span>
             )}

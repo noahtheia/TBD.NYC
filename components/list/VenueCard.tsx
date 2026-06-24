@@ -71,6 +71,7 @@ export default function VenueCard({
           <h3 className="font-semibold leading-tight text-zinc-900 group-hover:text-rose-700">
             <Link
               href={`/venue/${venue.id}`}
+              aria-label={`${venue.name}${venue.neighborhood ? `, ${venue.neighborhood}` : ""}`}
               onClick={
                 onSelect
                   ? (e) => {
@@ -82,7 +83,9 @@ export default function VenueCard({
                     }
                   : undefined
               }
-              className="after:absolute after:inset-0 after:content-['']"
+              onFocus={onHover ? () => onHover(venue.id) : undefined}
+              onBlur={onHover ? () => onHover(null) : undefined}
+              className="rounded-sm after:absolute after:inset-0 after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
             >
               {venue.name}
             </Link>
