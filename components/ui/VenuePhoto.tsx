@@ -24,6 +24,9 @@ type Props = {
   /** Tailwind sizing/aspect classes for the container (e.g. "h-20 w-20" or "aspect-video w-full"). */
   className?: string;
   rounded?: string;
+  /** Load eagerly with a high fetch priority — set for the LCP image (detail hero,
+   *  first few above-the-fold cards). Defaults to lazy. */
+  eager?: boolean;
 };
 
 /** Venue image with a deterministic gradient + initial fallback when there's no
@@ -33,6 +36,7 @@ export default function VenuePhoto({
   photoUrl,
   className,
   rounded = "rounded-lg",
+  eager = false,
 }: Props) {
   const [errored, setErrored] = useState(false);
   const showImage = Boolean(photoUrl) && !errored;
@@ -45,7 +49,8 @@ export default function VenuePhoto({
         <img
           src={photoUrl}
           alt={name}
-          loading="lazy"
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : "auto"}
           onError={() => setErrored(true)}
           className="h-full w-full object-cover"
         />

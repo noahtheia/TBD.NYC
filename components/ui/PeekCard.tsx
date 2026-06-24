@@ -2,6 +2,7 @@
 
 import type { Venue } from "@/types/venue";
 import { priceLabel } from "@/lib/display";
+import { happyHourStatus, type NowParts } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 
@@ -9,9 +10,10 @@ type Props = {
   venue: Venue;
   onOpen: () => void;
   onClose: () => void;
+  now?: NowParts;
 };
 
-export default function PeekCard({ venue, onOpen, onClose }: Props) {
+export default function PeekCard({ venue, onOpen, onClose, now }: Props) {
   const primary = venue.locations[0];
   const tags =
     venue.category === "restaurant"
@@ -20,6 +22,8 @@ export default function PeekCard({ venue, onOpen, onClose }: Props) {
         : ["Restaurant"]
       : venue.types;
   const subtitle = [tags.join(" · "), venue.neighborhood].filter(Boolean).join(" • ");
+  const hhActive =
+    venue.happyHour === true && happyHourStatus(venue.happyHourWindows, now)?.active === true;
 
   return (
     <div className="pointer-events-auto mx-3 flex gap-3 rounded-2xl border border-zinc-200 bg-white p-3 shadow-2xl">
@@ -40,6 +44,12 @@ export default function PeekCard({ venue, onOpen, onClose }: Props) {
         </div>
         <div className="mt-1 flex items-center gap-2">
           <OpenStatus hours={primary?.hours} />
+          {hhActive && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-semibold text-amber-950">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-900" aria-hidden />
+              Happy hour now
+            </span>
+          )}
           <span className="text-xs font-medium text-rose-600">View details →</span>
         </div>
       </button>

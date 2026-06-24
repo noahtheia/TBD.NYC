@@ -51,6 +51,11 @@ export function useExploreState() {
     () => setFilters((f) => ({ ...f, happyHourOnly: !f.happyHourOnly })),
     []
   );
+  // One-tap "happy hour now": force happy-hour + open-now on (not a toggle).
+  const showHappyHourNow = useCallback(
+    () => setFilters((f) => ({ ...f, happyHourOnly: true, openNow: true })),
+    []
+  );
   const toggleOpenNow = useCallback(
     () => setFilters((f) => ({ ...f, openNow: !f.openNow })),
     []
@@ -90,6 +95,7 @@ export function useExploreState() {
   return {
     filters,
     toggleHappyHour,
+    showHappyHourNow,
     toggleOpenNow,
     toggleOpenLate,
     toggleFilterValue,

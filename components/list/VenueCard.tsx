@@ -1,28 +1,38 @@
 "use client";
 
+import Link from "next/link";
 import type { Venue } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { RESERVATION_SHORT, priceLabel } from "@/lib/display";
+import { happyHourStatus, type NowParts } from "@/lib/hours";
 import { formatMiles } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 
 type Props = {
   venue: Venue;
-  isActive: boolean;
-  onHover: (id: string | null) => void;
-  onSelect: (id: string) => void;
+  isActive?: boolean;
+  onHover?: (id: string | null) => void;
+  /** When provided (explore list), a click opens the drawer instead of navigating.
+   *  When omitted (landing pages), the card navigates to /venue/[id]. */
+  onSelect?: (id: string) => void;
   distanceMiles?: number | null;
   innerRef?: (el: HTMLElement | null) => void;
+  /** Current NYC time, for the live "Happy hour now" pill. */
+  now?: NowParts;
+  /** Eager-load the photo (above-the-fold cards). */
+  eager?: boolean;
 };
 
 export default function VenueCard({
   venue,
-  isActive,
+  isActive = false,
   onHover,
   onSelect,
   distanceMiles,
   innerRef,
+  now,
+  eager,
 }: Props) {
   const primary = venue.locations[0];
   const tags =
@@ -33,15 +43,16 @@ export default function VenueCard({
       : venue.types;
   const subtitle = [tags.join(" · "), venue.neighborhood].filter(Boolean).join(" • ");
   const reservation = RESERVATION_SHORT[venue.reservationPolicy];
+  const hhActive =
+    venue.happyHour === true && happyHourStatus(venue.happyHourWindows, now)?.active === true;
 
   return (
     <article
       ref={innerRef}
-      onMouseEnter={() => onHover(venue.id)}
-      onMouseLeave={() => onHover(null)}
-      onClick={() => onSelect(venue.id)}
+      onMouseEnter={onHover ? () => onHover(venue.id) : undefined}
+      onMouseLeave={onHover ? () => onHover(null) : undefined}
       className={cn(
-        "group flex cursor-pointer gap-3 rounded-xl border p-3 transition",
+        "group relative flex cursor-pointer gap-3 rounded-xl border p-3 transition",
         isActive
           ? "border-rose-400 bg-rose-50/50 shadow-sm ring-1 ring-rose-200"
           : "border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-sm"
@@ -52,17 +63,41 @@ export default function VenueCard({
         photoUrl={venue.photoUrl}
         className="h-20 w-20 shrink-0"
         rounded="rounded-lg"
+        eager={eager}
       />
 
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-semibold leading-tight text-zinc-900 group-hover:text-rose-700">
-            {venue.name}
+            <Link
+              href={`/venue/${venue.id}`}
+              onClick={
+                onSelect
+                  ? (e) => {
+                      // Plain left-click opens the drawer in place; modified clicks
+                      // (cmd/ctrl/shift/middle) keep the native new-tab navigation.
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                      e.preventDefault();
+                      onSelect(venue.id);
+                    }
+                  : undefined
+              }
+              className="after:absolute after:inset-0 after:content-['']"
+            >
+              {venue.name}
+            </Link>
           </h3>
-          {venue.happyHour === true && (
-            <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">
-              Happy hour
+          {hhActive ? (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-semibold text-amber-950">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-900" aria-hidden />
+              Happy hour now
             </span>
+          ) : (
+            venue.happyHour === true && (
+              <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">
+                Happy hour
+              </span>
+            )
           )}
         </div>
 

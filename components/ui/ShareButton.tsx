@@ -6,16 +6,32 @@ import { cn } from "@/lib/cn";
 type Props = {
   /** Link to copy. Defaults to the current page URL. */
   url?: string;
+  /** Title for the native share sheet (e.g. the venue name). */
+  title?: string;
   className?: string;
   label?: string;
 };
 
-export default function ShareButton({ url, className, label = "Share" }: Props) {
+export default function ShareButton({ url, title, className, label = "Share" }: Props) {
   const [copied, setCopied] = useState(false);
 
   async function handleClick() {
     const link =
       url ?? (typeof window !== "undefined" ? window.location.href : "");
+    if (!link) return;
+
+    // Prefer the native share sheet on mobile; fall back to clipboard.
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ url: link, ...(title ? { title } : {}) });
+        return;
+      } catch (err) {
+        // User dismissed the sheet — don't silently copy instead.
+        if ((err as Error)?.name === "AbortError") return;
+        // Otherwise fall through to clipboard.
+      }
+    }
+
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);

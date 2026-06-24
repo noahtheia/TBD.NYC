@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,7 +8,6 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const TITLE = "TBD.NYC — NYC Bars & Happy Hours";
 const DESCRIPTION =
   "An interactive map of curated New York City bars and happy hours. Filter by neighborhood, type, and happy hour.";
