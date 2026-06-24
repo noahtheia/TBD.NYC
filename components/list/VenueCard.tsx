@@ -5,9 +5,10 @@ import type { Venue } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { RESERVATION_SHORT, priceLabel } from "@/lib/display";
 import { happyHourStatus, type NowParts } from "@/lib/hours";
-import { formatMiles } from "@/lib/geo";
+import { formatProximity } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
+import FavoriteButton from "@/components/ui/FavoriteButton";
 
 type Props = {
   venue: Venue;
@@ -58,6 +59,10 @@ export default function VenueCard({
           : "border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-sm"
       )}
     >
+      <FavoriteButton
+        id={venue.id}
+        className="absolute left-1.5 top-1.5 z-20 h-7 w-7 bg-white/85 shadow-sm backdrop-blur hover:bg-white"
+      />
       <VenuePhoto
         name={venue.name}
         photoUrl={venue.photoUrl}
@@ -110,7 +115,7 @@ export default function VenueCard({
           )}
           {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
           {distanceMiles != null && (
-            <span className="text-zinc-500">{formatMiles(distanceMiles)}</span>
+            <span className="text-zinc-500">{formatProximity(distanceMiles)}</span>
           )}
           {subtitle && <span className="min-w-0 truncate">{subtitle}</span>}
         </div>

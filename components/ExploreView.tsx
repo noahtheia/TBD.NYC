@@ -6,6 +6,7 @@ import type { MapRef } from "react-map-gl/mapbox";
 import type { Facets, Venue } from "@/types/venue";
 import { useExploreState } from "@/hooks/useExploreState";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import { useFavorites } from "@/hooks/useFavorites";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
 import { nycNow, type NowParts } from "@/lib/hours";
@@ -59,10 +60,12 @@ export default function ExploreView({ venues, facets }: Props) {
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
+  const [showSaved, setShowSaved] = useState(false);
   const mapRef = useRef<MapRef | null>(null);
   const listScrollRef = useRef<HTMLElement | null>(null);
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
+  const { set: favSet, count: favCount } = useFavorites();
 
   // Current NYC time, refreshed each minute, drives the "open now" filter.
   const [now, setNow] = useState<NowParts>(() => nycNow());
@@ -85,6 +88,18 @@ export default function ExploreView({ venues, facets }: Props) {
     () => sortVenues(filteredVenues, sort, userLoc),
     [filteredVenues, sort, userLoc]
   );
+
+  // "Saved" view: intersect with favorites (only while there are favorites).
+  const savedActive = showSaved && favCount > 0;
+  const displayedVenues = useMemo(
+    () => (savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues),
+    [savedActive, sortedVenues, favSet]
+  );
+  const mapVenues = useMemo(
+    () => (savedActive ? filteredVenues.filter((v) => favSet.has(v.id)) : filteredVenues),
+    [savedActive, filteredVenues, favSet]
+  );
+  const visibleCount = savedActive ? displayedVenues.length : filteredVenues.length;
 
   const activeFilterCount = countActiveFilters(filters);
   const openVenueObj = openId ? venuesById.get(openId) ?? null : null;
@@ -180,6 +195,13 @@ export default function ExploreView({ venues, facets }: Props) {
     [openVenue, flyTo]
   );
 
+  // "Surprise me": open a random venue from the current results.
+  const surprise = useCallback(() => {
+    if (!displayedVenues.length) return;
+    const pick = displayedVenues[Math.floor(Math.random() * displayedVenues.length)];
+    handleSelect(pick.id);
+  }, [displayedVenues, handleSelect]);
+
   // Map pin click: on mobile map view, show a peek card; otherwise open the drawer.
   const handleSelectFromMap = useCallback(
     (id: string) => {
@@ -218,6 +240,24 @@ export default function ExploreView({ venues, facets }: Props) {
               <div className="w-44 sm:w-72 md:w-96">
                 <SearchBar value={searchInput} onChange={setSearchInput} />
               </div>
+              {favCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowSaved((v) => !v)}
+                  aria-pressed={savedActive}
+                  className={cn(
+                    "flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition",
+                    savedActive
+                      ? "border-rose-500 bg-rose-50 text-rose-700"
+                      : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                    <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
+                  </svg>
+                  <span className="hidden sm:inline">Saved</span> {favCount}
+                </button>
+              )}
               <ShareButton />
             </div>
           </div>
@@ -242,6 +282,15 @@ export default function ExploreView({ venues, facets }: Props) {
               onClear={clearFilters}
             />
             <div className="ml-auto flex shrink-0 items-center gap-3">
+              <button
+                type="button"
+                onClick={surprise}
+                title="Open a random spot"
+                aria-label="Surprise me — open a random spot"
+                className="hidden items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 sm:flex"
+              >
+                <span aria-hidden>🎲</span> Surprise me
+              </button>
               <SortControl
                 sort={sort}
                 onSort={setSort}
@@ -253,8 +302,8 @@ export default function ExploreView({ venues, facets }: Props) {
                 role="status"
                 aria-live="polite"
               >
-                {filteredVenues.length}{" "}
-                {filteredVenues.length === 1 ? "spot" : "spots"}
+                {visibleCount}{" "}
+                {visibleCount === 1 ? "spot" : "spots"}
               </span>
             </div>
           </div>
@@ -283,8 +332,8 @@ export default function ExploreView({ venues, facets }: Props) {
           )}
         >
           <VenueList
-            key={`${filterSig}|${sort}`}
-            venues={sortedVenues}
+            key={`${filterSig}|${sort}|${savedActive}`}
+            venues={displayedVenues}
             active={active}
             onHover={handleHoverList}
             onSelect={handleSelect}
@@ -295,7 +344,7 @@ export default function ExploreView({ venues, facets }: Props) {
             scrollRef={listScrollRef}
           />
           <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-500 lg:pb-6">
-            {filteredVenues.length} venues · data updated {DATA_UPDATED}
+            {visibleCount} venues · data updated {DATA_UPDATED}
           </p>
         </section>
 
@@ -307,7 +356,7 @@ export default function ExploreView({ venues, facets }: Props) {
           )}
         >
           <MapView
-            venues={filteredVenues}
+            venues={mapVenues}
             activeId={active.id}
             mapRef={mapRef}
             onHover={handleHoverMap}

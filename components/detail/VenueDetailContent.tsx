@@ -3,6 +3,7 @@ import { BOOKING_LABEL, RESERVATION_LABEL, mapsUrl, priceLabel } from "@/lib/dis
 import { formatWeekly, happyHourStatus } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
+import FavoriteButton from "@/components/ui/FavoriteButton";
 import HoursTable from "./HoursTable";
 import meta from "@/data/meta.json";
 
@@ -130,11 +131,17 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
             )}
           </div>
         </div>
-        {venue.happyHour === true && (
-          <span className="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-            Happy hour
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-2">
+          {venue.happyHour === true && (
+            <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+              Happy hour
+            </span>
+          )}
+          <FavoriteButton
+            id={venue.id}
+            className="h-9 w-9 border border-zinc-300 bg-white hover:border-rose-300"
+          />
+        </div>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
