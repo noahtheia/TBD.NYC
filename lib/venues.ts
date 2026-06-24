@@ -21,6 +21,43 @@ export async function getVenues(): Promise<Venue[]> {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/** Project a venue down to the fields the explore list + map actually read,
+ *  dropping detail-only payload (weekday text, gallery, raw reservation/menu/site
+ *  fields, amenities, editorial notes). Structurally still a Venue. */
+function liteVenue(v: Venue): Venue {
+  return {
+    id: v.id,
+    name: v.name,
+    category: v.category,
+    types: v.types,
+    cuisines: v.cuisines,
+    locations: v.locations.map((l) => ({
+      address: l.address,
+      neighborhood: l.neighborhood,
+      borough: l.borough,
+      coordinates: l.coordinates,
+      hours: l.hours ? { periods: l.hours.periods, open24: l.hours.open24 } : undefined,
+    })),
+    neighborhood: v.neighborhood,
+    rating: v.rating,
+    userRatingCount: v.userRatingCount,
+    priceLevel: v.priceLevel,
+    happyHour: v.happyHour,
+    happyHourWindows: v.happyHourWindows,
+    reservationPolicy: v.reservationPolicy,
+    booking: v.booking,
+    photoUrl: v.photoUrl,
+    unverified: v.unverified,
+  };
+}
+
+/** Lightweight catalog for the home explore view — same shape as getVenues() but
+ *  without detail-only fields, so the client/RSC payload is much smaller. The
+ *  drawer/detail fetch the full record by id when opened. */
+export async function getVenuesLite(): Promise<Venue[]> {
+  return (await getVenues()).map(liteVenue);
+}
+
 export async function getVenueById(id: string): Promise<Venue | undefined> {
   const supabase = getSupabase();
   if (!supabase) return fallback.find((v) => v.id === id);

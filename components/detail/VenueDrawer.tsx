@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Venue } from "@/types/venue";
 import VenueDetailContent from "./VenueDetailContent";
@@ -12,6 +12,27 @@ type Props = {
 
 export default function VenueDrawer({ venue, onClose }: Props) {
   const open = venue !== null;
+
+  // The home page ships a lite catalog, so fetch the full record on open and swap
+  // it in. The lite venue renders instantly in the meantime. Fetched records are
+  // cached in state (keyed by id) and read during render.
+  const [fetched, setFetched] = useState<Record<string, Venue>>({});
+  useEffect(() => {
+    if (!venue || fetched[venue.id]) return;
+    let cancelled = false;
+    fetch(`/api/venue/${venue.id}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: Venue | null) => {
+        if (cancelled || !data) return;
+        setFetched((prev) => (prev[data.id] ? prev : { ...prev, [data.id]: data }));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [venue, fetched]);
+
+  const detail = venue ? fetched[venue.id] ?? venue : null;
 
   useEffect(() => {
     if (!open) return;
@@ -65,9 +86,9 @@ export default function VenueDrawer({ venue, onClose }: Props) {
           </button>
         </div>
 
-        {venue && (
+        {detail && (
           <div className="p-5">
-            <VenueDetailContent venue={venue} />
+            <VenueDetailContent venue={detail} />
           </div>
         )}
       </div>

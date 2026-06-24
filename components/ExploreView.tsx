@@ -13,7 +13,7 @@ import { FOCUS_ZOOM } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
 import meta from "@/data/meta.json";
 import SearchBar from "@/components/filters/SearchBar";
-import FilterBar from "@/components/filters/FilterBar";
+import FilterControls from "@/components/filters/FilterControls";
 import SortControl from "@/components/filters/SortControl";
 import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 import VenueList, { type ActiveState } from "@/components/list/VenueList";
@@ -59,6 +59,7 @@ export default function ExploreView({ venues, facets }: Props) {
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
   const mapRef = useRef<MapRef | null>(null);
+  const listScrollRef = useRef<HTMLElement | null>(null);
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
 
@@ -221,10 +222,11 @@ export default function ExploreView({ venues, facets }: Props) {
             >
               <span aria-hidden>🍸</span> Happy hour now
             </button>
-            <FilterBar
+            <FilterControls
               facets={facets}
               filters={filters}
               activeCount={activeFilterCount}
+              resultCount={filteredVenues.length}
               onToggleHappyHour={toggleHappyHour}
               onToggleOpenNow={toggleOpenNow}
               onToggleOpenLate={toggleOpenLate}
@@ -262,12 +264,14 @@ export default function ExploreView({ venues, facets }: Props) {
       {/* Two-pane body */}
       <div className="flex min-h-0 flex-1">
         <section
+          ref={listScrollRef}
           className={cn(
             "w-full overflow-y-auto border-r border-zinc-200 lg:block lg:w-[42%] lg:max-w-xl xl:w-[38%]",
             mobileView === "map" && "hidden"
           )}
         >
           <VenueList
+            key={`${filterSig}|${sort}`}
             venues={sortedVenues}
             active={active}
             onHover={handleHoverList}
@@ -276,6 +280,7 @@ export default function ExploreView({ venues, facets }: Props) {
             now={now}
             activeCount={activeFilterCount}
             onClear={clearFilters}
+            scrollRef={listScrollRef}
           />
           <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-400 lg:pb-6">
             {filteredVenues.length} venues · data updated {DATA_UPDATED}

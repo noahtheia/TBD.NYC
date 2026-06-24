@@ -91,6 +91,8 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         photoUrl={venue.photoUrl}
         className="mb-4 aspect-video w-full"
         rounded="rounded-xl"
+        eager
+        sizes="(max-width: 768px) 100vw, 640px"
       />
 
       <div className="flex items-start justify-between gap-3">
