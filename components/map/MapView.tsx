@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState, type RefObject } from "react";
 import Map, { Marker, NavigationControl, type MapRef } from "react-map-gl/mapbox";
 import Supercluster from "supercluster";
+import "mapbox-gl/dist/mapbox-gl.css";
 import type { Venue } from "@/types/venue";
 import {
   INITIAL_VIEW_STATE,

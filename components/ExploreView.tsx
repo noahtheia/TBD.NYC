@@ -40,6 +40,7 @@ export default function ExploreView({ venues, facets }: Props) {
   const {
     filters,
     toggleHappyHour,
+    showHappyHourNow,
     toggleOpenNow,
     toggleOpenLate,
     toggleFilterValue,
@@ -119,6 +120,31 @@ export default function ExploreView({ venues, facets }: Props) {
     );
   }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch]);
 
+  // "Near me" intent: request location, then switch to distance sort once coords
+  // actually arrive (so the sort doesn't silently change before/without a fix).
+  const pendingDistanceSort = useRef(false);
+  const requestNearMe = useCallback(() => {
+    if (geoStatus === "granted") {
+      setSort("distance");
+      return;
+    }
+    pendingDistanceSort.current = true;
+    locate();
+  }, [geoStatus, locate]);
+
+  useEffect(() => {
+    if (geoStatus === "granted" && pendingDistanceSort.current) {
+      pendingDistanceSort.current = false;
+      setSort("distance");
+    }
+  }, [geoStatus]);
+
+  // One-tap headline action: happy hour + open now, sorted nearest.
+  const showHappyHourNearMe = useCallback(() => {
+    showHappyHourNow();
+    requestNearMe();
+  }, [showHappyHourNow, requestNearMe]);
+
   const handleHoverList = useCallback(
     (id: string | null) => setActive({ id, source: "list" }),
     []
@@ -188,6 +214,13 @@ export default function ExploreView({ venues, facets }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={showHappyHourNearMe}
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-rose-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700"
+            >
+              <span aria-hidden>🍸</span> Happy hour now
+            </button>
             <FilterBar
               facets={facets}
               filters={filters}
@@ -204,7 +237,7 @@ export default function ExploreView({ venues, facets }: Props) {
                 sort={sort}
                 onSort={setSort}
                 geoStatus={geoStatus}
-                onLocate={locate}
+                onLocate={requestNearMe}
               />
               <span className="hidden text-sm text-zinc-500 sm:inline">
                 {filteredVenues.length}{" "}
@@ -240,6 +273,9 @@ export default function ExploreView({ venues, facets }: Props) {
             onHover={handleHoverList}
             onSelect={handleSelect}
             userLoc={userLoc}
+            now={now}
+            activeCount={activeFilterCount}
+            onClear={clearFilters}
           />
           <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-400 lg:pb-6">
             {filteredVenues.length} venues · data updated {DATA_UPDATED}
@@ -253,7 +289,7 @@ export default function ExploreView({ venues, facets }: Props) {
           )}
         >
           <MapView
-            venues={sortedVenues}
+            venues={filteredVenues}
             activeId={active.id}
             mapRef={mapRef}
             onHover={handleHoverMap}
@@ -267,6 +303,7 @@ export default function ExploreView({ venues, facets }: Props) {
                 venue={peekVenue}
                 onOpen={() => handleSelect(peekVenue.id)}
                 onClose={() => setPeekId(null)}
+                now={now}
               />
             </div>
           )}

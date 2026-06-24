@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { isAdmin } from "@/lib/admin-auth";
 import AdminNav from "./AdminNav";
 
 export const dynamic = "force-dynamic";
+
+// The admin surface should never be indexed (robots.ts also disallows /admin).
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({
   children,

@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "mapbox-gl/dist/mapbox-gl.css";
+/* Mapbox GL's stylesheet is imported inside components/map/MapView.tsx so it ships
+   with the dynamically-imported map chunk only (not on map-less routes). */
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
