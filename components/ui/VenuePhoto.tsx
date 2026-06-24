@@ -43,7 +43,10 @@ export default function VenuePhoto({
   sizes = "160px",
 }: Props) {
   const [errored, setErrored] = useState(false);
-  const showImage = Boolean(photoUrl) && !errored;
+  // Skip insecure http:// images: they're blocked as mixed content on an https
+  // deploy, so render the gradient instead of a broken image.
+  const insecure = photoUrl?.startsWith("http://") ?? false;
+  const showImage = Boolean(photoUrl) && !insecure && !errored;
   const gradient = GRADIENTS[hashIndex(name, GRADIENTS.length)];
 
   return (
@@ -55,9 +58,6 @@ export default function VenuePhoto({
           fill
           sizes={sizes}
           priority={eager}
-          // http:// URLs aren't allowed by remotePatterns (and are mixed-content on
-          // an https deploy) — render them unoptimized so dev still shows them.
-          unoptimized={(photoUrl as string).startsWith("http://")}
           onError={() => setErrored(true)}
           className="object-cover"
         />

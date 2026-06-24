@@ -116,7 +116,14 @@ export default function VenueCard({
         </div>
 
         <div className="mt-1.5">
-          <OpenStatus hours={primary?.hours} />
+          {venue.businessStatus === "CLOSED_TEMPORARILY" ? (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              Temporarily closed
+            </span>
+          ) : (
+            <OpenStatus hours={primary?.hours} />
+          )}
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">

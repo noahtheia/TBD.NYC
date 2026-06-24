@@ -45,6 +45,7 @@ function liteVenue(v: Venue): Venue {
     happyHour: v.happyHour,
     happyHourWindows: v.happyHourWindows,
     reservationPolicy: v.reservationPolicy,
+    businessStatus: v.businessStatus,
     booking: v.booking,
     photoUrl: v.photoUrl,
     unverified: v.unverified,

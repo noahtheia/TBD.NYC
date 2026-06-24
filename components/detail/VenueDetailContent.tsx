@@ -4,6 +4,12 @@ import { formatWeekly, happyHourStatus } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 import HoursTable from "./HoursTable";
+import meta from "@/data/meta.json";
+
+const DATA_UPDATED = new Date(meta.generatedAt).toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
 
 function ActionLink({
   href,
@@ -114,7 +120,14 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
               </span>
             )}
             {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
-            <OpenStatus hours={primary?.hours} />
+            {venue.businessStatus === "CLOSED_TEMPORARILY" ? (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                Temporarily closed
+              </span>
+            ) : (
+              <OpenStatus hours={primary?.hours} />
+            )}
           </div>
         </div>
         {venue.happyHour === true && (
@@ -222,6 +235,10 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
           ))}
         </div>
       )}
+
+      <p className="mt-4 border-t border-zinc-100 pt-3 text-xs text-zinc-500">
+        Hours, ratings &amp; photos via Google · Updated {DATA_UPDATED}
+      </p>
     </div>
   );
 }
