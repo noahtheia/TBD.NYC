@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MapRef } from "react-map-gl/mapbox";
 import type { Facets, Venue } from "@/types/venue";
@@ -229,9 +230,12 @@ export default function ExploreView({ venues, facets }: Props) {
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl font-extrabold tracking-tight text-zinc-900">
+              <Link
+                href="/"
+                className="text-xl font-extrabold tracking-tight text-zinc-900"
+              >
                 TBD<span className="text-rose-600">.NYC</span>
-              </span>
+              </Link>
               <span className="hidden text-sm text-zinc-400 sm:inline">
                 NYC bars &amp; happy hours
               </span>

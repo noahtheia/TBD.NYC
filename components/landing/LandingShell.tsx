@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { Venue } from "@/types/venue";
+import SiteHeader from "@/components/site/SiteHeader";
 import VenueResults from "./VenueResults";
 
 /** Shared chrome for the SSR landing pages (neighborhood / cuisine / happy hour):
@@ -18,22 +18,7 @@ export default function LandingShell({
 }) {
   return (
     <div className="min-h-dvh bg-white">
-      <header className="sticky top-0 z-10 border-b border-zinc-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-3 lg:px-6">
-          <Link
-            href="/"
-            className="text-xl font-extrabold tracking-tight text-zinc-900"
-          >
-            TBD<span className="text-rose-600">.NYC</span>
-          </Link>
-          <Link
-            href="/"
-            className="ml-auto text-sm font-medium text-zinc-500 transition hover:text-zinc-800"
-          >
-            ← Back to map
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-5xl px-4 py-8 lg:px-6">
         <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">

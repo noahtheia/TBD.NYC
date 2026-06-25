@@ -1,4 +1,4 @@
-/** Instant FCP shell for the home route while the ISR/Supabase fetch runs. */
+/** Instant FCP shell for the explore route while the ISR/Supabase fetch runs. */
 export default function Loading() {
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-white">
