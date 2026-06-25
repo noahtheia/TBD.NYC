@@ -18,9 +18,12 @@ import MapFallback from "./MapFallback";
 type Props = {
   venues: Venue[];
   activeId: string | null;
+  /** The specific active pin (`${venueId}#${locIndex}`), set by map interaction.
+   *  When set, only that pin highlights — not every pin of a multi-location venue. */
+  activePointId?: string | null;
   mapRef: RefObject<MapRef | null>;
-  onHover: (id: string | null) => void;
-  onSelect: (id: string) => void;
+  onHover: (id: string | null, pointId?: string | null) => void;
+  onSelect: (id: string, point: { pointId: string; lng: number; lat: number }) => void;
   focusOnLoad?: LatLng | null;
   userLoc?: LatLng | null;
   /** Notified with [west, south, east, north] whenever the viewport changes. */
@@ -29,6 +32,10 @@ type Props = {
 
 type Point = {
   venueId: string;
+  /** Stable per-pin id: `${venueId}#${locIndex}`. */
+  pointId: string;
+  /** The venue has more than one location. */
+  multi: boolean;
   name: string;
   category: "bar" | "restaurant";
   happyHour: boolean;
@@ -41,6 +48,7 @@ type Bounds = [number, number, number, number];
 export default function MapView({
   venues,
   activeId,
+  activePointId,
   mapRef,
   onHover,
   onSelect,
@@ -52,8 +60,10 @@ export default function MapView({
   const points = useMemo<Point[]>(
     () =>
       venues.flatMap((v) =>
-        v.locations.map((loc) => ({
+        v.locations.map((loc, idx) => ({
           venueId: v.id,
+          pointId: `${v.id}#${idx}`,
+          multi: v.locations.length > 1,
           name: v.name,
           category: v.category,
           happyHour: v.happyHour === true,
@@ -76,12 +86,14 @@ export default function MapView({
     const inView = (p: Point) =>
       p.lng >= w - padX && p.lng <= e + padX && p.lat >= s - padY && p.lat <= n + padY;
     const list = points.filter(inView);
-    if (activeId && !list.some((p) => p.venueId === activeId)) {
-      const active = points.find((p) => p.venueId === activeId);
+    const isActivePoint = (p: Point) =>
+      activePointId ? p.pointId === activePointId : p.venueId === activeId;
+    if ((activePointId || activeId) && !list.some(isActivePoint)) {
+      const active = points.find(isActivePoint);
       if (active) list.push(active);
     }
     return list;
-  }, [points, bounds, activeId]);
+  }, [points, bounds, activeId, activePointId]);
 
   const updateBounds = useCallback(() => {
     const b = mapRef.current?.getBounds();
@@ -154,7 +166,12 @@ export default function MapView({
       )}
 
       {visible.map((p) => {
-        const isActive = p.venueId === activeId;
+        // When a specific pin is active (map interaction), only that pin lights up;
+        // otherwise fall back to highlighting the whole venue (e.g. list hover).
+        const isActive = activePointId ? p.pointId === activePointId : p.venueId === activeId;
+        // Label only the specifically-interacted pin, or a single-location venue's
+        // sole pin — never every pin of a multi-location venue at once.
+        const showLabel = isActive && (p.pointId === activePointId || !p.multi);
         const color = p.category === "restaurant" ? "bg-emerald-500" : "bg-rose-500";
         const activeColor =
           p.category === "restaurant"
@@ -163,24 +180,24 @@ export default function MapView({
 
         return (
           <Marker
-            key={`pt-${p.venueId}-${p.lng.toFixed(5)}-${p.lat.toFixed(5)}`}
+            key={`pt-${p.pointId}`}
             longitude={p.lng}
             latitude={p.lat}
             anchor="bottom"
             style={{ zIndex: isActive ? 10 : 1 }}
             onClick={(e) => {
               e.originalEvent.stopPropagation();
-              onSelect(p.venueId);
+              onSelect(p.venueId, { pointId: p.pointId, lng: p.lng, lat: p.lat });
             }}
           >
             <button
               type="button"
               aria-label={p.name}
-              onMouseEnter={() => onHover(p.venueId)}
+              onMouseEnter={() => onHover(p.venueId, p.pointId)}
               onMouseLeave={() => onHover(null)}
               className="group/marker relative flex -translate-y-1 flex-col items-center"
             >
-              {isActive && (
+              {showLabel && (
                 <span className="absolute bottom-full mb-1 whitespace-nowrap rounded-md bg-zinc-900 px-2 py-1 text-xs font-medium text-white shadow-lg">
                   {p.name}
                 </span>
