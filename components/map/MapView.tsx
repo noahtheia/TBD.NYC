@@ -2,7 +2,6 @@
 
 import { useCallback, useMemo, useState, type RefObject } from "react";
 import Map, { Marker, NavigationControl, type MapRef } from "react-map-gl/mapbox";
-import Supercluster from "supercluster";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Venue } from "@/types/venue";
 import {
@@ -13,7 +12,6 @@ import {
 } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
 import { FOCUS_ZOOM } from "@/lib/map-config";
-import { motionDuration } from "@/lib/prefers-reduced-motion";
 import type { LatLng } from "@/lib/geo";
 import MapFallback from "./MapFallback";
 
@@ -27,35 +25,16 @@ type Props = {
   userLoc?: LatLng | null;
 };
 
-type PointProps = {
+type Point = {
   venueId: string;
   name: string;
   category: "bar" | "restaurant";
   happyHour: boolean;
+  lng: number;
+  lat: number;
 };
 
 type Bounds = [number, number, number, number];
-
-function buildIndex(venues: Venue[]): Supercluster<PointProps> {
-  const index = new Supercluster<PointProps>({ radius: 60, maxZoom: 16 });
-  const features = venues.flatMap((v) =>
-    v.locations.map((loc) => ({
-      type: "Feature" as const,
-      properties: {
-        venueId: v.id,
-        name: v.name,
-        category: v.category,
-        happyHour: v.happyHour === true,
-      },
-      geometry: {
-        type: "Point" as const,
-        coordinates: [loc.coordinates.lng, loc.coordinates.lat],
-      },
-    }))
-  );
-  index.load(features);
-  return index;
-}
 
 export default function MapView({
   venues,
@@ -66,31 +45,49 @@ export default function MapView({
   focusOnLoad,
   userLoc,
 }: Props) {
-  const [view, setView] = useState<{ bounds: Bounds; zoom: number }>({
-    bounds: [-74.05, 40.6, -73.85, 40.85],
-    zoom: INITIAL_VIEW_STATE.zoom,
-  });
-  const [legendOpen, setLegendOpen] = useState(true);
-
-  const index = useMemo(() => buildIndex(venues), [venues]);
-  const clusters = useMemo(
-    () => index.getClusters(view.bounds, Math.round(view.zoom)),
-    [index, view]
+  // One dot per venue location (no clustering).
+  const points = useMemo<Point[]>(
+    () =>
+      venues.flatMap((v) =>
+        v.locations.map((loc) => ({
+          venueId: v.id,
+          name: v.name,
+          category: v.category,
+          happyHour: v.happyHour === true,
+          lng: loc.coordinates.lng,
+          lat: loc.coordinates.lat,
+        }))
+      ),
+    [venues]
   );
 
-  const updateView = useCallback(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    const b = map.getBounds();
+  const [bounds, setBounds] = useState<Bounds>([-74.05, 40.6, -73.85, 40.85]);
+  const [legendOpen, setLegendOpen] = useState(true);
+
+  // Only render markers within (a padded) viewport — keeps the DOM light when
+  // zoomed in — but always keep the active pin so fly-to + highlight work.
+  const visible = useMemo(() => {
+    const [w, s, e, n] = bounds;
+    const padX = (e - w) * 0.15;
+    const padY = (n - s) * 0.15;
+    const inView = (p: Point) =>
+      p.lng >= w - padX && p.lng <= e + padX && p.lat >= s - padY && p.lat <= n + padY;
+    const list = points.filter(inView);
+    if (activeId && !list.some((p) => p.venueId === activeId)) {
+      const active = points.find((p) => p.venueId === activeId);
+      if (active) list.push(active);
+    }
+    return list;
+  }, [points, bounds, activeId]);
+
+  const updateBounds = useCallback(() => {
+    const b = mapRef.current?.getBounds();
     if (!b) return;
-    setView({
-      bounds: [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()],
-      zoom: map.getZoom(),
-    });
+    setBounds([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]);
   }, [mapRef]);
 
   const handleLoad = useCallback(() => {
-    updateView();
+    updateBounds();
     if (focusOnLoad) {
       mapRef.current?.flyTo({
         center: [focusOnLoad.lng, focusOnLoad.lat],
@@ -98,7 +95,7 @@ export default function MapView({
         duration: 0,
       });
     }
-  }, [updateView, focusOnLoad, mapRef]);
+  }, [updateBounds, focusOnLoad, mapRef]);
 
   if (!hasMapboxToken) return <MapFallback />;
 
@@ -111,7 +108,7 @@ export default function MapView({
       style={{ width: "100%", height: "100%" }}
       reuseMaps
       onLoad={handleLoad}
-      onMoveEnd={updateView}
+      onMoveEnd={updateBounds}
     >
       <NavigationControl position="top-right" showCompass={false} />
 
@@ -151,66 +148,36 @@ export default function MapView({
         </Marker>
       )}
 
-      {clusters.map((c) => {
-        const [lng, lat] = c.geometry.coordinates;
-
-        if ("cluster" in c.properties && c.properties.cluster) {
-          const count = c.properties.point_count;
-          const size = count < 10 ? 34 : count < 50 ? 42 : 52;
-          return (
-            <Marker
-              key={`cluster-${c.id}`}
-              longitude={lng}
-              latitude={lat}
-              onClick={(e) => {
-                e.originalEvent.stopPropagation();
-                const zoom = Math.min(
-                  index.getClusterExpansionZoom(c.id as number),
-                  18
-                );
-                mapRef.current?.flyTo({ center: [lng, lat], zoom, duration: motionDuration(500) });
-              }}
-            >
-              <div
-                style={{ width: size, height: size }}
-                className="flex items-center justify-center rounded-full border-2 border-white bg-rose-500/90 text-sm font-semibold text-white shadow-md transition hover:bg-rose-600"
-              >
-                {count}
-              </div>
-            </Marker>
-          );
-        }
-
-        const { venueId, name, category, happyHour } = c.properties;
-        const isActive = venueId === activeId;
-        const color = category === "restaurant" ? "bg-emerald-500" : "bg-rose-500";
+      {visible.map((p) => {
+        const isActive = p.venueId === activeId;
+        const color = p.category === "restaurant" ? "bg-emerald-500" : "bg-rose-500";
         const activeColor =
-          category === "restaurant"
+          p.category === "restaurant"
             ? "bg-emerald-600 ring-4 ring-emerald-300/50"
             : "bg-rose-600 ring-4 ring-rose-300/50";
 
         return (
           <Marker
-            key={`pt-${venueId}-${lng.toFixed(5)}-${lat.toFixed(5)}`}
-            longitude={lng}
-            latitude={lat}
+            key={`pt-${p.venueId}-${p.lng.toFixed(5)}-${p.lat.toFixed(5)}`}
+            longitude={p.lng}
+            latitude={p.lat}
             anchor="bottom"
             style={{ zIndex: isActive ? 10 : 1 }}
             onClick={(e) => {
               e.originalEvent.stopPropagation();
-              onSelect(venueId);
+              onSelect(p.venueId);
             }}
           >
             <button
               type="button"
-              aria-label={name}
-              onMouseEnter={() => onHover(venueId)}
+              aria-label={p.name}
+              onMouseEnter={() => onHover(p.venueId)}
               onMouseLeave={() => onHover(null)}
               className="group/marker relative flex -translate-y-1 flex-col items-center"
             >
               {isActive && (
                 <span className="absolute bottom-full mb-1 whitespace-nowrap rounded-md bg-zinc-900 px-2 py-1 text-xs font-medium text-white shadow-lg">
-                  {name}
+                  {p.name}
                 </span>
               )}
               <span
@@ -219,7 +186,7 @@ export default function MapView({
                   isActive
                     ? `h-5 w-5 ${activeColor}`
                     : `h-3.5 w-3.5 group-hover/marker:h-4 group-hover/marker:w-4 ${color}`,
-                  happyHour && !isActive && "ring-2 ring-amber-300"
+                  p.happyHour && !isActive && "ring-2 ring-amber-300"
                 )}
               />
             </button>
