@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { OpeningHours, Venue, VenueLocation } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { AMENITIES } from "@/lib/amenities";
+import { AWARDS } from "@/lib/awards";
 import HoursEditor from "@/components/admin/HoursEditor";
 import { enrichVenueAction } from "./actions";
 
@@ -97,12 +98,16 @@ export default function VenueForm({ venue, action }: Props) {
   // Bumped on enrich to re-seed the primary location's HoursEditor.
   const [enrichSeq, setEnrichSeq] = useState(0);
   const [amenities, setAmenities] = useState<string[]>(venue?.amenities ?? []);
+  const [awards, setAwards] = useState<string[]>(venue?.awards ?? []);
   const [photos, setPhotos] = useState<{ url: string; caption: string }[]>(() =>
     (venue?.photos ?? []).map((p) => ({ url: p.url, caption: p.caption ?? "" }))
   );
   const [hhWindows, setHhWindows] = useState<OpeningHours | null>(venue?.happyHourWindows ?? null);
   const [enriching, setEnriching] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
+  // Per-location geocoding state + rows blocked at submit for missing coordinates.
+  const [lookupIdx, setLookupIdx] = useState<number | null>(null);
+  const [invalidLocs, setInvalidLocs] = useState<number[]>([]);
 
   const [hhMenu, setHhMenu] = useState<{ item: string; price: string }[]>(() =>
     (venue?.happyHourMenu ?? []).map((m) => ({ item: m.item, price: m.price ?? "" }))
@@ -122,6 +127,10 @@ export default function VenueForm({ venue, action }: Props) {
   // --- amenities ---
   const toggleAmenity = (a: string) =>
     setAmenities((cur) => (cur.includes(a) ? cur.filter((x) => x !== a) : [...cur, a]));
+
+  // --- awards ---
+  const toggleAward = (a: string) =>
+    setAwards((cur) => (cur.includes(a) ? cur.filter((x) => x !== a) : [...cur, a]));
 
   // --- photos ---
   const addPhoto = () => setPhotos((p) => [...p, { url: "", caption: "" }]);
@@ -185,12 +194,75 @@ export default function VenueForm({ venue, action }: Props) {
     }
   }
 
+  // Geocode one location row by its address (reusing the Google Places lookup),
+  // so adding a second location by address alone actually persists.
+  async function lookupLocation(i: number) {
+    const row = locations[i];
+    const where = i === 0 ? "the primary location" : `location ${i + 1}`;
+    if (!f.name.trim()) {
+      setMsg("Enter a name first.");
+      return;
+    }
+    if (!row?.address.trim()) {
+      setMsg(`Enter an address for ${where} first.`);
+      return;
+    }
+    setLookupIdx(i);
+    setMsg(null);
+    try {
+      const r = await enrichVenueAction(f.name.trim(), row.address.trim());
+      if (!r.found || !r.location) {
+        setMsg(r.error ? `Look up failed: ${r.error}` : "No Google match found for that address.");
+        return;
+      }
+      patchLocation(i, {
+        address: r.location.address || row.address,
+        lat: r.location.coordinates.lat?.toString() ?? row.lat,
+        lng: r.location.coordinates.lng?.toString() ?? row.lng,
+        neighborhood: r.location.neighborhood ?? row.neighborhood,
+        borough: r.location.borough ?? row.borough,
+        placeId: r.location.placeId ?? row.placeId,
+        hours: r.location.hours ?? row.hours,
+      });
+      setEnrichSeq((n) => n + 1);
+      setInvalidLocs((cur) => cur.filter((x) => x !== i));
+      setMsg(`${where[0].toUpperCase()}${where.slice(1)} found (match ${(r.confidence * 100).toFixed(0)}%).`);
+    } catch (e) {
+      setMsg(`Look up failed: ${(e as Error).message}`);
+    } finally {
+      setLookupIdx(null);
+    }
+  }
+
+  // Guard the Save: a row with an address but missing/non-numeric coordinates is
+  // otherwise silently dropped by locRowsToVenueLocations. Block + flag instead.
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const bad = locations.reduce<number[]>((acc, r, i) => {
+      const hasAddr = r.address.trim().length > 0;
+      const hasCoords =
+        r.lat.trim() && r.lng.trim() && Number.isFinite(Number(r.lat)) && Number.isFinite(Number(r.lng));
+      if (hasAddr && !hasCoords) acc.push(i);
+      return acc;
+    }, []);
+    if (bad.length) {
+      e.preventDefault();
+      setInvalidLocs(bad);
+      const labels = bad.map((i) => (i === 0 ? "Primary location" : `Location ${i + 1}`)).join(", ");
+      setMsg(
+        `${labels} ${bad.length > 1 ? "need" : "needs"} coordinates — click “Look up address” (or enter latitude & longitude).`
+      );
+    } else {
+      setInvalidLocs([]);
+    }
+  }
+
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} onSubmit={handleSubmit} className="space-y-5">
       {venue && <input type="hidden" name="id" value={venue.id} />}
       <input type="hidden" name="reservationRaw" value={f.reservationRaw} />
       <input type="hidden" name="locationsJson" value={JSON.stringify(locRowsToVenueLocations(locations))} />
       <input type="hidden" name="amenitiesJson" value={JSON.stringify(amenities)} />
+      <input type="hidden" name="awardsJson" value={JSON.stringify(awards)} />
       <input type="hidden" name="photosJson" value={JSON.stringify(photos.filter((p) => p.url.trim()))} />
 
       <div className="flex flex-wrap items-end gap-3 rounded-lg bg-zinc-50 p-3">
@@ -251,20 +323,36 @@ export default function VenueForm({ venue, action }: Props) {
         </legend>
         <div className="space-y-4">
           {locations.map((loc, i) => (
-            <div key={i} className="rounded-lg border border-zinc-200 p-3">
-              <div className="mb-2 flex items-center justify-between">
+            <div
+              key={i}
+              className={cn(
+                "rounded-lg border p-3",
+                invalidLocs.includes(i) ? "border-rose-400 bg-rose-50/40" : "border-zinc-200"
+              )}
+            >
+              <div className="mb-2 flex items-center justify-between gap-3">
                 <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                   {i === 0 ? "Primary location" : `Location ${i + 1}`}
                 </span>
-                {i > 0 && (
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    onClick={() => removeLocation(i)}
-                    className="text-xs font-medium text-zinc-400 hover:text-rose-600"
+                    onClick={() => lookupLocation(i)}
+                    disabled={lookupIdx === i}
+                    className="text-xs font-medium text-rose-600 hover:underline disabled:opacity-50"
                   >
-                    Remove
+                    {lookupIdx === i ? "Looking up…" : "Look up address"}
                   </button>
-                )}
+                  {i > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => removeLocation(i)}
+                      className="text-xs font-medium text-zinc-400 hover:text-rose-600"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
@@ -431,6 +519,29 @@ export default function VenueForm({ venue, action }: Props) {
                 "rounded-full border px-3 py-1 text-sm transition",
                 amenities.includes(a)
                   ? "border-zinc-900 bg-zinc-900 text-white"
+                  : "border-zinc-300 bg-white text-zinc-600 hover:border-zinc-400"
+              )}
+            >
+              {a}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="rounded-lg border border-zinc-200 p-3">
+        <legend className="px-1 text-sm font-semibold text-zinc-700">
+          Awards &amp; recognition
+        </legend>
+        <div className="flex flex-wrap gap-2">
+          {AWARDS.map((a) => (
+            <button
+              type="button"
+              key={a}
+              onClick={() => toggleAward(a)}
+              className={cn(
+                "rounded-full border px-3 py-1 text-sm transition",
+                awards.includes(a)
+                  ? "border-amber-500 bg-amber-400 text-amber-950"
                   : "border-zinc-300 bg-white text-zinc-600 hover:border-zinc-400"
               )}
             >
