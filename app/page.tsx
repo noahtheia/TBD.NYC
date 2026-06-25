@@ -59,7 +59,7 @@ export default async function Home() {
             interactive map — with live happy hours and open-now status.
           </p>
           <div className="mt-6 max-w-2xl">
-            <HeroSearch />
+            <HeroSearch facets={facets} />
           </div>
         </div>
       </section>

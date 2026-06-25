@@ -8,6 +8,7 @@ import type { Facets, Venue } from "@/types/venue";
 import { useExploreState } from "@/hooks/useExploreState";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
 import { nycNow, type NowParts } from "@/lib/hours";
@@ -62,8 +63,14 @@ export default function ExploreView({ venues, facets }: Props) {
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
   const [showSaved, setShowSaved] = useState(false);
+  // Current map viewport bounds [w, s, e, n] — drives "list reflects what's visible".
+  const [mapBounds, setMapBounds] = useState<[number, number, number, number] | null>(null);
   const mapRef = useRef<MapRef | null>(null);
   const listScrollRef = useRef<HTMLElement | null>(null);
+
+  // Only narrow the list to the visible map area when both panes are on screen
+  // (desktop). On mobile the list/map are separate views, so it stays the full set.
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
   const { set: favSet, count: favCount } = useFavorites();
@@ -92,15 +99,34 @@ export default function ExploreView({ venues, facets }: Props) {
 
   // "Saved" view: intersect with favorites (only while there are favorites).
   const savedActive = showSaved && favCount > 0;
-  const displayedVenues = useMemo(
-    () => (savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues),
-    [savedActive, sortedVenues, favSet]
-  );
+  // The list reflects the visible map area on desktop: filter to venues whose
+  // location falls within the current map bounds.
+  const displayedVenues = useMemo(() => {
+    let list = savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues;
+    if (isDesktop && mapBounds) {
+      const [w, s, e, n] = mapBounds;
+      list = list.filter((v) =>
+        v.locations.some(
+          (l) =>
+            l.coordinates.lng >= w &&
+            l.coordinates.lng <= e &&
+            l.coordinates.lat >= s &&
+            l.coordinates.lat <= n
+        )
+      );
+    }
+    return list;
+  }, [savedActive, sortedVenues, favSet, isDesktop, mapBounds]);
   const mapVenues = useMemo(
     () => (savedActive ? filteredVenues.filter((v) => favSet.has(v.id)) : filteredVenues),
     [savedActive, filteredVenues, favSet]
   );
-  const visibleCount = savedActive ? displayedVenues.length : filteredVenues.length;
+  const visibleCount = displayedVenues.length;
+
+  const handleBoundsChange = useCallback(
+    (b: [number, number, number, number]) => setMapBounds(b),
+    []
+  );
 
   const activeFilterCount = countActiveFilters(filters);
   const openVenueObj = openId ? venuesById.get(openId) ?? null : null;
@@ -232,7 +258,8 @@ export default function ExploreView({ venues, facets }: Props) {
             <div className="flex items-baseline gap-2">
               <Link
                 href="/"
-                className="text-xl font-extrabold tracking-tight text-zinc-900"
+                aria-label="TBD.NYC — home"
+                className="text-xl font-extrabold tracking-tight text-zinc-900 transition hover:opacity-70"
               >
                 TBD<span className="text-rose-600">.NYC</span>
               </Link>
@@ -368,6 +395,7 @@ export default function ExploreView({ venues, facets }: Props) {
             onSelect={handleSelectFromMap}
             focusOnLoad={focusOnLoad}
             userLoc={userLoc}
+            onBoundsChange={handleBoundsChange}
           />
           {peekVenue && (
             <div className="pointer-events-none absolute inset-x-0 bottom-20 z-20 lg:hidden">

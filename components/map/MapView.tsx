@@ -23,6 +23,8 @@ type Props = {
   onSelect: (id: string) => void;
   focusOnLoad?: LatLng | null;
   userLoc?: LatLng | null;
+  /** Notified with [west, south, east, north] whenever the viewport changes. */
+  onBoundsChange?: (bounds: [number, number, number, number]) => void;
 };
 
 type Point = {
@@ -44,6 +46,7 @@ export default function MapView({
   onSelect,
   focusOnLoad,
   userLoc,
+  onBoundsChange,
 }: Props) {
   // One dot per venue location (no clustering).
   const points = useMemo<Point[]>(
@@ -83,8 +86,10 @@ export default function MapView({
   const updateBounds = useCallback(() => {
     const b = mapRef.current?.getBounds();
     if (!b) return;
-    setBounds([b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]);
-  }, [mapRef]);
+    const next: Bounds = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
+    setBounds(next);
+    onBoundsChange?.(next);
+  }, [mapRef, onBoundsChange]);
 
   const handleLoad = useCallback(() => {
     updateBounds();
