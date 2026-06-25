@@ -345,6 +345,7 @@ export default function ExploreView({ venues, facets }: Props) {
             now={now}
             activeCount={activeFilterCount}
             onClear={clearFilters}
+            scrollToId={openId}
             scrollRef={listScrollRef}
           />
           <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-500 lg:pb-6">
