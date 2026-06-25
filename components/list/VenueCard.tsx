@@ -5,9 +5,10 @@ import type { Venue } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { RESERVATION_SHORT, priceLabel } from "@/lib/display";
 import { happyHourStatus, type NowParts } from "@/lib/hours";
-import { formatMiles } from "@/lib/geo";
+import { formatProximity } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
+import FavoriteButton from "@/components/ui/FavoriteButton";
 
 type Props = {
   venue: Venue;
@@ -58,6 +59,10 @@ export default function VenueCard({
           : "border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-sm"
       )}
     >
+      <FavoriteButton
+        id={venue.id}
+        className="absolute left-1.5 top-1.5 z-20 h-7 w-7 bg-white/85 shadow-sm backdrop-blur hover:bg-white"
+      />
       <VenuePhoto
         name={venue.name}
         photoUrl={venue.photoUrl}
@@ -71,6 +76,7 @@ export default function VenueCard({
           <h3 className="font-semibold leading-tight text-zinc-900 group-hover:text-rose-700">
             <Link
               href={`/venue/${venue.id}`}
+              aria-label={`${venue.name}${venue.neighborhood ? `, ${venue.neighborhood}` : ""}`}
               onClick={
                 onSelect
                   ? (e) => {
@@ -82,7 +88,9 @@ export default function VenueCard({
                     }
                   : undefined
               }
-              className="after:absolute after:inset-0 after:content-['']"
+              onFocus={onHover ? () => onHover(venue.id) : undefined}
+              onBlur={onHover ? () => onHover(null) : undefined}
+              className="rounded-sm after:absolute after:inset-0 after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
             >
               {venue.name}
             </Link>
@@ -107,13 +115,20 @@ export default function VenueCard({
           )}
           {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
           {distanceMiles != null && (
-            <span className="text-zinc-500">{formatMiles(distanceMiles)}</span>
+            <span className="text-zinc-500">{formatProximity(distanceMiles)}</span>
           )}
           {subtitle && <span className="min-w-0 truncate">{subtitle}</span>}
         </div>
 
         <div className="mt-1.5">
-          <OpenStatus hours={primary?.hours} />
+          {venue.businessStatus === "CLOSED_TEMPORARILY" ? (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              Temporarily closed
+            </span>
+          ) : (
+            <OpenStatus hours={primary?.hours} />
+          )}
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">

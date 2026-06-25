@@ -40,7 +40,7 @@ export default function LandingShell({
           {title}
         </h1>
         {intro && <p className="mt-2 max-w-2xl text-zinc-600">{intro}</p>}
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-zinc-500">
           {venues.length} {venues.length === 1 ? "spot" : "spots"}
         </p>
         <div className="mt-6">

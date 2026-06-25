@@ -76,6 +76,9 @@ export interface Venue {
   /** Structured happy-hour deals (item + price). */
   happyHourMenu?: HappyHourItem[];
   reservationPolicy: ReservationPolicy;
+  /** Google business status; absent = operational. CLOSED_TEMPORARILY venues are
+   *  flagged in the UI and excluded from "open now". */
+  businessStatus?: "OPERATIONAL" | "CLOSED_TEMPORARILY" | "CLOSED_PERMANENTLY";
   /** Original free-text Reservations value. */
   reservationRaw?: string;
   booking?: VenueBooking;

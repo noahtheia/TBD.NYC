@@ -78,6 +78,11 @@ describe("filterVenues", () => {
     const r = filterVenues(venues, { ...EMPTY_FILTERS, openLate: true }, "", NOW);
     expect(r.map((v) => v.id)).toEqual(["bar1"]);
   });
+  it("open now excludes temporarily-closed venues", () => {
+    const tempClosed = { ...bar, id: "bar2", businessStatus: "CLOSED_TEMPORARILY" as const };
+    const r = filterVenues([bar, tempClosed], { ...EMPTY_FILTERS, openNow: true }, "", NOW);
+    expect(r.map((v) => v.id)).toEqual(["bar1"]);
+  });
   it("search matches name and cuisine", () => {
     expect(filterVenues(venues, EMPTY_FILTERS, "pasta", NOW).map((v) => v.id)).toEqual(["r1"]);
     expect(filterVenues(venues, EMPTY_FILTERS, "italian", NOW).map((v) => v.id)).toEqual(["r1"]);

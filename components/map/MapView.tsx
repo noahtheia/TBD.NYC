@@ -13,6 +13,7 @@ import {
 } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
 import { FOCUS_ZOOM } from "@/lib/map-config";
+import { motionDuration } from "@/lib/prefers-reduced-motion";
 import type { LatLng } from "@/lib/geo";
 import MapFallback from "./MapFallback";
 
@@ -69,6 +70,7 @@ export default function MapView({
     bounds: [-74.05, 40.6, -73.85, 40.85],
     zoom: INITIAL_VIEW_STATE.zoom,
   });
+  const [legendOpen, setLegendOpen] = useState(true);
 
   const index = useMemo(() => buildIndex(venues), [venues]);
   const clusters = useMemo(
@@ -113,6 +115,36 @@ export default function MapView({
     >
       <NavigationControl position="top-right" showCompass={false} />
 
+      {legendOpen && (
+        <div className="absolute left-2 top-2 z-10 flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white/90 px-3 py-1.5 text-xs text-zinc-600 shadow-md backdrop-blur">
+          <span className="flex items-center gap-1">
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-500" aria-hidden />
+            Bar
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" aria-hidden />
+            Restaurant
+          </span>
+          <span className="flex items-center gap-1">
+            <span
+              className="h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-amber-300"
+              aria-hidden
+            />
+            Happy hour
+          </span>
+          <button
+            type="button"
+            onClick={() => setLegendOpen(false)}
+            aria-label="Hide legend"
+            className="ml-0.5 text-zinc-400 transition hover:text-zinc-700"
+          >
+            <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+              <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {userLoc && (
         <Marker longitude={userLoc.lng} latitude={userLoc.lat} anchor="center">
           <span className="block h-4 w-4 rounded-full border-2 border-white bg-sky-500 shadow-md ring-4 ring-sky-300/40" />
@@ -136,7 +168,7 @@ export default function MapView({
                   index.getClusterExpansionZoom(c.id as number),
                   18
                 );
-                mapRef.current?.flyTo({ center: [lng, lat], zoom, duration: 500 });
+                mapRef.current?.flyTo({ center: [lng, lat], zoom, duration: motionDuration(500) });
               }}
             >
               <div
@@ -183,7 +215,7 @@ export default function MapView({
               )}
               <span
                 className={cn(
-                  "block rounded-full border-2 border-white shadow-md transition-all",
+                  "block rounded-full border-2 border-white shadow-md transition-all motion-reduce:transition-none",
                   isActive
                     ? `h-5 w-5 ${activeColor}`
                     : `h-3.5 w-3.5 group-hover/marker:h-4 group-hover/marker:w-4 ${color}`,

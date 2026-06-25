@@ -9,7 +9,7 @@ import {
 } from "@/lib/display";
 import MultiSelect from "@/components/ui/MultiSelect";
 
-type Props = {
+export type FilterBarProps = {
   facets: Facets;
   filters: Filters;
   activeCount: number;
@@ -22,6 +22,8 @@ type Props = {
   ) => void;
   onTogglePrice: (value: number) => void;
   onClear: () => void;
+  /** Stack controls vertically (for the mobile filter sheet). */
+  stack?: boolean;
 };
 
 function TogglePill({
@@ -62,9 +64,15 @@ export default function FilterBar({
   onToggleFilterValue,
   onTogglePrice,
   onClear,
-}: Props) {
+  stack = false,
+}: FilterBarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div
+      className={cn(
+        "gap-2",
+        stack ? "flex flex-col items-stretch" : "flex flex-wrap items-center"
+      )}
+    >
       <TogglePill
         active={filters.openNow}
         activeClass="border-emerald-500 bg-emerald-500 text-white"

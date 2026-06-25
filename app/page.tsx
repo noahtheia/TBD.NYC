@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getVenues } from "@/lib/venues";
+import { getVenuesLite } from "@/lib/venues";
 import { computeFacets } from "@/lib/facets";
 import ExploreView from "@/components/ExploreView";
 
@@ -8,7 +8,9 @@ import ExploreView from "@/components/ExploreView";
 export const revalidate = 300;
 
 export default async function Home() {
-  const venues = await getVenues();
+  // Lite catalog (no detail-only fields) keeps the hydrated client payload small;
+  // the drawer fetches the full record by id on open.
+  const venues = await getVenuesLite();
   const facets = computeFacets(venues);
 
   return (

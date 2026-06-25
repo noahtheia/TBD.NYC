@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
+import Toaster from "@/components/ui/Toaster";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,7 +39,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} antialiased`}>
-      <body className="bg-white text-zinc-900">{children}</body>
+      <body className="bg-white text-zinc-900">
+        {children}
+        <Toaster />
+        <Analytics />
+      </body>
     </html>
   );
 }

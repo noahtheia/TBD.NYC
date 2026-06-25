@@ -43,7 +43,11 @@ export function filterVenues(
       return false;
     }
 
-    if (filters.openNow && !v.locations.some((l) => isOpenAt(l.hours, now))) {
+    if (
+      filters.openNow &&
+      (v.businessStatus === "CLOSED_TEMPORARILY" ||
+        !v.locations.some((l) => isOpenAt(l.hours, now)))
+    ) {
       return false;
     }
 

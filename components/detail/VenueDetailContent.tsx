@@ -3,7 +3,14 @@ import { BOOKING_LABEL, RESERVATION_LABEL, mapsUrl, priceLabel } from "@/lib/dis
 import { formatWeekly, happyHourStatus } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
+import FavoriteButton from "@/components/ui/FavoriteButton";
 import HoursTable from "./HoursTable";
+import meta from "@/data/meta.json";
+
+const DATA_UPDATED = new Date(meta.generatedAt).toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
 
 function ActionLink({
   href,
@@ -91,6 +98,8 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         photoUrl={venue.photoUrl}
         className="mb-4 aspect-video w-full"
         rounded="rounded-xl"
+        eager
+        sizes="(max-width: 768px) 100vw, 640px"
       />
 
       <div className="flex items-start justify-between gap-3">
@@ -107,19 +116,32 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
               <span>
                 <span className="font-semibold text-zinc-900">★ {venue.rating.toFixed(1)}</span>
                 {venue.userRatingCount ? (
-                  <span className="text-zinc-400"> ({venue.userRatingCount})</span>
+                  <span className="text-zinc-500"> ({venue.userRatingCount})</span>
                 ) : null}
               </span>
             )}
             {venue.priceLevel != null && <span>{priceLabel(venue.priceLevel)}</span>}
-            <OpenStatus hours={primary?.hours} />
+            {venue.businessStatus === "CLOSED_TEMPORARILY" ? (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                Temporarily closed
+              </span>
+            ) : (
+              <OpenStatus hours={primary?.hours} />
+            )}
           </div>
         </div>
-        {venue.happyHour === true && (
-          <span className="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-            Happy hour
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-2">
+          {venue.happyHour === true && (
+            <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+              Happy hour
+            </span>
+          )}
+          <FavoriteButton
+            id={venue.id}
+            className="h-9 w-9 border border-zinc-300 bg-white hover:border-rose-300"
+          />
+        </div>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -220,6 +242,10 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
           ))}
         </div>
       )}
+
+      <p className="mt-4 border-t border-zinc-100 pt-3 text-xs text-zinc-500">
+        Hours, ratings &amp; photos via Google · Updated {DATA_UPDATED}
+      </p>
     </div>
   );
 }

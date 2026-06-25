@@ -30,3 +30,10 @@ export function formatMiles(miles: number): string {
   if (miles < 0.1) return "< 0.1 mi";
   return `${miles.toFixed(1)} mi`;
 }
+
+/** Walkable distance as a time hint (~20 min/mi); falls back to miles when far. */
+export function formatProximity(miles: number): string {
+  const min = Math.round(miles * 20);
+  if (min <= 25) return `~${Math.max(min, 1)} min walk`;
+  return formatMiles(miles);
+}

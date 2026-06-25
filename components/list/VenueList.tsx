@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import type { Venue } from "@/types/venue";
 import { nearestDistanceMiles, type LatLng } from "@/lib/geo";
 import type { NowParts } from "@/lib/hours";
 import VenueCard from "./VenueCard";
 
 export type ActiveState = { id: string | null; source: "list" | "map" };
+
+const STEP = 60;
 
 type Props = {
   venues: Venue[];
@@ -19,6 +21,8 @@ type Props = {
   activeCount?: number;
   /** Clear all filters + search, for the no-results recovery action. */
   onClear?: () => void;
+  /** The scroll container, used as the IntersectionObserver root for paging. */
+  scrollRef?: RefObject<HTMLElement | null>;
 };
 
 export default function VenueList({
@@ -30,18 +34,48 @@ export default function VenueList({
   now,
   activeCount = 0,
   onClear,
+  scrollRef,
 }: Props) {
   const refs = useRef<Map<string, HTMLElement>>(new Map());
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  // When the active venue changes because of a map interaction, scroll its
-  // card into view. (Don't scroll on list-originated hover — the user is there.)
+  // Render the list progressively to keep first paint + INP cheap on the full
+  // ~400-card catalog; pull more in as the user scrolls. The parent remounts this
+  // (via key) when the result set changes, which resets the window to the top.
+  const [count, setCount] = useState(STEP);
+
+  // Ensure a map-selected card is always within the rendered window (derived, so
+  // no extra state is needed to scroll to an off-window pin).
+  const activeIdx =
+    active.id && active.source === "map"
+      ? venues.findIndex((v) => v.id === active.id)
+      : -1;
+  const shownCount = activeIdx >= count ? activeIdx + 1 : count;
+
+  // Scroll the active venue's card into view on map-originated selection.
   useEffect(() => {
     if (active.id && active.source === "map") {
       refs.current
         .get(active.id)
         ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
-  }, [active]);
+  }, [active, shownCount]);
+
+  // Page in more cards when the sentinel nears the bottom of the scroll area.
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setCount((c) => Math.min(c + STEP, venues.length));
+        }
+      },
+      { root: scrollRef?.current ?? null, rootMargin: "400px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [venues.length, scrollRef]);
 
   if (venues.length === 0) {
     return (
@@ -66,24 +100,29 @@ export default function VenueList({
   }
 
   return (
-    <ul className="flex flex-col gap-3 p-4">
-      {venues.map((v, i) => (
-        <li key={v.id}>
-          <VenueCard
-            venue={v}
-            isActive={v.id === active.id}
-            onHover={onHover}
-            onSelect={onSelect}
-            distanceMiles={userLoc ? nearestDistanceMiles(userLoc, v) : null}
-            now={now}
-            eager={i < 4}
-            innerRef={(el) => {
-              if (el) refs.current.set(v.id, el);
-              else refs.current.delete(v.id);
-            }}
-          />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="flex flex-col gap-3 p-4">
+        {venues.slice(0, shownCount).map((v, i) => (
+          <li key={v.id}>
+            <VenueCard
+              venue={v}
+              isActive={v.id === active.id}
+              onHover={onHover}
+              onSelect={onSelect}
+              distanceMiles={userLoc ? nearestDistanceMiles(userLoc, v) : null}
+              now={now}
+              eager={i < 4}
+              innerRef={(el) => {
+                if (el) refs.current.set(v.id, el);
+                else refs.current.delete(v.id);
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+      {shownCount < venues.length && (
+        <div ref={sentinelRef} className="h-1" aria-hidden />
+      )}
+    </>
   );
 }

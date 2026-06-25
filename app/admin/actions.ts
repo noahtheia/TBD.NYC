@@ -11,6 +11,7 @@ import {
 } from "@/lib/admin-auth";
 import { enrichFromGoogle, type EnrichResult } from "@/lib/places";
 import { normalizeAmenities } from "@/lib/amenities";
+import { rateLimit } from "@/lib/rate-limit";
 import type { HappyHourItem, OpeningHours, VenueLocation, VenuePhoto } from "@/types/venue";
 
 // --- helpers --------------------------------------------------------------
@@ -52,6 +53,10 @@ async function assertAdmin() {
 
 // --- auth -----------------------------------------------------------------
 export async function loginAction(formData: FormData) {
+  // Throttle login attempts to slow brute force (per server instance).
+  if (!rateLimit("admin-login", 10, 60_000)) {
+    redirect("/admin/login?error=1");
+  }
   if (!checkPassword(String(formData.get("password") ?? ""))) {
     redirect("/admin/login?error=1");
   }
@@ -70,6 +75,9 @@ export async function enrichVenueAction(name: string, address?: string): Promise
   // thrown server-action errors are sanitized to a generic digest in production.
   try {
     if (!(await isAdmin())) return { found: false, confidence: 0, error: "Not signed in." };
+    if (!rateLimit("places-enrich", 30, 60_000)) {
+      return { found: false, confidence: 0, error: "Too many lookups — try again in a minute." };
+    }
     if (!process.env.GOOGLE_PLACES_API_KEY) {
       return { found: false, confidence: 0, error: "GOOGLE_PLACES_API_KEY is not set in this environment." };
     }
@@ -243,6 +251,9 @@ export async function bulkDeleteVenues(ids: string[]) {
 export async function reEnrichVenue(id: string): Promise<{ ok: boolean; message: string }> {
   try {
     if (!(await isAdmin())) return { ok: false, message: "Not signed in." };
+    if (!rateLimit("places-enrich", 30, 60_000)) {
+      return { ok: false, message: "Too many lookups — try again in a minute." };
+    }
     if (!process.env.GOOGLE_PLACES_API_KEY) {
       return { ok: false, message: "GOOGLE_PLACES_API_KEY is not set in this environment." };
     }

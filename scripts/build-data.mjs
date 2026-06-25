@@ -313,6 +313,9 @@ async function buildBar(row) {
     happyHourWindows: happyHour ? parseHappyHourWindows(happyHourDetails) : undefined,
     reservationPolicy: policy,
     reservationRaw,
+    // Only persist the non-operational case ("absent = operational").
+    businessStatus:
+      primaryPlace?.businessStatus === "CLOSED_TEMPORARILY" ? "CLOSED_TEMPORARILY" : undefined,
     booking: parseBooking(row["How to Book"]),
     menuUrl: firstUrl(row.Menu),
     website,
@@ -346,6 +349,8 @@ async function buildRestaurant(row) {
     priceLevel: mapPriceLevel(place.priceLevel),
     happyHour: null,
     reservationPolicy: "unknown",
+    businessStatus:
+      place.businessStatus === "CLOSED_TEMPORARILY" ? "CLOSED_TEMPORARILY" : undefined,
     website,
     googleMapsUri: place.googleMapsUri,
     photoUrl: await fetchOgImage(website),

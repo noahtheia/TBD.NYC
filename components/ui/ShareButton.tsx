@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/cn";
+import { toast } from "@/lib/toast";
 
 type Props = {
   /** Link to copy. Defaults to the current page URL. */
@@ -37,7 +38,7 @@ export default function ShareButton({ url, title, className, label = "Share" }: 
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      if (typeof window !== "undefined") window.prompt("Copy this link:", link);
+      toast("Couldn't copy the link — copy it from your address bar");
     }
   }
 

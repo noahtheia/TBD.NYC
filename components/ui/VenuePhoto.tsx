@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 
 const GRADIENTS = [
@@ -27,32 +28,38 @@ type Props = {
   /** Load eagerly with a high fetch priority — set for the LCP image (detail hero,
    *  first few above-the-fold cards). Defaults to lazy. */
   eager?: boolean;
+  /** Responsive sizes hint for the optimizer. Defaults to a thumbnail size. */
+  sizes?: string;
 };
 
-/** Venue image with a deterministic gradient + initial fallback when there's no
- *  photo or the image fails to load. */
+/** Venue image (optimized via next/image) with a deterministic gradient + initial
+ *  fallback when there's no photo or the image fails to load. */
 export default function VenuePhoto({
   name,
   photoUrl,
   className,
   rounded = "rounded-lg",
   eager = false,
+  sizes = "160px",
 }: Props) {
   const [errored, setErrored] = useState(false);
-  const showImage = Boolean(photoUrl) && !errored;
+  // Skip insecure http:// images: they're blocked as mixed content on an https
+  // deploy, so render the gradient instead of a broken image.
+  const insecure = photoUrl?.startsWith("http://") ?? false;
+  const showImage = Boolean(photoUrl) && !insecure && !errored;
   const gradient = GRADIENTS[hashIndex(name, GRADIENTS.length)];
 
   return (
     <div className={cn("relative overflow-hidden bg-zinc-100", rounded, className)}>
       {showImage ? (
-        // eslint-disable-next-line @next/next/no-img-element -- arbitrary remote hosts; avoids next/image domain config
-        <img
-          src={photoUrl}
+        <Image
+          src={photoUrl as string}
           alt={name}
-          loading={eager ? "eager" : "lazy"}
-          fetchPriority={eager ? "high" : "auto"}
+          fill
+          sizes={sizes}
+          priority={eager}
           onError={() => setErrored(true)}
-          className="h-full w-full object-cover"
+          className="object-cover"
         />
       ) : (
         <div

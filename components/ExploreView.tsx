@@ -6,14 +6,16 @@ import type { MapRef } from "react-map-gl/mapbox";
 import type { Facets, Venue } from "@/types/venue";
 import { useExploreState } from "@/hooks/useExploreState";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import { useFavorites } from "@/hooks/useFavorites";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
 import { nycNow, type NowParts } from "@/lib/hours";
 import { FOCUS_ZOOM } from "@/lib/map-config";
+import { motionDuration } from "@/lib/prefers-reduced-motion";
 import { cn } from "@/lib/cn";
 import meta from "@/data/meta.json";
 import SearchBar from "@/components/filters/SearchBar";
-import FilterBar from "@/components/filters/FilterBar";
+import FilterControls from "@/components/filters/FilterControls";
 import SortControl from "@/components/filters/SortControl";
 import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 import VenueList, { type ActiveState } from "@/components/list/VenueList";
@@ -58,9 +60,12 @@ export default function ExploreView({ venues, facets }: Props) {
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
+  const [showSaved, setShowSaved] = useState(false);
   const mapRef = useRef<MapRef | null>(null);
+  const listScrollRef = useRef<HTMLElement | null>(null);
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
+  const { set: favSet, count: favCount } = useFavorites();
 
   // Current NYC time, refreshed each minute, drives the "open now" filter.
   const [now, setNow] = useState<NowParts>(() => nycNow());
@@ -83,6 +88,18 @@ export default function ExploreView({ venues, facets }: Props) {
     () => sortVenues(filteredVenues, sort, userLoc),
     [filteredVenues, sort, userLoc]
   );
+
+  // "Saved" view: intersect with favorites (only while there are favorites).
+  const savedActive = showSaved && favCount > 0;
+  const displayedVenues = useMemo(
+    () => (savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues),
+    [savedActive, sortedVenues, favSet]
+  );
+  const mapVenues = useMemo(
+    () => (savedActive ? filteredVenues.filter((v) => favSet.has(v.id)) : filteredVenues),
+    [savedActive, filteredVenues, favSet]
+  );
+  const visibleCount = savedActive ? displayedVenues.length : filteredVenues.length;
 
   const activeFilterCount = countActiveFilters(filters);
   const openVenueObj = openId ? venuesById.get(openId) ?? null : null;
@@ -116,7 +133,7 @@ export default function ExploreView({ venues, facets }: Props) {
         [minLng, minLat],
         [maxLng, maxLat],
       ],
-      { padding: 60, maxZoom: 15, duration: 600 }
+      { padding: 60, maxZoom: 15, duration: motionDuration(600) }
     );
   }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch]);
 
@@ -161,7 +178,7 @@ export default function ExploreView({ venues, facets }: Props) {
         mapRef.current?.flyTo({
           center: [loc.coordinates.lng, loc.coordinates.lat],
           zoom: FOCUS_ZOOM,
-          duration: 800,
+          duration: motionDuration(800),
         });
       }
     },
@@ -177,6 +194,13 @@ export default function ExploreView({ venues, facets }: Props) {
     },
     [openVenue, flyTo]
   );
+
+  // "Surprise me": open a random venue from the current results.
+  const surprise = useCallback(() => {
+    if (!displayedVenues.length) return;
+    const pick = displayedVenues[Math.floor(Math.random() * displayedVenues.length)];
+    handleSelect(pick.id);
+  }, [displayedVenues, handleSelect]);
 
   // Map pin click: on mobile map view, show a peek card; otherwise open the drawer.
   const handleSelectFromMap = useCallback(
@@ -194,6 +218,12 @@ export default function ExploreView({ venues, facets }: Props) {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-white">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-zinc-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Skip to results
+      </a>
       {/* Header */}
       <header className="z-20 shrink-0 border-b border-zinc-200 bg-white">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
@@ -210,6 +240,24 @@ export default function ExploreView({ venues, facets }: Props) {
               <div className="w-44 sm:w-72 md:w-96">
                 <SearchBar value={searchInput} onChange={setSearchInput} />
               </div>
+              {favCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowSaved((v) => !v)}
+                  aria-pressed={savedActive}
+                  className={cn(
+                    "flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition",
+                    savedActive
+                      ? "border-rose-500 bg-rose-50 text-rose-700"
+                      : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                    <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
+                  </svg>
+                  <span className="hidden sm:inline">Saved</span> {favCount}
+                </button>
+              )}
               <ShareButton />
             </div>
           </div>
@@ -221,10 +269,11 @@ export default function ExploreView({ venues, facets }: Props) {
             >
               <span aria-hidden>🍸</span> Happy hour now
             </button>
-            <FilterBar
+            <FilterControls
               facets={facets}
               filters={filters}
               activeCount={activeFilterCount}
+              resultCount={filteredVenues.length}
               onToggleHappyHour={toggleHappyHour}
               onToggleOpenNow={toggleOpenNow}
               onToggleOpenLate={toggleOpenLate}
@@ -233,15 +282,28 @@ export default function ExploreView({ venues, facets }: Props) {
               onClear={clearFilters}
             />
             <div className="ml-auto flex shrink-0 items-center gap-3">
+              <button
+                type="button"
+                onClick={surprise}
+                title="Open a random spot"
+                aria-label="Surprise me — open a random spot"
+                className="hidden items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 sm:flex"
+              >
+                <span aria-hidden>🎲</span> Surprise me
+              </button>
               <SortControl
                 sort={sort}
                 onSort={setSort}
                 geoStatus={geoStatus}
                 onLocate={requestNearMe}
               />
-              <span className="hidden text-sm text-zinc-500 sm:inline">
-                {filteredVenues.length}{" "}
-                {filteredVenues.length === 1 ? "spot" : "spots"}
+              <span
+                className="hidden text-sm text-zinc-500 sm:inline"
+                role="status"
+                aria-live="polite"
+              >
+                {visibleCount}{" "}
+                {visibleCount === 1 ? "spot" : "spots"}
               </span>
             </div>
           </div>
@@ -260,15 +322,18 @@ export default function ExploreView({ venues, facets }: Props) {
       </header>
 
       {/* Two-pane body */}
-      <div className="flex min-h-0 flex-1">
+      <main id="main" className="flex min-h-0 flex-1">
         <section
+          ref={listScrollRef}
+          aria-label="Venue results"
           className={cn(
             "w-full overflow-y-auto border-r border-zinc-200 lg:block lg:w-[42%] lg:max-w-xl xl:w-[38%]",
             mobileView === "map" && "hidden"
           )}
         >
           <VenueList
-            venues={sortedVenues}
+            key={`${filterSig}|${sort}|${savedActive}`}
+            venues={displayedVenues}
             active={active}
             onHover={handleHoverList}
             onSelect={handleSelect}
@@ -276,20 +341,22 @@ export default function ExploreView({ venues, facets }: Props) {
             now={now}
             activeCount={activeFilterCount}
             onClear={clearFilters}
+            scrollRef={listScrollRef}
           />
-          <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-400 lg:pb-6">
-            {filteredVenues.length} venues · data updated {DATA_UPDATED}
+          <p className="px-4 pb-24 pt-2 text-center text-xs text-zinc-500 lg:pb-6">
+            {visibleCount} venues · data updated {DATA_UPDATED}
           </p>
         </section>
 
         <section
+          aria-label="Map"
           className={cn(
             "relative flex-1 lg:block",
             mobileView === "list" && "hidden"
           )}
         >
           <MapView
-            venues={filteredVenues}
+            venues={mapVenues}
             activeId={active.id}
             mapRef={mapRef}
             onHover={handleHoverMap}
@@ -308,7 +375,7 @@ export default function ExploreView({ venues, facets }: Props) {
             </div>
           )}
         </section>
-      </div>
+      </main>
 
       {/* Mobile list/map toggle */}
       <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30 flex justify-center lg:hidden">
