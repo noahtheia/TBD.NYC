@@ -28,6 +28,7 @@ const rest = v({
   category: "restaurant",
   types: [],
   cuisines: ["Italian"],
+  awards: ["Michelin Star", "Eater 38"],
   priceLevel: 2,
   reservationPolicy: "reservations",
   locations: [{ address: "b", neighborhood: "Nolita", coordinates: { lat: 0, lng: 0 } }],
@@ -40,6 +41,10 @@ describe("computeFacets", () => {
     expect(f.neighborhoods).toEqual(["Chelsea", "Nolita"]);
     expect(f.cuisines).toEqual(["Italian"]);
     expect(f.types).toEqual(["Cocktail Bar"]);
+  });
+  it("collects sorted awards and per-award counts", () => {
+    expect(f.awards).toEqual(["Eater 38", "Michelin Star"]);
+    expect(f.counts.awards["Michelin Star"]).toBe(1);
   });
   it("counts categories, happy hour, and price", () => {
     expect(f.counts.category).toEqual({ bar: 1, restaurant: 1 });

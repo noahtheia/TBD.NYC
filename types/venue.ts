@@ -91,6 +91,8 @@ export interface Venue {
   photos?: VenuePhoto[];
   /** Editorial amenity tags (see lib/amenities.ts). */
   amenities?: string[];
+  /** Editorial awards / recognitions (see lib/awards.ts). */
+  awards?: string[];
   otherInfo?: string;
   /** Google match was low-confidence (restaurants resolved by name only). */
   unverified?: boolean;
@@ -103,10 +105,12 @@ export interface Facets {
   neighborhoods: string[];
   types: string[];
   cuisines: string[];
+  awards: string[];
   counts: {
     neighborhoods: Record<string, number>;
     types: Record<string, number>;
     cuisines: Record<string, number>;
+    awards: Record<string, number>;
     reservation: Record<ReservationPolicy, number>;
     category: Record<Category, number>;
     price: Record<number, number>;
@@ -122,6 +126,7 @@ export interface Filters {
   neighborhoods: string[];
   types: string[];
   cuisines: string[];
+  awards: string[];
   prices: PriceLevel[];
   reservation: ReservationPolicy[];
 }
@@ -134,6 +139,7 @@ export const EMPTY_FILTERS: Filters = {
   neighborhoods: [],
   types: [],
   cuisines: [],
+  awards: [],
   prices: [],
   reservation: [],
 };

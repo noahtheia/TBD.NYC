@@ -11,6 +11,7 @@ import {
 } from "@/lib/admin-auth";
 import { enrichFromGoogle, type EnrichResult } from "@/lib/places";
 import { normalizeAmenities } from "@/lib/amenities";
+import { normalizeAwards } from "@/lib/awards";
 import { rateLimit } from "@/lib/rate-limit";
 import type { HappyHourItem, OpeningHours, VenueLocation, VenuePhoto } from "@/types/venue";
 
@@ -105,6 +106,7 @@ function buildVenueRow(form: FormData, id: string) {
     .map((m) => ({ item: (m.item ?? "").trim(), price: (m.price ?? "").trim() || undefined }))
     .filter((m) => m.item);
   const amenities = normalizeAmenities(parseJson<string[]>(form.get("amenitiesJson"), []));
+  const awards = normalizeAwards(parseJson<string[]>(form.get("awardsJson"), []));
   const photos = parseJson<VenuePhoto[]>(form.get("photosJson"), [])
     .map((p) => ({ url: (p.url ?? "").trim(), caption: (p.caption ?? "").trim() || undefined }))
     .filter((p) => p.url);
@@ -132,6 +134,7 @@ function buildVenueRow(form: FormData, id: string) {
     photo_url: str(form.get("photoUrl")),
     photos: photos.length ? photos : null,
     amenities,
+    awards,
     other_info: str(form.get("otherInfo")),
     unverified: form.get("unverified") === "on",
     editorial_note: str(form.get("editorialNote")),

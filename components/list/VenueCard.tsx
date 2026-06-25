@@ -132,6 +132,15 @@ export default function VenueCard({
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+          {venue.awards?.map((a) => (
+            <span
+              key={a}
+              className="inline-flex items-center gap-1 rounded-md border border-amber-300 bg-amber-50 px-2 py-0.5 font-medium text-amber-800"
+            >
+              <span aria-hidden>🏆</span>
+              {a}
+            </span>
+          ))}
           {reservation && (
             <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium text-zinc-600">
               {reservation}

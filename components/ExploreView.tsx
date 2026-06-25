@@ -59,6 +59,9 @@ export default function ExploreView({ venues, facets }: Props) {
   } = useExploreState();
 
   const [active, setActive] = useState<ActiveState>({ id: null, source: "list" });
+  // The specific map pin being interacted with (`${venueId}#${locIndex}`), so a
+  // multi-location venue highlights only the touched pin — not all of them.
+  const [activePointId, setActivePointId] = useState<string | null>(null);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
@@ -189,27 +192,30 @@ export default function ExploreView({ venues, facets }: Props) {
     requestNearMe();
   }, [showHappyHourNow, requestNearMe]);
 
-  const handleHoverList = useCallback(
-    (id: string | null) => setActive({ id, source: "list" }),
-    []
-  );
-  const handleHoverMap = useCallback(
-    (id: string | null) => setActive({ id, source: "map" }),
-    []
-  );
+  const handleHoverList = useCallback((id: string | null) => {
+    // List cards represent a venue, not a specific pin — clear the pin highlight.
+    setActive({ id, source: "list" });
+    setActivePointId(null);
+  }, []);
+  const handleHoverMap = useCallback((id: string | null, pointId?: string | null) => {
+    setActive({ id, source: "map" });
+    setActivePointId(id ? pointId ?? null : null);
+  }, []);
+
+  const flyToCoords = useCallback((lng: number, lat: number) => {
+    mapRef.current?.flyTo({
+      center: [lng, lat],
+      zoom: FOCUS_ZOOM,
+      duration: motionDuration(800),
+    });
+  }, []);
 
   const flyTo = useCallback(
     (id: string) => {
       const loc = venuesById.get(id)?.locations[0];
-      if (loc) {
-        mapRef.current?.flyTo({
-          center: [loc.coordinates.lng, loc.coordinates.lat],
-          zoom: FOCUS_ZOOM,
-          duration: motionDuration(800),
-        });
-      }
+      if (loc) flyToCoords(loc.coordinates.lng, loc.coordinates.lat);
     },
-    [venuesById]
+    [venuesById, flyToCoords]
   );
 
   const handleSelect = useCallback(
@@ -217,6 +223,7 @@ export default function ExploreView({ venues, facets }: Props) {
       setPeekId(null);
       openVenue(id);
       setActive({ id, source: "list" });
+      setActivePointId(null);
       flyTo(id);
     },
     [openVenue, flyTo]
@@ -229,18 +236,22 @@ export default function ExploreView({ venues, facets }: Props) {
     handleSelect(pick.id);
   }, [displayedVenues, handleSelect]);
 
-  // Map pin click: on mobile map view, show a peek card; otherwise open the drawer.
+  // Map pin click: fly to *the clicked location* (not the venue's primary), and
+  // highlight just that pin. On mobile map view show a peek card; else open the drawer.
   const handleSelectFromMap = useCallback(
-    (id: string) => {
+    (id: string, point: { pointId: string; lng: number; lat: number }) => {
+      setActivePointId(point.pointId);
       if (mobileView === "map") {
         setPeekId(id);
         setActive({ id, source: "map" });
-        flyTo(id);
       } else {
-        handleSelect(id);
+        setPeekId(null);
+        openVenue(id);
+        setActive({ id, source: "map" });
       }
+      flyToCoords(point.lng, point.lat);
     },
-    [mobileView, flyTo, handleSelect]
+    [mobileView, flyToCoords, openVenue]
   );
 
   return (
@@ -390,6 +401,7 @@ export default function ExploreView({ venues, facets }: Props) {
           <MapView
             venues={mapVenues}
             activeId={active.id}
+            activePointId={activePointId}
             mapRef={mapRef}
             onHover={handleHoverMap}
             onSelect={handleSelectFromMap}

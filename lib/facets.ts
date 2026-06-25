@@ -17,9 +17,14 @@ export function computeFacets(venues: Venue[]): Facets {
     a.localeCompare(b)
   );
 
+  const awards = [...new Set(venues.flatMap((v) => v.awards ?? []))].sort((a, b) =>
+    a.localeCompare(b)
+  );
+
   const nCount: Record<string, number> = {};
   const tCount: Record<string, number> = {};
   const cuCount: Record<string, number> = {};
+  const awCount: Record<string, number> = {};
   const rCount: Record<ReservationPolicy, number> = {
     reservations: 0,
     "walk-in": 0,
@@ -35,6 +40,7 @@ export function computeFacets(venues: Venue[]): Facets {
     for (const h of hoods) nCount[h] = (nCount[h] ?? 0) + 1;
     for (const t of v.types) tCount[t] = (tCount[t] ?? 0) + 1;
     for (const cu of v.cuisines ?? []) cuCount[cu] = (cuCount[cu] ?? 0) + 1;
+    for (const aw of v.awards ?? []) awCount[aw] = (awCount[aw] ?? 0) + 1;
     rCount[v.reservationPolicy] = (rCount[v.reservationPolicy] ?? 0) + 1;
     cCount[v.category] = (cCount[v.category] ?? 0) + 1;
     if (v.priceLevel) pCount[v.priceLevel] = (pCount[v.priceLevel] ?? 0) + 1;
@@ -45,10 +51,12 @@ export function computeFacets(venues: Venue[]): Facets {
     neighborhoods,
     types,
     cuisines,
+    awards,
     counts: {
       neighborhoods: nCount,
       types: tCount,
       cuisines: cuCount,
+      awards: awCount,
       reservation: rCount,
       category: cCount,
       price: pCount,

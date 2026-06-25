@@ -39,6 +39,7 @@ const restaurant = venue({
   category: "restaurant",
   types: [],
   cuisines: ["Italian"],
+  awards: ["Michelin Star"],
   neighborhood: "Nolita",
   priceLevel: 4,
   reservationPolicy: "reservations",
@@ -56,6 +57,10 @@ describe("filterVenues", () => {
   });
   it("cuisine", () => {
     const r = filterVenues(venues, { ...EMPTY_FILTERS, cuisines: ["Italian"] }, "", NOW);
+    expect(r.map((v) => v.id)).toEqual(["r1"]);
+  });
+  it("awards", () => {
+    const r = filterVenues(venues, { ...EMPTY_FILTERS, awards: ["Michelin Star"] }, "", NOW);
     expect(r.map((v) => v.id)).toEqual(["r1"]);
   });
   it("happy hour", () => {

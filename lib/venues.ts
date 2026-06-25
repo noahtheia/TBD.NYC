@@ -1,23 +1,37 @@
 import fallbackData from "@/data/venues.json";
+import awardsOverlay from "@/data/awards.json";
 import type { Venue } from "@/types/venue";
 import { getSupabase, hasSupabase, VENUE_SELECT } from "@/lib/supabase/server";
 import { rowToVenue, type DbVenue } from "@/lib/supabase/map";
+import { normalizeAwards } from "@/lib/awards";
 
 const fallback = fallbackData as unknown as Venue[];
+const AWARDS_BY_ID = awardsOverlay as Record<string, string[]>;
+
+/** Default a venue's awards from the committed data/awards.json overlay when it
+ *  has none of its own. Admin/Supabase-set awards (a non-empty array) always win,
+ *  so curators can override the seed per venue. */
+function withAwards(v: Venue): Venue {
+  if (v.awards?.length) return v;
+  const seeded = AWARDS_BY_ID[v.id];
+  if (!seeded?.length) return v;
+  return { ...v, awards: normalizeAwards(seeded) };
+}
 
 /** All venues. Reads from Supabase when configured; otherwise the committed
  *  venues.json snapshot (so the app builds/runs without Supabase). */
 export async function getVenues(): Promise<Venue[]> {
   const supabase = getSupabase();
-  if (!supabase) return fallback;
+  if (!supabase) return fallback.map(withAwards);
 
   const { data, error } = await supabase.from("venues").select(VENUE_SELECT);
   if (error || !data) {
     console.error("Supabase getVenues failed, using fallback:", error?.message);
-    return fallback;
+    return fallback.map(withAwards);
   }
   return (data as unknown as DbVenue[])
     .map(rowToVenue)
+    .map(withAwards)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -48,6 +62,7 @@ function liteVenue(v: Venue): Venue {
     businessStatus: v.businessStatus,
     booking: v.booking,
     photoUrl: v.photoUrl,
+    awards: v.awards,
     unverified: v.unverified,
   };
 }
@@ -61,7 +76,11 @@ export async function getVenuesLite(): Promise<Venue[]> {
 
 export async function getVenueById(id: string): Promise<Venue | undefined> {
   const supabase = getSupabase();
-  if (!supabase) return fallback.find((v) => v.id === id);
+  const fromFallback = () => {
+    const v = fallback.find((x) => x.id === id);
+    return v ? withAwards(v) : undefined;
+  };
+  if (!supabase) return fromFallback();
 
   const { data, error } = await supabase
     .from("venues")
@@ -70,9 +89,9 @@ export async function getVenueById(id: string): Promise<Venue | undefined> {
     .maybeSingle();
   if (error) {
     console.error("Supabase getVenueById failed, using fallback:", error.message);
-    return fallback.find((v) => v.id === id);
+    return fromFallback();
   }
-  return data ? rowToVenue(data as unknown as DbVenue) : undefined;
+  return data ? withAwards(rowToVenue(data as unknown as DbVenue)) : undefined;
 }
 
 export async function getAllVenueIds(): Promise<string[]> {
