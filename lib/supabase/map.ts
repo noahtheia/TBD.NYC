@@ -45,6 +45,7 @@ export interface DbVenue {
   photo_url: string | null;
   photos: VenuePhoto[] | null;
   amenities: string[] | null;
+  awards: string[] | null;
   other_info: string | null;
   unverified: boolean | null;
   editorial_note: string | null;
@@ -93,6 +94,7 @@ export function rowToVenue(row: DbVenue): Venue {
     photoUrl: undef(row.photo_url),
     photos: row.photos?.length ? row.photos : undefined,
     amenities: row.amenities?.length ? row.amenities : undefined,
+    awards: row.awards?.length ? row.awards : undefined,
     otherInfo: undef(row.other_info),
     unverified: undef(row.unverified),
     editorialNote: undef(row.editorial_note),

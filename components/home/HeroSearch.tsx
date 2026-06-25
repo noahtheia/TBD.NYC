@@ -42,6 +42,11 @@ export default function HeroSearch({ facets }: { facets: Facets }) {
         kind: "Cuisine",
         href: exploreHref({ cuisine: c }),
       })),
+      ...facets.awards.map((a) => ({
+        label: a,
+        kind: "Award",
+        href: exploreHref({ award: a }),
+      })),
       ...facets.types.map((t) => ({
         label: t,
         kind: "Type",

@@ -159,6 +159,24 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
       </div>
 
       <dl className="mt-4">
+        {venue.awards && venue.awards.length > 0 && (
+          <div className="border-t border-zinc-100 py-3">
+            <dt className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+              Awards &amp; recognition
+            </dt>
+            <dd className="mt-1.5 flex flex-wrap gap-1.5">
+              {venue.awards.map((a) => (
+                <span
+                  key={a}
+                  className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-800"
+                >
+                  <span aria-hidden>🏆</span>
+                  {a}
+                </span>
+              ))}
+            </dd>
+          </div>
+        )}
         {venue.happyHour === true && (
           <div className="border-t border-zinc-100 py-3">
             <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">

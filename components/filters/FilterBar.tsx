@@ -17,7 +17,7 @@ export type FilterBarProps = {
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
   onToggleFilterValue: (
-    key: "neighborhoods" | "types" | "cuisines" | "reservation" | "categories",
+    key: "neighborhoods" | "types" | "cuisines" | "awards" | "reservation" | "categories",
     value: string
   ) => void;
   onTogglePrice: (value: number) => void;
@@ -148,6 +148,20 @@ export default function FilterBar({
         selected={filters.types}
         onToggle={(v) => onToggleFilterValue("types", v)}
       />
+
+      {facets.awards.length > 0 && (
+        <MultiSelect
+          label="Awards"
+          searchable
+          options={facets.awards.map((a) => ({
+            value: a,
+            label: a,
+            count: facets.counts.awards[a],
+          }))}
+          selected={filters.awards}
+          onToggle={(v) => onToggleFilterValue("awards", v)}
+        />
+      )}
 
       <MultiSelect
         label="Price"

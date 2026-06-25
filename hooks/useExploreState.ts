@@ -10,6 +10,7 @@ type StringListKey =
   | "neighborhoods"
   | "types"
   | "cuisines"
+  | "awards"
   | "reservation"
   | "categories";
 

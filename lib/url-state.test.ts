@@ -16,6 +16,7 @@ describe("url-state", () => {
       neighborhoods: ["West Village", "Chelsea"],
       types: ["Dive Bar"],
       cuisines: ["Italian"],
+      awards: ["Michelin Star"],
       prices: [2, 3],
       reservation: ["walk-in"],
     };

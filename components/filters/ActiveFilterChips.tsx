@@ -17,7 +17,7 @@ type Props = {
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
   onToggleFilterValue: (
-    key: "neighborhoods" | "types" | "cuisines" | "reservation" | "categories",
+    key: "neighborhoods" | "types" | "cuisines" | "awards" | "reservation" | "categories",
     value: string
   ) => void;
   onTogglePrice: (value: number) => void;
@@ -64,6 +64,9 @@ export default function ActiveFilterChips({
       ))}
       {filters.cuisines.map((c) => (
         <Chip key={`cu-${c}`} label={c} onRemove={() => onToggleFilterValue("cuisines", c)} />
+      ))}
+      {filters.awards.map((a) => (
+        <Chip key={`aw-${a}`} label={a} onRemove={() => onToggleFilterValue("awards", a)} />
       ))}
       {filters.types.map((t) => (
         <Chip key={`t-${t}`} label={t} onRemove={() => onToggleFilterValue("types", t)} />
