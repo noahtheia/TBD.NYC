@@ -21,6 +21,9 @@ type Props = {
   activeCount?: number;
   /** Clear all filters + search, for the no-results recovery action. */
   onClear?: () => void;
+  /** When set (a venue is explicitly opened/clicked), scroll its card into view.
+   *  Hovering does NOT set this, so the list stays put while browsing the map. */
+  scrollToId?: string | null;
   /** The scroll container, used as the IntersectionObserver root for paging. */
   scrollRef?: RefObject<HTMLElement | null>;
 };
@@ -34,6 +37,7 @@ export default function VenueList({
   now,
   activeCount = 0,
   onClear,
+  scrollToId,
   scrollRef,
 }: Props) {
   const refs = useRef<Map<string, HTMLElement>>(new Map());
@@ -44,22 +48,20 @@ export default function VenueList({
   // (via key) when the result set changes, which resets the window to the top.
   const [count, setCount] = useState(STEP);
 
-  // Ensure a map-selected card is always within the rendered window (derived, so
-  // no extra state is needed to scroll to an off-window pin).
-  const activeIdx =
-    active.id && active.source === "map"
-      ? venues.findIndex((v) => v.id === active.id)
-      : -1;
-  const shownCount = activeIdx >= count ? activeIdx + 1 : count;
+  // Ensure the opened venue's card is within the rendered window so it can be
+  // scrolled to (derived, so no extra state is needed for an off-window target).
+  const targetIdx = scrollToId ? venues.findIndex((v) => v.id === scrollToId) : -1;
+  const shownCount = targetIdx >= count ? targetIdx + 1 : count;
 
-  // Scroll the active venue's card into view on map-originated selection.
+  // Scroll the list to a venue ONLY when one is explicitly opened (clicked) — never
+  // on hover — so the list doesn't jump around as the user moves over the map.
   useEffect(() => {
-    if (active.id && active.source === "map") {
+    if (scrollToId) {
       refs.current
-        .get(active.id)
+        .get(scrollToId)
         ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
-  }, [active, shownCount]);
+  }, [scrollToId, shownCount]);
 
   // Page in more cards when the sentinel nears the bottom of the scroll area.
   useEffect(() => {
