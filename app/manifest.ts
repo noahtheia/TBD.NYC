@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "TBD.NYC",
     description:
       "An interactive map of curated New York City bars, restaurants, and happy hours.",
-    start_url: "/",
+    start_url: "/explore",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#e11d48",

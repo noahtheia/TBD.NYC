@@ -1,0 +1,50 @@
+[
+  {
+    "id": "pick-sosos",
+    "venueId": "sosos",
+    "headline": "An intimate Chinatown cocktail den",
+    "blurb": "Low-lit, expertly mixed, and worth the squeeze — the kind of room you settle into for the whole night.",
+    "position": 1,
+    "visible": true
+  },
+  {
+    "id": "pick-olio-e-piu",
+    "venueId": "olio-e-piu",
+    "headline": "Candlelit Italian, always a scene",
+    "blurb": "Rustic pastas and wood-fired pizzas in one of the most romantic rooms downtown. Book ahead — it's packed for a reason.",
+    "position": 2,
+    "visible": true
+  },
+  {
+    "id": "pick-twist-bar",
+    "venueId": "twist-bar",
+    "headline": "Chelsea's neighborhood happy hour",
+    "blurb": "Friendly, unpretentious, and reliably good — a Chelsea standby with one of the better happy hours around.",
+    "position": 3,
+    "visible": true
+  },
+  {
+    "id": "pick-los-tacos-no-1",
+    "venueId": "los-tacos-no-1",
+    "headline": "The city's best quick tacos",
+    "blurb": "No frills, just blistered tortillas and standout al pastor — a perfect pre-show bite.",
+    "position": 4,
+    "visible": true
+  },
+  {
+    "id": "pick-c-as-in-charlie",
+    "venueId": "c-as-in-charlie",
+    "headline": "Inventive small plates in NoHo",
+    "blurb": "Creative, seasonal cooking that punches well above its block. Grab a counter seat and let them cook.",
+    "position": 5,
+    "visible": true
+  },
+  {
+    "id": "pick-de-toscano",
+    "venueId": "de-toscano",
+    "headline": "A polished Midtown East pour",
+    "blurb": "Sleek and grown-up — a calm refuge from the Midtown rush with a serious cocktail list.",
+    "position": 6,
+    "visible": true
+  }
+]

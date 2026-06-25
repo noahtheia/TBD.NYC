@@ -1,5 +1,40 @@
 import type { Venue } from "@/types/venue";
+import type { Post } from "@/types/post";
 import { SITE_URL } from "@/lib/site";
+
+/** schema.org WebSite for the homepage, with a search action into the explorer. */
+export function websiteJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "TBD.NYC",
+    url: SITE_URL,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/explore?q={query}`,
+      "query-input": "required name=query",
+    },
+  };
+}
+
+/** schema.org Article for a blog post. */
+export function articleJsonLd(post: Post): Record<string, unknown> {
+  const url = `${SITE_URL}/blog/${post.id}`;
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    url,
+    mainEntityOfPage: url,
+    publisher: { "@type": "Organization", name: "TBD.NYC", url: SITE_URL },
+  };
+  if (post.excerpt) data.description = post.excerpt;
+  if (post.coverImageUrl) data.image = post.coverImageUrl;
+  if (post.author) data.author = { "@type": "Person", name: post.author };
+  if (post.publishedAt) data.datePublished = post.publishedAt;
+  if (post.updatedAt) data.dateModified = post.updatedAt;
+  return data;
+}
 
 // schema.org dayOfWeek names, indexed by Google's 0=Sunday convention.
 const DOW = [

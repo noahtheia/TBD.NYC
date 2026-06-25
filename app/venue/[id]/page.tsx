@@ -82,7 +82,7 @@ export default async function VenuePage({
 
       <div className="flex items-center justify-between gap-3">
         <Link
-          href="/"
+          href="/explore"
           className="inline-flex items-center gap-1 text-sm font-medium text-zinc-500 transition hover:text-zinc-800"
         >
           ← Back to map

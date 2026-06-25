@@ -8,6 +8,8 @@ import { logoutAction } from "./actions";
 const NAV = [
   { href: "/admin", label: "Venues", exact: true },
   { href: "/admin/new", label: "Add venue", exact: false },
+  { href: "/admin/posts", label: "Blog posts", exact: false },
+  { href: "/admin/picks", label: "Editor's picks", exact: false },
 ];
 
 export default function AdminNav() {
