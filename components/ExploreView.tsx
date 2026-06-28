@@ -198,6 +198,13 @@ export default function ExploreView({ venues, facets }: Props) {
     requestNearMe();
   }, [showHappyHourNow, requestNearMe]);
 
+  // Mobile "Happy hour now" toggle: turn it on, or (when already on) clear the
+  // happy-hour filter — leaving Open now / Near me as the user set them.
+  const toggleHappyHourNow = useCallback(() => {
+    if (filters.happyHourOnly) toggleHappyHour();
+    else showHappyHourNearMe();
+  }, [filters.happyHourOnly, toggleHappyHour, showHappyHourNearMe]);
+
   const handleHoverList = useCallback((id: string | null) => {
     // List cards represent a venue, not a specific pin — clear the pin highlight.
     setActive({ id, source: "list" });
@@ -418,6 +425,7 @@ export default function ExploreView({ venues, facets }: Props) {
             onSelect={handleSelectFromMap}
             focusOnLoad={focusOnLoad}
             userLoc={userLoc}
+            showZoomControls={isDesktop}
             onBoundsChange={handleBoundsChange}
           />
           {mobileView === "map" && (
@@ -425,9 +433,12 @@ export default function ExploreView({ venues, facets }: Props) {
               searchValue={searchInput}
               onSearchChange={setSearchInput}
               filters={filters}
-              onHappyHourNow={showHappyHourNearMe}
+              onHappyHourNow={toggleHappyHourNow}
               onToggleOpenNow={toggleOpenNow}
               onToggleOpenLate={toggleOpenLate}
+              geoStatus={geoStatus}
+              nearMeActive={sort === "distance" && geoStatus === "granted"}
+              onNearMe={requestNearMe}
               favCount={favCount}
               savedActive={savedActive}
               onToggleSaved={() => setShowSaved((v) => !v)}

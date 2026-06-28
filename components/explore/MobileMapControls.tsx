@@ -7,15 +7,22 @@ import type { FilterBarProps } from "@/components/filters/FilterBar";
 import SearchBar from "@/components/filters/SearchBar";
 import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 
+type GeoStatus = "idle" | "loading" | "granted" | "denied" | "unavailable";
+
 type Props = {
   // search
   searchValue: string;
   onSearchChange: (v: string) => void;
   // quick toggles
   filters: Filters;
+  /** Toggle "happy hour now": turns it on, or (when already on) clears happy hour. */
   onHappyHourNow: () => void;
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
+  // near me (distance sort via geolocation)
+  geoStatus: GeoStatus;
+  nearMeActive: boolean;
+  onNearMe: () => void;
   // saved
   favCount: number;
   savedActive: boolean;
@@ -39,6 +46,9 @@ export default function MobileMapControls({
   onHappyHourNow,
   onToggleOpenNow,
   onToggleOpenLate,
+  geoStatus,
+  nearMeActive,
+  onNearMe,
   favCount,
   savedActive,
   onToggleSaved,
@@ -71,9 +81,15 @@ export default function MobileMapControls({
         <button
           type="button"
           onClick={onHappyHourNow}
-          className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-rose-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-md transition hover:bg-rose-700"
+          aria-pressed={filters.happyHourOnly}
+          className={cn(
+            "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold text-white shadow-md transition",
+            filters.happyHourOnly
+              ? "bg-rose-700 ring-2 ring-rose-300 ring-offset-1 ring-offset-white hover:bg-rose-800"
+              : "bg-rose-600 hover:bg-rose-700"
+          )}
         >
-          <span aria-hidden>🍸</span> Happy hour now
+          <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
         </button>
         <QuickPill
           active={filters.openNow}
@@ -89,11 +105,17 @@ export default function MobileMapControls({
           Open now
         </QuickPill>
         <QuickPill
-          active={filters.openLate}
-          activeClass="border-indigo-500 bg-indigo-500 text-white"
-          onClick={onToggleOpenLate}
+          active={nearMeActive}
+          activeClass="border-sky-500 bg-sky-500 text-white"
+          onClick={onNearMe}
+          disabled={geoStatus === "loading" || geoStatus === "unavailable"}
         >
-          <span aria-hidden>🌙</span> Open late
+          <span aria-hidden>📍</span>
+          {geoStatus === "loading"
+            ? "Locating…"
+            : geoStatus === "denied"
+              ? "Location blocked"
+              : "Near me"}
         </QuickPill>
         {favCount > 0 && (
           <QuickPill
@@ -133,20 +155,23 @@ function QuickPill({
   active,
   activeClass,
   onClick,
+  disabled,
   children,
 }: {
   active: boolean;
   activeClass: string;
   onClick: () => void;
+  disabled?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-pressed={active}
       className={cn(
-        "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium shadow-md backdrop-blur transition",
+        "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium shadow-md backdrop-blur transition disabled:opacity-50",
         active ? activeClass : "border-zinc-200 bg-white/90 text-zinc-700"
       )}
     >
