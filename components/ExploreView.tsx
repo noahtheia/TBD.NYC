@@ -139,6 +139,9 @@ export default function ExploreView({ venues, facets }: Props) {
   );
 
   const activeFilterCount = countActiveFilters(filters);
+  // "Near me" is on once distance sort is active with a granted location fix. While
+  // it's on we keep the map on the user's 1-mile radius and don't refit on other filters.
+  const nearMeActive = sort === "distance" && geoStatus === "granted";
   const openVenueObj = openId ? venuesById.get(openId) ?? null : null;
   const peekVenue = peekId ? venuesById.get(peekId) ?? null : null;
 
@@ -155,6 +158,9 @@ export default function ExploreView({ venues, facets }: Props) {
   useEffect(() => {
     if (filterSig === prevSig.current) return;
     prevSig.current = filterSig;
+    // With Near me active, keep the user's 1-mile radius (or wherever they've panned)
+    // — toggling other filters shouldn't yank the map to the full results bounds.
+    if (nearMeActive) return;
     const hasFilters = activeFilterCount > 0 || debouncedSearch.trim().length > 0;
     const locs = filteredVenues.flatMap((v) => v.locations);
     if (!hasFilters || !locs.length) return;
@@ -172,7 +178,7 @@ export default function ExploreView({ venues, facets }: Props) {
       ],
       { padding: 60, maxZoom: 15, duration: motionDuration(600) }
     );
-  }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch]);
+  }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch, nearMeActive]);
 
   // Zoom the map to a ~`miles` radius around a point (reuses the fitBounds
   // pattern from the filter-fit effect below).
@@ -314,7 +320,7 @@ export default function ExploreView({ venues, facets }: Props) {
     onToggleOpenNow: toggleOpenNow,
     onToggleOpenLate: toggleOpenLate,
     geoStatus,
-    nearMeActive: sort === "distance" && geoStatus === "granted",
+    nearMeActive,
     onNearMe: nearMe,
     sort,
     onSort: setSort,

@@ -94,10 +94,11 @@ export default function MobileMapControls({
         </div>
       </div>
 
-      {/* Row 2: a pinned Sort dropdown first, then the scrollable quick filters
-          (Happy hour now, etc.). The Sort menu is kept outside the horizontal
-          scroller so `overflow-x-auto` can't clip it. */}
-      <div className="pointer-events-auto flex items-center gap-2">
+      {/* Row 2: the scrollable quick filters, with the Sort dropdown as the first
+          item so it scrolls together with the pills. SortControl's `floatMenu`
+          renders its dropdown with fixed positioning so `overflow-x-auto` can't
+          clip it. */}
+      <div className="pointer-events-auto flex min-w-0 items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="shrink-0 drop-shadow-md">
           <SortControl
             sort={sort}
@@ -106,61 +107,58 @@ export default function MobileMapControls({
             onLocate={onNearMe}
             hideNearMe
             align="left"
+            floatMenu
           />
         </div>
-        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <button
-            type="button"
-            onClick={onHappyHourNow}
-            aria-pressed={filters.happyHourOnly}
-            className={cn(
-              "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold text-white shadow-md transition",
-              filters.happyHourOnly
-                ? "bg-rose-700 ring-2 ring-rose-300 ring-offset-1 ring-offset-white hover:bg-rose-800"
-                : "bg-rose-600 hover:bg-rose-700"
-            )}
-          >
-            <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
-          </button>
-          <QuickPill
-            active={filters.openNow}
-            activeClass="border-rose-600 bg-rose-600 text-white"
-            onClick={onToggleOpenNow}
-          >
-            <span
-              className={cn(
-                "h-1.5 w-1.5 rounded-full",
-                filters.openNow ? "bg-white" : "bg-emerald-500"
-              )}
-            />
-            Open now
-          </QuickPill>
-          <QuickPill
-            active={nearMeActive}
-            activeClass="border-rose-600 bg-rose-600 text-white"
-            onClick={onNearMe}
-            disabled={geoStatus === "loading" || geoStatus === "unavailable"}
-          >
-            <span aria-hidden>📍</span>
-            {geoStatus === "loading"
-              ? "Locating…"
-              : geoStatus === "denied"
-                ? "Location blocked"
-                : "Near me"}
-          </QuickPill>
-          {favCount > 0 && (
-            <QuickPill
-              active={savedActive}
-              activeClass="border-rose-500 bg-rose-50 text-rose-700"
-              onClick={onToggleSaved}
-            >
-              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
-                <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
-              </svg>
-              Saved {favCount}
-            </QuickPill>
+        <button
+          type="button"
+          onClick={onHappyHourNow}
+          aria-pressed={filters.happyHourOnly}
+          className={cn(
+            QUICK_PILL_BASE,
+            filters.happyHourOnly ? QUICK_PILL_ACTIVE : QUICK_PILL_INACTIVE
           )}
-        </div>
+        >
+          <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
+        </button>
+        <QuickPill
+          active={filters.openNow}
+          activeClass={QUICK_PILL_ACTIVE}
+          onClick={onToggleOpenNow}
+        >
+          <span
+            className={cn(
+              "h-1.5 w-1.5 rounded-full",
+              filters.openNow ? "bg-white" : "bg-emerald-500"
+            )}
+          />
+          Open now
+        </QuickPill>
+        <QuickPill
+          active={nearMeActive}
+          activeClass={QUICK_PILL_ACTIVE}
+          onClick={onNearMe}
+          disabled={geoStatus === "loading" || geoStatus === "unavailable"}
+        >
+          <span aria-hidden>📍</span>
+          {geoStatus === "loading"
+            ? "Locating…"
+            : geoStatus === "denied"
+              ? "Location blocked"
+              : "Near me"}
+        </QuickPill>
+        {favCount > 0 && (
+          <QuickPill
+            active={savedActive}
+            activeClass={QUICK_PILL_ACTIVE}
+            onClick={onToggleSaved}
+          >
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
+              <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
+            </svg>
+            Saved {favCount}
+          </QuickPill>
+        )}
       </div>
 
       {/* Row 3: active filter chips (dismissible). */}
@@ -183,6 +181,12 @@ export default function MobileMapControls({
   );
 }
 
+/** Shared quick-pill styling: grey when unselected, solid red when selected. */
+const QUICK_PILL_BASE =
+  "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium shadow-md backdrop-blur transition disabled:opacity-50";
+const QUICK_PILL_INACTIVE = "border-zinc-300 bg-zinc-100/95 text-zinc-700";
+const QUICK_PILL_ACTIVE = "border-rose-600 bg-rose-600 text-white";
+
 function QuickPill({
   active,
   activeClass,
@@ -202,10 +206,7 @@ function QuickPill({
       onClick={onClick}
       disabled={disabled}
       aria-pressed={active}
-      className={cn(
-        "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium shadow-md backdrop-blur transition disabled:opacity-50",
-        active ? activeClass : "border-zinc-200 bg-white/90 text-zinc-700"
-      )}
+      className={cn(QUICK_PILL_BASE, active ? activeClass : QUICK_PILL_INACTIVE)}
     >
       {children}
     </button>

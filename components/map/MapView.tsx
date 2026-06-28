@@ -140,13 +140,6 @@ export default function MapView({
             <span className="h-2.5 w-2.5 rounded-full bg-rose-500" aria-hidden />
             Venue
           </span>
-          <span className="flex items-center gap-1">
-            <span
-              className="h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-amber-300 shadow-[0_0_8px_2px_rgba(251,191,36,0.85)]"
-              aria-hidden
-            />
-            Happy hour
-          </span>
           <button
             type="button"
             onClick={() => setLegendOpen(false)}
@@ -200,17 +193,11 @@ export default function MapView({
               )}
               <span
                 className={cn(
-                  "block rounded-full border-2 border-white transition-all motion-reduce:transition-none",
+                  "block rounded-full border-2 border-white shadow-md transition-all motion-reduce:transition-none",
                   // Every dot is red; only size/shade changes when active.
                   isActive
                     ? "h-5 w-5 bg-rose-600 ring-4 ring-rose-300/50"
-                    : "h-3.5 w-3.5 bg-rose-500 group-hover/marker:h-4 group-hover/marker:w-4",
-                  // Happy-hour venues get an amber glow; the ring drops out while
-                  // active so the rose highlight ring stays readable.
-                  p.happyHour
-                    ? "shadow-[0_0_12px_3px_rgba(251,191,36,0.8)]"
-                    : "shadow-md",
-                  p.happyHour && !isActive && "ring-2 ring-amber-300"
+                    : "h-3.5 w-3.5 bg-rose-500 group-hover/marker:h-4 group-hover/marker:w-4"
                 )}
               />
             </button>
