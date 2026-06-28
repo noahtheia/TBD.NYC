@@ -1,5 +1,7 @@
 import type { Post } from "@/types/post";
 import type { EditorPick } from "@/types/pick";
+import type { SearchKind } from "@/lib/search-kinds";
+import type { SearchKindConfig } from "@/lib/search-config";
 
 const undef = <T>(v: T | null | undefined): T | undefined => v ?? undefined;
 
@@ -54,5 +56,20 @@ export function rowToPick(row: DbPick): EditorPick {
     blurb: undef(row.blurb),
     position: row.position ?? 0,
     visible: row.visible ?? true,
+  };
+}
+
+// --- search priority -------------------------------------------------------
+export interface DbSearchPriority {
+  kind: string;
+  position: number | null;
+  enabled: boolean | null;
+}
+
+export function rowToSearchKindConfig(row: DbSearchPriority): SearchKindConfig {
+  return {
+    kind: row.kind as SearchKind,
+    position: row.position ?? 0,
+    enabled: row.enabled ?? true,
   };
 }

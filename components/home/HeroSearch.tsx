@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Category, Facets } from "@/types/venue";
+import type { SearchKind } from "@/lib/search-kinds";
 
 type Suggestion = { label: string; kind: string; href: string };
 
@@ -24,9 +25,13 @@ const QUICK = [
 export default function HeroSearch({
   facets,
   venues,
+  searchOrder,
 }: {
   facets: Facets;
   venues: VenueSuggestion[];
+  /** Enabled suggestion groups in admin-configured priority order. Groups absent
+   *  here are hidden from search; the order breaks ties between equal matches. */
+  searchOrder: SearchKind[];
 }) {
   const router = useRouter();
   const [q, setQ] = useState("");
@@ -75,15 +80,26 @@ export default function HeroSearch({
   const matches = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) return [];
+    // Admin-configured priority: a group's index is its rank; absent groups are
+    // disabled and dropped from suggestions entirely.
+    const rank = new Map(searchOrder.map((k, i) => [k as string, i]));
     const starts: Suggestion[] = [];
     const contains: Suggestion[] = [];
     for (const s of all) {
+      if (!rank.has(s.kind)) continue;
       const l = s.label.toLowerCase();
       if (l.startsWith(query)) starts.push(s);
       else if (l.includes(query)) contains.push(s);
     }
+    // Relevance stays primary (starts-with beats contains); within each tier the
+    // admin's group order breaks ties. Array.sort is stable, so equal-rank items
+    // keep their insertion order.
+    const byRank = (a: Suggestion, b: Suggestion) =>
+      (rank.get(a.kind) ?? 0) - (rank.get(b.kind) ?? 0);
+    starts.sort(byRank);
+    contains.sort(byRank);
     return [...starts, ...contains].slice(0, 8);
-  }, [q, all]);
+  }, [q, all, searchOrder]);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();

@@ -10,6 +10,7 @@ const NAV = [
   { href: "/admin/new", label: "Add venue", exact: false },
   { href: "/admin/posts", label: "Blog posts", exact: false },
   { href: "/admin/picks", label: "Editor's picks", exact: false },
+  { href: "/admin/search", label: "Search priority", exact: false },
 ];
 
 export default function AdminNav() {

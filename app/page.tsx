@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getResolvedPicks } from "@/lib/picks";
 import { getPublishedPosts } from "@/lib/posts";
 import { getVenues } from "@/lib/venues";
+import { getSearchOrder } from "@/lib/search-config";
 import { computeFacets } from "@/lib/facets";
 import { slugify } from "@/lib/slug";
 import { websiteJsonLd } from "@/lib/jsonld";
@@ -23,10 +24,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [picks, posts, venues] = await Promise.all([
+  const [picks, posts, venues, searchOrder] = await Promise.all([
     getResolvedPicks(),
     getPublishedPosts(),
     getVenues(),
+    getSearchOrder(),
   ]);
   const facets = computeFacets(venues);
 
@@ -62,6 +64,7 @@ export default async function Home() {
             <HeroSearch
               facets={facets}
               venues={venues.map((v) => ({ id: v.id, name: v.name, category: v.category }))}
+              searchOrder={searchOrder}
             />
           </div>
         </div>
