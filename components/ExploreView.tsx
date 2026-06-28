@@ -24,7 +24,6 @@ import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 import VenueList, { type ActiveState } from "@/components/list/VenueList";
 import VenueDrawer from "@/components/detail/VenueDrawer";
 import PeekCard from "@/components/ui/PeekCard";
-import ShareButton from "@/components/ui/ShareButton";
 import MobileMapControls from "@/components/explore/MobileMapControls";
 
 const DATA_UPDATED = new Date(meta.generatedAt).toLocaleDateString("en-US", {
@@ -313,7 +312,6 @@ export default function ExploreView({ venues, facets }: Props) {
                   <span className="hidden sm:inline">Saved</span> {favCount}
                 </button>
               )}
-              <ShareButton />
             </div>
           </div>
           <div className="flex items-center gap-3">

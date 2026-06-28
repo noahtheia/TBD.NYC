@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Venue } from "@/types/venue";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import ShareButton from "@/components/ui/ShareButton";
 import VenueDetailContent from "./VenueDetailContent";
 
 type Props = {
@@ -78,6 +79,9 @@ export default function VenueDrawer({ venue, onClose }: Props) {
             >
               View page ↗
             </Link>
+          )}
+          {venue && (
+            <ShareButton iconOnly title={venue.name} url={`/venue/${venue.id}`} />
           )}
           <button
             type="button"

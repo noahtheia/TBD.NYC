@@ -9,6 +9,7 @@ import { formatProximity } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
 import FavoriteButton from "@/components/ui/FavoriteButton";
+import ShareButton from "@/components/ui/ShareButton";
 
 type Props = {
   venue: Venue;
@@ -164,6 +165,12 @@ export default function VenueCard({
               Unverified
             </span>
           )}
+          <ShareButton
+            iconOnly
+            title={venue.name}
+            url={`/venue/${venue.id}`}
+            className="relative z-20 ml-auto h-7 w-7"
+          />
         </div>
       </div>
     </article>
