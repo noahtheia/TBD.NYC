@@ -15,6 +15,16 @@ export function haversineMiles(a: LatLng, b: LatLng): number {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
+/** A [west, south, east, north] box ~`miles` in every direction from `center`. */
+export function boundsForRadiusMiles(
+  center: LatLng,
+  miles: number
+): [number, number, number, number] {
+  const dLat = miles / 69; // ~69 statute miles per degree of latitude
+  const dLng = miles / (69 * Math.cos((center.lat * Math.PI) / 180));
+  return [center.lng - dLng, center.lat - dLat, center.lng + dLng, center.lat + dLat];
+}
+
 /** Distance from a point to the nearest of a venue's locations (miles), or null. */
 export function nearestDistanceMiles(user: LatLng | null, venue: Venue): number | null {
   if (!user) return null;
