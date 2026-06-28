@@ -304,6 +304,30 @@ export default function ExploreView({ venues, facets }: Props) {
     [mobileView, flyToCoords, openVenue]
   );
 
+  // Shared mobile top controls — the same tiles render over the map (floating) and
+  // at the top of the list (inline sticky); only `variant` differs per call site.
+  const mobileControlsProps = {
+    searchValue: searchInput,
+    onSearchChange: setSearchInput,
+    filters,
+    onHappyHourNow: toggleHappyHourNow,
+    onToggleOpenNow: toggleOpenNow,
+    onToggleOpenLate: toggleOpenLate,
+    geoStatus,
+    nearMeActive: sort === "distance" && geoStatus === "granted",
+    onNearMe: nearMe,
+    sort,
+    onSort: setSort,
+    favCount,
+    savedActive,
+    onToggleSaved: () => setShowSaved((v) => !v),
+    activeCount: activeFilterCount,
+    onToggleHappyHour: toggleHappyHour,
+    onToggleFilterValue: toggleFilterValue,
+    onTogglePrice: togglePrice,
+    onClear: clearFilters,
+  };
+
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-white">
       <a
@@ -312,14 +336,9 @@ export default function ExploreView({ venues, facets }: Props) {
       >
         Skip to results
       </a>
-      {/* Header — hidden on the mobile map view so the map fills the screen; the
-          floating MobileMapControls take over there. Always shown on desktop. */}
-      <header
-        className={cn(
-          "z-20 shrink-0 border-b border-zinc-200 bg-white",
-          mobileView === "map" && "hidden lg:block"
-        )}
-      >
+      {/* Header — desktop only. On mobile the shared MobileMapControls tiles take
+          over the top of both the map and the list views. */}
+      <header className="z-20 hidden shrink-0 border-b border-zinc-200 bg-white lg:block">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2">
@@ -428,6 +447,9 @@ export default function ExploreView({ venues, facets }: Props) {
             mobileView === "map" && "hidden"
           )}
         >
+          {mobileView === "list" && (
+            <MobileMapControls {...mobileControlsProps} variant="inline" />
+          )}
           <VenueList
             key={`${filterSig}|${sort}|${savedActive}`}
             venues={displayedVenues}
@@ -466,25 +488,7 @@ export default function ExploreView({ venues, facets }: Props) {
             onBoundsChange={handleBoundsChange}
           />
           {mobileView === "map" && (
-            <MobileMapControls
-              searchValue={searchInput}
-              onSearchChange={setSearchInput}
-              filters={filters}
-              onHappyHourNow={toggleHappyHourNow}
-              onToggleOpenNow={toggleOpenNow}
-              onToggleOpenLate={toggleOpenLate}
-              geoStatus={geoStatus}
-              nearMeActive={sort === "distance" && geoStatus === "granted"}
-              onNearMe={nearMe}
-              favCount={favCount}
-              savedActive={savedActive}
-              onToggleSaved={() => setShowSaved((v) => !v)}
-              activeCount={activeFilterCount}
-              onToggleHappyHour={toggleHappyHour}
-              onToggleFilterValue={toggleFilterValue}
-              onTogglePrice={togglePrice}
-              onClear={clearFilters}
-            />
+            <MobileMapControls {...mobileControlsProps} variant="floating" />
           )}
           {peekVenue && (
             <div className="pointer-events-none absolute inset-x-0 bottom-20 z-20 lg:hidden">
@@ -499,47 +503,26 @@ export default function ExploreView({ venues, facets }: Props) {
         </section>
       </main>
 
-      {/* Mobile bottom bar — map view: List View + Filter; list view: Map. */}
+      {/* Mobile bottom bar — view toggle (List View / Map) + Filter, both views. */}
       <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30 flex justify-center gap-2 px-4 pb-safe lg:hidden">
         {mobileView === "map" ? (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileView("list");
-                setPeekId(null);
-              }}
-              className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-zinc-800"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
-                <path
-                  fillRule="evenodd"
-                  d="M3 5.5A.75.75 0 013.75 4.75h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 5.5zm0 4.5a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10zm0 4.5a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              List View
-            </button>
-            <button
-              type="button"
-              onClick={() => setFilterOpen(true)}
-              className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 shadow-lg transition hover:border-zinc-300"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
-                <path
-                  fillRule="evenodd"
-                  d="M2.5 5.5A1 1 0 013.5 5h13a1 1 0 010 2h-13a1 1 0 01-1-1.5zM5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm3 4a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Filter
-              {activeFilterCount > 0 && (
-                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-600 px-1.5 text-xs font-semibold text-white">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
-          </>
+          <button
+            type="button"
+            onClick={() => {
+              setMobileView("list");
+              setPeekId(null);
+            }}
+            className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-zinc-800"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+              <path
+                fillRule="evenodd"
+                d="M3 5.5A.75.75 0 013.75 4.75h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 5.5zm0 4.5a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10zm0 4.5a.75.75 0 01.75-.75h12.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clipRule="evenodd"
+              />
+            </svg>
+            List View
+          </button>
         ) : (
           <button
             type="button"
@@ -556,6 +539,25 @@ export default function ExploreView({ venues, facets }: Props) {
             Map
           </button>
         )}
+        <button
+          type="button"
+          onClick={() => setFilterOpen(true)}
+          className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 shadow-lg transition hover:border-zinc-300"
+        >
+          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+            <path
+              fillRule="evenodd"
+              d="M2.5 5.5A1 1 0 013.5 5h13a1 1 0 010 2h-13a1 1 0 01-1-1.5zM5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm3 4a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+              clipRule="evenodd"
+            />
+          </svg>
+          Filter
+          {activeFilterCount > 0 && (
+            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-600 px-1.5 text-xs font-semibold text-white">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
       </div>
 
       <FilterSheet

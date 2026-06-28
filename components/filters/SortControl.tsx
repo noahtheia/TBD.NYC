@@ -11,9 +11,12 @@ type Props = {
   onSort: (s: SortKey) => void;
   geoStatus: GeoStatus;
   onLocate: () => void;
+  /** Render only the sort dropdown (no "Near me" button) — for the mobile tile
+   *  row, which already has its own Near me pill. */
+  hideNearMe?: boolean;
 };
 
-export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props) {
+export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNearMe }: Props) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const distanceReady = geoStatus === "granted";
@@ -39,33 +42,35 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate }: Props
 
   return (
     <div className="flex items-center gap-2">
-      <button
-        type="button"
-        onClick={onLocate}
-        disabled={geoStatus === "loading" || geoStatus === "unavailable"}
-        title={
-          geoStatus === "unavailable"
-            ? "Location isn't available in this browser"
+      {!hideNearMe && (
+        <button
+          type="button"
+          onClick={onLocate}
+          disabled={geoStatus === "loading" || geoStatus === "unavailable"}
+          title={
+            geoStatus === "unavailable"
+              ? "Location isn't available in this browser"
+              : denied
+                ? "Location is blocked — enable it in your browser's site settings, then tap again"
+                : undefined
+          }
+          className={cn(
+            "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition disabled:opacity-50",
+            sort === "distance" && distanceReady
+              ? "border-sky-500 bg-sky-500 text-white"
+              : denied
+                ? "border-amber-300 bg-amber-50 text-amber-700 hover:border-amber-400"
+                : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
+          )}
+        >
+          <span aria-hidden>📍</span>
+          {geoStatus === "loading"
+            ? "Locating…"
             : denied
-              ? "Location is blocked — enable it in your browser's site settings, then tap again"
-              : undefined
-        }
-        className={cn(
-          "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition disabled:opacity-50",
-          sort === "distance" && distanceReady
-            ? "border-sky-500 bg-sky-500 text-white"
-            : denied
-              ? "border-amber-300 bg-amber-50 text-amber-700 hover:border-amber-400"
-              : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
-        )}
-      >
-        <span aria-hidden>📍</span>
-        {geoStatus === "loading"
-          ? "Locating…"
-          : denied
-            ? "Location blocked"
-            : "Near me"}
-      </button>
+              ? "Location blocked"
+              : "Near me"}
+        </button>
+      )}
 
       <div ref={rootRef} className="relative">
         <button
