@@ -27,6 +27,10 @@ export type FilterBarProps = {
   /** Hide the open-now / happy-hour / open-late quick pills (they live at the
    *  top of the mobile map, so the mobile filter sheet shouldn't repeat them). */
   hideQuickFilters?: boolean;
+  /** Render each dropdown with fixed positioning that flips above the trigger when
+   *  needed — for the mobile filter sheet, where lower filters would otherwise open
+   *  below the fold. See `MultiSelect`'s `floatMenu`. */
+  floatMenu?: boolean;
 };
 
 function TogglePill({
@@ -69,6 +73,7 @@ export default function FilterBar({
   onClear,
   stack = false,
   hideQuickFilters = false,
+  floatMenu = false,
 }: FilterBarProps) {
   return (
     <div
@@ -113,6 +118,7 @@ export default function FilterBar({
 
       <MultiSelect
         label="Category"
+        floatMenu={floatMenu}
         options={CATEGORY_OPTIONS.map((o) => ({
           ...o,
           count: facets.counts.category[o.value],
@@ -124,6 +130,7 @@ export default function FilterBar({
       <MultiSelect
         label="Neighborhood"
         searchable
+        floatMenu={floatMenu}
         options={facets.neighborhoods.map((n) => ({
           value: n,
           label: n,
@@ -136,6 +143,7 @@ export default function FilterBar({
       <MultiSelect
         label="Cuisine"
         searchable
+        floatMenu={floatMenu}
         options={facets.cuisines.map((c) => ({
           value: c,
           label: c,
@@ -148,6 +156,7 @@ export default function FilterBar({
       <MultiSelect
         label="Type"
         searchable
+        floatMenu={floatMenu}
         options={facets.types.map((t) => ({
           value: t,
           label: t,
@@ -161,6 +170,7 @@ export default function FilterBar({
         <MultiSelect
           label="Awards"
           searchable
+          floatMenu={floatMenu}
           options={facets.awards.map((a) => ({
             value: a,
             label: a,
@@ -173,6 +183,7 @@ export default function FilterBar({
 
       <MultiSelect
         label="Price"
+        floatMenu={floatMenu}
         options={PRICE_OPTIONS.map((o) => ({
           value: String(o.value),
           label: o.label,
@@ -184,6 +195,7 @@ export default function FilterBar({
 
       <MultiSelect
         label="Reservations"
+        floatMenu={floatMenu}
         options={RESERVATION_OPTIONS.map((o) => ({
           ...o,
           count: facets.counts.reservation[o.value],

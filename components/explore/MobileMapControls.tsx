@@ -74,7 +74,7 @@ export default function MobileMapControls({
       className={cn(
         "flex flex-col gap-2 pt-safe lg:hidden",
         variant === "inline"
-          ? "sticky top-0 z-20 border-b border-zinc-200 bg-white px-3 pb-2"
+          ? "sticky top-0 z-30 border-b border-zinc-200 bg-white px-3 pb-2"
           : "pointer-events-none absolute inset-x-0 top-0 z-20 px-3"
       )}
     >
