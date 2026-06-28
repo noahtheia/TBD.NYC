@@ -1,12 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import type { OpeningHours, Venue, VenueLocation } from "@/types/venue";
+import type { OpeningHours, PhotoTag, Venue, VenueLocation } from "@/types/venue";
 import { cn } from "@/lib/cn";
 import { AMENITIES } from "@/lib/amenities";
 import { AWARDS } from "@/lib/awards";
 import HoursEditor from "@/components/admin/HoursEditor";
-import { enrichVenueAction } from "./actions";
+import { enrichVenueAction, uploadVenuePhoto } from "./actions";
+
+type PhotoRow = { url: string; caption: string; tag: PhotoTag | ""; featured: boolean };
+/** Tags that get a dedicated "featured" slot in the detail gallery. */
+const FEATURABLE_TAGS: PhotoTag[] = ["inside", "food", "drinks"];
 
 type Props = {
   venue?: Venue;
@@ -99,8 +103,13 @@ export default function VenueForm({ venue, action }: Props) {
   const [enrichSeq, setEnrichSeq] = useState(0);
   const [amenities, setAmenities] = useState<string[]>(venue?.amenities ?? []);
   const [awards, setAwards] = useState<string[]>(venue?.awards ?? []);
-  const [photos, setPhotos] = useState<{ url: string; caption: string }[]>(() =>
-    (venue?.photos ?? []).map((p) => ({ url: p.url, caption: p.caption ?? "" }))
+  const [photos, setPhotos] = useState<PhotoRow[]>(() =>
+    (venue?.photos ?? []).map((p) => ({
+      url: p.url,
+      caption: p.caption ?? "",
+      tag: p.tag ?? "",
+      featured: p.featured ?? false,
+    }))
   );
   const [hhWindows, setHhWindows] = useState<OpeningHours | null>(venue?.happyHourWindows ?? null);
   const [enriching, setEnriching] = useState(false);
@@ -133,10 +142,37 @@ export default function VenueForm({ venue, action }: Props) {
     setAwards((cur) => (cur.includes(a) ? cur.filter((x) => x !== a) : [...cur, a]));
 
   // --- photos ---
-  const addPhoto = () => setPhotos((p) => [...p, { url: "", caption: "" }]);
+  const addPhoto = () =>
+    setPhotos((p) => [...p, { url: "", caption: "", tag: "", featured: false }]);
   const removePhoto = (i: number) => setPhotos((p) => p.filter((_, j) => j !== i));
-  const patchPhoto = (i: number, patch: Partial<{ url: string; caption: string }>) =>
-    setPhotos((p) => p.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+  const patchPhoto = (i: number, patch: Partial<PhotoRow>) =>
+    setPhotos((rows) => {
+      const next = rows.map((x, j) => (j === i ? { ...x, ...patch } : x));
+      let cur = next[i];
+      // "Featured" only applies to inside/food/drinks — drop it otherwise.
+      if (cur.featured && !FEATURABLE_TAGS.includes(cur.tag as PhotoTag)) {
+        cur = { ...cur, featured: false };
+        next[i] = cur;
+      }
+      // Only one featured photo per tag — clear it on the others.
+      if (cur.featured && cur.tag) {
+        return next.map((x, j) =>
+          j !== i && x.tag === cur.tag ? { ...x, featured: false } : x
+        );
+      }
+      return next;
+    });
+
+  // Upload an image file via the server action; returns the public URL or null.
+  async function uploadFile(file: File): Promise<string | null> {
+    const fd = new FormData();
+    fd.append("file", file);
+    if (venue?.id) fd.append("venueId", venue.id);
+    const r = await uploadVenuePhoto(fd);
+    if (r.ok) return r.url;
+    setMsg(`Upload failed: ${r.message}`);
+    return null;
+  }
 
   // --- happy-hour deals ---
   const addItem = () => setHhMenu((m) => [...m, { item: "", price: "" }]);
@@ -492,9 +528,13 @@ export default function VenueForm({ venue, action }: Props) {
           <label className={label}>Instagram</label>
           <input name="instagram" value={f.instagram} onChange={set("instagram")} className={input} />
         </div>
-        <div>
-          <label className={label}>Photo URL (primary)</label>
-          <input name="photoUrl" value={f.photoUrl} onChange={set("photoUrl")} className={input} />
+        <div className="col-span-2">
+          <label className={label}>Logo / preview photo</label>
+          <div className="flex items-center gap-2">
+            <Thumb url={f.photoUrl} />
+            <input name="photoUrl" value={f.photoUrl} onChange={set("photoUrl")} className={input} placeholder="https://…/logo.jpg or upload →" />
+            <PhotoUpload upload={uploadFile} onUploaded={(url) => setF((prev) => ({ ...prev, photoUrl: url }))} />
+          </div>
         </div>
         <input type="hidden" name="googleMapsUri" value={f.googleMapsUri} />
         <div className="col-span-2">
@@ -553,14 +593,49 @@ export default function VenueForm({ venue, action }: Props) {
 
       <fieldset className="rounded-lg border border-zinc-200 p-3">
         <legend className="px-1 text-sm font-semibold text-zinc-700">Photo gallery</legend>
+        <p className="mb-2 text-xs text-zinc-400">
+          Tag photos to control the detail-page order: logo, then the featured inside,
+          food &amp; drink photos, then the rest.
+        </p>
         <div className="space-y-2">
           {photos.map((p, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <input value={p.url} onChange={(e) => patchPhoto(i, { url: e.target.value })} placeholder="https://…/photo.jpg" className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
-              <input value={p.caption} onChange={(e) => patchPhoto(i, { caption: e.target.value })} placeholder="Caption (optional)" className="w-44 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
-              <button type="button" onClick={() => removePhoto(i)} className="text-xs font-medium text-zinc-400 hover:text-rose-600">
-                Remove
-              </button>
+            <div key={i} className="space-y-2 rounded-md border border-zinc-200 p-2">
+              <div className="flex items-center gap-2">
+                <Thumb url={p.url} />
+                <input value={p.url} onChange={(e) => patchPhoto(i, { url: e.target.value })} placeholder="https://…/photo.jpg or upload →" className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
+                <PhotoUpload upload={uploadFile} onUploaded={(url) => patchPhoto(i, { url })} />
+                <button type="button" onClick={() => removePhoto(i)} className="text-xs font-medium text-zinc-400 hover:text-rose-600">
+                  Remove
+                </button>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <input value={p.caption} onChange={(e) => patchPhoto(i, { caption: e.target.value })} placeholder="Caption (optional)" className="min-w-0 flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
+                <select
+                  value={p.tag}
+                  onChange={(e) => patchPhoto(i, { tag: e.target.value as PhotoTag | "" })}
+                  className="rounded-md border border-zinc-300 px-2 py-1 text-sm"
+                >
+                  <option value="">No tag</option>
+                  <option value="outside">Outside</option>
+                  <option value="inside">Inside</option>
+                  <option value="food">Food</option>
+                  <option value="drinks">Drinks</option>
+                </select>
+                <label
+                  className={cn(
+                    "flex items-center gap-1 whitespace-nowrap text-xs text-zinc-600",
+                    !FEATURABLE_TAGS.includes(p.tag as PhotoTag) && "opacity-40"
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={p.featured}
+                    disabled={!FEATURABLE_TAGS.includes(p.tag as PhotoTag)}
+                    onChange={(e) => patchPhoto(i, { featured: e.target.checked })}
+                  />
+                  Featured
+                </label>
+              </div>
             </div>
           ))}
           {photos.length === 0 && <p className="text-sm text-zinc-400">No gallery photos yet.</p>}
@@ -585,5 +660,52 @@ export default function VenueForm({ venue, action }: Props) {
         Save venue
       </button>
     </form>
+  );
+}
+
+/** Small square preview of an image URL (background-image avoids next/image config
+ *  and broken-image flashes while the admin types a URL). */
+function Thumb({ url }: { url: string }) {
+  return (
+    <span
+      aria-hidden
+      className="h-10 w-10 shrink-0 rounded bg-zinc-100 bg-cover bg-center ring-1 ring-zinc-200"
+      style={url ? { backgroundImage: `url("${url.replace(/"/g, "%22")}")` } : undefined}
+    />
+  );
+}
+
+/** Styled file picker that uploads via the server action and reports the public URL. */
+function PhotoUpload({
+  upload,
+  onUploaded,
+}: {
+  upload: (file: File) => Promise<string | null>;
+  onUploaded: (url: string) => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  return (
+    <label
+      className={cn(
+        "shrink-0 cursor-pointer rounded-md border border-zinc-300 px-2 py-1 text-xs font-medium text-zinc-600 hover:border-zinc-400",
+        busy && "pointer-events-none opacity-60"
+      )}
+    >
+      {busy ? "Uploading…" : "Upload"}
+      <input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          e.target.value = "";
+          if (!file) return;
+          setBusy(true);
+          const url = await upload(file);
+          setBusy(false);
+          if (url) onUploaded(url);
+        }}
+      />
+    </label>
   );
 }
