@@ -3,9 +3,12 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { Facets } from "@/types/venue";
+import type { Category, Facets } from "@/types/venue";
 
 type Suggestion = { label: string; kind: string; href: string };
+
+/** Lightweight venue shape for name suggestions (keeps the hero payload small). */
+export type VenueSuggestion = { id: string; name: string; category: Category };
 
 function exploreHref(params: Record<string, string>) {
   return `/explore?${new URLSearchParams(params).toString()}`;
@@ -18,7 +21,13 @@ const QUICK = [
   { label: "Restaurants", href: exploreHref({ cat: "restaurant" }) },
 ];
 
-export default function HeroSearch({ facets }: { facets: Facets }) {
+export default function HeroSearch({
+  facets,
+  venues,
+}: {
+  facets: Facets;
+  venues: VenueSuggestion[];
+}) {
   const router = useRouter();
   const [q, setQ] = useState("");
   const [focused, setFocused] = useState(false);
@@ -52,8 +61,15 @@ export default function HeroSearch({ facets }: { facets: Facets }) {
         kind: "Type",
         href: exploreHref({ type: t }),
       })),
+      // Individual venues (bars *and* restaurants) — clicking one deep-links to
+      // /explore with that venue's drawer open and the map focused on it.
+      ...venues.map((v) => ({
+        label: v.name,
+        kind: v.category === "restaurant" ? "Restaurant" : "Bar",
+        href: exploreHref({ venue: v.id }),
+      })),
     ],
-    [facets]
+    [facets, venues]
   );
 
   const matches = useMemo(() => {
