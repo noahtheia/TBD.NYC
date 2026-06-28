@@ -18,11 +18,17 @@ type Props = {
    *  pinned to the far right); use `left` when the control sits at the start of a
    *  row so the menu opens rightward into the viewport instead of off-screen. */
   align?: "left" | "right";
+  /** Render the dropdown with fixed positioning anchored to the trigger, so it
+   *  escapes an `overflow-x-auto` ancestor (the mobile filter scroller) instead of
+   *  being clipped. Closes on scroll/resize to avoid stale positioning. */
+  floatMenu?: boolean;
 };
 
-export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNearMe, align = "right" }: Props) {
+export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNearMe, align = "right", floatMenu }: Props) {
   const [open, setOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const distanceReady = geoStatus === "granted";
 
   useEffect(() => {
@@ -33,13 +39,34 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
     }
+    // For the floating menu, any scroll/resize invalidates the anchored position;
+    // close rather than chase the trigger around.
+    function onReflow() {
+      if (floatMenu) setOpen(false);
+    }
     document.addEventListener("mousedown", onDoc);
     document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onReflow, true);
+    window.addEventListener("resize", onReflow);
     return () => {
       document.removeEventListener("mousedown", onDoc);
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onReflow, true);
+      window.removeEventListener("resize", onReflow);
     };
-  }, [open]);
+  }, [open, floatMenu]);
+
+  // Anchor the floating menu below the trigger when it opens.
+  function toggleOpen() {
+    setOpen((v) => {
+      const next = !v;
+      if (next && floatMenu && triggerRef.current) {
+        const r = triggerRef.current.getBoundingClientRect();
+        setMenuPos({ top: r.bottom + 8, left: r.left });
+      }
+      return next;
+    });
+  }
 
   const current = SORT_OPTIONS.find((o) => o.value === sort) ?? SORT_OPTIONS[0];
   const denied = geoStatus === "denied";
@@ -78,10 +105,11 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
 
       <div ref={rootRef} className="relative">
         <button
+          ref={triggerRef}
           type="button"
           aria-haspopup="listbox"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={toggleOpen}
           className="flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400"
         >
           Sort: {current.label}
@@ -102,9 +130,16 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
           <div
             role="listbox"
             aria-label="Sort by"
+            style={
+              floatMenu && menuPos
+                ? { position: "fixed", top: menuPos.top, left: menuPos.left }
+                : undefined
+            }
             className={cn(
-              "absolute z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg",
-              align === "left" ? "left-0" : "right-0"
+              "z-30 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg",
+              floatMenu
+                ? "fixed"
+                : cn("absolute mt-2", align === "left" ? "left-0" : "right-0")
             )}
           >
             {SORT_OPTIONS.map((o) => {
