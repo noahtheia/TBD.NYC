@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
   },
 };
+
+// Let the full-screen mobile map draw under the notch / home indicator so the
+// floating controls (which use `env(safe-area-inset-*)`) can offset themselves.
+export const viewport: Viewport = { viewportFit: "cover" };
 
 export default function RootLayout({
   children,
