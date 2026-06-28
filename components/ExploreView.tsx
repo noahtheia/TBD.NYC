@@ -12,6 +12,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
 import { nycNow, type NowParts } from "@/lib/hours";
+import { boundsForRadiusMiles, type LatLng } from "@/lib/geo";
 import { FOCUS_ZOOM } from "@/lib/map-config";
 import { motionDuration } from "@/lib/prefers-reduced-motion";
 import { cn } from "@/lib/cn";
@@ -173,9 +174,28 @@ export default function ExploreView({ venues, facets }: Props) {
     );
   }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch]);
 
+  // Zoom the map to a ~`miles` radius around a point (reuses the fitBounds
+  // pattern from the filter-fit effect below).
+  const zoomToUserRadius = useCallback(
+    (center: LatLng, miles: number) => {
+      const [w, s, e, n] = boundsForRadiusMiles(center, miles);
+      mapRef.current?.fitBounds(
+        [
+          [w, s],
+          [e, n],
+        ],
+        { padding: 40, duration: motionDuration(800) }
+      );
+    },
+    []
+  );
+
   // "Near me" intent: request location, then switch to distance sort once coords
   // actually arrive (so the sort doesn't silently change before/without a fix).
+  // `pendingZoom` additionally zooms to the user's 1-mile radius — set only by the
+  // dedicated Near me buttons, not the happy-hour shortcut (which fits all spots).
   const pendingDistanceSort = useRef(false);
+  const pendingZoom = useRef(false);
   const requestNearMe = useCallback(() => {
     if (geoStatus === "granted") {
       setSort("distance");
@@ -185,12 +205,29 @@ export default function ExploreView({ venues, facets }: Props) {
     locate();
   }, [geoStatus, locate]);
 
+  // The Near me button: distance sort + zoom to the user's 1-mile radius.
+  const nearMe = useCallback(() => {
+    if (geoStatus === "granted") {
+      setSort("distance");
+      if (userLoc) zoomToUserRadius(userLoc, 1);
+      return;
+    }
+    pendingDistanceSort.current = true;
+    pendingZoom.current = true;
+    locate();
+  }, [geoStatus, userLoc, locate, zoomToUserRadius]);
+
   useEffect(() => {
-    if (geoStatus === "granted" && pendingDistanceSort.current) {
+    if (geoStatus !== "granted") return;
+    if (pendingDistanceSort.current) {
       pendingDistanceSort.current = false;
       setSort("distance");
     }
-  }, [geoStatus]);
+    if (pendingZoom.current) {
+      pendingZoom.current = false;
+      if (userLoc) zoomToUserRadius(userLoc, 1);
+    }
+  }, [geoStatus, userLoc, zoomToUserRadius]);
 
   // One-tap headline action: happy hour + open now, sorted nearest.
   const showHappyHourNearMe = useCallback(() => {
@@ -355,7 +392,7 @@ export default function ExploreView({ venues, facets }: Props) {
                 sort={sort}
                 onSort={setSort}
                 geoStatus={geoStatus}
-                onLocate={requestNearMe}
+                onLocate={nearMe}
               />
               <span
                 className="hidden text-sm text-zinc-500 sm:inline"
@@ -438,7 +475,7 @@ export default function ExploreView({ venues, facets }: Props) {
               onToggleOpenLate={toggleOpenLate}
               geoStatus={geoStatus}
               nearMeActive={sort === "distance" && geoStatus === "granted"}
-              onNearMe={requestNearMe}
+              onNearMe={nearMe}
               favCount={favCount}
               savedActive={savedActive}
               onToggleSaved={() => setShowSaved((v) => !v)}
