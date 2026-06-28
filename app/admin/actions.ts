@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { getSupabaseAdmin, hasSupabaseAdmin } from "@/lib/supabase/admin";
 import {
   checkPassword,
   createSession,
@@ -13,7 +13,11 @@ import { enrichFromGoogle, type EnrichResult } from "@/lib/places";
 import { normalizeAmenities } from "@/lib/amenities";
 import { normalizeAwards } from "@/lib/awards";
 import { rateLimit } from "@/lib/rate-limit";
-import type { HappyHourItem, OpeningHours, VenueLocation, VenuePhoto } from "@/types/venue";
+import type { HappyHourItem, OpeningHours, PhotoTag, VenueLocation, VenuePhoto } from "@/types/venue";
+
+const PHOTO_TAGS: PhotoTag[] = ["outside", "inside", "food", "drinks"];
+const VENUE_PHOTOS_BUCKET = "venue-photos";
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5 MB
 
 // --- helpers --------------------------------------------------------------
 function str(v: FormDataEntryValue | null): string | null {
@@ -88,6 +92,46 @@ export async function enrichVenueAction(name: string, address?: string): Promise
   }
 }
 
+// --- photo upload (callable from the client form) -------------------------
+export type UploadResult = { ok: true; url: string } | { ok: false; message: string };
+
+/** Upload an image to the public `venue-photos` bucket and return its public URL.
+ *  Errors are returned as data so the form can surface the real reason. */
+export async function uploadVenuePhoto(form: FormData): Promise<UploadResult> {
+  try {
+    if (!(await isAdmin())) return { ok: false, message: "Not signed in." };
+    if (!hasSupabaseAdmin) {
+      return { ok: false, message: "Supabase is not configured — image upload is unavailable." };
+    }
+    if (!rateLimit("photo-upload", 60, 60_000)) {
+      return { ok: false, message: "Too many uploads — try again in a minute." };
+    }
+    const file = form.get("file");
+    if (!(file instanceof File) || file.size === 0) {
+      return { ok: false, message: "No file selected." };
+    }
+    if (!file.type.startsWith("image/")) {
+      return { ok: false, message: "Only image files are allowed." };
+    }
+    if (file.size > MAX_PHOTO_BYTES) {
+      return { ok: false, message: "Image is too large (max 5 MB)." };
+    }
+    const folder = str(form.get("venueId")) ?? "uploads";
+    const ext = (file.name.split(".").pop() ?? "").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+    const rand = Math.random().toString(36).slice(2, 10);
+    const path = `${slugify(folder) || "uploads"}/${Date.now().toString(36)}-${rand}.${ext}`;
+    const supabase = getSupabaseAdmin();
+    const { error } = await supabase.storage
+      .from(VENUE_PHOTOS_BUCKET)
+      .upload(path, file, { contentType: file.type, upsert: false });
+    if (error) return { ok: false, message: error.message };
+    const { data } = supabase.storage.from(VENUE_PHOTOS_BUCKET).getPublicUrl(path);
+    return { ok: true, url: data.publicUrl };
+  } catch (e) {
+    return { ok: false, message: (e as Error).message };
+  }
+}
+
 // --- create / update ------------------------------------------------------
 function parseJson<T>(value: FormDataEntryValue | null, fallback: T): T {
   try {
@@ -108,7 +152,12 @@ function buildVenueRow(form: FormData, id: string) {
   const amenities = normalizeAmenities(parseJson<string[]>(form.get("amenitiesJson"), []));
   const awards = normalizeAwards(parseJson<string[]>(form.get("awardsJson"), []));
   const photos = parseJson<VenuePhoto[]>(form.get("photosJson"), [])
-    .map((p) => ({ url: (p.url ?? "").trim(), caption: (p.caption ?? "").trim() || undefined }))
+    .map((p) => ({
+      url: (p.url ?? "").trim(),
+      caption: (p.caption ?? "").trim() || undefined,
+      tag: PHOTO_TAGS.includes(p.tag as PhotoTag) ? (p.tag as PhotoTag) : undefined,
+      featured: p.featured ? true : undefined,
+    }))
     .filter((p) => p.url);
   const bookingUrl = str(form.get("bookingUrl"));
   return {

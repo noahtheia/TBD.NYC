@@ -25,7 +25,7 @@ export type AdminRow = {
   updatedAt: string | null;
 };
 
-const RENDER_CAP = 200;
+const PAGE_SIZE = 100;
 const REENRICH_CAP = 25;
 
 type CategoryFilter = "all" | "bar" | "restaurant";
@@ -49,6 +49,7 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
   const [onlyGaps, setOnlyGaps] = useState(false);
   const [sort, setSort] = useState<SortKey>("name");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [page, setPage] = useState(0);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -69,6 +70,13 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
     );
     return out;
   }, [venues, q, category, source, onlyFeatured, onlyUnverified, onlyGaps, sort]);
+
+  // Any search/filter change returns to the first page (avoids setState-in-effect).
+  const reset = () => setPage(0);
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount - 1);
+  const start = safePage * PAGE_SIZE;
+  const pageRows = filtered.slice(start, start + PAGE_SIZE);
 
   const allFilteredSelected =
     filtered.length > 0 && filtered.every((v) => selected.has(v.id));
@@ -119,29 +127,29 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
     <div>
       <input
         value={q}
-        onChange={(e) => setQ(e.target.value)}
+        onChange={(e) => { setQ(e.target.value); reset(); }}
         placeholder={`Search ${venues.length} venues…`}
         className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500"
       />
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <select value={category} onChange={(e) => setCategory(e.target.value as CategoryFilter)} className={selectCls}>
+        <select value={category} onChange={(e) => { setCategory(e.target.value as CategoryFilter); reset(); }} className={selectCls}>
           <option value="all">All categories</option>
           <option value="bar">Bars</option>
           <option value="restaurant">Restaurants</option>
         </select>
-        <select value={source} onChange={(e) => setSource(e.target.value as SourceFilter)} className={selectCls}>
+        <select value={source} onChange={(e) => { setSource(e.target.value as SourceFilter); reset(); }} className={selectCls}>
           <option value="all">All sources</option>
           <option value="manual">Manual</option>
           <option value="sync">Synced</option>
         </select>
-        <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)} className={selectCls}>
+        <select value={sort} onChange={(e) => { setSort(e.target.value as SortKey); reset(); }} className={selectCls}>
           <option value="name">Sort: Name A–Z</option>
           <option value="updated">Sort: Recently updated</option>
         </select>
-        <Toggle on={onlyFeatured} onClick={() => setOnlyFeatured((v) => !v)}>Featured</Toggle>
-        <Toggle on={onlyUnverified} onClick={() => setOnlyUnverified((v) => !v)}>Unverified</Toggle>
-        <Toggle on={onlyGaps} onClick={() => setOnlyGaps((v) => !v)}>Missing data</Toggle>
+        <Toggle on={onlyFeatured} onClick={() => { setOnlyFeatured((v) => !v); reset(); }}>Featured</Toggle>
+        <Toggle on={onlyUnverified} onClick={() => { setOnlyUnverified((v) => !v); reset(); }}>Unverified</Toggle>
+        <Toggle on={onlyGaps} onClick={() => { setOnlyGaps((v) => !v); reset(); }}>Missing data</Toggle>
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-3 text-xs text-zinc-500">
@@ -170,7 +178,7 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
       )}
 
       <ul className="mt-3 divide-y divide-zinc-100 rounded-lg border border-zinc-200">
-        {filtered.slice(0, RENDER_CAP).map((v) => (
+        {pageRows.map((v) => (
           <li key={v.id} className="flex items-center gap-2 px-3 hover:bg-zinc-50">
             <input
               type="checkbox"
@@ -196,12 +204,48 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
           </li>
         ))}
       </ul>
-      {filtered.length > RENDER_CAP && (
-        <p className="mt-2 text-xs text-zinc-400">
-          Showing first {RENDER_CAP} of {filtered.length}. Refine filters to narrow.
-        </p>
+      {filtered.length > 0 && (
+        <div className="mt-3 flex items-center justify-between gap-3 text-sm">
+          <span className="text-zinc-500">
+            Showing {start + 1}–{Math.min(start + PAGE_SIZE, filtered.length)} of {filtered.length}
+          </span>
+          {pageCount > 1 && (
+            <div className="flex items-center gap-2">
+              <PageBtn disabled={safePage === 0} onClick={() => setPage(safePage - 1)}>
+                ← Prev
+              </PageBtn>
+              <span className="text-zinc-500">
+                Page {safePage + 1} of {pageCount}
+              </span>
+              <PageBtn disabled={safePage >= pageCount - 1} onClick={() => setPage(safePage + 1)}>
+                Next →
+              </PageBtn>
+            </div>
+          )}
+        </div>
       )}
     </div>
+  );
+}
+
+function PageBtn({
+  onClick,
+  disabled,
+  children,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 disabled:opacity-40"
+    >
+      {children}
+    </button>
   );
 }
 

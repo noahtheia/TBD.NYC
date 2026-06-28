@@ -31,10 +31,17 @@ export interface HappyHourItem {
   price?: string;
 }
 
+/** Editorial photo categories used to order the detail gallery. */
+export type PhotoTag = "outside" | "inside" | "food" | "drinks";
+
 /** A photo in a venue's gallery. */
 export interface VenuePhoto {
   url: string;
   caption?: string;
+  /** Category used to order the detail gallery (inside/food/drinks get a featured slot). */
+  tag?: PhotoTag;
+  /** The chosen "featured" photo for its tag (one per tag). */
+  featured?: boolean;
 }
 
 export interface VenueLocation {

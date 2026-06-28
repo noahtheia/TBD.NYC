@@ -1,7 +1,8 @@
 import type { Venue, VenueLocation } from "@/types/venue";
 import { BOOKING_LABEL, RESERVATION_LABEL, mapsUrl, priceLabel } from "@/lib/display";
 import { formatWeekly, happyHourStatus } from "@/lib/hours";
-import VenuePhoto from "@/components/ui/VenuePhoto";
+import VenuePhotoCarousel from "./VenuePhotoCarousel";
+import { orderedVenuePhotos } from "@/lib/photos";
 import OpenStatus from "@/components/ui/OpenStatus";
 import FavoriteButton from "@/components/ui/FavoriteButton";
 import HoursTable from "./HoursTable";
@@ -93,14 +94,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
 
   return (
     <div>
-      <VenuePhoto
-        name={venue.name}
-        photoUrl={venue.photoUrl}
-        className="mb-4 aspect-video w-full"
-        rounded="rounded-xl"
-        eager
-        sizes="(max-width: 768px) 100vw, 640px"
-      />
+      <VenuePhotoCarousel name={venue.name} photos={orderedVenuePhotos(venue)} />
 
       <div className="flex items-start justify-between gap-3">
         <div>
