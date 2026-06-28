@@ -14,9 +14,13 @@ type Props = {
   /** Render only the sort dropdown (no "Near me" button) — for the mobile tile
    *  row, which already has its own Near me pill. */
   hideNearMe?: boolean;
+  /** Which edge the dropdown menu aligns to. Default `right` (desktop header,
+   *  pinned to the far right); use `left` when the control sits at the start of a
+   *  row so the menu opens rightward into the viewport instead of off-screen. */
+  align?: "left" | "right";
 };
 
-export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNearMe }: Props) {
+export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNearMe, align = "right" }: Props) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const distanceReady = geoStatus === "granted";
@@ -98,7 +102,10 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
           <div
             role="listbox"
             aria-label="Sort by"
-            className="absolute right-0 z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg"
+            className={cn(
+              "absolute z-30 mt-2 w-48 overflow-hidden rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg",
+              align === "left" ? "left-0" : "right-0"
+            )}
           >
             {SORT_OPTIONS.map((o) => {
               const disabled = o.value === "distance" && !distanceReady;
