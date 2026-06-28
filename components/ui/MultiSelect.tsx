@@ -11,7 +11,15 @@ type Props = {
   selected: string[];
   onToggle: (value: string) => void;
   searchable?: boolean;
+  /** Render the dropdown with fixed positioning anchored to the trigger, flipping
+   *  above the trigger when there isn't room below. Lets it escape an `overflow`
+   *  ancestor (the mobile filter sheet) instead of being clipped off-screen.
+   *  Closes on scroll/resize to avoid stale positioning. */
+  floatMenu?: boolean;
 };
+
+/** Approx. panel height (max-h-80 panel + search row) used to decide flip direction. */
+const PANEL_EST_HEIGHT = 360;
 
 export default function MultiSelect({
   label,
@@ -19,10 +27,18 @@ export default function MultiSelect({
   selected,
   onToggle,
   searchable = false,
+  floatMenu = false,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [menuPos, setMenuPos] = useState<{
+    left: number;
+    top?: number;
+    bottom?: number;
+    maxHeight: number;
+  } | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
 
   useEffect(() => {
@@ -35,13 +51,46 @@ export default function MultiSelect({
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
     }
+    // The floating menu is anchored to the trigger; any scroll/resize invalidates
+    // the position, so close rather than chase the trigger around.
+    function onReflow() {
+      if (floatMenu) setOpen(false);
+    }
     document.addEventListener("mousedown", onDocClick);
     document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onReflow, true);
+    window.addEventListener("resize", onReflow);
     return () => {
       document.removeEventListener("mousedown", onDocClick);
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onReflow, true);
+      window.removeEventListener("resize", onReflow);
     };
-  }, [open]);
+  }, [open, floatMenu]);
+
+  // Anchor the floating menu to the trigger, flipping up when there's more room
+  // above than below (e.g. a bottom-most filter inside the mobile sheet).
+  function toggleOpen() {
+    setOpen((v) => {
+      const next = !v;
+      if (next && floatMenu && triggerRef.current) {
+        const r = triggerRef.current.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - r.bottom;
+        const spaceAbove = r.top;
+        const dropUp = spaceBelow < PANEL_EST_HEIGHT && spaceAbove > spaceBelow;
+        setMenuPos(
+          dropUp
+            ? {
+                left: r.left,
+                bottom: window.innerHeight - r.top + 8,
+                maxHeight: spaceAbove - 16,
+              }
+            : { left: r.left, top: r.bottom + 8, maxHeight: spaceBelow - 16 }
+        );
+      }
+      return next;
+    });
+  }
 
   const visible = useMemo(() => {
     if (!searchable || !query.trim()) return options;
@@ -54,10 +103,11 @@ export default function MultiSelect({
   return (
     <div ref={rootRef} className="relative">
       <button
+        ref={triggerRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggleOpen}
         className={cn(
           "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition",
           count > 0
@@ -93,7 +143,21 @@ export default function MultiSelect({
       {open && (
         <div
           id={panelId}
-          className="absolute z-30 mt-2 max-h-80 w-64 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-lg"
+          style={
+            floatMenu && menuPos
+              ? {
+                  position: "fixed",
+                  left: menuPos.left,
+                  top: menuPos.top,
+                  bottom: menuPos.bottom,
+                  maxHeight: menuPos.maxHeight,
+                }
+              : undefined
+          }
+          className={cn(
+            "z-30 flex max-h-80 w-64 flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-lg",
+            floatMenu ? "fixed" : "absolute mt-2"
+          )}
         >
           {searchable && (
             <div className="border-b border-zinc-100 p-2">
@@ -110,7 +174,7 @@ export default function MultiSelect({
             role="listbox"
             aria-label={label}
             aria-multiselectable="true"
-            className="max-h-64 overflow-y-auto p-1.5"
+            className="max-h-64 min-h-0 flex-1 overflow-y-auto p-1.5"
           >
             {visible.length === 0 && (
               <li className="px-2.5 py-2 text-sm text-zinc-500">No matches</li>
