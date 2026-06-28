@@ -2,7 +2,7 @@
 export default function Loading() {
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-white">
-      <header className="shrink-0 border-b border-zinc-200 bg-white">
+      <header className="hidden shrink-0 border-b border-zinc-200 bg-white lg:block">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
             <span className="text-xl font-extrabold tracking-tight text-zinc-900">
@@ -22,7 +22,7 @@ export default function Loading() {
       </header>
 
       <div className="flex min-h-0 flex-1">
-        <section className="w-full border-r border-zinc-200 lg:w-[42%] lg:max-w-xl xl:w-[38%]">
+        <section className="hidden w-full border-r border-zinc-200 lg:block lg:w-[42%] lg:max-w-xl xl:w-[38%]">
           <ul className="flex flex-col gap-3 p-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <li key={i} className="flex gap-3 rounded-xl border border-zinc-200 p-3">
@@ -36,7 +36,7 @@ export default function Loading() {
             ))}
           </ul>
         </section>
-        <section className="hidden flex-1 animate-pulse bg-zinc-100 lg:block" />
+        <section className="flex-1 animate-pulse bg-zinc-100" />
       </div>
     </div>
   );

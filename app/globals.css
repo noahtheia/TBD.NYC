@@ -19,3 +19,12 @@ body {
 .mapboxgl-marker {
   cursor: pointer;
 }
+
+/* Safe-area helpers for the mobile full-screen map's floating controls so they
+   clear the notch / home indicator (requires viewport-fit=cover in layout.tsx). */
+.pt-safe {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
