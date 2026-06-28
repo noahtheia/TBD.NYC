@@ -13,6 +13,8 @@ export function filterVenues(
   return venues.filter((v) => {
     if (filters.happyHourOnly && v.happyHour !== true) return false;
 
+    if (filters.happyHourNow && !isOpenAt(v.happyHourWindows, now)) return false;
+
     if (filters.categories.length && !filters.categories.includes(v.category)) {
       return false;
     }
@@ -78,6 +80,7 @@ export function filterVenues(
 export function countActiveFilters(f: Filters): number {
   return (
     (f.happyHourOnly ? 1 : 0) +
+    (f.happyHourNow ? 1 : 0) +
     (f.openNow ? 1 : 0) +
     (f.openLate ? 1 : 0) +
     f.categories.length +

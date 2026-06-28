@@ -10,6 +10,7 @@ describe("url-state", () => {
   it("round-trips a full filter set", () => {
     const f: Filters = {
       happyHourOnly: true,
+      happyHourNow: true,
       openNow: true,
       openLate: false,
       categories: ["bar"],

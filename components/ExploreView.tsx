@@ -47,6 +47,7 @@ export default function ExploreView({ venues, facets }: Props) {
     filters,
     toggleHappyHour,
     showHappyHourNow,
+    clearHappyHourNow,
     toggleOpenNow,
     toggleOpenLate,
     toggleFilterValue,
@@ -78,8 +79,6 @@ export default function ExploreView({ venues, facets }: Props) {
   const mapRef = useRef<MapRef | null>(null);
   const listScrollRef = useRef<HTMLElement | null>(null);
 
-  // Only narrow the list to the visible map area when both panes are on screen
-  // (desktop). On mobile the list/map are separate views, so it stays the full set.
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
@@ -109,11 +108,12 @@ export default function ExploreView({ venues, facets }: Props) {
 
   // "Saved" view: intersect with favorites (only while there are favorites).
   const savedActive = showSaved && favCount > 0;
-  // The list reflects the visible map area on desktop: filter to venues whose
-  // location falls within the current map bounds.
+  // The list reflects the visible map area: filter to venues whose location falls
+  // within the current map bounds. On mobile (map-first, toggled to the list) this
+  // means the list shows only what was on screen when you left the map.
   const displayedVenues = useMemo(() => {
     let list = savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues;
-    if (isDesktop && mapBounds) {
+    if (mapBounds) {
       const [w, s, e, n] = mapBounds;
       list = list.filter((v) =>
         v.locations.some(
@@ -126,7 +126,7 @@ export default function ExploreView({ venues, facets }: Props) {
       );
     }
     return list;
-  }, [savedActive, sortedVenues, favSet, isDesktop, mapBounds]);
+  }, [savedActive, sortedVenues, favSet, mapBounds]);
   const mapVenues = useMemo(
     () => (savedActive ? filteredVenues.filter((v) => favSet.has(v.id)) : filteredVenues),
     [savedActive, filteredVenues, favSet]
@@ -242,11 +242,11 @@ export default function ExploreView({ venues, facets }: Props) {
   }, [showHappyHourNow, requestNearMe]);
 
   // Mobile "Happy hour now" toggle: turn it on, or (when already on) clear the
-  // happy-hour filter — leaving Open now / Near me as the user set them.
+  // happy-hour-now filter — leaving Open now / Near me as the user set them.
   const toggleHappyHourNow = useCallback(() => {
-    if (filters.happyHourOnly) toggleHappyHour();
+    if (filters.happyHourNow) clearHappyHourNow();
     else showHappyHourNearMe();
-  }, [filters.happyHourOnly, toggleHappyHour, showHappyHourNearMe]);
+  }, [filters.happyHourNow, clearHappyHourNow, showHappyHourNearMe]);
 
   const handleHoverList = useCallback((id: string | null) => {
     // List cards represent a venue, not a specific pin — clear the pin highlight.
@@ -329,6 +329,7 @@ export default function ExploreView({ venues, facets }: Props) {
     onToggleSaved: () => setShowSaved((v) => !v),
     activeCount: activeFilterCount,
     onToggleHappyHour: toggleHappyHour,
+    onToggleHappyHourNow: clearHappyHourNow,
     onToggleFilterValue: toggleFilterValue,
     onTogglePrice: togglePrice,
     onClear: clearFilters,
@@ -433,6 +434,7 @@ export default function ExploreView({ venues, facets }: Props) {
             <ActiveFilterChips
               filters={filters}
               onToggleHappyHour={toggleHappyHour}
+              onToggleHappyHourNow={clearHappyHourNow}
               onToggleOpenNow={toggleOpenNow}
               onToggleOpenLate={toggleOpenLate}
               onToggleFilterValue={toggleFilterValue}

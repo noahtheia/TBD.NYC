@@ -52,9 +52,14 @@ export function useExploreState() {
     () => setFilters((f) => ({ ...f, happyHourOnly: !f.happyHourOnly })),
     []
   );
-  // One-tap "happy hour now": force happy-hour + open-now on (not a toggle).
+  // One-tap "happy hour now": force the time-based happy-hour filter on (not a
+  // toggle). Matches venues whose happy-hour window covers the current time.
   const showHappyHourNow = useCallback(
-    () => setFilters((f) => ({ ...f, happyHourOnly: true, openNow: true })),
+    () => setFilters((f) => ({ ...f, happyHourNow: true })),
+    []
+  );
+  const clearHappyHourNow = useCallback(
+    () => setFilters((f) => ({ ...f, happyHourNow: false })),
     []
   );
   const toggleOpenNow = useCallback(
@@ -97,6 +102,7 @@ export function useExploreState() {
     filters,
     toggleHappyHour,
     showHappyHourNow,
+    clearHappyHourNow,
     toggleOpenNow,
     toggleOpenLate,
     toggleFilterValue,

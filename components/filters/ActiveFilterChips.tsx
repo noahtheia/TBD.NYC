@@ -14,6 +14,7 @@ const RESERVATION_LABELS = Object.fromEntries(
 type Props = {
   filters: Filters;
   onToggleHappyHour: () => void;
+  onToggleHappyHourNow: () => void;
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
   onToggleFilterValue: (
@@ -45,6 +46,7 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
 export default function ActiveFilterChips({
   filters,
   onToggleHappyHour,
+  onToggleHappyHourNow,
   onToggleOpenNow,
   onToggleOpenLate,
   onToggleFilterValue,
@@ -54,6 +56,7 @@ export default function ActiveFilterChips({
   return (
     <div className="flex flex-wrap items-center gap-2">
       {filters.openNow && <Chip label="Open now" onRemove={onToggleOpenNow} />}
+      {filters.happyHourNow && <Chip label="Happy hour now" onRemove={onToggleHappyHourNow} />}
       {filters.happyHourOnly && <Chip label="Happy hour" onRemove={onToggleHappyHour} />}
       {filters.openLate && <Chip label="Open late" onRemove={onToggleOpenLate} />}
       {filters.categories.map((c) => (

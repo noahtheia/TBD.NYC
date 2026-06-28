@@ -120,6 +120,8 @@ export interface Facets {
 
 export interface Filters {
   happyHourOnly: boolean;
+  /** Venues whose structured happy-hour window covers the current time. */
+  happyHourNow: boolean;
   openNow: boolean;
   openLate: boolean;
   categories: Category[];
@@ -133,6 +135,7 @@ export interface Filters {
 
 export const EMPTY_FILTERS: Filters = {
   happyHourOnly: false,
+  happyHourNow: false,
   openNow: false,
   openLate: false,
   categories: [],

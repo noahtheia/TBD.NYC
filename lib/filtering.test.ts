@@ -67,6 +67,32 @@ describe("filterVenues", () => {
     const r = filterVenues(venues, { ...EMPTY_FILTERS, happyHourOnly: true }, "", NOW);
     expect(r.map((v) => v.id)).toEqual(["bar1"]);
   });
+  it("happy hour now matches an ongoing window, not just the boolean flag", () => {
+    // Window Wed 5–7pm — covers NOW (Wed 6pm).
+    const ongoing = venue({
+      id: "hhnow",
+      happyHour: true,
+      happyHourWindows: {
+        periods: [{ openDay: 3, openMin: 1020, closeDay: 3, closeMin: 1140 }],
+      },
+    });
+    // Window Wed 7–9pm — does not cover NOW.
+    const later = venue({
+      id: "hhlater",
+      happyHour: true,
+      happyHourWindows: {
+        periods: [{ openDay: 3, openMin: 1140, closeDay: 3, closeMin: 1260 }],
+      },
+    });
+    // `bar` has happyHour:true but no windows — excluded from "now".
+    const r = filterVenues(
+      [bar, ongoing, later],
+      { ...EMPTY_FILTERS, happyHourNow: true },
+      "",
+      NOW
+    );
+    expect(r.map((v) => v.id)).toEqual(["hhnow"]);
+  });
   it("price", () => {
     const r = filterVenues(venues, { ...EMPTY_FILTERS, prices: [4] }, "", NOW);
     expect(r.map((v) => v.id)).toEqual(["r1"]);

@@ -33,23 +33,31 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
 
   useEffect(() => {
     if (!open) return;
-    function onDoc(e: MouseEvent) {
+    // `pointerdown` fires for both mouse and touch, so outside-tap dismissal works
+    // on phones (a plain `mousedown` listener is unreliable on touch devices).
+    function onDown(e: PointerEvent) {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
     }
-    // For the floating menu, any scroll/resize invalidates the anchored position;
-    // close rather than chase the trigger around.
+    // For the floating (fixed-positioned) menu, re-anchor under the trigger on
+    // scroll/resize so the mobile pill-row's horizontal scroll (or the URL bar
+    // showing/hiding) repositions the menu instead of slamming it shut.
     function onReflow() {
-      if (floatMenu) setOpen(false);
+      if (floatMenu && triggerRef.current) {
+        const r = triggerRef.current.getBoundingClientRect();
+        setMenuPos({ top: r.bottom + 8, left: r.left });
+      }
     }
-    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("pointerdown", onDown);
     document.addEventListener("keydown", onKey);
-    window.addEventListener("scroll", onReflow, true);
-    window.addEventListener("resize", onReflow);
+    if (floatMenu) {
+      window.addEventListener("scroll", onReflow, true);
+      window.addEventListener("resize", onReflow);
+    }
     return () => {
-      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("pointerdown", onDown);
       document.removeEventListener("keydown", onKey);
       window.removeEventListener("scroll", onReflow, true);
       window.removeEventListener("resize", onReflow);

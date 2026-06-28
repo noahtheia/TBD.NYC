@@ -21,6 +21,7 @@ export function parseFilters(sp: URLSearchParams): Filters {
 
   return {
     happyHourOnly: sp.get("hh") === "1",
+    happyHourNow: sp.get("hhnow") === "1",
     openNow: sp.get("open") === "1",
     openLate: sp.get("late") === "1",
     categories,
@@ -37,6 +38,7 @@ export function parseFilters(sp: URLSearchParams): Filters {
 export function buildQuery(filters: Filters, search: string, venueId: string | null): string {
   const p = new URLSearchParams();
   if (filters.happyHourOnly) p.set("hh", "1");
+  if (filters.happyHourNow) p.set("hhnow", "1");
   if (filters.openNow) p.set("open", "1");
   if (filters.openLate) p.set("late", "1");
   if (filters.categories.length) p.set("cat", filters.categories.join(","));
