@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import type { Filters } from "@/types/venue";
+import type { SortKey } from "@/lib/sort";
 import type { FilterBarProps } from "@/components/filters/FilterBar";
 import SearchBar from "@/components/filters/SearchBar";
+import SortControl from "@/components/filters/SortControl";
 import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 
 type GeoStatus = "idle" | "loading" | "granted" | "denied" | "unavailable";
 
 type Props = {
+  /** `floating` overlays the full-screen map; `inline` is a sticky header in the list. */
+  variant?: "floating" | "inline";
   // search
   searchValue: string;
   onSearchChange: (v: string) => void;
@@ -23,6 +27,9 @@ type Props = {
   geoStatus: GeoStatus;
   nearMeActive: boolean;
   onNearMe: () => void;
+  // sort
+  sort: SortKey;
+  onSort: (s: SortKey) => void;
   // saved
   favCount: number;
   savedActive: boolean;
@@ -35,11 +42,13 @@ type Props = {
   onClear: () => void;
 };
 
-/** Floating controls layered over the full-screen mobile map: brand chip, search,
- *  a horizontally-scrollable row of quick filter pills, and the active filter
- *  chips. The full filter set opens from the bottom bar's "Filter" button (see
+/** Shared mobile top controls: brand chip, search, a horizontally-scrollable row of
+ *  quick filter pills (with a pinned Sort dropdown), and the active filter chips.
+ *  `floating` overlays the full-screen map; `inline` is a sticky header at the top of
+ *  the list. The full filter set opens from the bottom bar's "Filter" button (see
  *  ExploreView), so there is no Filters trigger here. Mobile only (`lg:hidden`). */
 export default function MobileMapControls({
+  variant = "floating",
   searchValue,
   onSearchChange,
   filters,
@@ -49,6 +58,8 @@ export default function MobileMapControls({
   geoStatus,
   nearMeActive,
   onNearMe,
+  sort,
+  onSort,
   favCount,
   savedActive,
   onToggleSaved,
@@ -59,7 +70,14 @@ export default function MobileMapControls({
   onClear,
 }: Props) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col gap-2 px-3 pt-safe lg:hidden">
+    <div
+      className={cn(
+        "flex flex-col gap-2 pt-safe lg:hidden",
+        variant === "inline"
+          ? "sticky top-0 z-20 border-b border-zinc-200 bg-white px-3 pb-2"
+          : "pointer-events-none absolute inset-x-0 top-0 z-20 px-3"
+      )}
+    >
       {/* Row 1: brand chip + search. Keep clear of the top-right zoom control. */}
       <div className="pointer-events-auto flex items-center gap-2">
         <Link
@@ -76,59 +94,71 @@ export default function MobileMapControls({
         </div>
       </div>
 
-      {/* Row 2: horizontally-scrollable quick filters. */}
-      <div className="pointer-events-auto -mx-3 flex items-center gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <button
-          type="button"
-          onClick={onHappyHourNow}
-          aria-pressed={filters.happyHourOnly}
-          className={cn(
-            "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold text-white shadow-md transition",
-            filters.happyHourOnly
-              ? "bg-rose-700 ring-2 ring-rose-300 ring-offset-1 ring-offset-white hover:bg-rose-800"
-              : "bg-rose-600 hover:bg-rose-700"
-          )}
-        >
-          <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
-        </button>
-        <QuickPill
-          active={filters.openNow}
-          activeClass="border-emerald-500 bg-emerald-500 text-white"
-          onClick={onToggleOpenNow}
-        >
-          <span
+      {/* Row 2: scrollable quick filters + a pinned Sort dropdown. The Sort menu is
+          kept outside the horizontal scroller so `overflow-x-auto` can't clip it. */}
+      <div className="pointer-events-auto flex items-center gap-2">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <button
+            type="button"
+            onClick={onHappyHourNow}
+            aria-pressed={filters.happyHourOnly}
             className={cn(
-              "h-1.5 w-1.5 rounded-full",
-              filters.openNow ? "bg-white" : "bg-emerald-500"
+              "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold text-white shadow-md transition",
+              filters.happyHourOnly
+                ? "bg-rose-700 ring-2 ring-rose-300 ring-offset-1 ring-offset-white hover:bg-rose-800"
+                : "bg-rose-600 hover:bg-rose-700"
             )}
-          />
-          Open now
-        </QuickPill>
-        <QuickPill
-          active={nearMeActive}
-          activeClass="border-sky-500 bg-sky-500 text-white"
-          onClick={onNearMe}
-          disabled={geoStatus === "loading" || geoStatus === "unavailable"}
-        >
-          <span aria-hidden>📍</span>
-          {geoStatus === "loading"
-            ? "Locating…"
-            : geoStatus === "denied"
-              ? "Location blocked"
-              : "Near me"}
-        </QuickPill>
-        {favCount > 0 && (
-          <QuickPill
-            active={savedActive}
-            activeClass="border-rose-500 bg-rose-50 text-rose-700"
-            onClick={onToggleSaved}
           >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
-              <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
-            </svg>
-            Saved {favCount}
+            <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
+          </button>
+          <QuickPill
+            active={filters.openNow}
+            activeClass="border-rose-600 bg-rose-600 text-white"
+            onClick={onToggleOpenNow}
+          >
+            <span
+              className={cn(
+                "h-1.5 w-1.5 rounded-full",
+                filters.openNow ? "bg-white" : "bg-emerald-500"
+              )}
+            />
+            Open now
           </QuickPill>
-        )}
+          <QuickPill
+            active={nearMeActive}
+            activeClass="border-rose-600 bg-rose-600 text-white"
+            onClick={onNearMe}
+            disabled={geoStatus === "loading" || geoStatus === "unavailable"}
+          >
+            <span aria-hidden>📍</span>
+            {geoStatus === "loading"
+              ? "Locating…"
+              : geoStatus === "denied"
+                ? "Location blocked"
+                : "Near me"}
+          </QuickPill>
+          {favCount > 0 && (
+            <QuickPill
+              active={savedActive}
+              activeClass="border-rose-500 bg-rose-50 text-rose-700"
+              onClick={onToggleSaved}
+            >
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
+                <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
+              </svg>
+              Saved {favCount}
+            </QuickPill>
+          )}
+        </div>
+        <div className="shrink-0 drop-shadow-md">
+          <SortControl
+            sort={sort}
+            onSort={onSort}
+            geoStatus={geoStatus}
+            onLocate={onNearMe}
+            hideNearMe
+          />
+        </div>
       </div>
 
       {/* Row 3: active filter chips (dismissible). */}
