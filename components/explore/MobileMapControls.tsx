@@ -94,9 +94,20 @@ export default function MobileMapControls({
         </div>
       </div>
 
-      {/* Row 2: scrollable quick filters + a pinned Sort dropdown. The Sort menu is
-          kept outside the horizontal scroller so `overflow-x-auto` can't clip it. */}
+      {/* Row 2: a pinned Sort dropdown first, then the scrollable quick filters
+          (Happy hour now, etc.). The Sort menu is kept outside the horizontal
+          scroller so `overflow-x-auto` can't clip it. */}
       <div className="pointer-events-auto flex items-center gap-2">
+        <div className="shrink-0 drop-shadow-md">
+          <SortControl
+            sort={sort}
+            onSort={onSort}
+            geoStatus={geoStatus}
+            onLocate={onNearMe}
+            hideNearMe
+            align="left"
+          />
+        </div>
         <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button
             type="button"
@@ -149,15 +160,6 @@ export default function MobileMapControls({
               Saved {favCount}
             </QuickPill>
           )}
-        </div>
-        <div className="shrink-0 drop-shadow-md">
-          <SortControl
-            sort={sort}
-            onSort={onSort}
-            geoStatus={geoStatus}
-            onLocate={onNearMe}
-            hideNearMe
-          />
         </div>
       </div>
 
