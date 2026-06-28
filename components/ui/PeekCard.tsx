@@ -5,6 +5,7 @@ import { priceLabel } from "@/lib/display";
 import { happyHourStatus, type NowParts } from "@/lib/hours";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
+import ShareButton from "@/components/ui/ShareButton";
 
 type Props = {
   venue: Venue;
@@ -53,16 +54,19 @@ export default function PeekCard({ venue, onOpen, onClose, now }: Props) {
           <span className="text-xs font-medium text-rose-600">View details →</span>
         </div>
       </button>
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="self-start text-zinc-400 transition hover:text-zinc-700"
-      >
-        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
-          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-        </svg>
-      </button>
+      <div className="flex shrink-0 flex-col items-center gap-1">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="text-zinc-400 transition hover:text-zinc-700"
+        >
+          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          </svg>
+        </button>
+        <ShareButton iconOnly title={venue.name} url={`/venue/${venue.id}`} />
+      </div>
     </div>
   );
 }
