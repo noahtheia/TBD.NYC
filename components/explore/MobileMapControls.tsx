@@ -37,6 +37,7 @@ type Props = {
   // active chips (when filters are applied)
   activeCount: number;
   onToggleHappyHour: () => void;
+  onToggleHappyHourNow: () => void;
   onToggleFilterValue: FilterBarProps["onToggleFilterValue"];
   onTogglePrice: (value: number) => void;
   onClear: () => void;
@@ -65,6 +66,7 @@ export default function MobileMapControls({
   onToggleSaved,
   activeCount,
   onToggleHappyHour,
+  onToggleHappyHourNow,
   onToggleFilterValue,
   onTogglePrice,
   onClear,
@@ -113,13 +115,13 @@ export default function MobileMapControls({
         <button
           type="button"
           onClick={onHappyHourNow}
-          aria-pressed={filters.happyHourOnly}
+          aria-pressed={filters.happyHourNow}
           className={cn(
             QUICK_PILL_BASE,
-            filters.happyHourOnly ? QUICK_PILL_ACTIVE : QUICK_PILL_INACTIVE
+            filters.happyHourNow ? QUICK_PILL_ACTIVE : QUICK_PILL_INACTIVE
           )}
         >
-          <span aria-hidden>{filters.happyHourOnly ? "✓" : "🍸"}</span> Happy hour now
+          <span aria-hidden>{filters.happyHourNow ? "✓" : "🍸"}</span> Happy hour now
         </button>
         <QuickPill
           active={filters.openNow}
@@ -168,6 +170,7 @@ export default function MobileMapControls({
             <ActiveFilterChips
               filters={filters}
               onToggleHappyHour={onToggleHappyHour}
+              onToggleHappyHourNow={onToggleHappyHourNow}
               onToggleOpenNow={onToggleOpenNow}
               onToggleOpenLate={onToggleOpenLate}
               onToggleFilterValue={onToggleFilterValue}
