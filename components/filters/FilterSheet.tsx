@@ -76,7 +76,7 @@ export default function FilterSheet({ open, onClose, resultCount, ...filters }: 
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 py-4">
-          <FilterBar {...filters} stack />
+          <FilterBar {...filters} stack hideQuickFilters />
         </div>
 
         <div className="border-t border-zinc-100 p-4">

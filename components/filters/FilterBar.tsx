@@ -24,6 +24,9 @@ export type FilterBarProps = {
   onClear: () => void;
   /** Stack controls vertically (for the mobile filter sheet). */
   stack?: boolean;
+  /** Hide the open-now / happy-hour / open-late quick pills (they live at the
+   *  top of the mobile map, so the mobile filter sheet shouldn't repeat them). */
+  hideQuickFilters?: boolean;
 };
 
 function TogglePill({
@@ -65,6 +68,7 @@ export default function FilterBar({
   onTogglePrice,
   onClear,
   stack = false,
+  hideQuickFilters = false,
 }: FilterBarProps) {
   return (
     <div
@@ -73,35 +77,39 @@ export default function FilterBar({
         stack ? "flex flex-col items-stretch" : "flex flex-wrap items-center"
       )}
     >
-      <TogglePill
-        active={filters.openNow}
-        activeClass="border-emerald-500 bg-emerald-500 text-white"
-        onClick={onToggleOpenNow}
-      >
-        <span
-          className={cn(
-            "h-1.5 w-1.5 rounded-full",
-            filters.openNow ? "bg-white" : "bg-emerald-500"
-          )}
-        />
-        Open now
-      </TogglePill>
+      {!hideQuickFilters && (
+        <>
+          <TogglePill
+            active={filters.openNow}
+            activeClass="border-emerald-500 bg-emerald-500 text-white"
+            onClick={onToggleOpenNow}
+          >
+            <span
+              className={cn(
+                "h-1.5 w-1.5 rounded-full",
+                filters.openNow ? "bg-white" : "bg-emerald-500"
+              )}
+            />
+            Open now
+          </TogglePill>
 
-      <TogglePill
-        active={filters.happyHourOnly}
-        activeClass="border-amber-500 bg-amber-400 text-amber-950"
-        onClick={onToggleHappyHour}
-      >
-        <span aria-hidden>🍸</span> Happy hour
-      </TogglePill>
+          <TogglePill
+            active={filters.happyHourOnly}
+            activeClass="border-amber-500 bg-amber-400 text-amber-950"
+            onClick={onToggleHappyHour}
+          >
+            <span aria-hidden>🍸</span> Happy hour
+          </TogglePill>
 
-      <TogglePill
-        active={filters.openLate}
-        activeClass="border-indigo-500 bg-indigo-500 text-white"
-        onClick={onToggleOpenLate}
-      >
-        <span aria-hidden>🌙</span> Open late
-      </TogglePill>
+          <TogglePill
+            active={filters.openLate}
+            activeClass="border-indigo-500 bg-indigo-500 text-white"
+            onClick={onToggleOpenLate}
+          >
+            <span aria-hidden>🌙</span> Open late
+          </TogglePill>
+        </>
+      )}
 
       <MultiSelect
         label="Category"

@@ -26,6 +26,8 @@ type Props = {
   onSelect: (id: string, point: { pointId: string; lng: number; lat: number }) => void;
   focusOnLoad?: LatLng | null;
   userLoc?: LatLng | null;
+  /** Show the zoom +/- control. Off on mobile (touch users pinch to zoom). */
+  showZoomControls?: boolean;
   /** Notified with [west, south, east, north] whenever the viewport changes. */
   onBoundsChange?: (bounds: [number, number, number, number]) => void;
 };
@@ -54,6 +56,7 @@ export default function MapView({
   onSelect,
   focusOnLoad,
   userLoc,
+  showZoomControls = true,
   onBoundsChange,
 }: Props) {
   // One dot per venue location (no clustering).
@@ -127,7 +130,9 @@ export default function MapView({
       onLoad={handleLoad}
       onMoveEnd={updateBounds}
     >
-      <NavigationControl position="top-right" showCompass={false} />
+      {showZoomControls && (
+        <NavigationControl position="top-right" showCompass={false} />
+      )}
 
       {legendOpen && (
         <div className="absolute left-2 top-2 z-10 flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white/90 px-3 py-1.5 text-xs text-zinc-600 shadow-md backdrop-blur">
