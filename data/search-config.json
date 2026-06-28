@@ -1,0 +1,10 @@
+[
+  { "kind": "Filter", "position": 0, "enabled": true },
+  { "kind": "Category", "position": 1, "enabled": true },
+  { "kind": "Neighborhood", "position": 2, "enabled": true },
+  { "kind": "Cuisine", "position": 3, "enabled": true },
+  { "kind": "Award", "position": 4, "enabled": true },
+  { "kind": "Type", "position": 5, "enabled": true },
+  { "kind": "Bar", "position": 6, "enabled": true },
+  { "kind": "Restaurant", "position": 7, "enabled": true }
+]
