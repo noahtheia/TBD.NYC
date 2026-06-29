@@ -15,7 +15,7 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #E0401A 100%)",
+          background: "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #C2640C 100%)",
           color: "#FAF4EC",
           fontFamily: "sans-serif",
         }}
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
           An interactive map of curated New York City bars
         </div>
         <div style={{ display: "flex", marginTop: 48, gap: 16 }}>
-          {["#FF5A1F", "#FFB400", "#FFCE3A", "#FF5A1F", "#FFB400"].map((c, i) => (
+          {["#D9790C", "#FFB400", "#FFCE3A", "#D9790C", "#FFB400"].map((c, i) => (
             <div
               key={i}
               style={{ width: 28, height: 28, borderRadius: 999, background: c }}

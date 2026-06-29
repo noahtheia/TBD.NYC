@@ -21,7 +21,7 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(160deg, #FF7A1F, #F2451A)",
+          background: "linear-gradient(160deg, #E8870F, #C2640C)",
         }}
       >
         <img src={GLASS} width={104} height={104} alt="" />
