@@ -29,7 +29,7 @@ function ActionLink({
       rel="noreferrer"
       className={
         primary
-          ? "inline-flex items-center justify-center rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+          ? "inline-flex items-center justify-center rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember"
           : "inline-flex items-center justify-center rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 hover:bg-zinc-50"
       }
     >
@@ -60,7 +60,7 @@ function LocationBlock({
           href={mapsUrl(venueName, loc.address)}
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 text-sm font-medium text-rose-600 hover:underline"
+          className="shrink-0 text-sm font-medium text-blaze hover:underline"
         >
           Directions
         </a>
@@ -98,7 +98,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
 
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold leading-tight text-zinc-900">{venue.name}</h2>
+          <h2 className="font-display text-2xl font-black leading-tight tracking-tight text-ink">{venue.name}</h2>
           {subtitle && <p className="mt-1 text-sm text-zinc-500">{subtitle}</p>}
           {venue.unverified && (
             <p className="mt-1 text-xs text-amber-700">
@@ -127,13 +127,13 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {venue.happyHour === true && (
-            <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+            <span className="rounded-full bg-marquee px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-ink">
               Happy hour
             </span>
           )}
           <FavoriteButton
             id={venue.id}
-            className="h-9 w-9 border border-zinc-300 bg-white hover:border-rose-300"
+            className="h-9 w-9 border border-zinc-300 bg-white hover:border-blaze/40"
           />
         </div>
       </div>
@@ -155,7 +155,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
       <dl className="mt-4">
         {venue.awards && venue.awards.length > 0 && (
           <div className="border-t border-zinc-100 py-3">
-            <dt className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
               Awards &amp; recognition
             </dt>
             <dd className="mt-1.5 flex flex-wrap gap-1.5">
@@ -173,13 +173,13 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         )}
         {venue.happyHour === true && (
           <div className="border-t border-zinc-100 py-3">
-            <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            <dt className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
               Happy hour
               {hh && (
                 <span
                   className={
                     hh.active
-                      ? "rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-semibold normal-case tracking-normal text-amber-800"
+                      ? "rounded-full bg-glow/50 px-2 py-0.5 text-[11px] font-semibold normal-case tracking-normal text-ember"
                       : "text-[11px] font-medium normal-case tracking-normal text-zinc-500"
                   }
                 >
@@ -211,7 +211,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         )}
         {venue.reservationPolicy !== "unknown" && (
           <div className="border-t border-zinc-100 py-3">
-            <dt className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
               Reservations
             </dt>
             <dd className="mt-1 text-sm text-zinc-700">
@@ -221,7 +221,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
         )}
         {venue.otherInfo && (
           <div className="border-t border-zinc-100 py-3">
-            <dt className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
               Good to know
             </dt>
             <dd className="mt-1 text-sm text-zinc-700">{venue.otherInfo}</dd>
@@ -232,7 +232,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
       {/* Single location: hours table. Multi: a block per location. */}
       {!multi && primary?.hours && (
         <div className="border-t border-zinc-100 py-3">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+          <div className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
             Hours
           </div>
           <HoursTable hours={primary.hours} />
@@ -246,7 +246,7 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
       )}
       {multi && (
         <div className="pt-1">
-          <div className="pb-1 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+          <div className="pb-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-stone">
             {venue.locations.length} locations
           </div>
           {venue.locations.map((loc, i) => (

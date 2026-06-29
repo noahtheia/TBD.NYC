@@ -196,7 +196,7 @@ export default function AdminList({ venues }: { venues: AdminRow[] }) {
               </span>
               <span className="flex shrink-0 items-center gap-1.5">
                 {v.featured && <Tag className="bg-amber-100 text-amber-700">featured</Tag>}
-                {v.unverified && <Tag className="bg-rose-100 text-rose-700">unverified</Tag>}
+                {v.unverified && <Tag className="bg-blaze/15 text-ember">unverified</Tag>}
                 {hasGap(v) && <Tag className="bg-zinc-100 text-zinc-500">gaps</Tag>}
                 {v.source === "manual" && <Tag className="bg-zinc-100 text-zinc-600">manual</Tag>}
               </span>
@@ -283,7 +283,7 @@ function BulkBtn({
       className={cn(
         "rounded-full px-3 py-1.5 text-sm font-medium transition disabled:opacity-50",
         danger
-          ? "bg-rose-600 text-white hover:bg-rose-700"
+          ? "bg-blaze text-white hover:bg-ember"
           : "bg-zinc-900 text-white hover:bg-zinc-700"
       )}
     >

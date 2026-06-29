@@ -26,13 +26,13 @@ export default async function EditPostPage({
       <Link href="/admin/posts" className="text-sm font-medium text-zinc-500 hover:text-zinc-800">
         ← Blog posts
       </Link>
-      <h1 className="mt-3 text-2xl font-bold text-zinc-900">Edit post</h1>
+      <h1 className="mt-3 font-display text-2xl font-black tracking-tight text-ink">Edit post</h1>
       <div className="mt-5">
         <PostForm post={post} action={updatePost} />
       </div>
       <form action={deletePost} className="mt-8 border-t border-zinc-100 pt-4">
         <input type="hidden" name="id" value={post.id} />
-        <button className="text-sm font-medium text-rose-600 transition hover:text-rose-700">
+        <button className="text-sm font-medium text-ember transition hover:text-blaze">
           Delete post
         </button>
       </form>

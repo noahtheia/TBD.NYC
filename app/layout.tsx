@@ -1,13 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Archivo, Inter, Space_Mono, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
 import Toaster from "@/components/ui/Toaster";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Four-voice type system from the brand identity: Archivo Black for display/logo,
+// Inter for body & UI, Space Mono for tags/metadata, Fraunces italic for blurbs.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["600", "800", "900"],
+});
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["italic"],
 });
 
 const TITLE = "TBD.NYC — NYC Bars & Happy Hours";
@@ -42,8 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} antialiased`}>
-      <body className="bg-white text-zinc-900">
+    <html
+      lang="en"
+      className={`${archivo.variable} ${inter.variable} ${spaceMono.variable} ${fraunces.variable} antialiased`}
+    >
+      <body className="bg-newsprint text-ink">
         {children}
         <Toaster />
         <Analytics />

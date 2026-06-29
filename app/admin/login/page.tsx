@@ -14,8 +14,8 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center px-6">
-      <h1 className="text-xl font-extrabold tracking-tight text-zinc-900">
-        TBD<span className="text-rose-600">.NYC</span> admin
+      <h1 className="text-xl font-extrabold tracking-tight text-ink">
+        TBD<span className="text-blaze">.NYC</span> admin
       </h1>
       {!hasAdminAuth && (
         <p className="mt-3 rounded-md bg-amber-50 p-3 text-sm text-amber-800">
@@ -36,7 +36,7 @@ export default async function LoginPage({
           className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500"
         />
         {error && (
-          <p id="admin-password-error" role="alert" className="text-sm text-rose-600">
+          <p id="admin-password-error" role="alert" className="text-sm text-ember">
             Incorrect password.
           </p>
         )}

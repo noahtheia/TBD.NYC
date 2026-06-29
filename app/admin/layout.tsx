@@ -18,7 +18,7 @@ export default async function AdminLayout({
   if (!(await isAdmin())) return <>{children}</>;
 
   return (
-    <div className="flex min-h-dvh bg-white">
+    <div className="flex min-h-dvh bg-newsprint">
       <aside className="sticky top-0 hidden h-dvh w-56 shrink-0 border-r border-zinc-200 bg-zinc-50 sm:block">
         <AdminNav />
       </aside>

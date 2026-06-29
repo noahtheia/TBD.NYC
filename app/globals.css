@@ -3,7 +3,22 @@
    with the dynamically-imported map chunk only (not on map-less routes). */
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  /* Type — four voices (see app/layout.tsx for the next/font wiring). */
+  --font-sans: var(--font-inter); /* body / UI workhorse */
+  --font-display: var(--font-archivo); /* headlines + logo (Archivo Black) */
+  --font-mono: var(--font-space-mono); /* tags / eyebrows / metadata */
+  --font-serif: var(--font-fraunces); /* editorial quotes / blurbs (italic) */
+
+  /* Color — Blaze & Marquee. Use opacity modifiers (bg-blaze/10) for tints. */
+  --color-blaze: #ff5a1f; /* primary accent (was rose-600) */
+  --color-ember: #e0401a; /* primary hover (was rose-700) */
+  --color-marquee: #ffb400; /* happy-hour / gold accents */
+  --color-glow: #ffce3a; /* light yellow tint */
+  --color-ink: #16120e; /* near-black text / dark surfaces */
+  --color-char: #3b342c; /* secondary warm text */
+  --color-stone: #9a9186; /* muted warm gray */
+  --color-newsprint: #faf4ec; /* page background (was white) */
+  --color-cream: #ffead1; /* warm wash (was rose-50) */
 }
 
 html,

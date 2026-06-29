@@ -363,7 +363,7 @@ export default function VenueForm({ venue, action }: Props) {
               key={i}
               className={cn(
                 "rounded-lg border p-3",
-                invalidLocs.includes(i) ? "border-rose-400 bg-rose-50/40" : "border-zinc-200"
+                invalidLocs.includes(i) ? "border-blaze bg-blaze/10" : "border-zinc-200"
               )}
             >
               <div className="mb-2 flex items-center justify-between gap-3">
@@ -375,7 +375,7 @@ export default function VenueForm({ venue, action }: Props) {
                     type="button"
                     onClick={() => lookupLocation(i)}
                     disabled={lookupIdx === i}
-                    className="text-xs font-medium text-rose-600 hover:underline disabled:opacity-50"
+                    className="text-xs font-medium text-blaze hover:underline disabled:opacity-50"
                   >
                     {lookupIdx === i ? "Looking up…" : "Look up address"}
                   </button>
@@ -383,7 +383,7 @@ export default function VenueForm({ venue, action }: Props) {
                     <button
                       type="button"
                       onClick={() => removeLocation(i)}
-                      className="text-xs font-medium text-zinc-400 hover:text-rose-600"
+                      className="text-xs font-medium text-zinc-400 hover:text-blaze"
                     >
                       Remove
                     </button>
@@ -446,7 +446,7 @@ export default function VenueForm({ venue, action }: Props) {
             </div>
           ))}
         </div>
-        <button type="button" onClick={addLocation} className="mt-3 text-sm font-medium text-rose-600 hover:underline">
+        <button type="button" onClick={addLocation} className="mt-3 text-sm font-medium text-blaze hover:underline">
           + Add location
         </button>
       </fieldset>
@@ -486,14 +486,14 @@ export default function VenueForm({ venue, action }: Props) {
                 <div key={i} className="flex items-center gap-2">
                   <input value={m.item} onChange={(e) => patchItem(i, { item: e.target.value })} placeholder="Draft beers" className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
                   <input value={m.price} onChange={(e) => patchItem(i, { price: e.target.value })} placeholder="$5" className="w-24 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
-                  <button type="button" onClick={() => removeItem(i)} className="text-xs font-medium text-zinc-400 hover:text-rose-600">
+                  <button type="button" onClick={() => removeItem(i)} className="text-xs font-medium text-zinc-400 hover:text-blaze">
                     Remove
                   </button>
                 </div>
               ))}
               {hhMenu.length === 0 && <p className="text-sm text-zinc-400">No deals yet.</p>}
             </div>
-            <button type="button" onClick={addItem} className="mt-2 text-sm font-medium text-rose-600 hover:underline">
+            <button type="button" onClick={addItem} className="mt-2 text-sm font-medium text-blaze hover:underline">
               + Add deal
             </button>
 
@@ -604,7 +604,7 @@ export default function VenueForm({ venue, action }: Props) {
                 <Thumb url={p.url} />
                 <input value={p.url} onChange={(e) => patchPhoto(i, { url: e.target.value })} placeholder="https://…/photo.jpg or upload →" className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-sm" />
                 <PhotoUpload upload={uploadFile} onUploaded={(url) => patchPhoto(i, { url })} />
-                <button type="button" onClick={() => removePhoto(i)} className="text-xs font-medium text-zinc-400 hover:text-rose-600">
+                <button type="button" onClick={() => removePhoto(i)} className="text-xs font-medium text-zinc-400 hover:text-blaze">
                   Remove
                 </button>
               </div>
@@ -640,7 +640,7 @@ export default function VenueForm({ venue, action }: Props) {
           ))}
           {photos.length === 0 && <p className="text-sm text-zinc-400">No gallery photos yet.</p>}
         </div>
-        <button type="button" onClick={addPhoto} className="mt-2 text-sm font-medium text-rose-600 hover:underline">
+        <button type="button" onClick={addPhoto} className="mt-2 text-sm font-medium text-blaze hover:underline">
           + Add photo
         </button>
       </fieldset>
@@ -656,7 +656,7 @@ export default function VenueForm({ venue, action }: Props) {
         </label>
       </div>
 
-      <button type="submit" className="rounded-full bg-rose-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
+      <button type="submit" className="rounded-full bg-blaze px-6 py-2.5 text-sm font-semibold text-white hover:bg-ember">
         Save venue
       </button>
     </form>

@@ -92,7 +92,7 @@ export default function VenueList({
           <button
             type="button"
             onClick={onClear}
-            className="mt-4 inline-flex items-center justify-center rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember"
           >
             Clear all filters
           </button>

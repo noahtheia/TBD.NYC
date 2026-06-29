@@ -133,7 +133,7 @@ export default function HeroSearch({
         />
         <button
           type="submit"
-          className="shrink-0 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+          className="shrink-0 rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember"
         >
           Search
         </button>
@@ -176,7 +176,7 @@ export default function HeroSearch({
           <Link
             key={c.href}
             href={c.href}
-            className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-rose-700"
+            className="rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-ember"
           >
             {c.label}
           </Link>

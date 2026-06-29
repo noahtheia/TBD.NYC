@@ -19,16 +19,16 @@ export default function CollectionRail({
       <div className="flex items-end justify-between gap-4">
         <div>
           {eyebrow && (
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-blaze">
               {eyebrow}
             </p>
           )}
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">{title}</h2>
+          <h2 className="mt-1 font-display text-2xl font-black tracking-tight text-ink">{title}</h2>
         </div>
         {seeAllHref && (
           <Link
             href={seeAllHref}
-            className="shrink-0 text-sm font-semibold text-rose-600 transition hover:text-rose-700"
+            className="shrink-0 font-mono text-xs font-bold uppercase tracking-[0.1em] text-blaze transition hover:text-ember"
           >
             {seeAllLabel} →
           </Link>

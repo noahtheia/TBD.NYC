@@ -137,7 +137,7 @@ export default function MapView({
       {legendOpen && (
         <div className="absolute left-2 top-2 z-10 flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white/90 px-3 py-1.5 text-xs text-zinc-600 shadow-md backdrop-blur">
           <span className="flex items-center gap-1">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-500" aria-hidden />
+            <span className="h-2.5 w-2.5 rounded-full bg-blaze" aria-hidden />
             Venue
           </span>
           <button
@@ -194,10 +194,10 @@ export default function MapView({
               <span
                 className={cn(
                   "block rounded-full border-2 border-white shadow-md transition-all motion-reduce:transition-none",
-                  // Every dot is red; only size/shade changes when active.
+                  // Every dot is Blaze orange; only size/shade changes when active.
                   isActive
-                    ? "h-5 w-5 bg-rose-600 ring-4 ring-rose-300/50"
-                    : "h-3.5 w-3.5 bg-rose-500 group-hover/marker:h-4 group-hover/marker:w-4"
+                    ? "h-5 w-5 bg-ember ring-4 ring-blaze/40"
+                    : "h-3.5 w-3.5 bg-blaze group-hover/marker:h-4 group-hover/marker:w-4"
                 )}
               />
             </button>

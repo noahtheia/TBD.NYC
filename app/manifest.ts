@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "An interactive map of curated New York City bars, restaurants, and happy hours.",
     start_url: "/explore",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#e11d48",
+    background_color: "#faf4ec",
+    theme_color: "#ff5a1f",
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
       { src: "/apple-icon", sizes: "180x180", type: "image/png" },

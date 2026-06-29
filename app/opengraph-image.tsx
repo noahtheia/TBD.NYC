@@ -15,23 +15,23 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #1c1917 0%, #3f1d2b 60%, #9f1239 100%)",
-          color: "white",
+          background: "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #E0401A 100%)",
+          color: "#FAF4EC",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ display: "flex", fontSize: 96, fontWeight: 800, letterSpacing: -2 }}>
           TBD
-          <span style={{ color: "#fb7185" }}>.NYC</span>
+          <span style={{ color: "#FFB400" }}>.NYC</span>
         </div>
-        <div style={{ marginTop: 16, fontSize: 44, fontWeight: 600, color: "#fafafa" }}>
-          NYC bars &amp; happy hours
+        <div style={{ marginTop: 16, fontSize: 44, fontWeight: 600, color: "#FFEAD1" }}>
+          Eat · Drink · Decide
         </div>
-        <div style={{ marginTop: 24, fontSize: 30, color: "#d4d4d8" }}>
+        <div style={{ marginTop: 24, fontSize: 30, color: "#FFEAD1" }}>
           An interactive map of curated New York City bars
         </div>
         <div style={{ display: "flex", marginTop: 48, gap: 16 }}>
-          {["#fb7185", "#f59e0b", "#fb7185", "#f59e0b", "#fb7185"].map((c, i) => (
+          {["#FF5A1F", "#FFB400", "#FFCE3A", "#FF5A1F", "#FFB400"].map((c, i) => (
             <div
               key={i}
               style={{ width: 28, height: 28, borderRadius: 999, background: c }}

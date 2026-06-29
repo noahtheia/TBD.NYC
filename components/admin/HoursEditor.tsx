@@ -123,7 +123,7 @@ export default function HoursEditor({
             <button
               type="button"
               onClick={() => removeWindow(i)}
-              className="ml-auto text-xs font-medium text-zinc-400 hover:text-rose-600"
+              className="ml-auto text-xs font-medium text-zinc-400 hover:text-blaze"
             >
               Remove
             </button>
@@ -131,7 +131,7 @@ export default function HoursEditor({
         ))}
         {windows.length === 0 && <p className="text-sm text-zinc-400">{emptyLabel}</p>}
       </div>
-      <button type="button" onClick={addWindow} className="mt-2 text-sm font-medium text-rose-600 hover:underline">
+      <button type="button" onClick={addWindow} className="mt-2 text-sm font-medium text-blaze hover:underline">
         {addLabel}
       </button>
     </div>

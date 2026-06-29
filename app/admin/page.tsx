@@ -46,12 +46,12 @@ export default async function AdminHome() {
     <main className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900">Venues</h1>
+          <h1 className="font-display text-2xl font-black tracking-tight text-ink">Venues</h1>
           <p className="mt-1 text-sm text-zinc-500">{rows.length} venues</p>
         </div>
         <Link
           href="/admin/new"
-          className="rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white hover:bg-rose-700 sm:hidden"
+          className="rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white hover:bg-ember sm:hidden"
         >
           + Add
         </Link>

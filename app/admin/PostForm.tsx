@@ -114,7 +114,7 @@ export default function PostForm({
       <div className="flex items-center gap-4 pt-2">
         <button
           type="submit"
-          className="rounded-full bg-rose-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+          className="rounded-full bg-blaze px-5 py-2 text-sm font-semibold text-white transition hover:bg-ember"
         >
           Save post
         </button>

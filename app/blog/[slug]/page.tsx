@@ -49,7 +49,7 @@ export default async function PostPage({ params }: Params) {
     : null;
 
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-newsprint">
       <SiteHeader active="blog" />
       <script
         type="application/ld+json"
@@ -61,11 +61,11 @@ export default async function PostPage({ params }: Params) {
           ← The Guide
         </Link>
         {post.tags.length > 0 && (
-          <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-rose-600">
+          <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.14em] text-blaze">
             {post.tags.join(" · ")}
           </p>
         )}
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="mt-2 font-display text-3xl font-black tracking-tight text-ink sm:text-4xl">
           {post.title}
         </h1>
         {(post.author || date) && (
@@ -90,7 +90,7 @@ export default async function PostPage({ params }: Params) {
 
         {related.length > 0 && (
           <section className="mt-12 border-t border-zinc-200 pt-8">
-            <h2 className="text-lg font-bold tracking-tight text-zinc-900">Featured spots</h2>
+            <h2 className="font-display text-lg font-black tracking-tight text-ink">Featured spots</h2>
             <div className="mt-4">
               <VenueResults venues={related} />
             </div>

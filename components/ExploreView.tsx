@@ -17,6 +17,7 @@ import { FOCUS_ZOOM } from "@/lib/map-config";
 import { motionDuration } from "@/lib/prefers-reduced-motion";
 import { cn } from "@/lib/cn";
 import meta from "@/data/meta.json";
+import Wordmark from "@/components/site/Wordmark";
 import SearchBar from "@/components/filters/SearchBar";
 import FilterControls from "@/components/filters/FilterControls";
 import FilterSheet from "@/components/filters/FilterSheet";
@@ -336,7 +337,7 @@ export default function ExploreView({ venues, facets }: Props) {
   };
 
   return (
-    <div className="flex h-dvh flex-col overflow-hidden bg-white">
+    <div className="flex h-dvh flex-col overflow-hidden bg-newsprint">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-zinc-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
@@ -345,19 +346,19 @@ export default function ExploreView({ venues, facets }: Props) {
       </a>
       {/* Header — desktop only. On mobile the shared MobileMapControls tiles take
           over the top of both the map and the list views. */}
-      <header className="z-20 hidden shrink-0 border-b border-zinc-200 bg-white lg:block">
+      <header className="z-20 hidden shrink-0 border-b border-zinc-200 bg-newsprint lg:block">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2">
               <Link
                 href="/"
                 aria-label="TBD.NYC — home"
-                className="text-xl font-extrabold tracking-tight text-zinc-900 transition hover:opacity-70"
+                className="transition hover:opacity-70"
               >
-                TBD<span className="text-rose-600">.NYC</span>
+                <Wordmark className="text-xl" />
               </Link>
-              <span className="hidden text-sm text-zinc-400 sm:inline">
-                NYC bars &amp; happy hours
+              <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-stone sm:inline">
+                Eat · Drink · Decide
               </span>
             </div>
             <div className="ml-auto flex items-center gap-2">
@@ -372,7 +373,7 @@ export default function ExploreView({ venues, facets }: Props) {
                   className={cn(
                     "flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition",
                     savedActive
-                      ? "border-rose-500 bg-rose-50 text-rose-700"
+                      ? "border-blaze bg-blaze/10 text-ember"
                       : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
                   )}
                 >
@@ -388,7 +389,7 @@ export default function ExploreView({ venues, facets }: Props) {
             <button
               type="button"
               onClick={showHappyHourNearMe}
-              className="flex shrink-0 items-center gap-1.5 rounded-full bg-rose-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-blaze px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-ember"
             >
               <span aria-hidden>🍸</span> Happy hour now
             </button>
@@ -561,7 +562,7 @@ export default function ExploreView({ venues, facets }: Props) {
           </svg>
           Filter
           {activeFilterCount > 0 && (
-            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-600 px-1.5 text-xs font-semibold text-white">
+            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-blaze px-1.5 text-xs font-semibold text-white">
               {activeFilterCount}
             </span>
           )}

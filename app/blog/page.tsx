@@ -20,11 +20,11 @@ export default async function BlogIndex() {
   const posts = await getPublishedPosts();
 
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-newsprint">
       <SiteHeader active="blog" />
       <main className="mx-auto max-w-5xl px-4 py-10 lg:px-6">
-        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">The Guide</p>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight text-zinc-900">Stories &amp; guides</h1>
+        <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-blaze">The Guide</p>
+        <h1 className="mt-1 font-display text-3xl font-black tracking-tight text-ink">Stories &amp; guides</h1>
         <p className="mt-2 max-w-2xl text-zinc-600">
           Where to drink and eat across New York — picks, neighborhood guides, and the occasional
           deep dive.

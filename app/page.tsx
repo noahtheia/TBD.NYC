@@ -8,6 +8,7 @@ import { computeFacets } from "@/lib/facets";
 import { slugify } from "@/lib/slug";
 import { websiteJsonLd } from "@/lib/jsonld";
 import SiteHeader from "@/components/site/SiteHeader";
+import Wordmark from "@/components/site/Wordmark";
 import HeroSearch from "@/components/home/HeroSearch";
 import CollectionRail from "@/components/site/CollectionRail";
 import PickCard from "@/components/home/PickCard";
@@ -43,7 +44,7 @@ export default async function Home() {
   const latest = posts.slice(0, 6);
 
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-newsprint">
       <SiteHeader active="home" />
       <script
         type="application/ld+json"
@@ -51,9 +52,12 @@ export default async function Home() {
       />
 
       {/* Hero */}
-      <section className="border-b border-zinc-200 bg-gradient-to-b from-rose-50 to-white">
+      <section className="border-b border-zinc-200 bg-gradient-to-b from-cream to-newsprint">
         <div className="mx-auto max-w-6xl px-4 py-14 lg:px-6 lg:py-20">
-          <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.32em] text-blaze">
+            Eat · Drink · Decide
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-4xl font-black tracking-tight text-ink sm:text-5xl">
             Find your next NYC bar or table.
           </h1>
           <p className="mt-3 max-w-2xl text-lg text-zinc-600">
@@ -97,8 +101,10 @@ export default async function Home() {
         )}
 
         <section>
-          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Browse</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-blaze">
+            Browse
+          </p>
+          <h2 className="mt-1 font-display text-2xl font-black tracking-tight text-ink">
             Explore by neighborhood &amp; cuisine
           </h2>
           <RelatedLinks title="Neighborhoods" links={topHoods} />
@@ -106,18 +112,24 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-zinc-200">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-8 text-sm text-zinc-500 lg:px-6">
-          <Link href="/explore" className="transition hover:text-zinc-800">
-            Explore the map
-          </Link>
-          <Link href="/blog" className="transition hover:text-zinc-800">
-            The Guide
-          </Link>
-          <Link href="/happy-hour" className="transition hover:text-zinc-800">
-            Happy hours
-          </Link>
-          <span className="ml-auto">© TBD.NYC</span>
+      <footer className="border-t border-zinc-200 bg-ink text-newsprint">
+        <div className="mx-auto max-w-6xl px-4 py-10 lg:px-6">
+          <Wordmark variant="dark" className="text-3xl" />
+          <p className="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-cream">
+            Consider it determined · New York City
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-stone">
+            <Link href="/explore" className="transition hover:text-newsprint">
+              Explore the map
+            </Link>
+            <Link href="/blog" className="transition hover:text-newsprint">
+              The Guide
+            </Link>
+            <Link href="/happy-hour" className="transition hover:text-newsprint">
+              Happy hours
+            </Link>
+            <span className="ml-auto">© TBD.NYC</span>
+          </div>
         </div>
       </footer>
     </div>

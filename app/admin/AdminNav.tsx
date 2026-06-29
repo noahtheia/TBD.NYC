@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
+import Wordmark from "@/components/site/Wordmark";
 import { logoutAction } from "./actions";
 
 const NAV = [
@@ -18,10 +19,8 @@ export default function AdminNav() {
   return (
     <nav className="flex h-full flex-col gap-1 p-4">
       <div className="mb-4 px-2">
-        <span className="text-lg font-extrabold tracking-tight text-zinc-900">
-          TBD<span className="text-rose-600">.NYC</span>
-        </span>
-        <span className="block text-xs font-medium uppercase tracking-wide text-zinc-400">
+        <Wordmark className="text-lg" />
+        <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone">
           Admin
         </span>
       </div>
