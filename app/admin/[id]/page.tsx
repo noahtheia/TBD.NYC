@@ -23,7 +23,7 @@ export default async function EditVenuePage({
         ← Back to admin
       </Link>
       <div className="mt-3 flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-zinc-900">Edit · {venue.name}</h1>
+        <h1 className="font-display text-2xl font-black tracking-tight text-ink">Edit · {venue.name}</h1>
         <a
           href={`/venue/${venue.id}`}
           target="_blank"
@@ -42,7 +42,7 @@ export default async function EditVenuePage({
         className="mt-8 border-t border-zinc-200 pt-5"
       >
         <input type="hidden" name="id" value={venue.id} />
-        <button className="rounded-full border border-rose-300 px-4 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50">
+        <button className="rounded-full border border-blaze/50 px-4 py-2 text-sm font-semibold text-ember hover:bg-blaze/10">
           Delete venue
         </button>
       </form>

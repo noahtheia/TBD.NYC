@@ -33,7 +33,7 @@ export default async function PicksPage() {
 
   return (
     <main className="mx-auto max-w-2xl px-5 py-8">
-      <h1 className="text-2xl font-bold text-zinc-900">Editor&apos;s picks</h1>
+      <h1 className="font-display text-2xl font-black tracking-tight text-ink">Editor&apos;s picks</h1>
       <p className="mt-1 text-sm text-zinc-500">
         Curated, ordered venue highlights shown on the homepage.
       </p>
@@ -65,7 +65,7 @@ export default async function PicksPage() {
             </select>
             <input name="headline" placeholder="Headline (optional)" className={input} />
             <textarea name="blurb" rows={2} placeholder="Blurb (optional)" className={input} />
-            <button className="rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700">
+            <button className="rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember">
               Add pick
             </button>
           </form>
@@ -105,7 +105,7 @@ export default async function PicksPage() {
                       </form>
                       <form action={removePick}>
                         <input type="hidden" name="id" value={p.id} />
-                        <button className="rounded px-2 py-1 text-sm text-rose-600 transition hover:bg-rose-50">
+                        <button className="rounded px-2 py-1 text-sm text-ember transition hover:bg-blaze/10">
                           Remove
                         </button>
                       </form>

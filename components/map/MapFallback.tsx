@@ -16,7 +16,7 @@ export default function MapFallback() {
           href="https://account.mapbox.com/access-tokens/"
           target="_blank"
           rel="noreferrer"
-          className="mt-4 inline-block text-sm font-medium text-rose-600 hover:underline"
+          className="mt-4 inline-block text-sm font-medium text-blaze hover:underline"
         >
           Get a free token →
         </a>

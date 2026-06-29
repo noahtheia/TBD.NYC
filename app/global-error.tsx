@@ -16,10 +16,10 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      <body className="bg-white text-zinc-900">
+      <body className="bg-newsprint text-ink">
         <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center px-6 text-center">
           <p className="text-xl font-extrabold tracking-tight">
-            TBD<span className="text-rose-600">.NYC</span>
+            TBD<span className="text-blaze">.NYC</span>
           </p>
           <h1 className="mt-4 text-lg font-semibold">Something went wrong</h1>
           <p className="mt-1 text-sm text-zinc-500">
@@ -29,7 +29,7 @@ export default function GlobalError({
             <button
               type="button"
               onClick={reset}
-              className="rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+              className="rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember"
             >
               Try again
             </button>

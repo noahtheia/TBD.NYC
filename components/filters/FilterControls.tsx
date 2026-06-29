@@ -32,7 +32,7 @@ export default function FilterControls({ onOpenFilters, ...filters }: Props) {
         </svg>
         Filters
         {filters.activeCount > 0 && (
-          <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-600 px-1.5 text-xs font-semibold text-white">
+          <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-blaze px-1.5 text-xs font-semibold text-white">
             {filters.activeCount}
           </span>
         )}

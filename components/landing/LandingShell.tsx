@@ -17,11 +17,11 @@ export default function LandingShell({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-newsprint">
       <SiteHeader />
 
       <main className="mx-auto max-w-5xl px-4 py-8 lg:px-6">
-        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
+        <h1 className="font-display text-2xl font-black tracking-tight text-ink sm:text-3xl">
           {title}
         </h1>
         {intro && <p className="mt-2 max-w-2xl text-zinc-600">{intro}</p>}

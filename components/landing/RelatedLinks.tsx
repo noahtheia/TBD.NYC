@@ -13,7 +13,7 @@ export default function RelatedLinks({
   if (!links.length) return null;
   return (
     <nav className="mt-10 border-t border-zinc-200 pt-6">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">
+      <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-stone">
         {title}
       </h2>
       <ul className="mt-3 flex flex-wrap gap-2">
@@ -21,7 +21,7 @@ export default function RelatedLinks({
           <li key={l.href}>
             <Link
               href={l.href}
-              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-rose-700"
+              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-ember"
             >
               {l.label}
               {l.count != null && <span className="text-zinc-400">{l.count}</span>}

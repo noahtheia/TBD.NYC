@@ -35,7 +35,9 @@ export default function PeekCard({ venue, onOpen, onClose, now }: Props) {
         rounded="rounded-lg"
       />
       <button type="button" onClick={onOpen} className="min-w-0 flex-1 text-left">
-        <h3 className="truncate font-semibold text-zinc-900">{venue.name}</h3>
+        <h3 className="truncate font-display text-base font-extrabold tracking-tight text-ink">
+          {venue.name}
+        </h3>
         <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-zinc-500">
           {venue.rating != null && (
             <span className="font-medium text-zinc-700">★ {venue.rating.toFixed(1)}</span>
@@ -46,12 +48,12 @@ export default function PeekCard({ venue, onOpen, onClose, now }: Props) {
         <div className="mt-1 flex items-center gap-2">
           <OpenStatus hours={primary?.hours} />
           {hhActive && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-semibold text-amber-950">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-900" aria-hidden />
+            <span className="inline-flex items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
+              <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
               Happy hour now
             </span>
           )}
-          <span className="text-xs font-medium text-rose-600">View details →</span>
+          <span className="text-xs font-medium text-blaze">View details →</span>
         </div>
       </button>
       <div className="flex shrink-0 flex-col items-center gap-1">

@@ -83,7 +83,7 @@ export default function FilterSheet({ open, onClose, resultCount, ...filters }: 
           <button
             type="button"
             onClick={onClose}
-            className="w-full rounded-full bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-700"
+            className="w-full rounded-full bg-blaze px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-ember"
           >
             {resultCount != null
               ? `Show ${resultCount} ${resultCount === 1 ? "spot" : "spots"}`

@@ -30,11 +30,11 @@ export default function PostCard({ post, className }: { post: Post; className?: 
       />
       <div className="flex flex-1 flex-col p-4">
         {post.tags[0] && (
-          <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-blaze">
             {post.tags[0]}
           </p>
         )}
-        <h3 className="mt-1 font-bold leading-snug text-zinc-900 group-hover:text-rose-700">
+        <h3 className="mt-1 font-display text-lg font-black leading-snug tracking-tight text-ink group-hover:text-ember">
           {post.title}
         </h3>
         {post.excerpt && (

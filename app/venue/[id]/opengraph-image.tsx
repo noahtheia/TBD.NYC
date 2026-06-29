@@ -41,13 +41,13 @@ export default async function VenueOgImage({
           justifyContent: "space-between",
           padding: 80,
           background:
-            "linear-gradient(135deg, #1c1917 0%, #3f1d2b 60%, #9f1239 100%)",
-          color: "white",
+            "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #E0401A 100%)",
+          color: "#FAF4EC",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ display: "flex", fontSize: 40, fontWeight: 800, letterSpacing: -1 }}>
-          TBD<span style={{ color: "#fb7185" }}>.NYC</span>
+          TBD<span style={{ color: "#FFB400" }}>.NYC</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
@@ -62,7 +62,7 @@ export default async function VenueOgImage({
             {name}
           </div>
           {meta && (
-            <div style={{ display: "flex", marginTop: 20, fontSize: 34, color: "#e4e4e7" }}>
+            <div style={{ display: "flex", marginTop: 20, fontSize: 34, color: "#FFEAD1" }}>
               {meta}
             </div>
           )}
@@ -73,7 +73,7 @@ export default async function VenueOgImage({
               gap: 24,
               marginTop: 28,
               fontSize: 32,
-              color: "#fafafa",
+              color: "#FAF4EC",
             }}
           >
             {rating && <div style={{ display: "flex" }}>{rating}</div>}
@@ -82,8 +82,8 @@ export default async function VenueOgImage({
               <div
                 style={{
                   display: "flex",
-                  background: "#f59e0b",
-                  color: "#451a03",
+                  background: "#FFB400",
+                  color: "#16120E",
                   padding: "4px 18px",
                   borderRadius: 999,
                   fontSize: 26,

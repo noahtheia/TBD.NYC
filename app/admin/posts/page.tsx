@@ -28,10 +28,10 @@ export default async function AdminPostsPage() {
   return (
     <main className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-zinc-900">Blog posts</h1>
+        <h1 className="font-display text-2xl font-black tracking-tight text-ink">Blog posts</h1>
         <Link
           href="/admin/posts/new"
-          className="rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700"
+          className="rounded-full bg-blaze px-4 py-2 text-sm font-semibold text-white transition hover:bg-ember"
         >
           New post
         </Link>
@@ -53,7 +53,7 @@ export default async function AdminPostsPage() {
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/admin/posts/${p.id}`}
-                  className="font-medium text-zinc-900 transition hover:text-rose-700"
+                  className="font-medium text-zinc-900 transition hover:text-ember"
                 >
                   {p.title}
                 </Link>

@@ -56,7 +56,7 @@ export default function VenueCard({
       className={cn(
         "group relative flex cursor-pointer gap-3 rounded-xl border p-3 transition",
         isActive
-          ? "border-rose-400 bg-rose-50/50 shadow-sm ring-1 ring-rose-200"
+          ? "border-blaze bg-blaze/5 shadow-sm ring-1 ring-blaze/20"
           : "border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-sm"
       )}
     >
@@ -74,7 +74,7 @@ export default function VenueCard({
 
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-semibold leading-tight text-zinc-900 group-hover:text-rose-700">
+          <h3 className="font-display text-base font-extrabold leading-tight tracking-tight text-ink group-hover:text-ember">
             <Link
               href={`/venue/${venue.id}`}
               aria-label={`${venue.name}${venue.neighborhood ? `, ${venue.neighborhood}` : ""}`}
@@ -91,19 +91,19 @@ export default function VenueCard({
               }
               onFocus={onHover ? () => onHover(venue.id) : undefined}
               onBlur={onHover ? () => onHover(null) : undefined}
-              className="rounded-sm after:absolute after:inset-0 after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
+              className="rounded-sm after:absolute after:inset-0 after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blaze"
             >
               {venue.name}
             </Link>
           </h3>
           {hhActive ? (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-semibold text-amber-950">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-900" aria-hidden />
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
+              <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
               Happy hour now
             </span>
           ) : (
             venue.happyHour === true && (
-              <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">
+              <span className="shrink-0 rounded-full bg-glow/40 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ember">
                 Happy hour
               </span>
             )

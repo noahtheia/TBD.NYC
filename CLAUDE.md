@@ -45,7 +45,13 @@ kill "$(ps -eo pid,args | grep next-server | grep -v grep | awk '{print $1}' | h
 ## Conventions
 
 - Reuse: `filterVenues`/`computeFacets`/`sortVenues`, `happyHourStatus`, `priceLabel`,
-  `cn`, the `VenueDrawer` bottom-sheet pattern, rose `#e11d48` accent + zinc palette.
+  `cn`, the `VenueDrawer` bottom-sheet pattern, the `Wordmark` lockup.
+- Brand (tokens in `app/globals.css` `@theme`): **Blaze** `#FF5A1F` accent (`bg-blaze`,
+  hover `bg-ember`), **Marquee** `#FFB400` for happy hour, **Ink**/**Newsprint**/**Cream**
+  surfaces, on a warm zinc neutral base. Type voices: `font-display` (Archivo) headlines,
+  Inter body, `font-mono` (Space Mono) tags/eyebrows, `font-serif` (Fraunces) italic blurbs.
+  Keep functional status colors: emerald = open now, sky = near me. Archivo is loaded at
+  weights 600/800/900 — use `font-semibold`/`font-extrabold`/`font-black` with `font-display`.
 - ESLint's react-hooks rules here forbid **setState in an effect body** and **reading/
   writing a ref during render** — derive during render or reset via a `key` instead.
 - Client islands (e.g. `FavoriteButton`) keep server components (the venue page) SSR'd.

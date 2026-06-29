@@ -8,11 +8,11 @@ export default function Markdown({ children }: { children: string }) {
   return (
     <div
       className="text-[15px] leading-7 text-zinc-700
-        [&_a]:font-medium [&_a]:text-rose-600 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-rose-700
-        [&_blockquote]:mt-5 [&_blockquote]:border-l-4 [&_blockquote]:border-rose-200 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-zinc-600
+        [&_a]:font-medium [&_a]:text-blaze [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-ember
+        [&_blockquote]:mt-5 [&_blockquote]:border-l-4 [&_blockquote]:border-marquee [&_blockquote]:pl-4 [&_blockquote]:font-serif [&_blockquote]:italic [&_blockquote]:text-char
         [&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px]
-        [&_h2]:mt-9 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-zinc-900
-        [&_h3]:mt-7 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-zinc-900
+        [&_h2]:mt-9 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-black [&_h2]:tracking-tight [&_h2]:text-ink
+        [&_h3]:mt-7 [&_h3]:font-display [&_h3]:text-lg [&_h3]:font-extrabold [&_h3]:text-ink
         [&_hr]:my-8 [&_hr]:border-zinc-200
         [&_img]:mt-5 [&_img]:rounded-xl
         [&_li]:mt-1

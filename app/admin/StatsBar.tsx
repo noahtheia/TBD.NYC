@@ -29,7 +29,7 @@ export default function StatsBar({ venues }: { venues: AdminRow[] }) {
         <span>{noNeighborhood} missing a neighborhood.</span>
         {/* Download endpoint (route handler), not a page — a real anchor is required. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a href="/admin/export" className="font-medium text-rose-600 hover:underline">
+        <a href="/admin/export" className="font-medium text-blaze hover:underline">
           Export CSV ↓
         </a>
       </div>

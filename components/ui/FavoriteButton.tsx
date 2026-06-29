@@ -27,7 +27,7 @@ export default function FavoriteButton({
       aria-pressed={faved}
       className={cn(
         "flex items-center justify-center rounded-full transition",
-        faved ? "text-rose-600" : "text-zinc-500 hover:text-rose-600",
+        faved ? "text-blaze" : "text-zinc-500 hover:text-blaze",
         className
       )}
     >

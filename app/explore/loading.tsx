@@ -1,13 +1,13 @@
+import Wordmark from "@/components/site/Wordmark";
+
 /** Instant FCP shell for the explore route while the ISR/Supabase fetch runs. */
 export default function Loading() {
   return (
-    <div className="flex h-dvh flex-col overflow-hidden bg-white">
-      <header className="hidden shrink-0 border-b border-zinc-200 bg-white lg:block">
+    <div className="flex h-dvh flex-col overflow-hidden bg-newsprint">
+      <header className="hidden shrink-0 border-b border-zinc-200 bg-newsprint lg:block">
         <div className="flex flex-col gap-3 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
-            <span className="text-xl font-extrabold tracking-tight text-zinc-900">
-              TBD<span className="text-rose-600">.NYC</span>
-            </span>
+            <Wordmark className="text-xl" />
             <div className="ml-auto h-9 w-44 animate-pulse rounded-full bg-zinc-100 sm:w-72" />
           </div>
           <div className="flex items-center gap-2">

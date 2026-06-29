@@ -100,7 +100,7 @@ export default function FilterBar({
 
           <TogglePill
             active={filters.happyHourOnly}
-            activeClass="border-amber-500 bg-amber-400 text-amber-950"
+            activeClass="border-marquee bg-marquee text-ink"
             onClick={onToggleHappyHour}
           >
             <span aria-hidden>🍸</span> Happy hour
@@ -108,7 +108,7 @@ export default function FilterBar({
 
           <TogglePill
             active={filters.openLate}
-            activeClass="border-indigo-500 bg-indigo-500 text-white"
+            activeClass="border-ink bg-ink text-marquee"
             onClick={onToggleOpenLate}
           >
             <span aria-hidden>🌙</span> Open late

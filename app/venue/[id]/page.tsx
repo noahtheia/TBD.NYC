@@ -58,7 +58,7 @@ export async function generateMetadata({
 }
 
 const CHIP =
-  "inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-rose-700";
+  "inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-ember";
 
 export default async function VenuePage({
   params,
@@ -116,7 +116,7 @@ export default async function VenuePage({
 
       {related.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-lg font-bold tracking-tight text-zinc-900">
+          <h2 className="font-display text-lg font-black tracking-tight text-ink">
             More in {venue.neighborhood}
           </h2>
           <div className="mt-4">

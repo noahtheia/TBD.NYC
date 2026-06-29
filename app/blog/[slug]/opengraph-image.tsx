@@ -25,14 +25,14 @@ export default async function PostOgImage({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background: "linear-gradient(135deg, #1c1917 0%, #3f1d2b 60%, #9f1239 100%)",
-          color: "white",
+          background: "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #E0401A 100%)",
+          color: "#FAF4EC",
           fontFamily: "sans-serif",
         }}
       >
         <div style={{ display: "flex", fontSize: 36, fontWeight: 800, letterSpacing: -1 }}>
-          TBD<span style={{ color: "#fb7185" }}>.NYC</span>
-          <span style={{ marginLeft: 16, color: "#fb7185", fontWeight: 600 }}>· The Guide</span>
+          TBD<span style={{ color: "#FFB400" }}>.NYC</span>
+          <span style={{ marginLeft: 16, color: "#FFB400", fontWeight: 600 }}>· The Guide</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
@@ -47,7 +47,7 @@ export default async function PostOgImage({
             {title}
           </div>
           {meta && (
-            <div style={{ display: "flex", marginTop: 24, fontSize: 32, color: "#e4e4e7" }}>
+            <div style={{ display: "flex", marginTop: 24, fontSize: 32, color: "#FFEAD1" }}>
               {meta}
             </div>
           )}

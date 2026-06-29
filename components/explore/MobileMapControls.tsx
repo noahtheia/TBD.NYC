@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/cn";
+import Wordmark from "@/components/site/Wordmark";
 import type { Filters } from "@/types/venue";
 import type { SortKey } from "@/lib/sort";
 import type { FilterBarProps } from "@/components/filters/FilterBar";
@@ -85,9 +86,9 @@ export default function MobileMapControls({
         <Link
           href="/"
           aria-label="TBD.NYC — home"
-          className="shrink-0 rounded-full border border-zinc-200 bg-white/90 px-3 py-2 text-sm font-extrabold tracking-tight text-zinc-900 shadow-md backdrop-blur"
+          className="shrink-0 rounded-full border border-zinc-200 bg-white/90 px-3 py-2 shadow-md backdrop-blur"
         >
-          TBD<span className="text-rose-600">.NYC</span>
+          <Wordmark className="text-sm" />
         </Link>
         <div className="min-w-0 flex-1 pr-12 sm:pr-0">
           <div className="rounded-full shadow-md">
@@ -184,11 +185,11 @@ export default function MobileMapControls({
   );
 }
 
-/** Shared quick-pill styling: grey when unselected, solid red when selected. */
+/** Shared quick-pill styling: grey when unselected, solid Blaze when selected. */
 const QUICK_PILL_BASE =
   "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium shadow-md backdrop-blur transition disabled:opacity-50";
 const QUICK_PILL_INACTIVE = "border-zinc-300 bg-zinc-100/95 text-zinc-700";
-const QUICK_PILL_ACTIVE = "border-rose-600 bg-rose-600 text-white";
+const QUICK_PILL_ACTIVE = "border-blaze bg-blaze text-white";
 
 function QuickPill({
   active,

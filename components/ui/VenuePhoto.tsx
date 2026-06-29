@@ -4,13 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
+// Warm brand-family gradients (Blaze / Ember / Marquee / Glow), deterministically
+// picked per venue name as a photo fallback.
 const GRADIENTS = [
-  "from-rose-400 to-orange-300",
-  "from-amber-400 to-rose-300",
-  "from-violet-400 to-rose-300",
-  "from-sky-400 to-emerald-300",
-  "from-fuchsia-400 to-amber-300",
-  "from-emerald-400 to-cyan-300",
+  "from-blaze to-marquee",
+  "from-ember to-blaze",
+  "from-marquee to-glow",
+  "from-blaze to-ember",
+  "from-glow to-marquee",
+  "from-ember to-marquee",
 ];
 
 function hashIndex(s: string, mod: number): number {

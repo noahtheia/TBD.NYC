@@ -3,8 +3,8 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// White cocktail-glass mark (mirrors app/icon.svg) on the rose brand color, as a
-// data-URI img so Satori renders it reliably.
+// White cocktail-glass mark (mirrors app/icon.svg) on the Blaze brand gradient, as
+// a data-URI img so Satori renders it reliably.
 const GLASS =
   "data:image/svg+xml," +
   encodeURIComponent(
@@ -21,7 +21,7 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#e11d48",
+          background: "linear-gradient(160deg, #FF7A1F, #F2451A)",
         }}
       >
         <img src={GLASS} width={104} height={104} alt="" />
