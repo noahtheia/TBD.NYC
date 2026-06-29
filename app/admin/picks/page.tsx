@@ -4,6 +4,7 @@ import { getVenues } from "@/lib/venues";
 import { rowToPick, type DbPick } from "@/lib/supabase/content-map";
 import type { EditorPick } from "@/types/pick";
 import { addPick, updatePick, removePick, movePick } from "../blog-actions";
+import SetupNotice from "../SetupNotice";
 
 export const dynamic = "force-dynamic";
 
@@ -38,11 +39,12 @@ export default async function PicksPage() {
       </p>
 
       {error ? (
-        <p className="mt-6 rounded-md bg-amber-50 p-3 text-sm text-amber-800">
-          Editor&apos;s picks require Supabase (NEXT_PUBLIC_SUPABASE_URL +
-          SUPABASE_SERVICE_ROLE_KEY). Until then the homepage shows the built-in defaults from{" "}
-          <code>data/picks.json</code>. {error}
-        </p>
+        <SetupNotice
+          feature="Editor's picks"
+          migration="supabase/migrations/0002_posts_picks.sql"
+          error={error}
+          fallback="Until then the homepage shows the built-in defaults from data/picks.json."
+        />
       ) : (
         <>
           <form
