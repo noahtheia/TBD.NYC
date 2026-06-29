@@ -76,8 +76,13 @@ edits appear without a redeploy); if Supabase env vars are absent it falls back 
 the committed `data/venues.json` snapshot, so the app always builds and runs.
 
 Setup:
-1. Create a Supabase project; in the SQL editor run `supabase/migrations/0001_init.sql`
-   (creates `venues` + `venue_locations` with PostGIS and public-read RLS).
+1. Create a Supabase project and apply **every** migration in
+   `supabase/migrations/` in filename order — `npm run migrate` (needs
+   `SUPABASE_DB_URL`) runs them all, or paste each file into the SQL editor.
+   `0001_init.sql` creates `venues` + `venue_locations`; later ones add the
+   admin-only tables (`0002_posts_picks.sql` → `posts` + `editor_picks`, etc.).
+   Skipping a migration is what surfaces "Could not find the table … in the
+   schema cache" on the matching admin page.
 2. Add to `.env.local`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    (public, safe with RLS), `SUPABASE_SERVICE_ROLE_KEY` (secret), and
    `ADMIN_PASSWORD` (secret).

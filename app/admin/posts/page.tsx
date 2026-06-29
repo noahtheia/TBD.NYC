@@ -4,6 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { rowToPost, type DbPost } from "@/lib/supabase/content-map";
 import { cn } from "@/lib/cn";
 import type { Post } from "@/types/post";
+import SetupNotice from "../SetupNotice";
 
 export const dynamic = "force-dynamic";
 
@@ -37,10 +38,12 @@ export default async function AdminPostsPage() {
       </div>
 
       {error ? (
-        <p className="mt-6 rounded-md bg-amber-50 p-3 text-sm text-amber-800">
-          Posts require Supabase to be configured (NEXT_PUBLIC_SUPABASE_URL +
-          SUPABASE_SERVICE_ROLE_KEY). {error}
-        </p>
+        <SetupNotice
+          feature="Posts"
+          migration="supabase/migrations/0002_posts_picks.sql"
+          error={error}
+          fallback="Until then the blog shows the built-in defaults from data/posts.json."
+        />
       ) : posts && posts.length === 0 ? (
         <p className="mt-6 text-sm text-zinc-500">No posts yet — create your first one.</p>
       ) : (
