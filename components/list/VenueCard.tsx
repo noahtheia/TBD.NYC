@@ -44,7 +44,8 @@ export default function VenueCard({
         : ["Restaurant"]
       : venue.types;
   const subtitle = [tags.join(" · "), venue.neighborhood].filter(Boolean).join(" • ");
-  const reservation = RESERVATION_SHORT[venue.reservationPolicy];
+  const reservation =
+    RESERVATION_SHORT[venue.reservationPolicy] || (venue.booking ? "Reservations" : "");
   const hhActive =
     venue.happyHour === true && happyHourStatus(venue.happyHourWindows, now)?.active === true;
 
@@ -145,11 +146,6 @@ export default function VenueCard({
           {reservation && (
             <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium text-zinc-600">
               {reservation}
-            </span>
-          )}
-          {venue.booking && (
-            <span className="rounded-md bg-zinc-100 px-2 py-0.5 font-medium capitalize text-zinc-600">
-              {venue.booking.host === "other" ? "Reserve" : venue.booking.host}
             </span>
           )}
           {venue.locations.length > 1 && (

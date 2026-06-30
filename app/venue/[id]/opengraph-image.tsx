@@ -41,7 +41,7 @@ export default async function VenueOgImage({
           justifyContent: "space-between",
           padding: 80,
           background:
-            "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #E0401A 100%)",
+            "linear-gradient(135deg, #16120E 0%, #3B130A 55%, #C2640C 100%)",
           color: "#FAF4EC",
           fontFamily: "sans-serif",
         }}
