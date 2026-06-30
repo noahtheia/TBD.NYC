@@ -8,7 +8,6 @@ import { happyHourStatus, type NowParts } from "@/lib/hours";
 import { formatProximity } from "@/lib/geo";
 import VenuePhoto from "@/components/ui/VenuePhoto";
 import OpenStatus from "@/components/ui/OpenStatus";
-import FavoriteButton from "@/components/ui/FavoriteButton";
 import ShareButton from "@/components/ui/ShareButton";
 
 type Props = {
@@ -65,19 +64,13 @@ export default function VenueCard({
       )}
     >
       {showPhoto && (
-        <>
-          <FavoriteButton
-            id={venue.id}
-            className="absolute left-1.5 top-1.5 z-20 h-7 w-7 bg-white/85 shadow-sm backdrop-blur hover:bg-white"
-          />
-          <VenuePhoto
-            name={venue.name}
-            photoUrl={venue.photoUrl}
-            className="h-20 w-20 shrink-0"
-            rounded="rounded-lg"
-            eager={eager}
-          />
-        </>
+        <VenuePhoto
+          name={venue.name}
+          photoUrl={venue.photoUrl}
+          className="h-20 w-20 shrink-0"
+          rounded="rounded-lg"
+          eager={eager}
+        />
       )}
 
       <div className="min-w-0 flex-1">
@@ -108,20 +101,14 @@ export default function VenueCard({
             {hhActive ? (
               <span className="inline-flex items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
                 <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
-                Happy hour now
+                Happy Hour Now
               </span>
             ) : (
               venue.happyHour === true && (
                 <span className="rounded-full bg-glow/40 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ember">
-                  Happy hour
+                  Happy Hour
                 </span>
               )
-            )}
-            {!showPhoto && (
-              <FavoriteButton
-                id={venue.id}
-                className="relative z-20 h-7 w-7 border border-zinc-200 bg-white hover:border-blaze/40"
-              />
             )}
           </div>
         </div>

@@ -4,7 +4,6 @@ import { formatWeekly, happyHourStatus } from "@/lib/hours";
 import VenuePhotoCarousel from "./VenuePhotoCarousel";
 import { orderedVenuePhotos } from "@/lib/photos";
 import OpenStatus from "@/components/ui/OpenStatus";
-import FavoriteButton from "@/components/ui/FavoriteButton";
 import HoursTable from "./HoursTable";
 import meta from "@/data/meta.json";
 
@@ -125,17 +124,13 @@ export default function VenueDetailContent({ venue }: { venue: Venue }) {
             )}
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          {venue.happyHour === true && (
+        {venue.happyHour === true && (
+          <div className="flex shrink-0 items-center gap-2">
             <span className="rounded-full bg-marquee px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-ink">
-              Happy hour
+              Happy Hour
             </span>
-          )}
-          <FavoriteButton
-            id={venue.id}
-            className="h-9 w-9 border border-zinc-300 bg-white hover:border-blaze/40"
-          />
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">

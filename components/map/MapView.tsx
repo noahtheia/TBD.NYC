@@ -1,13 +1,20 @@
 "use client";
 
 import { useCallback, useMemo, useState, type RefObject } from "react";
-import Map, { Marker, NavigationControl, type MapRef } from "react-map-gl/mapbox";
+import Map, {
+  Marker,
+  NavigationControl,
+  type MapRef,
+  type MapInstance,
+} from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Venue } from "@/types/venue";
 import {
   INITIAL_VIEW_STATE,
   MAP_STYLE,
   MAPBOX_TOKEN,
+  PARK_COLOR,
+  WATER_COLOR,
   hasMapboxToken,
 } from "@/lib/map-config";
 import { cn } from "@/lib/cn";
@@ -28,9 +35,55 @@ type Props = {
   userLoc?: LatLng | null;
   /** Show the zoom +/- control. Off on mobile (touch users pinch to zoom). */
   showZoomControls?: boolean;
-  /** Notified with [west, south, east, north] whenever the viewport changes. */
-  onBoundsChange?: (bounds: [number, number, number, number]) => void;
+  /** Notified with [west, south, east, north] whenever the viewport changes.
+   *  `isUserGesture` is true for a user drag/zoom and false for programmatic
+   *  camera moves (flyTo/fitBounds) — lets the parent surface "Search Here"
+   *  only when the user has panned away from the last search. */
+  onBoundsChange?: (
+    bounds: [number, number, number, number],
+    isUserGesture: boolean
+  ) => void;
 };
+
+/** Recolor the base map for more life: a bluer water fill and a greener
+ *  park/green-space fill. Iterating the live style (instead of hardcoding
+ *  `light-v11` layer ids) survives style-version renames; class-matching the
+ *  `landuse` layer avoids tinting non-park polygons (hospitals/schools/etc.). */
+function recolorBaseMap(map: MapInstance) {
+  for (const layer of map.getStyle().layers) {
+    if (layer.type !== "fill") continue;
+    const id = layer.id;
+    if (id === "water" || id.startsWith("water")) {
+      map.setPaintProperty(id, "fill-color", WATER_COLOR);
+    } else if (
+      id === "national-park" ||
+      id.includes("park") ||
+      id.includes("pitch") ||
+      id.includes("grass")
+    ) {
+      map.setPaintProperty(id, "fill-color", PARK_COLOR);
+    } else if (id === "landuse") {
+      const current = map.getPaintProperty(id, "fill-color");
+      map.setPaintProperty(id, "fill-color", [
+        "match",
+        ["get", "class"],
+        [
+          "park",
+          "grass",
+          "cemetery",
+          "pitch",
+          "wood",
+          "scrub",
+          "recreation_ground",
+          "garden",
+          "golf_course",
+        ],
+        PARK_COLOR,
+        current ?? "rgba(0,0,0,0)",
+      ]);
+    }
+  }
+}
 
 type Point = {
   venueId: string;
@@ -98,16 +151,27 @@ export default function MapView({
     return list;
   }, [points, bounds, activeId, activePointId]);
 
-  const updateBounds = useCallback(() => {
-    const b = mapRef.current?.getBounds();
-    if (!b) return;
-    const next: Bounds = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
-    setBounds(next);
-    onBoundsChange?.(next);
-  }, [mapRef, onBoundsChange]);
+  const updateBounds = useCallback(
+    (isUserGesture = false) => {
+      const b = mapRef.current?.getBounds();
+      if (!b) return;
+      const next: Bounds = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
+      setBounds(next);
+      onBoundsChange?.(next, isUserGesture);
+    },
+    [mapRef, onBoundsChange]
+  );
 
   const handleLoad = useCallback(() => {
     updateBounds();
+    // Recolor water/parks once the style's layers are queryable. On mapbox-gl v3
+    // the `load` event can fire before that, so apply now if ready, else wait for
+    // `style.load` (and handle `reuseMaps`, where the pooled map is already loaded).
+    const map = mapRef.current?.getMap();
+    if (map) {
+      if (map.isStyleLoaded()) recolorBaseMap(map);
+      else map.once("style.load", () => recolorBaseMap(map));
+    }
     if (focusOnLoad) {
       mapRef.current?.flyTo({
         center: [focusOnLoad.lng, focusOnLoad.lat],
@@ -128,7 +192,12 @@ export default function MapView({
       style={{ width: "100%", height: "100%" }}
       reuseMaps
       onLoad={handleLoad}
-      onMoveEnd={updateBounds}
+      onMoveEnd={(e) =>
+        // `originalEvent` is set for user gestures (drag/zoom) and absent for
+        // programmatic camera moves (flyTo/fitBounds). The react-map-gl event
+        // union doesn't surface it on the type, so read it through a cast.
+        updateBounds((e as { originalEvent?: unknown }).originalEvent != null)
+      }
     >
       {showZoomControls && (
         <NavigationControl position="top-right" showCompass={false} />

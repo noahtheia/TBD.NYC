@@ -6,7 +6,7 @@ import Wordmark from "@/components/site/Wordmark";
 import type { Filters } from "@/types/venue";
 import type { SortKey } from "@/lib/sort";
 import type { FilterBarProps } from "@/components/filters/FilterBar";
-import SearchBar from "@/components/filters/SearchBar";
+import SearchBar, { type SearchSuggestion } from "@/components/filters/SearchBar";
 import SortControl from "@/components/filters/SortControl";
 import ActiveFilterChips from "@/components/filters/ActiveFilterChips";
 
@@ -18,9 +18,12 @@ type Props = {
   // search
   searchValue: string;
   onSearchChange: (v: string) => void;
+  searchSuggestions?: SearchSuggestion[];
+  onSearchSubmit?: (value: string) => void;
+  onSelectSearchSuggestion?: (item: SearchSuggestion) => void;
   // quick toggles
   filters: Filters;
-  /** Toggle "happy hour now": turns it on, or (when already on) clears happy hour. */
+  /** Toggle "happy hour now" on/off (plain filter, no geolocation). */
   onHappyHourNow: () => void;
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
@@ -31,10 +34,6 @@ type Props = {
   // sort
   sort: SortKey;
   onSort: (s: SortKey) => void;
-  // saved
-  favCount: number;
-  savedActive: boolean;
-  onToggleSaved: () => void;
   // active chips (when filters are applied)
   activeCount: number;
   onToggleHappyHour: () => void;
@@ -53,6 +52,9 @@ export default function MobileMapControls({
   variant = "floating",
   searchValue,
   onSearchChange,
+  searchSuggestions,
+  onSearchSubmit,
+  onSelectSearchSuggestion,
   filters,
   onHappyHourNow,
   onToggleOpenNow,
@@ -62,9 +64,6 @@ export default function MobileMapControls({
   onNearMe,
   sort,
   onSort,
-  favCount,
-  savedActive,
-  onToggleSaved,
   activeCount,
   onToggleHappyHour,
   onToggleHappyHourNow,
@@ -92,7 +91,13 @@ export default function MobileMapControls({
         </Link>
         <div className="min-w-0 flex-1 pr-12 sm:pr-0">
           <div className="rounded-full shadow-md">
-            <SearchBar value={searchValue} onChange={onSearchChange} />
+            <SearchBar
+              value={searchValue}
+              onChange={onSearchChange}
+              onSubmit={onSearchSubmit}
+              suggestions={searchSuggestions}
+              onSelectSuggestion={onSelectSearchSuggestion}
+            />
           </div>
         </div>
       </div>
@@ -122,7 +127,7 @@ export default function MobileMapControls({
             filters.happyHourNow ? QUICK_PILL_ACTIVE : QUICK_PILL_INACTIVE
           )}
         >
-          <span aria-hidden>{filters.happyHourNow ? "✓" : "🍸"}</span> Happy hour now
+          <span aria-hidden>{filters.happyHourNow ? "✓" : "🍸"}</span> Happy Hour Now
         </button>
         <QuickPill
           active={filters.openNow}
@@ -135,7 +140,7 @@ export default function MobileMapControls({
               filters.openNow ? "bg-white" : "bg-emerald-500"
             )}
           />
-          Open now
+          Open Now
         </QuickPill>
         <QuickPill
           active={nearMeActive}
@@ -147,21 +152,9 @@ export default function MobileMapControls({
           {geoStatus === "loading"
             ? "Locating…"
             : geoStatus === "denied"
-              ? "Location blocked"
-              : "Near me"}
+              ? "Location Blocked"
+              : "Near Me"}
         </QuickPill>
-        {favCount > 0 && (
-          <QuickPill
-            active={savedActive}
-            activeClass={QUICK_PILL_ACTIVE}
-            onClick={onToggleSaved}
-          >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
-              <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
-            </svg>
-            Saved {favCount}
-          </QuickPill>
-        )}
       </div>
 
       {/* Row 3: active filter chips (dismissible). */}
