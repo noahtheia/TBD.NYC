@@ -114,6 +114,7 @@ export default function VenueList({
               distanceMiles={userLoc ? nearestDistanceMiles(userLoc, v) : null}
               now={now}
               eager={i < 4}
+              showPhoto={false}
               innerRef={(el) => {
                 if (el) refs.current.set(v.id, el);
                 else refs.current.delete(v.id);

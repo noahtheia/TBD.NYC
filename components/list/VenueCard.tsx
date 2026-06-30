@@ -24,6 +24,8 @@ type Props = {
   now?: NowParts;
   /** Eager-load the photo (above-the-fold cards). */
   eager?: boolean;
+  /** Hide the photo thumbnail (explore list + map sidebar). Defaults to shown. */
+  showPhoto?: boolean;
 };
 
 export default function VenueCard({
@@ -35,6 +37,7 @@ export default function VenueCard({
   innerRef,
   now,
   eager,
+  showPhoto = true,
 }: Props) {
   const primary = venue.locations[0];
   const tags =
@@ -61,17 +64,21 @@ export default function VenueCard({
           : "border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-sm"
       )}
     >
-      <FavoriteButton
-        id={venue.id}
-        className="absolute left-1.5 top-1.5 z-20 h-7 w-7 bg-white/85 shadow-sm backdrop-blur hover:bg-white"
-      />
-      <VenuePhoto
-        name={venue.name}
-        photoUrl={venue.photoUrl}
-        className="h-20 w-20 shrink-0"
-        rounded="rounded-lg"
-        eager={eager}
-      />
+      {showPhoto && (
+        <>
+          <FavoriteButton
+            id={venue.id}
+            className="absolute left-1.5 top-1.5 z-20 h-7 w-7 bg-white/85 shadow-sm backdrop-blur hover:bg-white"
+          />
+          <VenuePhoto
+            name={venue.name}
+            photoUrl={venue.photoUrl}
+            className="h-20 w-20 shrink-0"
+            rounded="rounded-lg"
+            eager={eager}
+          />
+        </>
+      )}
 
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-3">
@@ -97,18 +104,26 @@ export default function VenueCard({
               {venue.name}
             </Link>
           </h3>
-          {hhActive ? (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
-              <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
-              Happy hour now
-            </span>
-          ) : (
-            venue.happyHour === true && (
-              <span className="shrink-0 rounded-full bg-glow/40 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ember">
-                Happy hour
+          <div className="flex shrink-0 items-center gap-1.5">
+            {hhActive ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
+                Happy hour now
               </span>
-            )
-          )}
+            ) : (
+              venue.happyHour === true && (
+                <span className="rounded-full bg-glow/40 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ember">
+                  Happy hour
+                </span>
+              )
+            )}
+            {!showPhoto && (
+              <FavoriteButton
+                id={venue.id}
+                className="relative z-20 h-7 w-7 border border-zinc-200 bg-white hover:border-blaze/40"
+              />
+            )}
+          </div>
         </div>
 
         <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-zinc-500">
