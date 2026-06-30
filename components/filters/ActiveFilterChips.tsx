@@ -55,10 +55,10 @@ export default function ActiveFilterChips({
 }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {filters.openNow && <Chip label="Open now" onRemove={onToggleOpenNow} />}
-      {filters.happyHourNow && <Chip label="Happy hour now" onRemove={onToggleHappyHourNow} />}
-      {filters.happyHourOnly && <Chip label="Happy hour" onRemove={onToggleHappyHour} />}
-      {filters.openLate && <Chip label="Open late" onRemove={onToggleOpenLate} />}
+      {filters.openNow && <Chip label="Open Now" onRemove={onToggleOpenNow} />}
+      {filters.happyHourNow && <Chip label="Happy Hour Now" onRemove={onToggleHappyHourNow} />}
+      {filters.happyHourOnly && <Chip label="Happy Hour" onRemove={onToggleHappyHour} />}
+      {filters.openLate && <Chip label="Open Late" onRemove={onToggleOpenLate} />}
       {filters.categories.map((c) => (
         <Chip key={`c-${c}`} label={CATEGORY_LABEL[c]} onRemove={() => onToggleFilterValue("categories", c)} />
       ))}
@@ -89,7 +89,7 @@ export default function ActiveFilterChips({
         onClick={onClear}
         className="text-sm font-medium text-zinc-500 underline-offset-2 hover:text-zinc-800 hover:underline"
       >
-        Clear all
+        Clear All
       </button>
     </div>
   );

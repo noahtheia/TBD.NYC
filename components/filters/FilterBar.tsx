@@ -14,6 +14,7 @@ export type FilterBarProps = {
   filters: Filters;
   activeCount: number;
   onToggleHappyHour: () => void;
+  onToggleHappyHourNow: () => void;
   onToggleOpenNow: () => void;
   onToggleOpenLate: () => void;
   onToggleFilterValue: (
@@ -66,6 +67,7 @@ export default function FilterBar({
   filters,
   activeCount,
   onToggleHappyHour,
+  onToggleHappyHourNow,
   onToggleOpenNow,
   onToggleOpenLate,
   onToggleFilterValue,
@@ -85,6 +87,14 @@ export default function FilterBar({
       {!hideQuickFilters && (
         <>
           <TogglePill
+            active={filters.happyHourNow}
+            activeClass="border-blaze bg-blaze text-white"
+            onClick={onToggleHappyHourNow}
+          >
+            <span aria-hidden>{filters.happyHourNow ? "✓" : "🍸"}</span> Happy Hour Now
+          </TogglePill>
+
+          <TogglePill
             active={filters.openNow}
             activeClass="border-emerald-500 bg-emerald-500 text-white"
             onClick={onToggleOpenNow}
@@ -95,7 +105,7 @@ export default function FilterBar({
                 filters.openNow ? "bg-white" : "bg-emerald-500"
               )}
             />
-            Open now
+            Open Now
           </TogglePill>
 
           <TogglePill
@@ -103,7 +113,7 @@ export default function FilterBar({
             activeClass="border-marquee bg-marquee text-ink"
             onClick={onToggleHappyHour}
           >
-            <span aria-hidden>🍸</span> Happy hour
+            <span aria-hidden>🍸</span> Happy Hour
           </TogglePill>
 
           <TogglePill
@@ -111,7 +121,7 @@ export default function FilterBar({
             activeClass="border-ink bg-ink text-marquee"
             onClick={onToggleOpenLate}
           >
-            <span aria-hidden>🌙</span> Open late
+            <span aria-hidden>🌙</span> Open Late
           </TogglePill>
         </>
       )}
@@ -210,7 +220,7 @@ export default function FilterBar({
           onClick={onClear}
           className="rounded-full px-2.5 py-1.5 text-sm font-medium text-zinc-500 underline-offset-2 hover:text-zinc-800 hover:underline"
         >
-          Clear all
+          Clear All
         </button>
       )}
     </div>

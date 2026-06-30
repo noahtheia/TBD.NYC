@@ -59,7 +59,7 @@ export default function FilterSheet({ open, onClose, resultCount, ...filters }: 
                 onClick={filters.onClear}
                 className="text-sm font-medium text-zinc-500 transition hover:text-zinc-800"
               >
-                Clear all
+                Clear All
               </button>
             )}
             <button

@@ -50,7 +50,7 @@ export default function PeekCard({ venue, onOpen, onClose, now }: Props) {
           {hhActive && (
             <span className="inline-flex items-center gap-1 rounded-full bg-marquee px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
               <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
-              Happy hour now
+              Happy Hour Now
             </span>
           )}
           <span className="text-xs font-medium text-blaze">View details →</span>

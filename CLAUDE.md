@@ -36,7 +36,7 @@ kill "$(ps -eo pid,args | grep next-server | grep -v grep | awk '{print $1}' | h
   full venue for the drawer. Admin under `/admin` (server actions in `actions.ts`).
 - `lib/` — pure logic (tested): `filtering`, `sort`, `facets`, `hours`, `geo`, `url-state`,
   `jsonld`, `slug`. Plus `venues` (data load + `getVenuesLite`), `site` (canonical URL),
-  `favorites`/`toast` (external stores), `rate-limit`, `useFocusTrap`.
+  `toast` (external store), `rate-limit`, `useFocusTrap`.
 - The home page ships a **lite** catalog (`getVenuesLite`); the drawer fetches the full
   record from `/api/venue/[id]` on open. Keep detail-only fields out of the lite shape.
 - `data/venues.json` is **generated** — never edit by hand. Regenerate with
@@ -55,7 +55,7 @@ kill "$(ps -eo pid,args | grep next-server | grep -v grep | awk '{print $1}' | h
   weights 600/800/900 — use `font-semibold`/`font-extrabold`/`font-black` with `font-display`.
 - ESLint's react-hooks rules here forbid **setState in an effect body** and **reading/
   writing a ref during render** — derive during render or reset via a `key` instead.
-- Client islands (e.g. `FavoriteButton`) keep server components (the venue page) SSR'd.
+- Client islands (e.g. `ShareButton`) keep server components (the venue page) SSR'd.
 
 ## Env / security
 

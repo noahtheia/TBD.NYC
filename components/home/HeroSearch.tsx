@@ -16,8 +16,8 @@ function exploreHref(params: Record<string, string>) {
 }
 
 const QUICK = [
-  { label: "Open now", href: exploreHref({ open: "1" }) },
-  { label: "Happy hour now", href: exploreHref({ hh: "1", open: "1" }) },
+  { label: "Open Now", href: exploreHref({ open: "1" }) },
+  { label: "Happy Hour Now", href: exploreHref({ hh: "1", open: "1" }) },
   { label: "Bars", href: exploreHref({ cat: "bar" }) },
   { label: "Restaurants", href: exploreHref({ cat: "restaurant" }) },
 ];
@@ -41,9 +41,9 @@ export default function HeroSearch({
   // applied — so clicking one shows only what matches.
   const all = useMemo<Suggestion[]>(
     () => [
-      { label: "Open now", kind: "Filter", href: exploreHref({ open: "1" }) },
-      { label: "Happy hour", kind: "Filter", href: exploreHref({ hh: "1" }) },
-      { label: "Open late", kind: "Filter", href: exploreHref({ late: "1" }) },
+      { label: "Open Now", kind: "Filter", href: exploreHref({ open: "1" }) },
+      { label: "Happy Hour", kind: "Filter", href: exploreHref({ hh: "1" }) },
+      { label: "Open Late", kind: "Filter", href: exploreHref({ late: "1" }) },
       { label: "Bars", kind: "Category", href: exploreHref({ cat: "bar" }) },
       { label: "Restaurants", kind: "Category", href: exploreHref({ cat: "restaurant" }) },
       ...facets.neighborhoods.map((n) => ({

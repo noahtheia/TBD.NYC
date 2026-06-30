@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { EMPTY_FILTERS, type Filters, type ReservationPolicy } from "@/types/venue";
 import { buildQuery, parseFilters } from "@/lib/url-state";
-import { useDebouncedValue } from "./useDebouncedValue";
 
 type StringListKey =
   | "neighborhoods"
@@ -18,6 +17,11 @@ type StringListKey =
  * Owns the shareable explore state (filters + search + open venue), mirrored to
  * the URL. Local React state is the source of truth; the URL is a write-through
  * mirror initialized from the URL on mount.
+ *
+ * Search is split into the live `searchInput` (what's in the box) and the
+ * committed `searchQuery` (what actually filters the map/list). Typing only
+ * updates `searchInput`; the results change only when `commitSearch` runs
+ * (Enter or picking a suggestion).
  */
 export function useExploreState() {
   const router = useRouter();
@@ -30,30 +34,45 @@ export function useExploreState() {
   const [searchInput, setSearchInput] = useState<string>(
     () => searchParams.get("q") ?? ""
   );
+  const [searchQuery, setSearchQuery] = useState<string>(
+    () => searchParams.get("q") ?? ""
+  );
   const [openId, setOpenId] = useState<string | null>(
     () => searchParams.get("venue")
   );
 
-  const debouncedSearch = useDebouncedValue(searchInput, 250);
+  // Commit the search: Enter passes no value (use the current input), a
+  // suggestion pick passes its term explicitly (avoids reading not-yet-flushed
+  // input state).
+  const commitSearch = useCallback(
+    (value?: string) => setSearchQuery(value ?? searchInput),
+    [searchInput]
+  );
 
-  // Mirror state to the URL — replace (no history spam), no scroll jump.
+  // Mirror state to the URL — replace (no history spam), no scroll jump. Keyed on
+  // the COMMITTED query so the URL updates on commit, not on every keystroke.
   const mounted = useRef(false);
   useEffect(() => {
-    const qs = buildQuery(filters, debouncedSearch, openId);
+    const qs = buildQuery(filters, searchQuery, openId);
     // Skip the redundant replace on first render if nothing would change.
     if (!mounted.current) {
       mounted.current = true;
       if (qs === window.location.search) return;
     }
     router.replace(`${pathname}${qs}`, { scroll: false });
-  }, [filters, debouncedSearch, openId, pathname, router]);
+  }, [filters, searchQuery, openId, pathname, router]);
 
   const toggleHappyHour = useCallback(
     () => setFilters((f) => ({ ...f, happyHourOnly: !f.happyHourOnly })),
     []
   );
-  // One-tap "happy hour now": force the time-based happy-hour filter on (not a
-  // toggle). Matches venues whose happy-hour window covers the current time.
+  // "Happy hour now": a plain on/off filter for venues whose happy-hour window
+  // covers the current time. (No geolocation side effects — it sits in the pill
+  // row alongside the other toggles.)
+  const toggleHappyHourNow = useCallback(
+    () => setFilters((f) => ({ ...f, happyHourNow: !f.happyHourNow })),
+    []
+  );
   const showHappyHourNow = useCallback(
     () => setFilters((f) => ({ ...f, happyHourNow: true })),
     []
@@ -93,6 +112,7 @@ export function useExploreState() {
   const clearFilters = useCallback(() => {
     setFilters(EMPTY_FILTERS);
     setSearchInput("");
+    setSearchQuery("");
   }, []);
 
   const openVenue = useCallback((id: string) => setOpenId(id), []);
@@ -101,6 +121,7 @@ export function useExploreState() {
   return {
     filters,
     toggleHappyHour,
+    toggleHappyHourNow,
     showHappyHourNow,
     clearHappyHourNow,
     toggleOpenNow,
@@ -110,7 +131,8 @@ export function useExploreState() {
     clearFilters,
     searchInput,
     setSearchInput,
-    debouncedSearch,
+    searchQuery,
+    commitSearch,
     openId,
     openVenue,
     closeVenue,

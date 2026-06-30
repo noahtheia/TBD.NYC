@@ -7,7 +7,6 @@ import type { MapRef } from "react-map-gl/mapbox";
 import type { Facets, Venue } from "@/types/venue";
 import { useExploreState } from "@/hooks/useExploreState";
 import { useGeolocation } from "@/hooks/useGeolocation";
-import { useFavorites } from "@/hooks/useFavorites";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
@@ -18,7 +17,7 @@ import { motionDuration } from "@/lib/prefers-reduced-motion";
 import { cn } from "@/lib/cn";
 import meta from "@/data/meta.json";
 import Wordmark from "@/components/site/Wordmark";
-import SearchBar from "@/components/filters/SearchBar";
+import SearchBar, { type SearchSuggestion } from "@/components/filters/SearchBar";
 import FilterControls from "@/components/filters/FilterControls";
 import FilterSheet from "@/components/filters/FilterSheet";
 import SortControl from "@/components/filters/SortControl";
@@ -28,10 +27,43 @@ import VenueDrawer from "@/components/detail/VenueDrawer";
 import PeekCard from "@/components/ui/PeekCard";
 import MobileMapControls from "@/components/explore/MobileMapControls";
 
+type Bounds = [number, number, number, number];
+
 const DATA_UPDATED = new Date(meta.generatedAt).toLocaleDateString("en-US", {
   month: "long",
   year: "numeric",
 });
+
+/** Venues with at least one location inside `bounds` (all venues when null). */
+function venuesWithinBounds(venues: Venue[], bounds: Bounds | null): Venue[] {
+  if (!bounds) return venues;
+  const [w, s, e, n] = bounds;
+  return venues.filter((v) =>
+    v.locations.some(
+      (l) =>
+        l.coordinates.lng >= w &&
+        l.coordinates.lng <= e &&
+        l.coordinates.lat >= s &&
+        l.coordinates.lat <= n
+    )
+  );
+}
+
+/** Whether the viewport has moved enough from the searched area to be worth a
+ *  re-search — ignores tiny inertial settles so the button doesn't flicker. */
+function boundsDifferEnough(next: Bounds, searched: Bounds): boolean {
+  const [aw, as, ae, an] = next;
+  const [bw, bs, be, bn] = searched;
+  const spanX = Math.abs(ae - aw) || 1e-9;
+  const spanY = Math.abs(an - as) || 1e-9;
+  const movedX = Math.abs((aw + ae) / 2 - (bw + be) / 2) / spanX;
+  const movedY = Math.abs((as + an) / 2 - (bs + bn) / 2) / spanY;
+  if (movedX > 0.12 || movedY > 0.12) return true;
+  const areaA = Math.abs((ae - aw) * (an - as)) || 1e-12;
+  const areaB = Math.abs((be - bw) * (bn - bs)) || 1e-12;
+  const ratio = areaA / areaB;
+  return ratio < 0.66 || ratio > 1.5;
+}
 
 const MapView = dynamic(() => import("@/components/map/MapView"), {
   ssr: false,
@@ -47,7 +79,7 @@ export default function ExploreView({ venues, facets }: Props) {
   const {
     filters,
     toggleHappyHour,
-    showHappyHourNow,
+    toggleHappyHourNow,
     clearHappyHourNow,
     toggleOpenNow,
     toggleOpenLate,
@@ -56,7 +88,8 @@ export default function ExploreView({ venues, facets }: Props) {
     clearFilters,
     searchInput,
     setSearchInput,
-    debouncedSearch,
+    searchQuery,
+    commitSearch,
     openId,
     openVenue,
     closeVenue,
@@ -71,19 +104,27 @@ export default function ExploreView({ venues, facets }: Props) {
   const [mobileView, setMobileView] = useState<"list" | "map">("map");
   const [sort, setSort] = useState<SortKey>("relevance");
   const [peekId, setPeekId] = useState<string | null>(null);
-  const [showSaved, setShowSaved] = useState(false);
   // The shared filter bottom sheet (mobile), opened from the header pill in list
   // view or the bottom bar's "Filter" button in map view.
   const [filterOpen, setFilterOpen] = useState(false);
-  // Current map viewport bounds [w, s, e, n] — drives "list reflects what's visible".
-  const [mapBounds, setMapBounds] = useState<[number, number, number, number] | null>(null);
+  // The committed "searched" viewport [w, s, e, n] — the list and dots reflect
+  // THIS area, not wherever the user has since panned. A ref mirror lets the move
+  // handler compare without re-creating the callback on every commit.
+  const [searchedBounds, setSearchedBounds] = useState<Bounds | null>(null);
+  const searchedBoundsRef = useRef<Bounds | null>(null);
+  // The latest viewport, updated on every move — committed when "Search Here" runs.
+  const [liveBounds, setLiveBounds] = useState<Bounds | null>(null);
+  // True once the user pans/zooms away from `searchedBounds` → shows "Search Here".
+  const [viewportDirty, setViewportDirty] = useState(false);
+  // Set right before a programmatic camera move (filter refit / near-me zoom) that
+  // should re-seat the searched area on the next moveend.
+  const commitBoundsOnNextMove = useRef(false);
   const mapRef = useRef<MapRef | null>(null);
   const listScrollRef = useRef<HTMLElement | null>(null);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const { coords: userLoc, status: geoStatus, request: locate } = useGeolocation();
-  const { set: favSet, count: favCount } = useFavorites();
 
   // Current NYC time, refreshed each minute, drives the "open now" filter.
   const [now, setNow] = useState<NowParts>(() => nycNow());
@@ -98,8 +139,8 @@ export default function ExploreView({ venues, facets }: Props) {
   );
 
   const filteredVenues = useMemo(
-    () => filterVenues(venues, filters, debouncedSearch, now),
-    [venues, filters, debouncedSearch, now]
+    () => filterVenues(venues, filters, searchQuery, now),
+    [venues, filters, searchQuery, now]
   );
 
   const sortedVenues = useMemo(
@@ -107,37 +148,75 @@ export default function ExploreView({ venues, facets }: Props) {
     [filteredVenues, sort, userLoc]
   );
 
-  // "Saved" view: intersect with favorites (only while there are favorites).
-  const savedActive = showSaved && favCount > 0;
-  // The list reflects the visible map area: filter to venues whose location falls
-  // within the current map bounds. On mobile (map-first, toggled to the list) this
-  // means the list shows only what was on screen when you left the map.
-  const displayedVenues = useMemo(() => {
-    let list = savedActive ? sortedVenues.filter((v) => favSet.has(v.id)) : sortedVenues;
-    if (mapBounds) {
-      const [w, s, e, n] = mapBounds;
-      list = list.filter((v) =>
-        v.locations.some(
-          (l) =>
-            l.coordinates.lng >= w &&
-            l.coordinates.lng <= e &&
-            l.coordinates.lat >= s &&
-            l.coordinates.lat <= n
-        )
-      );
-    }
-    return list;
-  }, [savedActive, sortedVenues, favSet, mapBounds]);
+  // The list and the map dots both reflect the committed searched area — moving
+  // the map changes neither until the user clicks "Search Here".
+  const displayedVenues = useMemo(
+    () => venuesWithinBounds(sortedVenues, searchedBounds),
+    [sortedVenues, searchedBounds]
+  );
   const mapVenues = useMemo(
-    () => (savedActive ? filteredVenues.filter((v) => favSet.has(v.id)) : filteredVenues),
-    [savedActive, filteredVenues, favSet]
+    () => venuesWithinBounds(filteredVenues, searchedBounds),
+    [filteredVenues, searchedBounds]
   );
   const visibleCount = displayedVenues.length;
 
+  // Search suggestions: matching venue names first, then matching neighborhoods.
+  // Derived during render so typing never touches the committed query/results.
+  const suggestions = useMemo<SearchSuggestion[]>(() => {
+    const q = searchInput.trim().toLowerCase();
+    if (!q) return [];
+    const out: SearchSuggestion[] = [];
+    const seenName = new Set<string>();
+    for (const v of venues) {
+      if (out.length >= 8) break;
+      if (!seenName.has(v.name) && v.name.toLowerCase().includes(q)) {
+        seenName.add(v.name);
+        out.push({ type: "venue", label: v.name, value: v.name });
+      }
+    }
+    const seenHood = new Set<string>();
+    for (const v of venues) {
+      if (out.length >= 8) break;
+      const n = v.neighborhood;
+      if (n && !seenHood.has(n) && n.toLowerCase().includes(q)) {
+        seenHood.add(n);
+        out.push({ type: "neighborhood", label: n, value: n });
+      }
+    }
+    return out.slice(0, 8);
+  }, [venues, searchInput]);
+
+  const commitSearchedBounds = useCallback((b: Bounds) => {
+    searchedBoundsRef.current = b;
+    setSearchedBounds(b);
+    setViewportDirty(false);
+  }, []);
+
   const handleBoundsChange = useCallback(
-    (b: [number, number, number, number]) => setMapBounds(b),
-    []
+    (b: Bounds, isUserGesture: boolean) => {
+      setLiveBounds(b);
+      // Seed the searched area on the first report (map load).
+      if (searchedBoundsRef.current === null) {
+        commitSearchedBounds(b);
+        return;
+      }
+      // A programmatic refit/zoom asked us to re-seat the searched area.
+      if (commitBoundsOnNextMove.current) {
+        commitBoundsOnNextMove.current = false;
+        commitSearchedBounds(b);
+        return;
+      }
+      // A genuine user pan/zoom away from the searched area → offer "Search Here".
+      if (isUserGesture && boundsDifferEnough(b, searchedBoundsRef.current)) {
+        setViewportDirty(true);
+      }
+    },
+    [commitSearchedBounds]
   );
+
+  const searchHere = useCallback(() => {
+    if (liveBounds) commitSearchedBounds(liveBounds);
+  }, [liveBounds, commitSearchedBounds]);
 
   const activeFilterCount = countActiveFilters(filters);
   // "Near me" is on once distance sort is active with a granted location fix. While
@@ -154,7 +233,7 @@ export default function ExploreView({ venues, facets }: Props) {
 
   // Fit the map to the results whenever the filter/search set changes (not on
   // hover, the per-minute clock tick, or sort).
-  const filterSig = JSON.stringify({ ...filters, q: debouncedSearch });
+  const filterSig = JSON.stringify({ ...filters, q: searchQuery });
   const prevSig = useRef(filterSig);
   useEffect(() => {
     if (filterSig === prevSig.current) return;
@@ -162,7 +241,7 @@ export default function ExploreView({ venues, facets }: Props) {
     // With Near me active, keep the user's 1-mile radius (or wherever they've panned)
     // — toggling other filters shouldn't yank the map to the full results bounds.
     if (nearMeActive) return;
-    const hasFilters = activeFilterCount > 0 || debouncedSearch.trim().length > 0;
+    const hasFilters = activeFilterCount > 0 || searchQuery.trim().length > 0;
     const locs = filteredVenues.flatMap((v) => v.locations);
     if (!hasFilters || !locs.length) return;
     let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
@@ -172,6 +251,9 @@ export default function ExploreView({ venues, facets }: Props) {
       minLat = Math.min(minLat, l.coordinates.lat);
       maxLat = Math.max(maxLat, l.coordinates.lat);
     }
+    // A filter/search is a fresh search — re-seat the searched area to the fitted
+    // viewport on the resulting (programmatic) moveend, so the list/dots follow.
+    commitBoundsOnNextMove.current = true;
     mapRef.current?.fitBounds(
       [
         [minLng, minLat],
@@ -179,13 +261,15 @@ export default function ExploreView({ venues, facets }: Props) {
       ],
       { padding: 60, maxZoom: 15, duration: motionDuration(600) }
     );
-  }, [filterSig, filteredVenues, activeFilterCount, debouncedSearch, nearMeActive]);
+  }, [filterSig, filteredVenues, activeFilterCount, searchQuery, nearMeActive]);
 
   // Zoom the map to a ~`miles` radius around a point (reuses the fitBounds
   // pattern from the filter-fit effect below).
   const zoomToUserRadius = useCallback(
     (center: LatLng, miles: number) => {
       const [w, s, e, n] = boundsForRadiusMiles(center, miles);
+      // Near me is a fresh search — re-seat the searched area to the zoomed view.
+      commitBoundsOnNextMove.current = true;
       mapRef.current?.fitBounds(
         [
           [w, s],
@@ -200,17 +284,9 @@ export default function ExploreView({ venues, facets }: Props) {
   // "Near me" intent: request location, then switch to distance sort once coords
   // actually arrive (so the sort doesn't silently change before/without a fix).
   // `pendingZoom` additionally zooms to the user's 1-mile radius — set only by the
-  // dedicated Near me buttons, not the happy-hour shortcut (which fits all spots).
+  // dedicated Near me buttons.
   const pendingDistanceSort = useRef(false);
   const pendingZoom = useRef(false);
-  const requestNearMe = useCallback(() => {
-    if (geoStatus === "granted") {
-      setSort("distance");
-      return;
-    }
-    pendingDistanceSort.current = true;
-    locate();
-  }, [geoStatus, locate]);
 
   // The Near me button: distance sort + zoom to the user's 1-mile radius.
   const nearMe = useCallback(() => {
@@ -235,19 +311,6 @@ export default function ExploreView({ venues, facets }: Props) {
       if (userLoc) zoomToUserRadius(userLoc, 1);
     }
   }, [geoStatus, userLoc, zoomToUserRadius]);
-
-  // One-tap headline action: happy hour + open now, sorted nearest.
-  const showHappyHourNearMe = useCallback(() => {
-    showHappyHourNow();
-    requestNearMe();
-  }, [showHappyHourNow, requestNearMe]);
-
-  // Mobile "Happy hour now" toggle: turn it on, or (when already on) clear the
-  // happy-hour-now filter — leaving Open now / Near me as the user set them.
-  const toggleHappyHourNow = useCallback(() => {
-    if (filters.happyHourNow) clearHappyHourNow();
-    else showHappyHourNearMe();
-  }, [filters.happyHourNow, clearHappyHourNow, showHappyHourNearMe]);
 
   const handleHoverList = useCallback((id: string | null) => {
     // List cards represent a venue, not a specific pin — clear the pin highlight.
@@ -316,6 +379,12 @@ export default function ExploreView({ venues, facets }: Props) {
   const mobileControlsProps = {
     searchValue: searchInput,
     onSearchChange: setSearchInput,
+    searchSuggestions: suggestions,
+    onSearchSubmit: (v: string) => commitSearch(v),
+    onSelectSearchSuggestion: (item: SearchSuggestion) => {
+      setSearchInput(item.value);
+      commitSearch(item.value);
+    },
     filters,
     onHappyHourNow: toggleHappyHourNow,
     onToggleOpenNow: toggleOpenNow,
@@ -325,9 +394,6 @@ export default function ExploreView({ venues, facets }: Props) {
     onNearMe: nearMe,
     sort,
     onSort: setSort,
-    favCount,
-    savedActive,
-    onToggleSaved: () => setShowSaved((v) => !v),
     activeCount: activeFilterCount,
     onToggleHappyHour: toggleHappyHour,
     onToggleHappyHourNow: clearHappyHourNow,
@@ -363,42 +429,27 @@ export default function ExploreView({ venues, facets }: Props) {
             </div>
             <div className="ml-auto flex items-center gap-2">
               <div className="w-44 sm:w-72 md:w-96">
-                <SearchBar value={searchInput} onChange={setSearchInput} />
+                <SearchBar
+                  value={searchInput}
+                  onChange={setSearchInput}
+                  onSubmit={(v) => commitSearch(v)}
+                  suggestions={suggestions}
+                  onSelectSuggestion={(item) => {
+                    setSearchInput(item.value);
+                    commitSearch(item.value);
+                  }}
+                />
               </div>
-              {favCount > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setShowSaved((v) => !v)}
-                  aria-pressed={savedActive}
-                  className={cn(
-                    "flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition",
-                    savedActive
-                      ? "border-blaze bg-blaze/10 text-ember"
-                      : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400"
-                  )}
-                >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
-                    <path d="M12 20.5S3.5 15.6 3.5 9.6A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 8.5 2.6c0 6-8.5 10.9-8.5 10.9z" />
-                  </svg>
-                  <span className="hidden sm:inline">Saved</span> {favCount}
-                </button>
-              )}
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={showHappyHourNearMe}
-              className="flex shrink-0 items-center gap-1.5 rounded-full bg-blaze px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-ember"
-            >
-              <span aria-hidden>🍸</span> Happy hour now
-            </button>
             <FilterControls
               facets={facets}
               filters={filters}
               activeCount={activeFilterCount}
               onOpenFilters={() => setFilterOpen(true)}
               onToggleHappyHour={toggleHappyHour}
+              onToggleHappyHourNow={toggleHappyHourNow}
               onToggleOpenNow={toggleOpenNow}
               onToggleOpenLate={toggleOpenLate}
               onToggleFilterValue={toggleFilterValue}
@@ -413,7 +464,7 @@ export default function ExploreView({ venues, facets }: Props) {
                 aria-label="Surprise me — open a random spot"
                 className="hidden items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-3.5 py-1.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 sm:flex"
               >
-                <span aria-hidden>🎲</span> Surprise me
+                <span aria-hidden>🎲</span> Surprise Me
               </button>
               <SortControl
                 sort={sort}
@@ -460,7 +511,7 @@ export default function ExploreView({ venues, facets }: Props) {
             <MobileMapControls {...mobileControlsProps} variant="inline" />
           )}
           <VenueList
-            key={`${filterSig}|${sort}|${savedActive}`}
+            key={`${filterSig}|${sort}`}
             venues={displayedVenues}
             active={active}
             onHover={handleHoverList}
@@ -496,6 +547,24 @@ export default function ExploreView({ venues, facets }: Props) {
             showZoomControls={isDesktop}
             onBoundsChange={handleBoundsChange}
           />
+          {viewportDirty && (
+            <div className="pointer-events-none absolute inset-x-0 bottom-24 z-30 flex justify-center px-4 lg:bottom-auto lg:top-3">
+              <button
+                type="button"
+                onClick={searchHere}
+                className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-800 shadow-lg transition hover:border-zinc-300 hover:shadow-xl"
+              >
+                <svg className="h-4 w-4 text-blaze" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+                  <path
+                    fillRule="evenodd"
+                    d="M9 3.5a5.5 5.5 0 103.39 9.84l3.38 3.38a.75.75 0 101.06-1.06l-3.38-3.38A5.5 5.5 0 009 3.5zM5 9a4 4 0 118 0 4 4 0 01-8 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Search Here
+              </button>
+            </div>
+          )}
           {mobileView === "map" && (
             <MobileMapControls {...mobileControlsProps} variant="floating" />
           )}
@@ -577,6 +646,7 @@ export default function ExploreView({ venues, facets }: Props) {
         filters={filters}
         activeCount={activeFilterCount}
         onToggleHappyHour={toggleHappyHour}
+        onToggleHappyHourNow={toggleHappyHourNow}
         onToggleOpenNow={toggleOpenNow}
         onToggleOpenLate={toggleOpenLate}
         onToggleFilterValue={toggleFilterValue}

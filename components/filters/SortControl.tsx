@@ -106,8 +106,8 @@ export default function SortControl({ sort, onSort, geoStatus, onLocate, hideNea
           {geoStatus === "loading"
             ? "Locating…"
             : denied
-              ? "Location blocked"
-              : "Near me"}
+              ? "Location Blocked"
+              : "Near Me"}
         </button>
       )}
 

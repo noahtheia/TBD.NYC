@@ -5,8 +5,8 @@ export type SortKey = "relevance" | "rating" | "price" | "distance";
 
 export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "relevance", label: "Relevance" },
-  { value: "rating", label: "Top rated" },
-  { value: "price", label: "Price: low to high" },
+  { value: "rating", label: "Top Rated" },
+  { value: "price", label: "Price: Low to High" },
   { value: "distance", label: "Nearest" },
 ];
 
