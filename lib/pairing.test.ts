@@ -4,8 +4,8 @@ import {
   pairingQuality,
   suggestPairings,
   suggestPairingSets,
-  venueDistanceMiles,
 } from "@/lib/pairing";
+import { nearestDistanceMiles } from "@/lib/geo";
 import type { Venue } from "@/types/venue";
 
 // In NYC, 0.004° of latitude ≈ 0.28 mi (in radius) and 0.008° ≈ 0.55 mi (out).
@@ -35,23 +35,6 @@ describe("defaultPairingCategory", () => {
   });
 });
 
-describe("venueDistanceMiles", () => {
-  it("uses the nearest pair of locations", () => {
-    const multi = venue({
-      id: "multi",
-      locations: [
-        { address: "far", coordinates: { lat: 40.9, lng: -74 } },
-        { address: "near", coordinates: NEAR },
-      ],
-    });
-    expect(venueDistanceMiles(chosenBar, multi)).toBeLessThan(0.3);
-  });
-
-  it("is Infinity when a venue has no locations", () => {
-    expect(venueDistanceMiles(chosenBar, venue({ id: "empty", locations: [] }))).toBe(Infinity);
-  });
-});
-
 describe("suggestPairings", () => {
   it("suggests only the opposite category by default", () => {
     const nearbyBar = venue({ id: "bar2", category: "bar", types: ["Bar"] });
@@ -78,7 +61,7 @@ describe("suggestPairings", () => {
 
   it("includes a venue exactly at the radius boundary", () => {
     const near = venue({ id: "near", locations: [{ address: "n", coordinates: NEAR }] });
-    const exact = venueDistanceMiles(chosenBar, near);
+    const exact = nearestDistanceMiles(BASE, near) ?? 0;
     const r = suggestPairings(chosenBar, [near], { radiusMiles: exact });
     expect(r.map((s) => s.venue.id)).toEqual(["near"]);
   });
@@ -97,17 +80,37 @@ describe("suggestPairings", () => {
     expect(r.map((s) => s.venue.id).sort()).toEqual(["none", "op"]);
   });
 
-  it("reaches candidates near the chosen venue's second location", () => {
+  it("anchors on the chosen venue's primary location, not its other branches", () => {
+    // The user is going to the primary pin (~11 mi north); a candidate next to
+    // the second branch must NOT be suggested as "within a 10-minute walk".
     const multiChosen = venue({
       id: "multi-bar",
       category: "bar",
       locations: [
-        { address: "a", coordinates: { lat: 40.9, lng: -74 } },
-        { address: "b", coordinates: BASE },
+        { address: "primary", coordinates: { lat: 40.9, lng: -74 } },
+        { address: "branch", coordinates: BASE },
       ],
     });
-    const r = suggestPairings(multiChosen, [venue({ id: "r1" })]);
-    expect(r.map((s) => s.venue.id)).toEqual(["r1"]);
+    expect(suggestPairings(multiChosen, [venue({ id: "r1" })])).toEqual([]);
+  });
+
+  it("reaches a candidate's nearest branch", () => {
+    const multiCandidate = venue({
+      id: "multi-r",
+      locations: [
+        { address: "far", coordinates: { lat: 40.9, lng: -74 } },
+        { address: "near", coordinates: NEAR },
+      ],
+    });
+    const r = suggestPairings(chosenBar, [multiCandidate]);
+    expect(r.map((s) => s.venue.id)).toEqual(["multi-r"]);
+    expect(r[0].distanceMiles).toBeLessThan(0.3);
+  });
+
+  it("handles venues with no locations without crashing", () => {
+    const noLocChosen = venue({ id: "no-loc", category: "bar", locations: [] });
+    expect(suggestPairings(noLocChosen, [venue({ id: "r1" })])).toEqual([]);
+    expect(suggestPairings(chosenBar, [venue({ id: "empty", locations: [] })])).toEqual([]);
   });
 
   it("ranks a well-reviewed rating above a barely-reviewed perfect one", () => {

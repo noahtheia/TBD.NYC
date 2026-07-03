@@ -46,6 +46,18 @@ export default function VenueDrawer({ venue, onClose, pairings, onSelectVenue, n
 
   const detail = venue ? fetched[venue.id] ?? venue : null;
 
+  // A pairing-suggestion click swaps the open venue while the drawer stays
+  // mounted, so the panel keeps its scroll offset and — because the clicked
+  // card unmounts — keyboard focus falls to <body>, escaping the focus trap
+  // (which only re-focuses on open). Reset both when the venue changes.
+  const venueId = venue?.id ?? null;
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!venueId || !panel) return;
+    panel.scrollTop = 0;
+    if (!panel.contains(document.activeElement)) panel.focus();
+  }, [venueId]);
+
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {

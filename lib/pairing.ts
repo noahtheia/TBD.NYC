@@ -1,5 +1,5 @@
 import type { Category, Venue } from "@/types/venue";
-import { haversineMiles } from "@/lib/geo";
+import { nearestDistanceMiles } from "@/lib/geo";
 
 export const PAIRING_RADIUS_MILES = 0.5;
 export const PAIRING_LIMIT = 3;
@@ -16,7 +16,7 @@ const PROXIMITY_WEIGHT = 0.3;
 
 export interface PairingSuggestion {
   venue: Venue;
-  /** Miles between the closest pair of locations (chosen ↔ candidate). */
+  /** Miles from the chosen venue's primary location to the candidate's nearest one. */
   distanceMiles: number;
   score: number;
 }
@@ -35,21 +35,6 @@ export function defaultPairingCategory(category: Category): Category {
   return category === "bar" ? "restaurant" : "bar";
 }
 
-/** Smallest distance between any pair of the two venues' locations, in miles.
- *  Infinity when either venue has no locations. For multi-location venues this
- *  means a suggestion may sit near the *other* location — acceptable for the
- *  handful of venues with more than one pin. */
-export function venueDistanceMiles(a: Venue, b: Venue): number {
-  let best = Infinity;
-  for (const la of a.locations) {
-    for (const lb of b.locations) {
-      const d = haversineMiles(la.coordinates, lb.coordinates);
-      if (d < best) best = d;
-    }
-  }
-  return best;
-}
-
 /** Review-count-weighted rating shrunk toward the catalog mean. Unrated venues
  *  land exactly on the prior. Exported for tests. */
 export function pairingQuality(venue: Venue): number {
@@ -65,7 +50,10 @@ function pairingScore(quality: number, distanceMiles: number, radiusMiles: numbe
 }
 
 /** Rank complementary venues near the one the user is going to: operational,
- *  in the target category, within the radius. Deterministic and
+ *  in the target category, within the radius. Distances anchor on the chosen
+ *  venue's primary location (the pin the map flies to and the address shown
+ *  first) — not any branch — so the list stays coherent for multi-location
+ *  venues, and reach a candidate's nearest location. Deterministic and
  *  time-independent so statically generated pages stay stable. */
 export function suggestPairings(
   chosen: Venue,
@@ -75,13 +63,14 @@ export function suggestPairings(
   const category = opts?.category ?? defaultPairingCategory(chosen.category);
   const radiusMiles = opts?.radiusMiles ?? PAIRING_RADIUS_MILES;
   const limit = opts?.limit ?? PAIRING_LIMIT;
+  const origin = chosen.locations[0]?.coordinates ?? null;
 
   const suggestions: PairingSuggestion[] = [];
   for (const v of catalog) {
     if (v.id === chosen.id) continue;
     if (v.category !== category) continue;
     if (v.businessStatus && v.businessStatus !== "OPERATIONAL") continue;
-    const distanceMiles = venueDistanceMiles(chosen, v);
+    const distanceMiles = nearestDistanceMiles(origin, v) ?? Infinity;
     if (distanceMiles > radiusMiles) continue;
     suggestions.push({
       venue: v,
