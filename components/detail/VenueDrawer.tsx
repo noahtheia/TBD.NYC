@@ -3,16 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Venue } from "@/types/venue";
+import type { NowParts } from "@/lib/hours";
+import type { PairingSets } from "@/lib/pairing";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import ShareButton from "@/components/ui/ShareButton";
 import VenueDetailContent from "./VenueDetailContent";
+import PairingSection from "./PairingSection";
 
 type Props = {
   venue: Venue | null;
   onClose: () => void;
+  /** Precomputed pairing suggestions for the open venue (bar/restaurant nearby). */
+  pairings?: PairingSets | null;
+  /** Swap the drawer to another venue (a pairing suggestion click). */
+  onSelectVenue?: (id: string) => void;
+  now?: NowParts;
 };
 
-export default function VenueDrawer({ venue, onClose }: Props) {
+export default function VenueDrawer({ venue, onClose, pairings, onSelectVenue, now }: Props) {
   const open = venue !== null;
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(open, panelRef);
@@ -37,6 +45,18 @@ export default function VenueDrawer({ venue, onClose }: Props) {
   }, [venue, fetched]);
 
   const detail = venue ? fetched[venue.id] ?? venue : null;
+
+  // A pairing-suggestion click swaps the open venue while the drawer stays
+  // mounted, so the panel keeps its scroll offset and — because the clicked
+  // card unmounts — keyboard focus falls to <body>, escaping the focus trap
+  // (which only re-focuses on open). Reset both when the venue changes.
+  const venueId = venue?.id ?? null;
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!venueId || !panel) return;
+    panel.scrollTop = 0;
+    if (!panel.contains(document.activeElement)) panel.focus();
+  }, [venueId]);
 
   useEffect(() => {
     if (!open) return;
@@ -98,6 +118,16 @@ export default function VenueDrawer({ venue, onClose }: Props) {
         {detail && (
           <div className="p-5">
             <VenueDetailContent venue={detail} />
+            {pairings && (
+              <PairingSection
+                key={detail.id}
+                venue={detail}
+                pairings={pairings}
+                onSelect={onSelectVenue}
+                now={now}
+                className="mt-6 border-t border-zinc-100 pt-4"
+              />
+            )}
           </div>
         )}
       </div>
