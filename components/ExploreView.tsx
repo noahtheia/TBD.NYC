@@ -10,6 +10,7 @@ import { useGeolocation } from "@/hooks/useGeolocation";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { countActiveFilters, filterVenues } from "@/lib/filtering";
 import { sortVenues, type SortKey } from "@/lib/sort";
+import { suggestPairingSets } from "@/lib/pairing";
 import { nycNow, type NowParts } from "@/lib/hours";
 import { boundsForRadiusMiles, type LatLng } from "@/lib/geo";
 import { FOCUS_ZOOM } from "@/lib/map-config";
@@ -224,6 +225,14 @@ export default function ExploreView({ venues, facets }: Props) {
   const nearMeActive = sort === "distance" && geoStatus === "granted";
   const openVenueObj = openId ? venuesById.get(openId) ?? null : null;
   const peekVenue = peekId ? venuesById.get(peekId) ?? null : null;
+
+  // Pairing suggestions for the open venue (bar → dinner after, restaurant →
+  // drink before). Computed over the full catalog, not the filtered results:
+  // active filters describe the current search, not what's near your pick.
+  const pairings = useMemo(
+    () => (openVenueObj ? suggestPairingSets(openVenueObj, venues) : null),
+    [openVenueObj, venues]
+  );
 
   // The venue to focus when the map first loads (deep-linked ?venue=). Captured
   // once at mount so later state changes don't refly the map.
@@ -654,7 +663,13 @@ export default function ExploreView({ venues, facets }: Props) {
         onClear={clearFilters}
       />
 
-      <VenueDrawer venue={openVenueObj} onClose={closeVenue} />
+      <VenueDrawer
+        venue={openVenueObj}
+        onClose={closeVenue}
+        pairings={pairings}
+        onSelectVenue={handleSelect}
+        now={now}
+      />
     </div>
   );
 }

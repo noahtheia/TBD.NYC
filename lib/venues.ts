@@ -38,7 +38,7 @@ export async function getVenues(): Promise<Venue[]> {
 /** Project a venue down to the fields the explore list + map actually read,
  *  dropping detail-only payload (weekday text, gallery, raw reservation/menu/site
  *  fields, amenities, editorial notes). Structurally still a Venue. */
-function liteVenue(v: Venue): Venue {
+export function liteVenue(v: Venue): Venue {
   return {
     id: v.id,
     name: v.name,

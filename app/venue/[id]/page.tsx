@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllVenueIds, getVenueById, getVenues } from "@/lib/venues";
+import { getAllVenueIds, getVenueById, getVenues, liteVenue } from "@/lib/venues";
 import { priceLabel } from "@/lib/display";
 import { slugify } from "@/lib/slug";
+import { suggestPairingSets, type PairingSets } from "@/lib/pairing";
+import PairingSection from "@/components/detail/PairingSection";
 import VenueDetailContent from "@/components/detail/VenueDetailContent";
 import VenueJsonLd from "@/components/detail/VenueJsonLd";
 import VenueResults from "@/components/landing/VenueResults";
@@ -69,12 +71,23 @@ export default async function VenuePage({
   const venue = await getVenueById(id);
   if (!venue) notFound();
 
+  const all = await getVenues();
+
   // Sibling venues in the same neighborhood, for internal linking + dwell time.
   const related = venue.neighborhood
-    ? (await getVenues())
+    ? all
         .filter((v) => v.id !== venue.id && v.neighborhood === venue.neighborhood)
         .slice(0, 6)
     : [];
+
+  // Pairing suggestions within a 10-minute walk (bar → dinner after, restaurant
+  // → drink before). Lite-project the suggested venues so detail-only payload
+  // stays out of what's serialized to the client section.
+  const rawPairings = suggestPairingSets(venue, all);
+  const pairings: PairingSets = {
+    bar: rawPairings.bar.map((s) => ({ ...s, venue: liteVenue(s.venue) })),
+    restaurant: rawPairings.restaurant.map((s) => ({ ...s, venue: liteVenue(s.venue) })),
+  };
 
   return (
     <main className="mx-auto min-h-dvh max-w-2xl px-5 py-8">
@@ -113,6 +126,15 @@ export default async function VenuePage({
           </Link>
         )}
       </nav>
+
+      {(pairings.bar.length > 0 || pairings.restaurant.length > 0) && (
+        <PairingSection
+          key={venue.id}
+          venue={liteVenue(venue)}
+          pairings={pairings}
+          className="mt-10"
+        />
+      )}
 
       {related.length > 0 && (
         <section className="mt-10">
